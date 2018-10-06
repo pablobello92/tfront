@@ -1,0 +1,225 @@
+<div class="outletHeading">
+  <h3>{{ 'views.reservations.EDIT_RESERVATION' | translate}} - {{ 'views.reservations.BEEPER' | translate}} {{ reservation?.reference_id}}</h3>
+</div>
+
+<form [formGroup]="editForm" (submit)="onSubmit()">
+
+  <div class="card">
+    <div class="card-header">
+      <h3 class="outletFormH3">{{ 'views.reservations.form.RESERVATION_PANEL_HEADING' | translate}}</h3>
+    </div>
+    <div class="card-body">
+
+      <h4 class="outletFormH4 margin20">{{ 'views.reservations.form.CLIENT_DATA' | translate}}</h4>
+
+      <div class="row form-group paddedSides">
+        <div class="col">
+          <label for="inputName">{{'general.NAME' | translate}} *</label>
+          <input type="text" id="inputName" formControlName="customer_name" class="form-control">
+        </div>
+        <div class="col">
+          <label for="inputLastname">{{'views.reservations.form.CLIENT_LASTNAME' | translate}} *</label>
+          <input type="text" id="inputLastname" formControlName="customer_lastname" class="form-control">
+        </div>
+      </div>
+
+      <div class="row form-group paddedSides">
+        <div class="col">
+          <label for="inputEmail">{{'general.EMAIL' | translate}} *</label>
+          <input type="email" id="inputEmail" formControlName="customer_email" class="form-control">
+        </div>
+        <div class="col">
+          <label for="inputPrefix">{{'views.reservations.form.CLIENT_PREFIX' | translate}} *</label>
+          <input type="text" id="inputPrefix" formControlName="customer_prefix" class="form-control">
+        </div>
+        <div class="col">
+          <label for="inputPhone">{{'views.reservations.form.CLIENT_PHONE' | translate}} *</label>
+          <input type="text" id="inputPhone" formControlName="customer_phone" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-separator"></div>
+
+      <h5 class="outletFormH5 italic margin20 underlined">{{ 'views.reservations.form.PASSENGERS' | translate}}</h5>
+      <div class="row form-group paddedSides">
+        <div class="col">
+          <label for="inputAdults">{{'views.services.ADULTS' | translate}}</label>
+          <input type="number" min="0" id="inputAdults" formControlName="customer_adult" class="form-control">
+        </div>
+        <div class="col">
+          <label for="inputChildren">{{'views.services.CHILDREN' | translate}}</label>
+          <input type="number" min="0" id="inputChildren" formControlName="customer_children" class="form-control">
+        </div>
+        <div class="col">
+          <label for="inputInfants">{{'views.services.INFANTS' | translate}}</label>
+          <input type="number" min="0" id="inputInfants" formControlName="customer_infants" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-separator"></div>
+
+      <h5 class="outletFormH5 italic margin20 underlined">{{ 'views.reservations.form.OTHER_INFO' | translate}}</h5>
+      <div class="row form-group paddedSides">
+        <div class="col">
+          <label for="inputHotel">{{'views.reservations.form.HOTEL' | translate}}</label>
+          <input type="text" id="inputHotel" formControlName="hotel" class="form-control">
+        </div>
+        <div class="col">
+          <label for="inputHotelAddress">{{'views.reservations.form.HOTEL_ADDRESS' | translate}}</label>
+          <input type="text" id="inputHotelAddress" formControlName="address" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-separator"></div>
+
+      <h4 class="outletFormH4 margin20">{{ 'views.services.TITLE' | translate}}</h4>
+      <div class="form-group paddedSides">
+        <div class="row">
+          <div class="col">
+            <label>{{'views.reservations.form.SERVICE_CONCEPT' | translate}}</label>
+          </div>
+          <div class="col">
+            <label for="inputServiceNumber">{{'views.reservations.form.SERVICE_NUMBER' | translate}}</label>
+          </div>
+          <div class="col">
+            <label for="inputServicePrice">{{'views.reservations.form.SERVICE_PRICE' | translate}}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label class="bold italic">{{ reservation?.service_type + ' - ' + reservation?.service_npax }} {{ 'views.reservations.form.PASSENGERS' |
+              translate }}</label>
+          </div>
+          <div class="col">
+            <label class="bold">{{ reservation?.passengers }}</label>
+          </div>
+          <div class="col">
+            <label class="bold">{{ reservation?.total_cost | currency:'EUR':'symbol':'1.2-2' }}</label>
+          </div>
+        </div>
+        <div class="row" *ngFor="let item of reservation?.items;">
+          <div class="col">
+            <label class="bold italic">{{ item.item_name }}</label>
+          </div>
+          <div class="col">
+            <label class="bold">{{ item.item_number }}</label>
+          </div>
+          <div class="col">
+            <label class="bold">{{ item.item_price | currency:'EUR':'symbol':'1.2-2' }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+          </div>
+          <div class="col">
+            <label class="pull-right">Total: </label>
+          </div>
+          <div class="col">
+            <label class="bold">{{ totalPrice | currency:'EUR':'symbol':'1.2-2' }}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-separator"></div>
+      <h4 class="outletFormH4 margin20">{{ 'general.PROVIDER' | translate}}</h4>
+
+      <div formGroupName="provider">
+        <div class="form-group form-row paddedSides">
+          <div class="col">
+            <label for="inputProviderName">{{'general.NAME' | translate}}</label>
+            <input type="text" id="inputProviderName" formControlName="name" class="form-control">
+          </div>
+          <div class="col">
+            <label for="inputProviderPhone">{{'general.PHONE' | translate}}</label>
+            <input type="text" id="inputProviderPhone" formControlName="phone" class="form-control">
+          </div>
+          <div class="col">
+            <label for="inputProviderPhoneEmergency">{{'general.PHONE_EMERGENCY' | translate}}</label>
+            <input type="text" id="inputProviderPhoneEmergency" formControlName="phone_emergency" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group form-row paddedSides">
+          <div class="col">
+            <label for="inputProviderStatus">{{'views.reservations.form.PROVIDER_CONFIRMED' | translate}}</label>
+            <input type="checkbox" id="inputProviderStatus" formControlName="provider_confirmed" class="formCheckBox form-control">
+          </div>
+        </div>
+
+      <div class="form-separator"></div>
+
+      <h4 class="outletFormH4 margin20">{{ 'views.reservations.form.COLLABORATOR' | translate}}</h4>
+      <div class="form-group form-row paddedSides">
+        <div class="col">
+          <label for="inputCollabName">{{'general.NAME' | translate}}</label>
+          <input type="text" id="inputCollabName" formControlName="collaborator_name" class="form-control">
+        </div>
+        <div class="col">
+          <label for="inputCollabPhone">{{'general.PHONE' | translate}}</label>
+          <input type="text" id="inputCollabPhone" formControlName="collaborator_phone" class="form-control">
+        </div>
+        <div class="col">
+          <label for="inputCollabComision">{{'views.collaborators.form.FEE' | translate}}</label>
+          <input type="text" id="inputCollabComision" formControlName="collaborator_fee" class="form-control">
+        </div>
+        <div class="col">
+          <label for="inputCollabPayment">{{'views.collaborators.form.PAYMENT_TYPE' | translate}}</label>
+          <input type="text" id="inputCollabPayment" formControlName="collab_payment_type" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-separator"></div>
+
+      <h4 class="outletFormH4 margin20">{{ 'views.reservations.form.SCHEDULES' | translate}}</h4>
+
+      <div class="row form-group paddedSides">
+        <div class="col">
+          <label class="bold">{{ reservation?.airport + ' - ' + reservation?.zone }}</label>
+        </div>
+      </div>
+
+      <div formGroupName="pickups">
+        <div class="row form-group paddedSides">
+          <div class="col">
+            <label for="inputPickupDate">{{'views.reservations.form.ARRIVAL_DATE' | translate}}</label>
+            <input type="text" id="inputPickupDate" formControlName="arrival_date" class="form-control">
+          </div>
+          <div class="col">
+            <label for="inputPickupTime">{{'views.reservations.form.ARRIVAL_TIME' | translate}}</label>
+            <input type="text" id="inputPickupTime" formControlName="arrival_hour" class="form-control">
+          </div>
+        </div>
+
+        <div class="row form-group paddedSides">
+          <div class="col">
+            <label for="inputPickupOrigin">{{'views.reservations.form.ORIGIN' | translate}}</label>
+            <input type="text" id="inputPickupOrigin" formControlName="transport" class="form-control">
+          </div>
+          <div class="col">
+            <label for="inputPickupFlight">{{'views.reservations.form.FLIGHT_NUMBER' | translate}}</label>
+            <input type="text" id="inputPickupFlight" formControlName="transport_reference" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-separator"></div>
+
+      <h4 class="outletFormH4 margin20">{{ 'views.reservations.form.COMMENTS' | translate}}</h4>
+      <div class="row form-group paddedSides">
+        <div class="col">
+          <label for="inputComments">{{'views.reservations.form.COMMENTS_SYSTEM' | translate}} / {{ 'general.PROVIDER' | translate}} </label>
+          <textarea pInputTextarea autoResize="autoResize" class="form-control" id="inputComments" [rows]="3" [cols]="20" formControlName="comments_system"></textarea>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary m-1 pull-right">{{ 'general.SAVE_DATA' | translate}}</button>
+      <button type="button" class="btn btn-success m-1 pull-right" (click)="goBack()">{{ 'general.RETURN' | translate}}</button>
+    </div>
+  </div>
+</form>
+
+<p-confirmDialog header="Confirmation" appendTo="body" [closable]=false icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+<p-growl [(value)]="msgs"></p-growl>

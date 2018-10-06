@@ -1,0 +1,44 @@
+<nav class="navbar topnavbar" role="navigation">
+
+  <ul class="navbar-nav flex-row">
+
+    <li class="nav-item">
+      <a class="navbar-brand roundedCircle profileImage white" #fsbutton (click)="gotoProfile()" pTooltip="{{'views.providers.form.EDIT_PROFILE' | translate}}">
+      </a>
+    </li>
+    <li class="nav-item">
+      <span class="navbar-brand mb-0 mr-5 navText"> {{ userName }}</span>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link ml-5" #fsbutton (click)="collapseSidebar()" pTooltip="{{'general.COLLAPSE_SIDEBAR' | translate}}">
+        <em class="fa fa-navicon"></em>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" #fsbutton (click)="goHome()" pTooltip="{{'general.MAIN_MENU' | translate}}">
+        <em class="fa fa-home"></em>
+      </a>
+    </li>
+  </ul>
+
+  <ul class="navbar-nav flex-row">
+    <li class="nav-item">
+      <a class="nav-link" #fsbutton (click)="logout()" pTooltip="{{'general.EXIT' | translate}}">
+        <em class="fa fa-sign-out"></em>
+      </a>
+    </li>
+    <!--<li class="nav-item m-2">
+      <p-dropdown [options]="langs" [(ngModel)]="selectedLang" appendTo="body"(onChange)="changeLang($event)" [style]="{'width':'100px'}">
+        <ng-template let-item pTemplate="selectedItem">
+          <img src="./assets/img/lang/{{item.label}}.png" style="width:24px;vertical-align:middle"/>
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+          <div class="ui-helper-clearfix" style="position: relative;height:25px;">
+            <img src="./assets/img/lang/{{item.label}}.png" style="width:24px;position:absolute;top:1px;left:5px"/>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </li>-->
+  </ul>
+</nav>

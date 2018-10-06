@@ -1,0 +1,20 @@
+.sidebar {
+  position:fixed;
+  bottom: 0;
+  top: 70px;
+  left:0;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--blueNights);
+  transition: width .75s ease;
+  box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.3) inset;
+}
+
+.show {
+  width: var(--sideBarWidth);
+}
+
+.hide {
+  width: 0;
+}
+

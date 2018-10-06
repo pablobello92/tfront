@@ -1,0 +1,630 @@
+{
+  "dashboard": {
+    "WELCOME": "Bienvenido al dashboard"
+  },
+  "topbar": {
+    "messages": {
+      "UNREAD": "Mensajes sin leer",
+      "MORE": "Mas mensajes"
+    },
+    "search": {
+      "PLACEHOLDER": "Tipea y pulsa enter.."
+    },
+    "notification": {
+      "MORE": "Mas notificaciones"
+    }
+  },
+  "offsidebar": {
+    "setting": {
+      "SETTINGS": "Ajustes",
+      "THEMES": "Temas",
+      "layout": {
+        "FIXED": "Fijo",
+        "COLLAPSED": "Colapsado"
+      }
+    },
+    "chat": {
+      "CONNECTIONS": "Conexiones",
+      "SEARCH": "Buscar contactos",
+      "ONLINE": "CONECTADOS",
+      "OFFLINE": "DESCONECTADOS",
+      "LOAD_MORE": "Cargar mas",
+      "TASK_COMPLETION": "Tareas completas",
+      "QUOTA": "Limite de subida"
+    }
+  },
+  "sidebar": {
+    "WELCOME": "Bienvenido",
+    "heading": {
+      "HEADER": "Menu"
+    },
+    "nav": {
+      "destinations": {
+        "DESTINATIONS": "Destinos",
+        "CREATE": "Crear",
+        "SEARCH": "Listado"
+      },
+      "alias": {
+        "ALIAS": "Alias",
+        "CREATE": "Crear",
+        "SEARCH": "Listado"
+      },
+      "providers": {
+        "PROVIDERS": "Proveedores",
+        "CREATE": "Crear",
+        "EDIT": "Editar",
+        "SEARCH": "Listado",
+        "SERVICES-PRICES-GENERAL": "Tabla precios general",
+        "SERVICES-PRICES": "Precios",
+        "SERVICES-CALENDAR": "Calendario",
+        "DATA-CREATE": "Datos de Proveedor - crear",
+        "DATA-SEARCH": "Datos de Proveedor - listado"
+      },
+      "agencies": {
+        "AGENCIES": "Agencias"
+      },
+      "mails": {
+        "MAILS": "Mails"
+      },
+      "collaborators": {
+        "COLLABORATORS": "Colaboradores",
+        "CREATE": "Crear",
+        "GENERAL": "Tabla General",
+        "PROFILE": "Perfil",
+        "SEARCH": "Listado"
+      },
+      "portals": {
+        "PORTALS": "Portales"
+      },
+      "services": {
+        "SERVICES": "Servicios"
+      },
+      "reservations": {
+        "RESERVATIONS": "Reservas",
+        "CREATE": "Crear",
+        "SEARCH": "Listado"
+      },
+      "promotions": {
+        "PROMOTIONS": "Promociones",
+        "CREATE": "Crear",
+        "SEARCH": "Listado"
+      },
+      "locations": {
+        "LOCATIONS": "Ubicaciones",
+        "CREATE": "Crear slides destino",
+        "SEARCH": "Listado ubicaciones"
+      },
+      "assignments": {
+        "ASSIGNMENTS": "Comisiones"
+      },
+      "tracker": {
+        "TRACKER": "Localizador"
+      },
+      "tags": {
+        "TAGS": "Google Tags"
+      },
+      "links": {
+        "LINKS": "Enlaces"
+      },
+      "billing": {
+        "BILLING": "Facturación"
+      },
+      "configuration": {
+        "CONFIGURATION": "Configuración"
+      },
+      "users": {
+        "USERS": "Usuarios",
+        "CREATE": "Crear",
+        "SEARCH": "Listado"
+      }
+    }
+  },
+
+  "pages": {
+    "login": {
+      "LOGIN": "Iniciar sesión",
+      "REMEMBER": "Recuérdame",
+      "FORGOT_MSG": "Olvidó su contraseña?",
+      "PROMPT_LOGIN": "Quiere iniciar sesión ahora?",
+      "PROMPT_REGISTER": "Regístrese ahora"
+    }
+  },
+
+  "views": {
+    "alias": {
+      "form": {
+        "CREATE": "Nuevo lugar",
+        "EDIT": "Editar lugar",
+        "DESTINATIONS": "Destinos",
+        "ZONES": "Zonas",
+        "NAME": "Nombre",
+        "TYPE": "Hotel",
+        "AVAILABLE": "Disponible"
+      },
+      "search": {
+        "TITLE": "Listado de lugares",
+        "DESTINATION": "Destino",
+        "ZONE": "Zona"
+      }
+    },
+    "destinations": {
+      "form": {
+        "CREATE": "Crear nuevo Destino",
+        "EDIT": "Editar Destino",
+        "DESTINATION_PANEL_HEADING": "Datos del Destino",
+        "ZONES": "Zonas/Areas",
+        "MEETING_POINT_PANEL_HEADING": "Puntos de Encuentro creados",
+        "ZONE_PANEL_HEADING": "Zonas creadas",
+        "NAME": "Nombre",
+        "AVAILABLE": "Disponible",
+        "ANTICIPATION": "Antelación (hrs.)",
+        "NIGHT_SPECIAL_PRICE": "Tarifa nocturna",
+        "SPECIAL_PRICE_TYPE": "Porcentaje %",
+        "HOUR_START_DAY": "Hora inicio diurno",
+        "HOUR_END_DAY": "Hora fin diurno",
+        "HOUR_START_NIGHT": "Hora inicio nocturno",
+        "HOUR_END_NIGHT": "Hora fin nocturno",
+        "COORDS_LAT": "Lat",
+        "COORDS_LNG": "Lng",
+        "SUBDOMAIN": "Subdominio"
+      },
+      "search": {
+        "ANTICIPATION": "Antelación (horas)",
+        "AVAILABLE": "Habilitado",
+        "TITLE": "Listado de Destinos"
+      }
+    },
+    "users": {
+      "form": {
+        "CREATE": "Nuevo usuario",
+        "EDIT": "Editar usuario",
+        "NAME": "Nombre"
+      },
+      "search": {
+        "TITLE": "Listado de usuarios"
+      }
+    },
+    "collaborators": {
+      "form": {
+        "ADDRESS": "Dirección",
+        "COMMERCIAL_DATA": "Datos Comerciales",
+        "EMAIL": "Email",
+        "FEE": "Comisión",
+        "NAME": "Nombre",
+        "CIF": "Cif",
+        "CITY": "Ciudad",
+        "CONFIRM_PASSWORD": "Confirmar Contraseña",
+        "CONFIRM_PASSWORD_MSG": "La confirmación debe ser igual que la contraseña",
+        "COMPANY_NAME": "Razón Social",
+        "COUNTRY": "País",
+        "PASSWORD": "Contraseña",
+        "PAYMENT_TYPE": "Tipo de Pago",
+        "PHONE": "Telefono",
+        "REGION": "Provincia",
+        "TAX_DATA": "Datos Fiscales",
+        "TITLE_CREATE": "Agregar Nuevo Colaborador",
+        "TITLE_EDIT": "Editar Colaborador",
+        "USERNAME": "Usuario",
+        "WEB_COLLABORATOR": "Enlace de colaborador",
+        "WEB": "URL Web",
+        "ZIP_CODE": "Zip Code"
+      },
+      "search": {
+        "ID": "Id",
+        "COMPANY_NAME": "Nombre de la Compañía",
+        "CANCEL": "Cancelar Colaborador",
+        "EDIT_COLLABORATOR": "Editar Colaborador",
+        "EMAIL": "Email",
+        "NAME": "Nombre",
+        "NRO_VENTAS": "Número de Ventas",
+        "PAYMENT_TYPE": "Tipo de Pago",
+        "SEARCH": "Buscar",
+        "SEARCH_DATE": "Buscar por fecha",
+        "SEARCH_DATE_FROM": "Desde",
+        "SEARCH_DATE_UNTIL": "Hasta",
+        "TITLE": "Lista de Colaboradores",
+        "USER": "Usuario",
+        "WEB_COLLABORATOR": "Enlace de colaborador",
+        "WEB": "Web"
+      },
+      "modal": {
+        "TITLE": "Desea guardar/actualizar el Colaborador?"
+      }
+    },
+    "providers": {
+      "form": {
+        "CREATE": "Crear nuevo proveedor",
+        "EDIT": "Editar Proveedor",
+        "EDIT_PROFILE": "Editar Perfil",
+        "PANEL_HEADING": "Datos del Proveedor",
+        "DATA": "Datos del contacto",
+        "DESTINATIONS": "Configurar Destinos",
+        "PHONES": "Teléfonos"
+      },
+      "search": {
+        "TITLE": "Listado de Proveedores",
+        "PROVIDER_INFO": "Información del Proveedor",
+        "SELECT_DESTINATIONS": "Destinos",
+        "SELECT_ZONES": "Zonas",
+        "CONTACT_DATA_DESTINATIONS": "Inf. contacto destinos"
+      },
+      "destinations": {
+        "TITLE": "Destinos proveedor ",
+        "PANEL_HEADING": "Destinos disponibles",
+        "ZONES": "Configurar Zonas",
+        "form": {
+          "TITLE": "Configurar destinos proveedor",
+          "PANEL_ITEMS_HEADING": "Panel de ítems",
+          "PANEL_ZONES_HEADING": "Panel de zonas",
+          "CHECK_ZONES": "Habilitar todas"
+        }
+      },
+      "periods": {
+        "DATE_START": "Fecha Inicio",
+        "DATE_END": "Fecha Fin",
+        "EDIT_PERIOD": "Editar Periodo",
+        "ID": "Identificador",
+        "LIST": "Listado de Periodos",
+        "PERIOD": "Periodo",
+        "PERIOD_FORM": "Edicion de Periodo"
+      },
+      "zones": {
+        "PANEL_DESTINATIONS_HEADING": "Destinos disponibles",
+        "PANEL_ZONES_HEADING": "Zonas disponibles"
+      },
+      "services-prices-general": {
+        "TITLE": "Precios - tabla general"
+      },
+      "services-prices": {
+        "TITLE": "Tabla de precios"
+      },
+      "services-calendar": {
+        "TITLE": "Calendario de Servicios",
+        "SUBTITLE": "Arrastre los Servicios al calendario",
+        "AVAILABLE_SERVICES": "Servicios disponibles",
+        "CREATE_SERVICE": "Crear Servicio",
+        "REMOVE_AFTER_DROP": "Quitar luego de soltar",
+        "TIME_RANGE": "Rango horario",
+        "DATE_RANGE": "Rango de fechas",
+        "ALL_DAY": "Día completo",
+        "NO_DATE_RANGE": "Sin fechas",
+        "EVENTS_TRASH": "Arrastre y suelte aquí los servicios para eliminarlos",
+        "EDIT": "Editar Servicio",
+        "NO_EDIT": "Para editar el servicio primero debe guardar el calendario"
+      },
+      "data-form": {
+        "CREATE": "Crear Dato de Proveedor",
+        "EDIT": "Editar Dato de Proveedor",
+        "PANEL_HEADING": "Datos del Proveedor"
+      },
+      "data-search": {
+        "TITLE": "Información de contacto proveedor",
+        "CREATE": "Nueva información de contacto"
+      },
+      "modal": {
+        "TITLE": "Desea guardar/actualizar el Proveedor?"
+      }
+    },
+    "reservations": {
+      "TITLE": "Listado de Reservas",
+      "BEEPER": "Localizador",
+      "RELEASE_DATE": "Fecha de emisión",
+      "DESTINATION": "Destino",
+      "DOMAIN": "Dominio",
+      "AGENCY": "Agencia",
+      "EXCEL": "Excel",
+      "SEARCH": "Buscar Reserva",
+      "SEND_MAIL": "Enviar mail",
+      "SEND_MAIL_COLLABORATOR": "Enviar mail al colaborador",
+      "SEND_MAIL_CUSTOMER": "Enviar mail al cliente",
+      "SEND_MAIL_PROVIDER": "Enviar mail al proveedor",
+      "SEND_MAIL_SOCIAL": "Enviar mail de razón social",
+      "EDIT_RESERVATION": "Editar Reserva",
+      "PROVIDER_STATUS": "Proveedor y Estado",
+      "PAYMENT_TYPE": "Tipo Pago",
+      "TOTAL_COST_PRICES": "Coste Transportista",
+      "TOTAL_BENEFIT": "Margen",
+      "TOTAL_BOOKINGS": "Total de reservas",
+      "TOTAL_PRICES": "Venta Total",
+      "TOTAL_BASE_IMPONIBLE": "Base imponible",
+      "TOTAL_IMPORTE": "Importe Total",
+      "TOTAL_COMISION": "% Comision sobre la base imponible",
+      "status": {
+        "ALL": "Todos",
+        "CONFIRMED": "Confirmada",
+        "CANCELED": "Cancelada",
+        "NOT_CONFIRMED": "No Confirmada",
+        "NOT_COMPLETED": "No Completada",
+        "STATUS": "Estado Reserva"
+      },
+      "form": {
+        "ARRIVAL_TIME": "Hora de Llegada",
+        "ARRIVAL_DATE": "Fecha de Llegada",
+        "CLIENT_ADULTS": "Adultos",
+        "CLIENT_CHILDREN": "Niños",
+        "CLIENT_DATA": "Datos del Cliente",
+        "CLIENT_ID": "Id Cliente",
+        "CLIENT_INFANTS": "Bebés",
+        "CLIENT_EMAIL": "Email",
+        "CLIENT_LASTNAME": "Apellidos",
+        "CLIENT_NAME": "Nombre",
+        "CLIENT_PHONE": "Teléfono",
+        "CLIENT_PREFIX": "Prefijo",
+        "COLLABORATOR_ID": "Id Colaborador",
+        "COLLABORATOR": "Colaborador",
+        "COLLABORATOR_NAME": "Nombre Colaborador",
+        "COLLABORATOR_PHONE": "Telefono Colaborador",
+        "COLLABORATOR_PAYMENT_TYPE": "Tipo de Pago",
+        "COMMENTS": "Comentarios",
+        "COMMENTS_CLIENT": "Comentarios Cliente",
+        "COMMENTS_SYSTEM": "Comentarios Shuttle Spain",
+        "DATE_CREATED": "Fecha de Creación",
+        "DEPARTURE_DATE": "Fecha de Salida",
+        "DEPARTURE_TIME": "Hora de Salida",
+        "DEPOSIT": "Depósito",
+        "DESTINATION": "Transporte Destino",
+        "FEE": "Comisión",
+        "FLIGHT_NUMBER": "Número de Vuelo",
+        "HOTEL": "Hotel",
+        "HOTEL_ADDRESS": "Dirección del Hotel",
+        "ID_PROVIDER_SERV_PRICE": "Id Provider Service Price",
+        "LANG": "Idioma",
+        "ORIGIN": "Transporte Origen",
+        "OTHER_INFO": "Otros Datos",
+        "PASSENGERS": "Pasajeros",
+        "PASSENGERSCOUNT": "Cantidad de pasajeros",
+        "PASSENGERS_MIN": "El campo no puede tener numeros negativos",
+        "PICKUP_TIME": "Hora de Recogida",
+        "PICKUP_POINT": "Punto de Recogida",
+        "PRICE": "Price",
+        "PAYMENT_TYPE": "Payment Type",
+        "PROMO": "Promocion",
+        "PROMO_ID": "Id Promoción",
+        "PROMO_CODE": "Codigo de Descuento",
+        "PROMO_DISC_AMOUNT": "Monto Descontado",
+        "PROVIDER": "Proveedor",
+        "PROVIDER_CONFIRMED": "Proveedor Confirmado",
+        "PROVIDER_NOT_ASSIGNED": "Proveedor no asignado",
+        "PROVIDER_PHONE": "Telefono",
+        "PROVIDER_EMERGENCY_PHONE": "Telefono de Emergencia",
+        "PROVIDER_STATUS": "Provider Status",
+        "REF_ID": "Id Referencia",
+        "REF_ID_LONG": "Id Referencia Largo",
+        "RESERVATION_PANEL_HEADING": "Detalles de la Reserva",
+        "ROUTE_TYPE": "Tipo de Ruta",
+        "SCHEDULES": "Horarios",
+        "SERVICES": "Servicios",
+        "SERVICE_CONCEPT": "Concepto",
+        "SERVICE_ITEM_GROUP": "Hasta 12 Pasajeros",
+        "SERVICE_ITEM_ELEVATOR": "Elevadores",
+        "SERVICE_ITEM_LUGGAGE": "Equipajes",
+        "SERVICE_ITEM_WHEELCHAIR": "Silla de ruedas",
+        "SERVICE_NUMBER": "Número",
+        "SERVICE_PRICE": "Precio",
+        "SERVICE_TOTAL": "Total",
+        "SET_PICKUP_TIME": "Configurar hora y punto de recogida",
+        "TITLE": "Editar Reserva",
+        "TOTAL_PRICE": "Precio Total"
+      },
+      "modal": {
+        "TITLE": "Desea guardar/actualizar la Reserva?"
+      }
+    },
+    "services": {
+      "AGENCY": "Agencia",
+      "CHANNEL": "Link Partner",
+      "COLLABORATOR": "Colaborador",
+      "BEEPER": "Localizador",
+      "CANCEL": "Cancelar",
+      "COMMENTS_CLIENT": "Comentarios Cliente",
+      "DATE": "Fecha",
+      "DESTINATION": "Destino",
+      "EXCEL": "Excel",
+      "EXTRA": "Extra",
+      "EDIT_PICKUP_TIME": "Editar Hora de Recogida",
+      "NAME": "Nombre",
+      "HOTEL": "Hotel",
+      "INFO_TRIP": "Info Trip",
+      "PAX": "Pax",
+      "ADULTS": "Adultos",
+      "CHILDREN": "Niños",
+      "INFANTS": "Bebés",
+      "PREFIX": "Prefijo",
+      "PHONE": "Teléfono",
+      "PICKUP_POINT": "Punto de Recogida",
+      "PICKUP_TIME": "Hora recogida",
+      "PRICE_COST": "Precio Costo",
+      "PRICE": "Precio",
+      "PROVIDER_STATUS": "Estado Proveedor",
+      "ROUTE": "Trayecto",
+      "SAVE": "Guardar",
+      "SEARCH": "Buscar Servicio",
+      "TITLE": "Servicios",
+      "TOTAL_SERVICES": "Total de servicios",
+      "VEHICLE": "Vehículo"
+    },
+    "promotions": {
+      "INIT_DATE": "Fecha de Inicio",
+      "END_DATE": "Fecha de Finalización",
+      "DISCOUNT": "Descuento",
+      "DISCOUNT_PERC": "Descuento %",
+      "PERCENT": "%",
+      "DISCOUNT_CODE": "Código de Descuento",
+      "DISCOUNT_USES": "Cantidad de Usos",
+      "DISCOUNT_USES_MAX": "Cantidad Máxima de Usos",
+      "IMAGE": "Imagen de Background",
+      "PAGES": "Páginas",
+      "DESTINATION": "Destino",
+      "list": {
+        "TITLE": "Listado de Promociones",
+        "NAME": "Nombre"
+      },
+      "form": {
+        "TYPE": "Tipo de promoción",
+        "NAME": "Nombre de la Promoción",
+        "CREATE": "Crear Promoción",
+        "EDIT": "Editar Promoción",
+        "DESCRIPTION": "Descripción"
+      }
+    },
+    "locations": {
+      "INIT_DATE": "Fecha de Inicio",
+      "END_DATE": "Fecha de Finalización",
+      "IMAGE": "Imagen Slide",
+      "IMAGE_THUMB": "Imagen Thumb",
+      "DESTINATION": "Destino",
+      "DOMAIN": "Dominio",
+      "ZONE": "Zona",
+      "list": {
+        "TITLE": "Listado de Ubicaciones",
+        "NAME": "Nombre",
+        "TYPE": "Tipo"
+      },
+      "form": {
+        "TYPE": "Tipo de ubicación",
+        "NAME": "Nombre de la ubicación",
+        "CREATE": "Crear ubicación",
+        "EDIT": "Editar ubicación",
+        "DESCRIPTION": "Descripción"
+      }
+    }
+  },
+
+  "general": {
+    "lang": {
+      "EN": "Inglés",
+      "ES": "Español",
+      "DE": "Alemán"
+    },
+    "SIGN_IN": "Iniciar Sesión",
+    "SOMETHING_WRONG": "Algo salió mal",
+    "ERROR_RETRY": "Por favor intente con el link de abajo",
+    "ALIAS": "Alias",
+    "LIST": "Listado",
+    "MANAGEMENT": "Gestión",
+    "COLLABORATOR_ACCESS": "Acceso colaborador",
+    "UPDATE_PROVIDER_DATA": "Actualizar proveedores",
+    "ACCEPT": "Aceptar",
+    "ACTIONS": "Acciones",
+    "ADD": "Agregar",
+    "ADDRESS": "Dirección",
+    "AGREE": "De Acuerdo",
+    "AVAILABLE": "Disponible",
+    "BEGIN": "Inicio",
+    "CANCEL": "Cancelar",
+    "CITY": "Ciudad",
+    "CLEAR": "Limpiar",
+    "CLEAR_FILTERS": "Vaciar filtros",
+    "CLEAR_FIELDS": "Vaciar campos",
+    "CLOSE": "Cerrar",
+    "COLLAPSE_SIDEBAR": "Colapsar barra lateral",
+    "COLOR": "Color",
+    "CONCEPT": "Concepto",
+    "COUNTRY": "País",
+    "CREATE": "Crear",
+    "CUSTOM_HELP_1": "debe ingresar los datos para cada pestaña",
+    "CUSTOM_HELP_2": "escriba el nombre y presione enter",
+    "CUSTOM_HELP_3": "debe ingresar los datos correspondientes en el recuadro",
+    "DATA": "Datos",
+    "DELETE": "Eliminar",
+    "DISABLE": "Desactivar",
+    "EDIT": "Editar",
+    "ENABLE": "Activar",
+    "END": "Fin",
+    "EXIT": "Salir",
+    "FILTERS": "Filtros",
+    "IVA": "Impuesto IVA",
+    "LAST_LOGIN": "Último acceso",
+    "MENU": "Menú",
+    "MAIN_MENU": "Menú principal",
+    "NEW_COLUMN": "Nueva columna",
+    "NEW": "Nuevo",
+    "NUMBER": "Cantidad",
+    "FINAL_PRICE": "Precio final",
+    "ORDER": "Orden",
+    "OPEN": "Abrir",
+    "PHONE": "Teléfono",
+    "PHONE_EMERGENCY": "Teléfono de emergencia",
+    "PROMO_END_DATE": "Fecha de finalizacion no puede ser menor que la fecha de inicio",
+    "PROVINCE": "Provincia/Estado",
+    "RECEIVE": "Recibir",
+    "RESET_ORDER": "Quitar ordenamiento",
+    "RETURN": "Volver",
+    "SELECT": "Seleccionar",
+    "SEND": "Enviar",
+    "SEND_EMAIL": "Enviar E-mail",
+    "STATUS": "Estado",
+    "WEB": "Web",
+    "CONTINUE": "Continuar",
+    "COPY": "Copiar",
+    "CREATE_PERIOD": "Crear período",
+    "CLONE_PERIOD_PRICES": "Copiar precios del período",
+    "CLONE_PERIOD_MEETING_POINT_PRICES": "Copiar precios punto de encuentro",
+    "PERIODS": "Períodos",
+    "PERIODS_LIST": "Listado de Períodos",
+    "PERIOD_START": "Período inicio",
+    "PERIOD_END": "Período fin",
+    "REMOVE": "Quitar",
+    "SAVE_DATA": "Guardar",
+    "SAVE_SETTINGS": "Guardar configuración",
+    "MAIN": "Principal",
+    "FORMAT": "formato",
+    "INFO": "Información",
+    "DESCRIPTION": "Descripción",
+    "NAME": "Nombre",
+    "PRICE": "Precio",
+    "PRICE_COST": "Precio Costo",
+    "PRICES": "Precios",
+    "EXTRAS": "Extras",
+    "EMAIL": "Dirección de email",
+    "CALENDAR": "Calendario",
+    "SERVICES_CALENDAR": "Calendario de servicios",
+    "CLIENT": "Cliente",
+    "LANGUAGE": "Idioma",
+    "PROVIDER": "Proveedor",
+    "DESTINATION": "Destino",
+    "MEETING_POINT": "Punto de Encuentro",
+    "SERVICE_TYPE": "Tipo de Servicio",
+    "SERVICES_ASSIGNED": "Servicios asignados",
+    "DAY": "Día",
+    "NIGHT": "Noche",
+    "TOKEN": "Bono",
+    "SELECT_ITEM_PH": "Seleccione un elemento de la lista",
+    "SEARCH": "Buscar",
+    "EMAIL_PH": "algo@ejemplo.com",
+    "PASSWORD": "Contraseña",
+    "IS_REQUIRED": "el campo es requerido",
+    "TYPE_ERROR": "el tipo es incorrecto",
+    "INVALID_VALUE_ERROR": "el valor no es válido",
+    "EMAIL_ERROR": "debe ingresar una dirección de email válida",
+    "NUMBER_ERROR": "debe ingresar un número",
+    "MIN_LENGTH": "el campo tiene una longitud mínima",
+    "ALL": "Todos",
+    "ASSIGNED": "Asignado",
+    "NOT_ASSIGNED": "No asignado",
+    "REJECTED": "Rechazado",
+    "PENDING": "Pendiente",
+    "CANCELLED": "Cancelado",
+    "DETAILS": "Detalles",
+    "TELEPHONE": "teléfono",
+    "TELEPHONE_EMERGENCY": "teléfono de emergencia",
+    "TYPE": "Tipo",
+    "USER": "Usuario",
+    "ZONE": "Zona",
+    "POPULAR": "Popular",
+    "NO": "No",
+    "YES": "Si",
+    "OP_CONFIRM_OK": "La operación se ha realizado exitosamente",
+    "OP_CONFIRM_ERROR": "La operación se realizó con errores, intente mas tarde",
+    "OP_NOT_CONFIRM": "La operación no pudo realizarse, intente mas tarde",
+    "FIELD": "Campo",
+    "PROFILE_COLOR": "Color del perfil",
+    "CONFIRM_PASSWORD": "Confirmar Contraseña",
+    "errors": {
+      "REQUIRED": "es requerido",
+      "VALID_EMAIL": "Debe ser una dirección de email válida",
+      "CONFIRM_PASSWORD_MSG": "Las contraseñas no coinciden",
+      "BAD_CREDENTIALS": "Credenciales incorrectas"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.general-outlet {
+  position: fixed;
+  margin: 0 auto;
+  top: 70px;
+  left: 15%;
+  height: 90%;
+  width: calc(100% - var(--sideBarWidth));
+  overflow-x: hidden;
+  overflow-y: scroll;
+  float: left;
+  transition: width .75s ease;
+  transition: left .75s ease;
+}
+
+.wide {
+  left: 0;
+  width: 100%;
+}
+
+.stretch {
+  left: var(--sideBarWidth);
+  width: calc(100% - var(--sideBarWidth));
+}

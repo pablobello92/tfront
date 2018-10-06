@@ -1,0 +1,37 @@
+<div class="body text-center">
+  <form [formGroup]="loginForm" (submit)="onSubmit()" class="form-signin">
+
+    <h1 class="h3 mb-3 font-weight-normal">{{'pages.login.LOGIN' | translate}}</h1>
+
+    <label for="inputEmail" class="sr-only">{{'general.EMAIL' | translate}}</label>
+    <input type="email" id="inputEmail" formControlName="email" class="form-control" placeholder="Email address" autocomplete="off"
+      required autofocus>
+    <div class="text-danger" *ngIf="f.email.hasError('required') && (f.email.dirty || f.email.touched)">
+      {{'general.FIELD' | translate}} {{'general.EMAIL' | translate}} {{'general.errors.REQUIRED' | translate}}
+    </div>
+    <div class="text-danger" *ngIf="f.email.hasError('email') && (f.email.dirty || f.email.touched)">
+      {{'general.errors.VALID_EMAIL' | translate}}
+    </div>
+
+    <label for="inputPassword" class="sr-only">{{'general.PASSWORD' | translate}}</label>
+    <input type="password" id="inputPassword" formControlName="password" class="form-control" placeholder="Password" required>
+    <div class="text-danger" *ngIf="f.password.errors && (f.password.dirty || f.password.touched)">
+      {{'general.FIELD' | translate}} {{'general.PASSWORD' | translate}} {{'general.errors.REQUIRED' | translate}}
+    </div>
+
+    <div class="alert alert-danger" role="alert" *ngIf="badCredentials">
+      {{'general.errors.BAD_CREDENTIALS' | translate}}
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="loginError">
+      {{'general.OP_CONFIRM_ERROR' | translate}}
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> {{'pages.login.REMEMBER' | translate}}
+      </label>
+    </div>
+    <button type="submit" [disabled]="loading" class="btn btn-lg btn-primary btn-block">{{'general.SIGN_IN' | translate}}</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2018/2019</p>
+  </form>
+</div>

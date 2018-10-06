@@ -1,0 +1,151 @@
+<div class="outletHeading">
+  <h3>{{ 'views.services.TITLE' | translate}}</h3>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h4 class="outletFormH4">{{ 'general.FILTERS' | translate}}</h4>
+  </div>
+  <div class="card-body">
+    <div class="row form-group">
+      <div class="col-md-3">
+        <h5 class="outletFormH5 bold">{{'views.collaborators.search.SEARCH_DATE_FROM' | translate}}</h5>
+        <p-calendar [(ngModel)]="dateFrom" dateFormat="dd/mm/yy" showButtonBar="true" [showIcon]="true"></p-calendar>
+      </div>
+      <div class="col-md-3">
+        <h5 class="outletFormH5 bold">{{'views.collaborators.search.SEARCH_DATE_UNTIL' | translate}}</h5>
+        <p-calendar [(ngModel)]="dateUntil" dateFormat="dd/mm/yy" showButtonBar="true" [showIcon]="true"></p-calendar>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+      <button class="btn btn-primary" (click)="fireSearch()">{{ 'general.SEARCH' | translate }}</button>
+      <button class="btn btn-danger ml-2" (click)="clearFilters(); dt.reset()">{{ 'general.CLEAR_FILTERS' | translate }}</button>
+      <button class="btn btn-success pull-right" (click)="export()">{{ 'views.services.EXCEL' | translate }}</button>
+    </div>
+</div>
+
+<br/>
+<br/>
+
+<p-table #dt [columns]="columns" [value]="data" [customSort]="true"
+  [lazy]="true" (onLazyLoad)="loadLazy($event)" [rows]="rowsPerPage"
+  (onEditComplete)="onEditPickUpTime($event)"
+  [resizableColumns]="true" [scrollable]="true" scrollHeight="80vh">
+
+  <!-- CABECERA -->
+  <ng-template pTemplate="colgroup" let-columns>
+    <colgroup>
+      <col *ngFor="let col of columns" [style.width]="col.width">
+      <col *ngFor="let col of extraColumns" [style.width]="col.width">
+    </colgroup>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.sortField" class="centerContent">
+        <span class="tableText">{{ col.title | translate }}</span>
+        <p-sortIcon *ngIf="col.sortField" [field]="col.sortField"></p-sortIcon>
+      </th>
+      <th *ngFor="let col of extraColumns" pResizableColumn class="centerContent">
+        <span class="tableText">{{ col.title | translate }}</span>
+      </th>
+    </tr>
+    <tr>
+      <th *ngFor="let col of columns">
+        <div *ngIf="col.field == 'provider_status'">
+          <p-dropdown [options]="states" [style]="{'width':'100%'}" appendTo="body" (onChange)="onFilterChange(col.sortField, $event)">
+            <ng-template let-item pTemplate="selectedItem">
+              <span class="tableText"> {{ item.label | translate }} </span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <span class="tableText"> {{ item.label | translate }} </span>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div *ngIf="col.field == 'id_lang'">
+          <p-dropdown [options]="langs" [style]="{'width':'100%'}" appendTo="body" (onChange)="onFilterChange(col.sortField, $event)">
+            <ng-template let-item pTemplate="selectedItem">
+              <span class="tableText"> {{ item.label | translate }} </span>
+            </ng-template>
+            <ng-template let-item pTemplate="item">
+              <span class="tableText"> {{ item.label | translate }} </span>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div *ngIf="col.field == 'payment_type'">
+            <p-dropdown [options]="payments" [style]="{'width':'100%'}" appendTo="body" (onChange)="onFilterChange(col.sortField, $event)">
+              <ng-template let-item pTemplate="selectedItem">
+                <span class="tableText"> {{ item.label | translate }} </span>
+              </ng-template>
+              <ng-template let-item pTemplate="item">
+                <span class="tableText"> {{ item.label | translate }} </span>
+              </ng-template>
+            </p-dropdown>
+          </div>
+        <div *ngIf="col.filter == true && col.field !== 'provider_status' && col.field !== 'id_lang' && col.field !== 'payment_type' && col.field !== 'time_arrival'">
+          <input pInputText type="text" (input)="dt.filter($event.target.value, col.sortField, 'contains')" class="input-block-level totalWidth">
+        </div>
+      </th>
+      <th *ngFor="let col of extraColumns">
+      </th>
+    </tr>
+  </ng-template>
+
+  <!-- CUERPO -->
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field">
+
+        <div *ngIf="col.field == 'provider_status'">
+            <span *ngIf="match(rowData[col.field], 'Asignado')" class="tableText" style="color: green;"> {{rowData[col.field]}} </span>
+            <span *ngIf="match(rowData[col.field], 'Rechazado')" class="tableText" style="color: red;"> {{rowData[col.field]}} </span>
+            <span *ngIf="match(rowData[col.field], 'Pendiente')" class="tableText" style="color: orange;"> {{rowData[col.field]}} </span>
+        </div>
+
+        <div *ngIf="col.field == 'id_lang'" style="text-align: center;" pEditableColumn>
+          <img *ngIf="rowData[col.field] == 1" src="./assets/img/lang/spa.png" style="max-width:50%;">
+          <img *ngIf="rowData[col.field] == 2" src="./assets/img/lang/eng.png" style="max-width:50%;">
+          <img *ngIf="rowData[col.field] == 3" src="./assets/img/lang/deu.png" style="max-width:50%;">
+        </div>
+
+        <div *ngIf="col.field == 'extra'">
+          <label *ngFor="let item of rowData[col.field]" class="tableText bold d-block"> {{item}} </label>
+        </div>
+
+        <div *ngIf="col.sortField == 'pickup_time'" [pEditableColumn]="rowData" [pEditableColumnField]="'pickup_time'">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input type="text" class="totalWidth" [(ngModel)]="rowData.pickup_time">
+            </ng-template>
+            <ng-template pTemplate="output" class="totalWidth">
+              {{rowData.pickup_time}}
+            </ng-template>
+          </p-cellEditor>
+        </div>
+
+        <div *ngIf="col.field == 'price'">
+          <span class="tableText bold"> {{ rowData[col.field] | currency:'EUR':'symbol':'1.2-2' }} </span>
+        </div>
+
+        <div *ngIf="col.field !== 'provider_status' && col.field !== 'id_lang' && col.field !== 'extra' && col.field !== 'pickup_time' && col.field !== 'price'">
+          <span class="tableText"> {{rowData[col.field]}} </span>
+        </div>
+
+      </td>
+
+      <td class="ui-resizable-column centerContent">
+        <button pButton type="button" class="ui-button-primary" icon="fa fa-pencil" (click)="edit(rowData)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<br>
+<p-paginator [rows]="rowsPerPage" [totalRecords]="length" pageLinkSize="7" (onPageChange)="paginate($event)"></p-paginator>
+
+<div class="row">
+  <div class="col">
+    <h5 class="outletFormH5 margin20">{{ 'views.services.TOTAL_SERVICES' | translate }}: <b>{{ length }}</b></h5>
+  </div>
+</div>
+
+<p-growl [(value)]="msgs" [life]=1500></p-growl>
