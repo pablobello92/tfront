@@ -26,16 +26,16 @@ import {
 } from 'primeng/api';
 
 @Component({
-  selector: 'app-provider-edit',
-  templateUrl: './provider-edit.component.html',
-  styleUrls: ['./provider-edit.component.scss']
+  selector: 'app-user-edit',
+  templateUrl: './user-edit.component.html',
+  styleUrls: ['./user-edit.component.scss']
 })
-export class ProviderEditComponent implements OnInit {
+export class UserEditComponent implements OnInit {
 
   msgs: Message[] = [];
 
   editForm: FormGroup;
-  userName;providerId: string;
+  userName;userId: string;
   provider: any;
 
   constructor(
@@ -70,8 +70,8 @@ export class ProviderEditComponent implements OnInit {
 
   ngOnInit() {
     this.userName = this._localStorage.getUserDataField('name');
-    this.providerId = this._localStorage.getUserDataField('id_external_table');
-    this._providers.getProvider(this.providerId).subscribe(
+    this.userId = this._localStorage.getUserDataField('id_external_table');
+    this._providers.getProvider(this.userId).subscribe(
       res => {
         if (res.status !== 'FAIL') {
           this.provider = res;
@@ -101,7 +101,7 @@ export class ProviderEditComponent implements OnInit {
       message: 'Está seguro que desea guardar los datos del proveedor?',
       accept: () => {
         const params = this.editForm.value;
-        this._providers.setProvider(this.providerId, params)
+        this._providers.setProvider(this.userId, params)
           .subscribe(res => {
               this.msgs.push({
                 severity: 'success',

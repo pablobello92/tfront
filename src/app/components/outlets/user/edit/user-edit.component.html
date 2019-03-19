@@ -1,67 +1,66 @@
 <div class="outletHeading">
-  <h3>{{ 'views.providers.form.EDIT_PROFILE' | translate}}: {{ userName }}</h3>
+  <h3>{{ 'titles.user_edit' | translate}}: {{ userName }}</h3>
 </div>
 
 <form [formGroup]="editForm" (submit)="onSubmit()">
 
   <div class="card">
     <div class="card-header">
-      <h3 class="outletFormH3">{{ 'views.providers.form.PANEL_HEADING' | translate}}</h3>
+      <h3 class="outletFormH3">Panel de edición</h3>
     </div>
     <div class="card-body">
 
-      <h4 class="outletFormH4 margin20">{{ 'views.reservations.form.CLIENT_DATA' | translate}}</h4>
+      <h4 class="outletFormH4 margin20">Datos del usuario</h4>
 
       <div class="row form-group paddedSides">
         <div class="col">
-          <label for="inputUser">{{'general.USER' | translate}}</label>
+          <label for="inputUser">{{'general.user' | translate}}</label>
           <input type="text" id="inputUser" formControlName="user" class="form-control">
           <div class="text-danger" *ngIf="f.user.hasError('required') && (f.user.dirty || f.user.touched)">
-            {{'general.FIELD' | translate}} {{'general.USER' | translate}} {{'general.errors.REQUIRED' | translate}}
+            {{'general.field' | translate}} {{'general.user' | translate}} {{'messages.errors.required' | translate}}
           </div>
           <div class="text-danger" *ngIf="f.user.hasError('email') && (f.user.dirty || f.user.touched)">
-            {{'general.errors.VALID_EMAIL' | translate}}
+            {{'messages.errors.invalid_email' | translate}}
           </div>
         </div>
         <div class="col">
-          <label for="inputPassword">{{'general.PASSWORD' | translate}}</label>
+          <label for="inputPassword">{{'general.password' | translate}}</label>
           <input type="password" id="inputPassword" formControlName="password" class="form-control">
           <div class="text-danger" *ngIf="f.password.hasError('required') && (f.password.dirty || f.password.touched)">
-            {{'general.FIELD' | translate}} {{'general.PASSWORD' | translate}} {{'general.errors.REQUIRED' | translate}}
+            {{'general.field' | translate}} {{'general.password' | translate}} {{'messages.errors.required' | translate}}
           </div>
         </div>
         <div class="col">
-          <label for="inputConfirmPassword">{{'general.CONFIRM_PASSWORD' | translate}}</label>
+          <label for="inputConfirmPassword">{{'messages.confirm_password' | translate}}</label>
           <input type="password" id="inputConfirmPassword" formControlName="confirmPassword" class="form-control">
           <div class="text-danger" *ngIf="f.confirmPassword.hasError('match') && (f.confirmPassword.dirty || f.confirmPassword.touched)">
-            {{'general.errors.CONFIRM_PASSWORD_MSG' | translate}}
+            {{'messages.errors.confirm_password' | translate}}
           </div>
         </div>
         <div class="col">
-          <label for="inputProviderStatus">{{'general.PROFILE_COLOR' | translate}}</label>
+          <label for="inputProviderStatus">{{'general.user_color' | translate}}</label>
           <p-colorPicker formControlName="color" class="d-block"></p-colorPicker>
         </div>
       </div>
 
       <div class="row form-group paddedSides">
         <div class="col">
-          <label for="inputName">{{'general.NAME' | translate}}</label>
+          <label for="inputName">{{'general.name' | translate}}</label>
           <input type="text" id="inputName" formControlName="name" class="form-control">
         </div>
         <div class="col">
-          <label for="inputEmail">{{'general.EMAIL' | translate}}</label>
+          <label for="inputEmail">{{'general.email' | translate}}</label>
           <input type="email" id="inputEmail" formControlName="email" class="form-control">
         </div>
       </div>
 
       <div class="row form-group paddedSides">
         <div class="col">
-          <label for="inputPhone">{{'views.reservations.form.CLIENT_PHONE' | translate}}</label>
+          <label for="inputPhone">{{'general.phone' | translate}}</label>
           <input type="text" id="inputPhone" formControlName="phone" class="form-control">
         </div>
         <div class="col">
-          <label for="inputPhoneEmergency">{{'general.PHONE_EMERGENCY' | translate}}</label>
-          <input type="text" id="inputPhoneEmergency" formControlName="phone_emergency" class="form-control">
+
         </div>
       </div>
 
@@ -69,49 +68,32 @@
 
       <div class="row form-group paddedSides">
         <div class="col">
-          <label for="inputAddress">{{'general.ADDRESS' | translate}}</label>
+          <label for="inputAddress">{{'general.address' | translate}}</label>
           <input type="text" id="inputAddress" formControlName="address" class="form-control">
         </div>
         <div class="col">
-          <label for="inputCity">{{'general.CITY' | translate}}</label>
+          <label for="inputCity">{{'general.city' | translate}}</label>
           <input type="text" id="inputCity" formControlName="city" class="form-control">
         </div>
       </div>
 
       <div class="row form-group paddedSides">
         <div class="col">
-          <label for="inputProvince">{{'general.PROVINCE' | translate}}</label>
+          <label for="inputProvince">{{'general.province' | translate}}</label>
           <input type="text" id="inputProvince" formControlName="province" class="form-control">
         </div>
         <div class="col">
-          <label for="inputCountry">{{'general.COUNTRY' | translate}}</label>
+          <label for="inputCountry">{{'general.country' | translate}}</label>
           <input type="text" id="inputCountry" formControlName="country" class="form-control">
         </div>
       </div>
 
       <div class="form-separator"></div>
 
+      <h4 class="outletFormH4 margin20">{{ 'general.comments' | translate}}</h4>
       <div class="row form-group paddedSides">
         <div class="col">
-          <label for="inputCif">CIF</label>
-          <input type="text" id="inputCif" formControlName="cif" class="form-control">
-        </div>
-        <div class="col">
-          <label for="inputIVA">{{'general.IVA' | translate}}</label>
-          <input type="number" size="2" id="inputIVA" formControlName="iva_tax" class="form-control">
-        </div>
-        <div class="col">
-          <label for="inputWeb">{{'general.WEB' | translate}}</label>
-          <input type="text" id="inputWeb" formControlName="web" class="form-control">
-        </div>
-      </div>
-
-      <div class="form-separator"></div>
-
-      <h4 class="outletFormH4 margin20">{{ 'views.reservations.form.COMMENTS' | translate}}</h4>
-      <div class="row form-group paddedSides">
-        <div class="col">
-          <label>{{'views.reservations.form.CLIENT_DATA' | translate}}</label>
+          <label>Comentarios del usuario</label>
           <p-editor formControlName="contact_data" [style]="{'height':'320px'}"></p-editor>
         </div>
       </div>
@@ -119,8 +101,8 @@
     </div>
 
     <div class="card-footer">
-      <button type="submit" [disabled]="editForm.invalid" class="btn btn-primary m-1 pull-right">{{ 'general.SAVE_DATA' | translate}}</button>
-      <button type="button" class="btn btn-success m-1 pull-right" (click)="goBack()">{{ 'general.RETURN' | translate}}</button>
+      <button type="submit" [disabled]="editForm.invalid" class="btn btn-primary m-1 pull-right">{{ 'general.save' | translate}}</button>
+      <button type="button" class="btn btn-success m-1 pull-right" (click)="goBack()">{{ 'general.return' | translate}}</button>
     </div>
   </div>
 

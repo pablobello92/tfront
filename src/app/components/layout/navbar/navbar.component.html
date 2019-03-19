@@ -3,7 +3,7 @@
   <ul class="navbar-nav flex-row">
 
     <li class="nav-item">
-      <a class="navbar-brand roundedCircle profileImage white" #fsbutton (click)="gotoProfile()" pTooltip="{{'views.providers.form.EDIT_PROFILE' | translate}}">
+      <a class="navbar-brand roundedCircle profileImage white" #fsbutton (click)="gotoProfile()" pTooltip="{{'titles.user_edit' | translate}}">
       </a>
     </li>
     <li class="nav-item">
@@ -11,12 +11,12 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link ml-5" #fsbutton (click)="collapseSidebar()" pTooltip="{{'general.COLLAPSE_SIDEBAR' | translate}}">
+      <a class="nav-link ml-5" #fsbutton (click)="collapseSidebar()" pTooltip="{{'messages.collapse_sidebar' | translate}}">
         <em class="fa fa-navicon"></em>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" #fsbutton (click)="goHome()" pTooltip="{{'general.MAIN_MENU' | translate}}">
+      <a class="nav-link" #fsbutton (click)="goHome()" pTooltip="{{'titles.home' | translate}}">
         <em class="fa fa-home"></em>
       </a>
     </li>
@@ -24,11 +24,11 @@
 
   <ul class="navbar-nav flex-row">
     <li class="nav-item">
-      <a class="nav-link" #fsbutton (click)="logout()" pTooltip="{{'general.EXIT' | translate}}">
+      <a class="nav-link" #fsbutton (click)="logout()" pTooltip="{{'general.exit' | translate}}">
         <em class="fa fa-sign-out"></em>
       </a>
     </li>
-    <!--<li class="nav-item m-2">
+    <li class="nav-item m-2">
       <p-dropdown [options]="langs" [(ngModel)]="selectedLang" appendTo="body"(onChange)="changeLang($event)" [style]="{'width':'100px'}">
         <ng-template let-item pTemplate="selectedItem">
           <img src="./assets/img/lang/{{item.label}}.png" style="width:24px;vertical-align:middle"/>
@@ -39,6 +39,6 @@
           </div>
         </ng-template>
       </p-dropdown>
-    </li>-->
+    </li>
   </ul>
 </nav>

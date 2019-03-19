@@ -14,66 +14,63 @@ import {
 
 
 import {
-  MenuItem
+    MenuItem
 } from 'primeng/primeng';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss']
 })
 export class SideBarComponent implements OnInit {
 
-  @Input() display: boolean;
+    @Input() display: boolean;
 
-  items: MenuItem[] = [];
+    items: MenuItem[] = [];
 
-  translations: any;
+    translations: any;
 
-  constructor(
-    private zone: NgZone,
-    private appConfig: AppConfig,
-    private translate: TranslateService
-  ) {
-    this.translate.reloadLang(this.translate.currentLang).subscribe(
-      res => {
-        this.setItems(res);
-      });
-  }
-
-  ngOnInit() {
-    this.translate.onLangChange.subscribe(
-      () => {
-        this.translate.reloadLang(this.translate.currentLang).subscribe(
-          res => {
+    constructor(
+        private zone: NgZone,
+        private appConfig: AppConfig,
+        private translate: TranslateService
+    ) {
+        this.translate.reloadLang(this.translate.currentLang).subscribe( res => {
             this.setItems(res);
-          });
-      });
-  }
+        });
+    }
+
+    ngOnInit() {
+        this.translate.onLangChange.subscribe( () => {
+            this.translate.reloadLang(this.translate.currentLang).subscribe( res => {
+                this.setItems(res);
+            });
+        });
+    }
 
   setItems(translations: any) {
     this.items = [{
-        label: translations.sidebar.heading.HEADER,
+        label: translations.titles.menu,
         items: [{
-          label: translations.general.BEGIN,
+          label: translations.titles.home,
           icon: 'fa fa-fw fa-home',
           routerLink: ['/dashboard']
         }]
       },
       {
-        label: translations.sidebar.nav.providers.PROVIDERS,
+        label: translations.titles.geo,
         items: [{
-          label: translations.views.providers.form.EDIT_PROFILE,
-          icon: 'fa fa-fw fa-pencil',
-          routerLink: ['/provider/edit']
+            label: translations.titles.my_tracks,
+            icon: 'fa fa-fw fa-road',
+            routerLink: ['/user/tracks']
         }]
       },
       {
-        label: translations.sidebar.nav.services.SERVICES,
+        label: translations.titles.configuration,
         items: [{
-          label: translations.general.LIST,
-          icon: 'fa fa-fw fa-th-list',
-          routerLink: ['/services/list']
+          label: translations.titles.user_edit,
+          icon: 'fa fa-fw fa-pencil',
+          routerLink: ['/user/edit']
         }]
       }
     ];

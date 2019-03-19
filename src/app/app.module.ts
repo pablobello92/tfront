@@ -43,12 +43,6 @@ import {
   SideBarComponent
 } from './components/layout/sidebar/sidebar.component';
 import {
-  ServicesListComponent
-} from './components/outlets/services/list/services-list.component';
-import {
-  ServicesEditComponent
-} from './components/outlets/services/edit/services-edit.component';
-import {
   MenuModule
 } from 'primeng/menu';
 import {
@@ -64,7 +58,8 @@ import {
   TooltipModule,
   GrowlModule,
   CalendarModule,
-  EditorModule
+  EditorModule,
+  GMapModule
 } from 'primeng/primeng';
 import {
   NavbarComponent
@@ -99,8 +94,11 @@ import {
   CommonService
 } from './shared/services/commonService';
 import {
-  ProviderEditComponent
-} from './components/outlets/provider/edit/provider-edit.component';
+  UserEditComponent
+} from './components/outlets/user/edit/user-edit.component';
+import {
+    UserTracksComponent
+} from './components/outlets/user/tracks/user-tracks.component';
 
 
 
@@ -116,9 +114,8 @@ export function createTranslateLoader(http: HttpClient) {
     DashboardComponent,
     SideBarComponent,
     NavbarComponent,
-    ServicesListComponent,
-    ServicesEditComponent,
-    ProviderEditComponent,
+    UserEditComponent,
+    UserTracksComponent,
     LoginComponent,
     ErrorComponent
   ],
@@ -141,6 +138,7 @@ export function createTranslateLoader(http: HttpClient) {
     CalendarModule,
     FormsModule,
     ReactiveFormsModule,
+    GMapModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

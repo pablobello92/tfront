@@ -70,7 +70,7 @@ export class NavbarComponent implements OnInit {
   }
 
   gotoProfile() {
-    this.router.navigate(['provider/edit']);
+    this.router.navigate(['user/edit']);
   }
 
 }

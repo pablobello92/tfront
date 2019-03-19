@@ -5,12 +5,22 @@
 @import '~primeicons/primeicons.css';
 
 :root {
-  --shuttleBlue: rgb(1, 54, 98, 1);
-  --shuttleGreen: rgb(196, 214, 0, 1);
+  --mainBlue: rgb(1, 54, 98, 1);
+  --mainGreen: rgb(196, 214, 0, 1);
   --lightGray: rgb(230, 230, 230, 1);
   --lightGray2: rgb(191, 191, 191);
   --formBorderGray: rgba(0, 0, 0, .15);
   --bootstrapGreen: rgba(40, 167, 69, 1);
+  --teal: rgba(0,128,128, 1);
+  --orchid: rgba(209,95,238, 1);
+  --darkOrchid: rgba(196, 47, 233, 1);
+
+  /* Roads */
+
+  --aqua: #00ffff;
+  --lime: #00ff00;
+  --yellow: #ffff00;
+  --red: #ff0000;
 
   /* British palette */
   --nasturciaorange: #e84118;
@@ -21,13 +31,16 @@
   --vanadylBlue: #0097e6;
   --mazarineBlue: #273c75;
   --seaBrook: #487eb0;
+  --seaBrook: #487eb0;
 
-  --sideBarWidth: 12%;
+
+  --sideBarWidth: 20%;
 }
 
 /* Cuerpo principal */
 html, body {
-  height: 100%; margin: 0px; padding: 0px;
+  height: 100%;
+  width: 100%;
 }
 
 body{
