@@ -27,7 +27,7 @@ export class ProvidersService {
         private appConfig: AppConfig
     ) {}
 
-    getProvider(id: string): Observable < any > {
+    /*getProvider(id: string): Observable < any > {
         const endpoint = this.appConfig.server + this.appConfig.endpoints.provider.get;
         const params = '?id=' + id;
         const url = endpoint + params;
@@ -54,5 +54,5 @@ export class ProvidersService {
             }), catchError(err => {
                 return new Observable(err);
             }));
-    }
+    }*/
 }

@@ -37,6 +37,9 @@ import {
   UsersService
 } from './shared/services/usersService';
 import {
+    TracksService
+  } from './shared/services/tracksService';
+import {
   DashboardComponent
 } from './components/outlets/dashboard/dashboard.component';
 import {
@@ -151,6 +154,7 @@ export function createTranslateLoader(http: HttpClient) {
     AppConfig,
     AppConstants,
     UsersService,
+    TracksService,
     ReservationsService,
     ProvidersService,
     LocalStorageService,

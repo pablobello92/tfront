@@ -13,6 +13,7 @@
         "field": "Field",
         "maps": "Maps",
         "name": "Name",
+        "nick": "Nick",
         "no": "No",
         "password": "Password",
         "phone": "Phone",
@@ -39,7 +40,7 @@
         }
     },
     "titles": {
-        "configuration": "Configuration",
+        "configuration": "Settings",
         "dashboard": "Dashboard",
         "dashboard_welcome": "Welcome to Dashboard",
         "forgot_password": "Forgot your password?",

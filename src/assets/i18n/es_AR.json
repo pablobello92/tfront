@@ -13,6 +13,7 @@
         "field": "Campo",
         "maps": "Mapas",
         "name": "Nombre",
+        "nick": "Alias",
         "no": "No",
         "password": "Contraseña",
         "phone": "Teléfono",

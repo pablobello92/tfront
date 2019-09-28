@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  uri: 'https://www.shuttlespaintransfers.com/development/service/'
+  uri: 'http://localhost:3000/api/'
 };
 
 /*

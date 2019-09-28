@@ -13,7 +13,7 @@ import {
 })
 export class AppComponent {
 
-  title = 'Shuttle Dashboard';
+  title = 'Baches';
 
   constructor(
     private translate: TranslateService

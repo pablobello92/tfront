@@ -1,9 +1,13 @@
 <div class="user-tracks">
-      <div class="row">
-          <div class="col-xl-9 col-lg-8 home-text">
-              <h1 class="bigTitle">Mapas</h1>
+    <div class="row">
+        <div class="col-xl-9 col-lg-8 home-text">
+            <h1 class="bigTitle">Mapa de trayectos: {{ nickName }}</h1>
+            <br>
+            <br>
+            <div>
+                <p-gmap [options]="options" [overlays]="overlays" [style]="{'width':'100%','height':'320px'}" (onMapReady)="setMap($event)"></p-gmap>
+            </div>
 
-              <p-gmap [options]="options" [overlays]="overlays" [style]="{'width':'100%','height':'320px'}" ></p-gmap>
-          </div>
-      </div>
+        </div>
+    </div>
 </div>

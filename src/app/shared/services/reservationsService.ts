@@ -29,7 +29,7 @@ export class ReservationsService {
   ) {}
 
   // tslint:disable-next-line:max-line-length
-  getServicesByUser(rowsPerPage: number, page: number, userType: string, idTable: string, status: number, lang: number, payment: string, sort: object, dateFilter: object, mainFilter: object): Observable < any > {
+  /*getServicesByUser(rowsPerPage: number, page: number, userType: string, idTable: string, status: number, lang: number, payment: string, sort: object, dateFilter: object, mainFilter: object): Observable < any > {
 
     const endpoint = this.appConfig.server + this.appConfig.endpoints.service.getall;
     let params = '?count=' + rowsPerPage;
@@ -141,5 +141,5 @@ export class ReservationsService {
     const params = '?id=' + id + '&receiver=' + receiver;
     const url = endpoint + params;
     return this.http.get(url);
-  }
+  }*/
 }
