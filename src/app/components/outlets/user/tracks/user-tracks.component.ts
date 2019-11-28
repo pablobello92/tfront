@@ -20,17 +20,16 @@ declare var google: any;
 export class UserTracksComponent implements OnInit {
 
     options: any;
-    overlays: any[] = [];
-    map: google.maps.Map;
-    userName;nickName: string;
+    overlays = [];
+    userName; nickName: string;
+    deltas = 0;
+    deltasBySegment = [];
+
+    maxScore = 0;
 
     constructor(
         private _tracks: TracksService
     ) {}
-
-    setMap(event) {
-        this.map = event.map;
-    }
 
     ngOnInit() {
         this.userName = 'pablo_bello'; // TODO: vincular a nombre real desde las cookies, idem a user edit
@@ -48,13 +47,14 @@ export class UserTracksComponent implements OnInit {
             res => {
                 console.clear();
                 console.log(res);
+                this.maxScore = this.getMaxValue(res.ranges);
                 this.drawLines(res.ranges);
             }, err => {
                 console.error(err);
             });
     }
 
-    drawLines(ranges: Array < any > ): void {
+    drawLines(ranges: Array < any > ): void { // TODO: ver si puedo descartar los ejes x,y de los datos de acelerometro
         ranges.forEach(element => {
             let line = new google.maps.Polyline({
                 path: [{
@@ -67,12 +67,28 @@ export class UserTracksComponent implements OnInit {
                     }
                 ],
                 geodesic: true,
-                strokeColor: '#00ff00',
+                strokeColor: this.getStrokeColor(element.score),
                 strokeOpacity: 1,
                 strokeWeight: 5
             });
             this.overlays.push(line);
         });
+    }
+
+    // Es estático, en las notas comenté que esto debe de ser algo dinámico
+    getStrokeColor(score: number): string {
+        return (score < 2) ? '#00ff00' : (score < 3 ) ? '#ffff00' : (score < 5) ? '#ff6600' : (score < 20 ) ? '#ff0000' : '#6600ff';
+    }
+
+    // Obtengo el score maximo para asi armar los rangos de colores (AL FINAL NO LO USÉ)
+    getMaxValue(ranges: Array < any > ): number {
+        let max = 0;
+        ranges.forEach(element => {
+            if (element.score > max) {
+                max = element.score;
+            }
+        });
+        return max;
     }
 
 }
