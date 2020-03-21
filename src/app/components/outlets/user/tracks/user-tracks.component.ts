@@ -21,11 +21,24 @@ export class UserTracksComponent implements OnInit {
 
     options: any;
     overlays = [];
-    userName; nickName: string;
+    userName;nickName: string;
     deltas = 0;
     deltasBySegment = [];
 
     maxScore = 0;
+
+
+    private readonly COLOR_NOEVENT = '#00ffff'; // cyan
+    private readonly COLOR_VERYLOW = '#00ff00'; // green
+    private readonly COLOR_LOW = '#ffff00'; // yellow
+    private readonly COLOR_MEDIUM = '#ff8000'; // orange
+    private readonly COLOR_HIGH = '#ff0000'; // red
+    private readonly COLOR_VERYHIGH = '#8000ff'; // purple
+
+    private veryLowLimit: number;
+    private lowLimit: number;
+    private mediumLimit: number;
+    private highLimit: number;
 
     constructor(
         private _tracks: TracksService
@@ -42,7 +55,9 @@ export class UserTracksComponent implements OnInit {
             },
             zoom: 13
         };
+    }
 
+    public fetchOne(): void {
         this._tracks.getTracks(this.userName).subscribe(
             res => {
                 console.clear();
@@ -54,9 +69,22 @@ export class UserTracksComponent implements OnInit {
             });
     }
 
-    drawLines(ranges: Array < any > ): void { // TODO: ver si puedo descartar los ejes x,y de los datos de acelerometro
+    public fetchAll(): void {
+        this._tracks.getAllTracks(this.userName).subscribe(
+            ranges => {
+                console.clear();
+                this.maxScore = this.getMaxValue(ranges);
+                console.log(ranges);
+                this.drawLines(ranges);
+            }, err => {
+                console.error(err);
+            });
+    }
+
+    private drawLines(ranges: any[]): void { // TODO: ver si puedo descartar los ejes x,y de los datos de acelerometro
+        this.getEventScoreScale(ranges);
         ranges.forEach(element => {
-            let line = new google.maps.Polyline({
+            const line = new google.maps.Polyline({
                 path: [{
                         lat: element.start.latitude,
                         lng: element.start.longitude
@@ -67,21 +95,17 @@ export class UserTracksComponent implements OnInit {
                     }
                 ],
                 geodesic: true,
-                strokeColor: this.getStrokeColor(element.score),
+                strokeColor: this.getColor(element.score),
                 strokeOpacity: 1,
-                strokeWeight: 5
+                strokeWeight: 4
             });
             this.overlays.push(line);
         });
-    }
-
-    // Es estático, en las notas comenté que esto debe de ser algo dinámico
-    getStrokeColor(score: number): string {
-        return (score < 2) ? '#00ff00' : (score < 3 ) ? '#ffff00' : (score < 5) ? '#ff6600' : (score < 20 ) ? '#ff0000' : '#6600ff';
+        return;
     }
 
     // Obtengo el score maximo para asi armar los rangos de colores (AL FINAL NO LO USÉ)
-    getMaxValue(ranges: Array < any > ): number {
+    private getMaxValue(ranges: any[] ): number {
         let max = 0;
         ranges.forEach(element => {
             if (element.score > max) {
@@ -91,4 +115,51 @@ export class UserTracksComponent implements OnInit {
         return max;
     }
 
+    private getEventScoreScale(ranges: any[]): void {
+
+        let min = 100000;
+        let max = 0;
+        let avg = 0;
+        let counter = 0;
+
+        ranges.forEach((range) => {
+            const score = range.score;
+            if (score > 0) {
+                counter++;
+                avg += score;
+                min = Math.min(min, score);
+                max = Math.max(max, score);
+            }
+        });
+        avg = avg / counter;
+
+        const lowerStep = (avg - min) / 4;
+        const upperStep = (max - avg) / 4;
+
+        this.veryLowLimit = min + lowerStep;
+        this.lowLimit = avg - lowerStep;
+        this.mediumLimit = avg + upperStep;
+        this.highLimit = max - upperStep;
+
+        return;
+    }
+
+    private getColor(score: number): string {
+        if (score === 0) {
+            return this.COLOR_NOEVENT;
+        }
+        if (score < this.veryLowLimit) {
+            return this.COLOR_VERYLOW;
+        }
+        if (score < this.lowLimit) {
+            return this.COLOR_LOW;
+        }
+        if (score < this.mediumLimit) {
+            return this.COLOR_MEDIUM;
+        }
+        if (score < this.highLimit) {
+            return this.COLOR_HIGH;
+        }
+        return this.COLOR_VERYHIGH;
+    }
 }

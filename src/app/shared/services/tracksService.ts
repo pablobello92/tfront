@@ -13,7 +13,8 @@ import {
 } from 'rxjs';
 import {
     map,
-    catchError
+    catchError,
+    tap
 } from 'rxjs/operators';
 
 @Injectable()
@@ -24,13 +25,21 @@ export class TracksService {
         private appConfig: AppConfig
     ) {}
 
-    getTracks(userName: any): Observable <any> {
+    getTracks(userName: any): Observable < any > {
         const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.get + '?username=' + userName;
-        return this.http.get(endpoint)
-        .pipe(map(user => {
-            return user;
-        }), catchError((err, caught) => {
-            return new Observable(err);
-        }));
+        return this.http.get(endpoint).pipe(
+            catchError((err, caught) => {
+                console.error(err);
+                return new Observable(err);
+            }));
+    }
+
+    getAllTracks(userName: any): Observable < any > {
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.getAll + '?username=' + userName;
+        return this.http.get(endpoint).pipe(
+            catchError((err, caught) => {
+                console.error(err);
+                return new Observable(err);
+            }));
     }
 }

@@ -19,6 +19,7 @@ export class AppConfig {
         },
         'tracks': {
             'get': 'tracks/',
+            'getAll': 'tracks/getAll/'
         },
     };
 }

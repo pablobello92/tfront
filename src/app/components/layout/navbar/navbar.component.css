@@ -1,0 +1,72 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  padding: 0%;
+  background-color: var(--mainBlue);
+  box-shadow: 0 3px 7px 1px rgba(0, 0, 0, 0.4);
+}
+@media screen and (max-width: 480px) {
+  .navbar-first {
+    width: 100px;
+  }
+  .navbar-second {
+    left: 100px;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .navbar-first {
+    width: 150px;
+  }
+  .navbar-second {
+    left: 150px;
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 1050px) {
+  .navbar-first {
+    width: 200px;
+  }
+  .navbar-second {
+    left: 20px;
+  }
+}
+@media screen and (min-width: 1051px) {
+  .navbar-first {
+    width: 250px;
+  }
+  .navbar-second {
+    left: 250px;
+  }
+}
+.navbar-first {
+  float: left;
+}
+.navbar-second {
+  float: left;
+  background-color: aquamarine;
+}
+.navbar-last {
+  float: right;
+  background-color: brown;
+}
+em {
+  color: white;
+  font-size: 1.75rem;
+  margin-right: 1rem;
+}
+.profileImage {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--protossPylon);
+}
+.nav-link {
+  display: flex;
+}
+.navText {
+  color: var(--lightGray);
+  text-transform: uppercase;
+}

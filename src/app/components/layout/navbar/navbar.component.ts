@@ -3,7 +3,8 @@ import {
   OnInit,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  ViewEncapsulation
 } from '@angular/core';
 import {
   Router
@@ -21,7 +22,8 @@ import {
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit {
 
@@ -50,6 +52,10 @@ export class NavbarComponent implements OnInit {
     }];
     this.selectedLang = this.langs[0];
     this.userName = this.localStorage.getUserDataField('name');
+  }
+
+  doSomething() {
+    alert('asd');
   }
 
   logout() {
