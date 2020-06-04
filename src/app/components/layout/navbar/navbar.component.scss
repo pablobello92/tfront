@@ -8,65 +8,45 @@
     padding: 0%;
     background-color: var(--mainBlue);
     box-shadow: 0 3px 7px 1px rgba(0, 0, 0, .4);
+    justify-content: space-between;
+}
+
+/*
+    Probably this could be refactorized, or simplified...
+*/
+.navbar, .navbar-left, .navbar-right, .profile-area, .buttons-area, .link-item {
+    display: flex;
+}
+
+.navbar, .navbar-left, .navbar-right, .profile-area, .buttons-area {
+    flex-direction: row;
+}
+
+.navbar-left, .navbar-right, .profile-area, .buttons-area {
+    align-items: center;
 }
 
 // REFACTOR: demasiado estilo repetido entre navbar/sidebar/home
 // TODO: ver como puedo desacoplar a styles a var global y que funque
 
-@media screen and (max-width: 480px) {
-    .navbar-first {
-        width: 100px;
-    }
-    .navbar-second {
-        left: 100px;
-    }
-}
+// Initially: the "FIRST" has the same width as the sidebar...
+// Then we should change it
 
-@media screen and (min-width: 481px) and (max-width: 768px) {
-    .navbar-first {
-        width: 150px;
-    }
-    .navbar-second {
-        left: 150px;
-    }
-}
+// FINALLY: MIGRATE TO ANGULAR 8
+// Install rxjs if it's not installed already!!!
 
-@media screen and (min-width: 769px) and (max-width: 1050px) {
-    .navbar-first {
-        width: 200px;
-    }
-    .navbar-second {
-        left: 20px;
-    }
-}
-
-@media screen and (min-width: 1051px) {
-    .navbar-first {
+.navbar-left {
+    width: 400px;
+    .profile-area {
+        padding-left: 20px;
         width: 250px;
     }
-    .navbar-second {
-        left: 250px;
-    }
 }
 
-.navbar-first {
-    float: left;
-}
-
-.navbar-second {
-    float: left;
-    background-color: aquamarine;
-}
-
-.navbar-last {
-    float: right;
-    background-color: brown;
-}
-
-em {
+.fa {
     color: white;
-    font-size: 1.75rem;
-    margin-right: 1rem;
+    font-size: 25px;
+    margin: 0px 10px;
 }
 
 .profileImage {
@@ -77,11 +57,8 @@ em {
     background-color: var(--protossPylon);
 }
 
-.nav-link {
-    display: flex;
-}
-
-.navText {
+.nav-text {
+    margin-left: 20px;
     color: var(--lightGray);
     text-transform: uppercase;
 }

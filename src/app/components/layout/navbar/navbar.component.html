@@ -1,47 +1,25 @@
 <div class="navbar">
 
-    <!--
-        TODO: DARLE MAS SENTIDO (DISPLAY:FLEX O ALGO POR EL ESTILO)
-    -->
-    <div>
-        <div class="navbar-first">
-            <span class="profileImage white pointer" #fsbutton (click)="gotoProfile()"
-                pTooltip="{{'titles.user_edit' | translate}}"></span>
-            <span class="navText pointer"> {{ userName }}</span>
+    <div class="navbar-left">
+        <div class="profile-area">
+            <span class="profileImage white pointer" #fsbutton (click)="gotoProfile()" pTooltip="{{'titles.user_edit' | translate}}"></span>
+            <span class="nav-text pointer"> {{ userName }}</span>
         </div>
-
-        <div class="navbar-second">
-            SECOND SECOND
+        <div class="buttons-area">
+            <span class="link-item">
+                <a #fsbutton (click)="collapseSidebar()" pTooltip="{{'messages.collapse_sidebar' | translate}}">
+                    <em class="fa fa-navicon"></em>
+                </a>
+            </span>
+            <span class="link-item">
+                <a #fsbutton (click)="goHome()" pTooltip="{{'titles.home' | translate}}">
+                    <em class="fa fa-home"></em>
+                </a>
+            </span>
         </div>
     </div>
 
-    <!--
-
-
-        <li class="nav-item">
-            <a class="navbar-brand roundedCircle profileImage white" #fsbutton (click)="gotoProfile()"
-                pTooltip="{{'titles.user_edit' | translate}}">
-            </a>
-        </li>
-        <li class="nav-item">
-            <span class="navbar-brand mb-0 mr-5 navText"> {{ userName }}</span>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link ml-5" #fsbutton (click)="collapseSidebar()"
-                pTooltip="{{'messages.collapse_sidebar' | translate}}">
-                <em class="fa fa-navicon"></em>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" #fsbutton (click)="goHome()" pTooltip="{{'titles.home' | translate}}">
-                <em class="fa fa-home"></em>
-            </a>
-        </li>
-    -->
-    <div class="pull-right navbar-last">
-        LAST LAST LAST LAST
-        <!--
+    <div class="navbar-right">
         <p-dropdown [options]="langs" [(ngModel)]="selectedLang" appendTo="body" (onChange)="changeLang($event)"
             [style]="{'width':'100px'}">
             <ng-template let-item pTemplate="selectedItem">
@@ -54,10 +32,9 @@
                 </div>
             </ng-template>
         </p-dropdown>
-        <a class="nav-link" #fsbutton (click)="logout()" pTooltip="{{'general.exit' | translate}}">
+        <a class="link-item" #fsbutton (click)="logout()" pTooltip="{{'general.exit' | translate}}">
             <em class="fa fa-sign-out"></em>
         </a>
-        -->
     </div>
 
 

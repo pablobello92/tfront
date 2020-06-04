@@ -7,54 +7,40 @@
   padding: 0%;
   background-color: var(--mainBlue);
   box-shadow: 0 3px 7px 1px rgba(0, 0, 0, 0.4);
+  justify-content: space-between;
 }
-@media screen and (max-width: 480px) {
-  .navbar-first {
-    width: 100px;
-  }
-  .navbar-second {
-    left: 100px;
-  }
+.navbar,
+.navbar-left,
+.navbar-right,
+.profile-area,
+.buttons-area,
+.link-item {
+  display: flex;
 }
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .navbar-first {
-    width: 150px;
-  }
-  .navbar-second {
-    left: 150px;
-  }
+.navbar,
+.navbar-left,
+.navbar-right,
+.profile-area,
+.buttons-area {
+  flex-direction: row;
 }
-@media screen and (min-width: 769px) and (max-width: 1050px) {
-  .navbar-first {
-    width: 200px;
-  }
-  .navbar-second {
-    left: 20px;
-  }
+.navbar-left,
+.navbar-right,
+.profile-area,
+.buttons-area {
+  align-items: center;
 }
-@media screen and (min-width: 1051px) {
-  .navbar-first {
-    width: 250px;
-  }
-  .navbar-second {
-    left: 250px;
-  }
+.navbar-left {
+  width: 400px;
 }
-.navbar-first {
-  float: left;
+.navbar-left .profile-area {
+  padding-left: 20px;
+  width: 250px;
 }
-.navbar-second {
-  float: left;
-  background-color: aquamarine;
-}
-.navbar-last {
-  float: right;
-  background-color: brown;
-}
-em {
+.fa {
   color: white;
-  font-size: 1.75rem;
-  margin-right: 1rem;
+  font-size: 25px;
+  margin: 0px 10px;
 }
 .profileImage {
   display: inline-block;
@@ -63,10 +49,8 @@ em {
   border-radius: 50%;
   background-color: var(--protossPylon);
 }
-.nav-link {
-  display: flex;
-}
-.navText {
+.nav-text {
+  margin-left: 20px;
   color: var(--lightGray);
   text-transform: uppercase;
 }

@@ -12,23 +12,49 @@
 .hide {
   width: 0;
 }
-@media screen and (max-width: 480px) {
-  .show {
-    width: 100px;
+.show {
+  width: 250px;
+}
+p-menu .ui-menu {
+  width: 100%;
+  padding: 15px;
+}
+p-menu .ui-menu,
+p-menu .ui-menuitem,
+p-menu .ui-submenu-header {
+  border: none;
+  background: transparent;
+}
+@media screen and (max-width: 640px) {
+  .ui-menuitem-icon {
+    font-size: x-small !important;
+  }
+  .ui-menuitem-text {
+    font-size: x-small !important;
+  }
+  .ui-submenu-header {
+    font-size: x-small !important;
   }
 }
-@media screen and (min-width: 481px) and (max-width: 768px) {
-  .show {
-    width: 150px;
+@media screen and (min-width: 641px) and (max-width: 1050px) {
+  .ui-menuitem-icon {
+    font-size: small !important;
   }
-}
-@media screen and (min-width: 769px) and (max-width: 1050px) {
-  .show {
-    width: 200px;
+  .ui-menuitem-text {
+    font-size: small !important;
+  }
+  .ui-submenu-header {
+    font-size: small !important;
   }
 }
 @media screen and (min-width: 1051px) {
-  .show {
-    width: 250px;
+  .ui-menuitem-icon {
+    font-size: initial !important;
+  }
+  .ui-menuitem-text {
+    font-size: initial !important;
+  }
+  .ui-submenu-header {
+    font-size: initial !important;
   }
 }
