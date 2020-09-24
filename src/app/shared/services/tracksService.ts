@@ -16,6 +16,8 @@ import {
     catchError,
     tap
 } from 'rxjs/operators';
+import { Track } from '../interfaces/Track';
+import { Range } from '../interfaces/Range';
 
 @Injectable()
 export class TracksService {
@@ -25,21 +27,14 @@ export class TracksService {
         private appConfig: AppConfig
     ) {}
 
-    getTracks(userName: any): Observable < any > {
+    getTrack(userName: string): Observable<Track> | Observable<any> {
         const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.get + '?username=' + userName;
-        return this.http.get(endpoint).pipe(
-            catchError((err, caught) => {
-                console.error(err);
-                return new Observable(err);
-            }));
+        return this.http.get(endpoint)
+        .pipe(catchError((err, caught) => new Observable(err)));
     }
 
-    getAllTracks(userName: any): Observable < any > {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.getAll + '?username=' + userName;
-        return this.http.get(endpoint).pipe(
-            catchError((err, caught) => {
-                console.error(err);
-                return new Observable(err);
-            }));
+    getTracks(userName: string): Observable<Range[]> {
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.getTracks + '?username=' + userName;
+        return <Observable<Range[]>>this.http.get(endpoint);
     }
 }
