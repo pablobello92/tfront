@@ -1,10 +1,22 @@
-.user-tracks {
-  text-align: left;
-  .bigTitle {
-    font-size: 3rem;
-  }
-  .subtitle {
-    color: dimgray;
-    padding-left: 10px;
-  }
+user-tracks {
+    text-align: left;
+
+    .bigTitle {
+        font-size: 3rem;
+    }
+
+    .subtitle {
+        color: dimgray;
+        padding-left: 10px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: row;
+
+        .map-content {
+            display: flex;
+            flex-direction: column;
+        }
+    }
 }
