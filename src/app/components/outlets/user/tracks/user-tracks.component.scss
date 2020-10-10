@@ -1,5 +1,6 @@
-user-tracks {
-    text-align: left;
+app-user-tracks {
+    display: flex;
+    flex-direction: column;
 
     .bigTitle {
         font-size: 3rem;
@@ -10,13 +11,17 @@ user-tracks {
         padding-left: 10px;
     }
 
-    .card-body {
+    .map-content {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+    }
 
-        .map-content {
-            display: flex;
-            flex-direction: column;
+    .prev-next {
+        margin: 10px 0px;
+        display: flex;
+        justify-content: flex-end;
+        * {
+            margin-left: 10px;
         }
     }
 }

@@ -1,26 +1,36 @@
-<div class="m-2">
-    <div class="card">
-        <div class="card-header">
-            <h1 class="bigTitle">Trayectos: {{ nickName }}</h1>
-        </div>
-        <div class="card-body">
-            <div class="map-content"> <!-- FILA 1-->
-                <div> <!--COLUMNA 2-->
-                    <p-gmap [options]="options" [overlays]="overlays" [style]="{'width':'1024px','height':'480px'}">
-                    </p-gmap>
-                </div>
-                <div> <!--COLUMNA 2-->
-                    <!--<app-color-info-widget *ngFor="let limit of segmentLimits"></app-color-info-widget>-->
-                    <!-- INICIALMENTE ESTAN LOS COLORES SOLAMENTE, LUEGO ASINCRONAMENTE SE CARGAN LOS LIMITES RELATIVOS! (ES UN ASYNC)-->
-                </div>
 
-            </div>
-            <div> <!-- FILA 2-->
-                <div class="mt-4"> <!--BOTONERA-->
-                    <button type="button" class="btn btn-danger" (click)="fetchTracks()">Fetch Tracks</button>
-                </div>
-                <h4 class="outletFormH4 margin20">Score máximo: {{ maxScore }}</h4>
-            </div>
-        </div>
+<h1 class="bigTitle">Mis Trayectos</h1>
+
+<!-- FILA 0: MAPA-->
+<div class="map-content">
+    <div> <!--COLUMNA 2-->
+        <p-gmap [options]="options" [overlays]="overlays" [style]="{'width':'100%','height':'240px'}">
+        </p-gmap>
+    </div>
+    <div> <!--COLUMNA 2-->
+        <!--<app-color-info-widget *ngFor="let limit of segmentLimits"></app-color-info-widget>-->
+        <!-- INICIALMENTE ESTAN LOS COLORES SOLAMENTE, LUEGO ASINCRONAMENTE SE CARGAN LOS LIMITES RELATIVOS! (ES UN ASYNC)-->
     </div>
 </div>
+<!-- FILA 1: BOTONES prev/next -->
+<div class="prev-next">
+    <button type="button" class="btn btn-warning">Anterior</button>
+    <button type="button" class="btn btn-warning">Siguiente</button>
+</div>
+<!-- FILA 2: FILTROS -->
+<div>
+    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
+    <p>Paginado</p>
+    <p>Filtro fecha [ from -to ]</p>
+</div>
+<!-- FILA 3: BOTONERA-->
+<div>
+    <div class="mt-4">
+        <button type="button" class="btn btn-danger" (click)="fetchTracks()">Buscar</button>
+    </div>
+</div>
+<!-- FILA 4: MISC -->
+<div>
+    <h4 class="outletFormH4 margin20">Score máximo: {{ maxScore }}</h4>
+</div>
+

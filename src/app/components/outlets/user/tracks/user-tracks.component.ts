@@ -7,6 +7,7 @@ import {
 import {
     GMapModule
 } from 'primeng/gmap';
+import {DropdownModule} from 'primeng/dropdown';
 import {
     TracksService
 } from 'src/app/shared/services/tracksService';
@@ -17,11 +18,13 @@ import {
 import { MapOptions } from '../../../../shared/interfaces/MapOptions';
 import { NumericLimit, CombinedLimit } from '../../../../shared/interfaces/Limit';
 import { Range } from '../../../../shared/interfaces/Range';
-import { pipe } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { RangesAndLimits } from '../../../../shared/interfaces/RangesAndLimits';
 import { Line } from '../../../../shared/interfaces/Line';
 import { ColorInfoWidgetComponent } from './color-info-widget/color-info-widget.component';
+import { CitiesService } from '../../../../shared/services/citiesService';
+import { City } from '../../../../shared/interfaces/City';
 
 declare var google: any;
 @Component({
@@ -36,20 +39,33 @@ export class UserTracksComponent implements OnInit {
     overlays = [];
     userName: string;
     nickName: string;
+    city: string;
     deltas = 0;
     deltasBySegment = [];
     maxScore = 0;
+
+    public cities: City[] = [];
+    public selectedCity: City;
 
     public segmentLimits: CombinedLimit;
 
     constructor(
         private _tracks: TracksService,
-        private _colors: ColorsService
-    ) {}
+        private _colors: ColorsService,
+        private _cities: CitiesService
+    ) {
+        this._cities.getCities()
+        .subscribe((cities: City[]) => {
+            this.cities = cities;
+        });
+    }
 
     ngOnInit() {
         this.userName = 'pablo_bello'; // TODO: vincular a nombre real desde las cookies, idem a user edit
         this.nickName = 'Pablo Bello';
+
+        // TODO: set the city manually: probably you are in Azul but want to see your Tandil Tracks!
+        this.city = 'Tandil';
 
         this.options = {
             center: {
@@ -61,8 +77,9 @@ export class UserTracksComponent implements OnInit {
     }
 
     public fetchTracks(): void {
-        this._tracks.getTracks(this.userName)
+        this._tracks.getTracks(this.userName, this.city)
         .subscribe((ranges: Range[]) => {
+            console.log(ranges);
             this.maxScore = this.getMaxValue(ranges);
             this.segmentLimits = this.setRelativeScoreScale(ranges);
             this.overlays = ranges.map((range: Range) =>  this.mapRangeToPolyLine(range));
@@ -71,9 +88,6 @@ export class UserTracksComponent implements OnInit {
         });
     }
 
-    /**
-     * MAYBE THIS FUNCTIONALITY SHOULD GO IN A SEPARATE FUNCTION FILE
-    */
     /*
     * TODO: ver si puedo descartar los ejes x,y de los datos de acelerometro
     */
