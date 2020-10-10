@@ -18,8 +18,10 @@ export class AppConfig {
             'update': 'users/update/'
         },
         'tracks': {
-            'get': 'tracks',
             'getTracks': 'tracks/getTracksByUserName/'
+        },
+        'cities': {
+            'get': 'cities/'
         },
     };
 }

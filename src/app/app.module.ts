@@ -88,17 +88,12 @@ import {
     ErrorComponent
 } from './components/pages/error/error.component';
 import {
-    ReservationsService
-} from './shared/services/reservationsService';
-import {
-    ProvidersService
-} from './shared/services/providersService';
-import {
     CommonService
 } from './shared/services/commonService';
 import {
     ColorsService
 } from './shared/services/colorsService';
+import { CitiesService } from './shared/services/citiesService';
 import {
     UserEditComponent
 } from './components/outlets/user/edit/user-edit.component';
@@ -161,8 +156,7 @@ export function createTranslateLoader(http: HttpClient) {
         AppConstants,
         UsersService,
         TracksService,
-        ReservationsService,
-        ProvidersService,
+        CitiesService,
         LocalStorageService,
         CommonService,
         ColorsService,
