@@ -27,14 +27,8 @@ export class TracksService {
         private appConfig: AppConfig
     ) {}
 
-    getTrack(userName: string): Observable<Track> | Observable<any> {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.get + '?username=' + userName;
-        return this.http.get(endpoint)
-        .pipe(catchError((err, caught) => new Observable(err)));
-    }
-
-    getTracks(userName: string): Observable<Range[]> {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.getTracks + '?username=' + userName;
+    getTracks(userName: string, city: string): Observable<Range[]> {
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.getTracks + '?username=' + userName + '&city=' + city;
         return <Observable<Range[]>>this.http.get(endpoint);
     }
 }

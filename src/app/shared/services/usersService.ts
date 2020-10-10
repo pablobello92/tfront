@@ -46,13 +46,4 @@ export class UsersService {
             return new Observable(err);
         }));
     }
-    getTracks(userName: any): Observable <any> {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.get + '?username=' + userName;
-        return this.http.get(endpoint)
-        .pipe(map(user => {
-            return user;
-        }), catchError((err, caught) => {
-            return new Observable(err);
-        }));
-    }
 }
