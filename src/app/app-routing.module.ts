@@ -1,70 +1,85 @@
 import {
-  NgModule
+    NgModule
 } from '@angular/core';
 import {
-  Routes,
-  RouterModule
+    Routes,
+    RouterModule
 } from '@angular/router';
 import {
-  HomeComponent
+    HomeComponent
 } from './components/home/home.component';
 import {
-  DashboardComponent
+    DashboardComponent
 } from './components/outlets/dashboard/dashboard.component';
+
 import {
-  LoginComponent
-} from './components/pages/login/login.component';
-import {
-  UserEditComponent
+    UserEditComponent
 } from './components/outlets/user/edit/user-edit.component';
 import {
     UserTracksComponent
 } from './components/outlets/user/tracks/user-tracks.component';
 import {
-  ErrorComponent
+    AdminToolsComponent
+} from './components/outlets/admin/admin-tools/admin-tools.component';
+import {
+    ReparationsComponent
+} from './components/outlets/admin/reparations/reparations/reparations.component';
+import {
+    LoginComponent
+} from './components/pages/login/login.component';
+import {
+    ErrorComponent
 } from './components/pages/error/error.component';
 
 
 
 const routes: Routes = [{
-    path: '',
-    component: HomeComponent,
-    children: [{
         path: '',
-        pathMatch: 'full',
-        redirectTo: 'dashboard'
-      },
-      {
-        path: 'dashboard',
-        component: DashboardComponent
-      },
-      {
-        path: 'user/edit',
-        component: UserEditComponent
-      },
-      {
-        path: 'user/tracks',
-        component: UserTracksComponent
-      }
-    ]
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'error',
-    component: ErrorComponent
-  },
-  {
-    path: '**',
-    redirectTo: ''
-  }
+        component: HomeComponent,
+        children: [{
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'dashboard'
+            },
+            {
+                path: 'dashboard',
+                component: DashboardComponent
+            },
+            {
+                path: 'user/edit',
+                component: UserEditComponent
+            },
+            {
+                path: 'user/tracks',
+                component: UserTracksComponent
+            },
+            {
+                path: 'admin/tools',
+                component: AdminToolsComponent
+            },
+            {
+                path: 'admin/reparations',
+                component: ReparationsComponent
+            }
+        ]
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'error',
+        component: ErrorComponent
+    },
+    {
+        path: '**',
+        redirectTo: ''
+    }
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {}

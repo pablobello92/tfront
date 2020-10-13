@@ -40,6 +40,7 @@
         }
     },
     "titles": {
+        "admin": "Admin",
         "configuration": "Configuración",
         "dashboard": "Panel de Control",
         "dashboard_welcome": "Bienvenido al dashboard",
@@ -49,6 +50,8 @@
         "login": "Iniciar Sesión",
         "menu": "Menú",
         "my_tracks": "Mis Trayectos",
+        "reparations": "Reparaciones",
+        "tools": "Herramientas",
         "user_edit": "Editar Perfil"
     }
 }

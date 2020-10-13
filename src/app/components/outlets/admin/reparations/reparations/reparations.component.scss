@@ -1,0 +1,10 @@
+app-reparations {
+    display: flex;
+    flex-direction: column;
+
+    .button-panel {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+}

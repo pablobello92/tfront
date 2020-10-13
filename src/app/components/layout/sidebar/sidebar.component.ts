@@ -74,6 +74,19 @@ export class SideBarComponent implements OnInit {
           icon: 'fa fa-fw fa-pencil',
           routerLink: ['/user/edit']
         }]
+      },
+      {
+        label: translations.titles.admin,
+        items: [{
+          label: translations.titles.tools,
+          icon: 'fa fa-fw fa-cog',
+          routerLink: ['/admin/tools']
+        },
+        {
+            label: translations.titles.reparations,
+            icon: 'fa fa-fw fa-cog',
+            routerLink: ['/admin/reparations']
+          }]
       }
     ];
   }

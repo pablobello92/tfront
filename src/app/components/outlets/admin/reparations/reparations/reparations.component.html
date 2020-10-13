@@ -1,0 +1,11 @@
+<h1>Reportar reparaciones</h1>
+
+<div>
+    <p-gmap #gmap (onMapReady)="setMap($event)" [overlays]="overlays" (onMapClick)="handleMapClick($event)" [overlays]="" [style]="{'width':'100%','height':'240px'}">
+    </p-gmap>
+</div>
+
+<div class="button-panel">
+    <button type="button" class="btn btn-success" [disabled]="!atLeastTwoLocationsSelected" (click)="postNewReparation()"> Reportar reparación</button>
+</div>
+
