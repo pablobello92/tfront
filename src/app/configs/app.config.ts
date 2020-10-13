@@ -18,10 +18,15 @@ export class AppConfig {
             'update': 'users/update/'
         },
         'tracks': {
-            'getTracks': 'tracks/getTracksByUserName/'
+            'getUserTracks': 'tracks/getUserTracks',
+            'sumarize': 'tracks/sumarize'
         },
         'cities': {
             'get': 'cities/'
         },
+        'predictions': {
+            'roadTypes': 'predictions/roadTypes',
+            'anomalies': 'predictions/anomalies',
+        }
     };
 }
