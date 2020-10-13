@@ -1,36 +1,40 @@
 
 <h1 class="bigTitle">Mis Trayectos</h1>
 
-<!-- FILA 0: MAPA-->
+<!-- FILA: DROPDOWN CIUDAD-->
+<div class="dropdown-row">
+    <span>Por favor, escoja una ciudad</span>
+    <p-dropdown [options]="( cities | async)" [(ngModel)]="currentCity" (onChange)="changeCurrentCity($event.value)" optionLabel="name"></p-dropdown>
+</div>
+
+<!-- FILA: MAPA-->
 <div class="map-content">
     <div> <!--COLUMNA 2-->
-        <p-gmap [options]="options" [overlays]="overlays" [style]="{'width':'100%','height':'240px'}">
-        </p-gmap>
+        <!--<p-gmap #gmap (onMapReady)="setMap($event)" [overlays]="( currentTrack | async )" [style]="{'width':'100%','height':'240px'}">
+        </p-gmap>-->
     </div>
     <div> <!--COLUMNA 2-->
         <!--<app-color-info-widget *ngFor="let limit of segmentLimits"></app-color-info-widget>-->
         <!-- INICIALMENTE ESTAN LOS COLORES SOLAMENTE, LUEGO ASINCRONAMENTE SE CARGAN LOS LIMITES RELATIVOS! (ES UN ASYNC)-->
     </div>
 </div>
-<!-- FILA 1: BOTONES prev/next -->
+
+<!-- FILA: BOTONES PREV/NEXT-->
 <div class="prev-next">
-    <button type="button" class="btn btn-warning">Anterior</button>
-    <button type="button" class="btn btn-warning">Siguiente</button>
+    <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === 0 )" (click)="changeTrackIndex(-1)">Anterior</button>
+    <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === (paginationLimit - 1) )" (click)="changeTrackIndex(1)">Siguiente</button>
 </div>
-<!-- FILA 2: FILTROS -->
-<div>
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
-    <p>Paginado</p>
-    <p>Filtro fecha [ from -to ]</p>
+
+<!-- FILA: FILTROS-->
+<div class="filters-row">
+    <p-slider [(ngModel)]="paginationLimit" [min]="1" [max]="10"></p-slider>
+    <p-calendar [(ngModel)]="filterDate" selectionMode="multiple" [readonlyInput]="true"></p-calendar>
 </div>
-<!-- FILA 3: BOTONERA-->
+
+<!-- FILA: BOTONERA-->
 <div>
     <div class="mt-4">
-        <button type="button" class="btn btn-danger" (click)="fetchTracks()">Buscar</button>
+        <button type="button" class="btn btn-danger" (click)="fetchUserTracks()">Buscar</button>
     </div>
-</div>
-<!-- FILA 4: MISC -->
-<div>
-    <h4 class="outletFormH4 margin20">Score máximo: {{ maxScore }}</h4>
 </div>
 

@@ -1,32 +1,24 @@
 import {
     Component,
     OnInit,
-    ViewEncapsulation
+    ViewEncapsulation,
+    EventEmitter
 } from '@angular/core';
-
-import {
-    GMapModule
-} from 'primeng/gmap';
-import {DropdownModule} from 'primeng/dropdown';
 import {
     TracksService
 } from 'src/app/shared/services/tracksService';
-import {
-    ColorsService
-} from '../../../../shared/services/colorsService';
 
-import { MapOptions } from '../../../../shared/interfaces/MapOptions';
-import { NumericLimit, CombinedLimit } from '../../../../shared/interfaces/Limit';
 import { Range } from '../../../../shared/interfaces/Range';
-import { Observable, pipe } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
-import { RangesAndLimits } from '../../../../shared/interfaces/RangesAndLimits';
-import { Line } from '../../../../shared/interfaces/Line';
+import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
+import { tap, map, skip, filter } from 'rxjs/operators';
 import { ColorInfoWidgetComponent } from './color-info-widget/color-info-widget.component';
 import { CitiesService } from '../../../../shared/services/citiesService';
-import { City } from '../../../../shared/interfaces/City';
+import { City, MapOptions } from '../../../../shared/interfaces/City';
+import { Track } from '../../../../shared/interfaces/Track';
+import { MapFilter } from '../../../../shared/interfaces/MapFilter';
 
 declare var google: any;
+
 @Component({
     selector: 'app-user-tracks',
     templateUrl: './user-tracks.component.html',
@@ -34,116 +26,94 @@ declare var google: any;
     encapsulation: ViewEncapsulation.None
 })
 export class UserTracksComponent implements OnInit {
+    // private map: google.maps.Map;
+    //currentMapCenter: Observable<MapOptions> = new Observable<MapOptions>();
+    currentMapCenter: MapOptions = null;
+    currentTrack: Observable<any[]> = new Observable<any[]>();
+    private tracks: Track[] = [];
 
-    options: MapOptions;
-    overlays = [];
-    userName: string;
-    nickName: string;
-    city: string;
-    deltas = 0;
-    deltasBySegment = [];
-    maxScore = 0;
+    cities: Observable<City[]> = new Observable<City[]>();
+    private currentCity: City = null;
+    private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
+    filterDate: Date[] = null;
 
-    public cities: City[] = [];
-    public selectedCity: City;
+    /**
+     * TODO: agregar un onChange sobre este campo, asi se habilitan/deshabilitan los botones
+     */
+    paginationLimit = 5;
 
-    public segmentLimits: CombinedLimit;
+    private _trackIndex = 0;
+    private trackIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(this._trackIndex);
 
+    // TODO: enable buttons prev/next only if there is tracks
+    // Date.parse(new Date(this.tracks[0].startTime))
     constructor(
         private _tracks: TracksService,
-        private _colors: ColorsService,
         private _cities: CitiesService
     ) {
-        this._cities.getCities()
-        .subscribe((cities: City[]) => {
-            this.cities = cities;
+        this.cities = this._cities.getCities()
+        .pipe(
+            tap((cities: City[]) => {
+                this.changeCurrentCity(cities[0]);
+            })
+        );
+
+        this.citySubject.asObservable()
+        .pipe(
+            skip(2),
+            map((city: City) => {
+                return <MapOptions>{
+                    center: city.center,
+                    zoom: city.zoom
+                };
+            })
+        )
+        .subscribe(newMapCenter => {
+            this.currentMapCenter = newMapCenter;
+            // this.map.setOptions(newMapCenter);
         });
+
+        this.currentTrack = this.trackIndexSubject.asObservable()
+        .pipe(
+            skip(1),
+            filter((nextIndex: number) => (this.tracks.length > 0)),
+            map((nextIndex: number) => this.tracks[nextIndex]),
+            map((trackToDraw: Track) => this._tracks.getDrawableFromTrack(trackToDraw))
+        );
     }
 
     ngOnInit() {
-        this.userName = 'pablo_bello'; // TODO: vincular a nombre real desde las cookies, idem a user edit
-        this.nickName = 'Pablo Bello';
-
-        // TODO: set the city manually: probably you are in Azul but want to see your Tandil Tracks!
-        this.city = 'Tandil';
-
-        this.options = {
-            center: {
-                lat: -37.325884,
-                lng: -59.147160
-            },
-            zoom: 13
-        };
     }
 
-    public fetchTracks(): void {
-        this._tracks.getTracks(this.userName, this.city)
-        .subscribe((ranges: Range[]) => {
-            console.log(ranges);
-            this.maxScore = this.getMaxValue(ranges);
-            this.segmentLimits = this.setRelativeScoreScale(ranges);
-            this.overlays = ranges.map((range: Range) =>  this.mapRangeToPolyLine(range));
+    public setMap($event) {
+        // this.map = $event.map;
+    }
+
+    public changeCurrentCity(c: City): void {
+        this.citySubject.next(c);
+    }
+
+    public changeTrackIndex(n: number): void {
+        this._trackIndex =  this._trackIndex + n;
+        this.trackIndexSubject.next(this._trackIndex);
+    }
+
+    public getTrackIndex(): number {
+        return this.trackIndexSubject.value;
+    }
+
+    public fetchUserTracks(): void {
+        const filterObject: MapFilter = {
+            user: 'pablo_bello',
+            city: this.currentCity.name,
+            pages: this.paginationLimit
+        };
+        this._tracks.getUserTracks(filterObject)
+        .subscribe((tracks: Track[]) => {
+            this.tracks = tracks;
+            this.trackIndexSubject.next(0);
         }, err => {
             console.error(err);
         });
-    }
-
-    /*
-    * TODO: ver si puedo descartar los ejes x,y de los datos de acelerometro
-    */
-    private mapRangeToPolyLine(range: Range): any {
-        return new google.maps.Polyline({
-            path: [{
-                lat: range.start.lat,
-                lng: range.start.lng
-            },
-            {
-                lat: range.end.lat,
-                lng: range.end.lng
-            }
-            ],
-            geodesic: true,
-            strokeColor: this._colors.getColor(range.score, this.segmentLimits),
-            strokeOpacity: 1,
-            strokeWeight: 4
-        });
-    }
-
-    // Obtengo el score maximo para asi armar los rangos de colores (AL FINAL NO LO USÉ)
-    private getMaxValue(ranges: Range[]): number {
-        let max = 0;
-        ranges.forEach(element => {
-            if (element.score > max) {
-                max = element.score;
-            }
-        });
-        return max;
-    }
-
-    private setRelativeScoreScale(ranges: Range[]): CombinedLimit {
-        let min = 100000;
-        let max = 0;
-        let avg = 0;
-        let counter = 0;
-
-        ranges.forEach((range) => {
-            const score = range.score;
-            if (score > 0) {
-                counter++;
-                avg += score;
-                min = Math.min(min, score);
-                max = Math.max(max, score);
-            }
-        });
-        avg = avg / counter;
-        const lowerStep = (avg - min) / 4;
-        const upperStep = (max - avg) / 4;
-        const numericLimit = {
-            veryLow: min + lowerStep,
-            low: avg - lowerStep,
-            medium: avg + upperStep,
-            high: max - upperStep
-        };
-        return this._colors.getCombinedLimits(numericLimit);
     }
 }

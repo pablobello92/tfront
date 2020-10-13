@@ -16,12 +16,34 @@ app-user-tracks {
         flex-direction: column;
     }
 
+    .dropdown-row {
+        margin-bottom: 10px;
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: start;
+        span {
+            margin-right: 10px;
+        }
+    }
+
     .prev-next {
         margin: 10px 0px;
         display: flex;
         justify-content: flex-end;
         * {
             margin-left: 10px;
+        }
+    }
+
+    .filters-row {
+        display: flex;
+        flex-direction: column;
+        * {
+            margin-bottom: 10px;
+        }
+
+        p-dropdown, p-slider {
+            width: 200px;
         }
     }
 }
