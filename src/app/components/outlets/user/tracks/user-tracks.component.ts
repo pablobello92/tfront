@@ -17,7 +17,7 @@ import { City, MapOptions } from '../../../../shared/interfaces/City';
 import { Track } from '../../../../shared/interfaces/Track';
 import { MapFilter } from '../../../../shared/interfaces/MapFilter';
 
-declare var google: any;
+declare const google: any;
 
 @Component({
     selector: 'app-user-tracks',
@@ -26,9 +26,7 @@ declare var google: any;
     encapsulation: ViewEncapsulation.None
 })
 export class UserTracksComponent implements OnInit {
-    // private map: google.maps.Map;
-    //currentMapCenter: Observable<MapOptions> = new Observable<MapOptions>();
-    currentMapCenter: MapOptions = null;
+    private map: google.maps.Map;
     currentTrack: Observable<any[]> = new Observable<any[]>();
     private tracks: Track[] = [];
 
@@ -60,7 +58,7 @@ export class UserTracksComponent implements OnInit {
 
         this.citySubject.asObservable()
         .pipe(
-            skip(2),
+            skip(1),
             map((city: City) => {
                 return <MapOptions>{
                     center: city.center,
@@ -69,8 +67,7 @@ export class UserTracksComponent implements OnInit {
             })
         )
         .subscribe(newMapCenter => {
-            this.currentMapCenter = newMapCenter;
-            // this.map.setOptions(newMapCenter);
+            this.map.setOptions(newMapCenter);
         });
 
         this.currentTrack = this.trackIndexSubject.asObservable()
