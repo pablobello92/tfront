@@ -26,8 +26,20 @@ export class CitiesService {
         private appConfig: AppConfig
     ) {}
 
+
+    /**
+     * TODO: pipe() y le agregamos zoom...
+     */
     getCities(): Observable<City[]> {
         const endpoint = this.appConfig.server + this.appConfig.endpoints.cities.get;
-        return <Observable<City[]>>this.http.get(endpoint);
+        return <Observable<City[]>>this.http.get(endpoint)
+        .pipe(
+            map((cities: City[]) => {
+                return cities.map((city: City) => {
+                    city.zoom = 13;
+                    return city;
+                });
+            })
+        );
     }
 }
