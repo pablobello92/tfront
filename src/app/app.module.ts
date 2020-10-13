@@ -62,6 +62,7 @@ import {
     GrowlModule,
     CalendarModule,
     EditorModule,
+    SliderModule,
     GMapModule
 } from 'primeng/primeng';
 import {
@@ -103,6 +104,8 @@ import {
 import {
     ColorInfoWidgetComponent
 } from './components/outlets/user/tracks/color-info-widget/color-info-widget.component';
+import { AdminToolsComponent } from './components/outlets/admin/admin-tools/admin-tools.component';
+import { ReparationsComponent } from './components/outlets/admin/reparations/reparations/reparations.component';
 
 
 // AOT requires an exported function for factories
@@ -120,23 +123,27 @@ export function createTranslateLoader(http: HttpClient) {
         UserEditComponent,
         UserTracksComponent,
         ColorInfoWidgetComponent,
+        AdminToolsComponent,
+        ReparationsComponent,
         LoginComponent,
         ErrorComponent
     ],
     imports: [
+        AppRoutingModule,
         BrowserModule,
         BrowserAnimationsModule,
-        HttpClientModule,
-        AppRoutingModule,
-        MenuModule,
-        TableModule,
-        SidebarModule,
-        EditorModule,
+        CalendarModule,
+        ColorPickerModule,
         ConfirmDialogModule,
         DropdownModule,
+        EditorModule,
+        HttpClientModule,
         InputTextareaModule,
+        MenuModule,
         PaginatorModule,
-        ColorPickerModule,
+        SidebarModule,
+        SliderModule,
+        TableModule,
         TooltipModule,
         GrowlModule,
         CalendarModule,
