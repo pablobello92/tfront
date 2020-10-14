@@ -31,6 +31,8 @@ import {
 import {
     MapFilter
 } from '../interfaces/MapFilter';
+import { Reparation } from '../interfaces/Reparation';
+import { Coordinate } from '../interfaces/Coordinate';
 
 declare var google: any;
 
@@ -69,6 +71,34 @@ export class TracksService {
         };
         return this._colors.getCombinedLimits(numericLimit);
     }
+
+    public getCoordinatesFromMarkers(overlays: any[]): Coordinate[] {
+        return overlays.map((overlay: any) =>  <Coordinate>{
+                lat: overlay.position.lat(),
+                lng: overlay.position.lng()
+            }
+        );
+    }
+
+    public mapCoordinatesToDrawable(coordinates: Coordinate[]): any {
+        return new google.maps.Polyline({
+            path: [{
+                    lat: coordinates[0].lat,
+                    lng: coordinates[0].lng
+                },
+                {
+                    lat: coordinates[1].lat,
+                    lng: coordinates[1].lng
+                }
+            ],
+            geodesic: true,
+            strokeColor: '#0097e6',
+            strokeOpacity: 1,
+            strokeWeight: 4
+        });
+    }
+
+
 
     private mapRangeToDrawable(range: Range, limits: CombinedLimit): any {
         return new google.maps.Polyline({

@@ -83,11 +83,12 @@ export class UserTracksComponent implements OnInit {
     }
 
     public setMap($event) {
-        // this.map = $event.map;
+        this.map = $event.map;
     }
 
     public changeCurrentCity(c: City): void {
-        this.citySubject.next(c);
+        this.currentCity = c;
+        this.citySubject.next(this.currentCity);
     }
 
     public changeTrackIndex(n: number): void {
