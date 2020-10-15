@@ -12,21 +12,25 @@ export class AppConfig {
     server = environment.uri;
 
     endpoints = {
-        'users': {
-            'login': 'users/login/',
-            'get': 'users/',
-            'update': 'users/update/'
+        'cities': {
+            'get': 'cities/'
+        },
+        'predictions': {
+            'anomalies': 'predictions/anomalies',
+            'roadTypes': 'predictions/roadTypes'
+        },
+        'reparations': {
+            'get': 'reparations/getReparations',
+            'put': 'reparations/'
         },
         'tracks': {
             'getUserTracks': 'tracks/getUserTracks',
             'sumarize': 'tracks/sumarize'
         },
-        'cities': {
-            'get': 'cities/'
+        'users': {
+            'get': 'users/',
+            'login': 'users/login/',
+            'update': 'users/update/'
         },
-        'predictions': {
-            'roadTypes': 'predictions/roadTypes',
-            'anomalies': 'predictions/anomalies',
-        }
     };
 }

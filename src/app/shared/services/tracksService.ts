@@ -80,7 +80,7 @@ export class TracksService {
         );
     }
 
-    public mapCoordinatesToDrawable(coordinates: Coordinate[]): any {
+    public getDrawableFromCoordinates(coordinates: Coordinate[], color: string = '#0097e6'): any {
         return new google.maps.Polyline({
             path: [{
                     lat: coordinates[0].lat,
@@ -92,13 +92,11 @@ export class TracksService {
                 }
             ],
             geodesic: true,
-            strokeColor: '#0097e6',
+            strokeColor: color,
             strokeOpacity: 1,
             strokeWeight: 4
         });
     }
-
-
 
     private mapRangeToDrawable(range: Range, limits: CombinedLimit): any {
         return new google.maps.Polyline({
@@ -130,13 +128,41 @@ export class TracksService {
         return <Observable < Track[] >> this.http.get(endpoint);
     }
 
+    public getReparations(city: string): Observable < Reparation[] > {
+        const params = '?city=' + city ;
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.reparations.get + params;
+        return <Observable < Reparation[] >> this.http.get(endpoint);
+    }
+
+    public putNewReparation(rep: Reparation): Observable<any> {
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.reparations.put;
+        return <Observable<any>> this.http.put(endpoint, rep);
+    }
+
     public executePrediction_roadTypes(): Observable < any > {
         const endpoint = this.appConfig.server + this.appConfig.endpoints.predictions.roadTypes;
         return <Observable < any >> this.http.get(endpoint)
-            .pipe(
-                tap(res => {
-                    console.log(res);
-                }));
+        .pipe(
+            tap(res => {console.log(res);
+            })
+        );
     }
 
+    /**
+     *  Asphalt
+     * Cobbles
+     * Concrete
+     * Earth (0..3)
+     * /
+     private getRoadType(value: number): string {
+
+    }
+     /*
+     * Call
+     * Door
+     * Message
+     * Pothole
+     * 'Speed Bump'
+     * 'Street Gutter' (0..5)
+    *  */
 }

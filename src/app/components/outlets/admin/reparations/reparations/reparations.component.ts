@@ -67,6 +67,14 @@ export class ReparationsComponent implements OnInit {
         )
         .subscribe(newMapCenter => {
             this.map.setOptions(newMapCenter);
+            this._tracks.getReparations(this.currentCity.name)
+            .subscribe(reparations => {
+                const drawables = reparations.map((r: Reparation) => {
+                    const coords = <Coordinate[]>[r.from, r.to];
+                    return this._tracks.getDrawableFromCoordinates(coords);
+                });
+                this.overlays.push(...drawables);
+            });
         });
 
         this.markersPlaced.asObservable()
@@ -74,8 +82,10 @@ export class ReparationsComponent implements OnInit {
             if (newValue === 0) {
                 this.overlays = [];
             } else if (newValue === 2) {
-                const coordinates = this._tracks.getCoordinatesFromMarkers(this.overlays);
-                const newOverlay = this._tracks.mapCoordinatesToDrawable(coordinates);
+                const lastIndex = this.overlays.length;
+                const newMarkers = [this.overlays[lastIndex - 1], this.overlays[lastIndex - 2]];
+                const coordinates = this._tracks.getCoordinatesFromMarkers(newMarkers);
+                const newOverlay = this._tracks.getDrawableFromCoordinates(coordinates, 'lime');
                 this.overlays.push(newOverlay);
             }
         });
@@ -120,9 +130,8 @@ export class ReparationsComponent implements OnInit {
         this.markersPlaced.next(0);
     }
 
-    //TODO: POST reparation
-    // FE: new method in tracksService
-    // BE: new interface, new collection, new endpoint in api.js
+    // TODO: When posted a new reparation, refresh map overlays
+    // TODO: add information tooltips to markers
     public postNewReparation(): void {
         const coordinates = this._tracks.getCoordinatesFromMarkers(this.overlays.slice(0, 2));
         const newReparation: Reparation = {
@@ -134,8 +143,15 @@ export class ReparationsComponent implements OnInit {
                 lat: coordinates[1].lat,
                 lng: coordinates[1].lng
             },
-            city: this.currentCity.name
+            city: this.currentCity.name,
+            startTime: Date.parse(Date())
         };
+        this._tracks.putNewReparation(newReparation)
+        .subscribe(res => {
+            console.log(res);
+        }, err => {
+            console.error(err);
+        });
     }
 
 }

@@ -22,7 +22,12 @@ export class AdminToolsComponent implements OnInit {
             alert('anomalies predicted!');
             return;
         }
-        alert('Roads predicted!');
+        this._tracks.executePrediction_roadTypes()
+        .subscribe(res => {
+            console.log(res);
+        }, err => {
+            console.warn(err);
+        });
     }
 
     public sumarize(): void {
