@@ -24,17 +24,11 @@ export class UsersService {
         private appConfig: AppConfig
     ) {}
 
-    login(username: string, pass: string): Observable < any > {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.users.login;
-        return this.http.post(endpoint, {
-                username: username,
-                password: pass
-            })
-            .pipe(map(user => {
-                return user;
-            }), catchError((err, caught) => {
-                return new Observable(err);
-            }));
+    //TODO: move to loginService
+    //?Probably doing some researching before... To avoid wasting work hours
+    login(): Observable < any > {
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.login;
+        return <Observable<any>>this.http.get(endpoint, {});
     }
 
     getUser(userName: any): Observable < any > { // TODO: wrappear en elemento mas completo, con STATUS, etc

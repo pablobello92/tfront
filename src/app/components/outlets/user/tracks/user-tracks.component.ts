@@ -33,7 +33,7 @@ export class UserTracksComponent implements OnInit {
     cities: Observable<City[]> = new Observable<City[]>();
     currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
-    filterDates: Date[] = null;
+    filterDates: Date[] = [null, null];
 
     /**
      * TODO: agregar un onChange sobre este campo, asi se habilitan/deshabilitan los botones
@@ -105,8 +105,8 @@ export class UserTracksComponent implements OnInit {
             user: 'pablo_bello',
             city: this.currentCity.name,
             startTime: {
-                from: Date.parse(this.filterDates[0].toDateString()),
-                to: Date.parse(this.filterDates[1].toDateString())
+                from: (this.filterDates[0] !== null) ? Date.parse(this.filterDates[0].toDateString()) : null,
+                to: (this.filterDates[1] !== null) ?  Date.parse(this.filterDates[1].toDateString()) : null
             },
             pages: this.paginationLimit
         };

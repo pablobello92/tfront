@@ -1,7 +1,7 @@
 export interface MapFilter {
     user: string;
     city: string;
-    startTime: {
+    startTime?: {
         from: number,
         to: number
     };
