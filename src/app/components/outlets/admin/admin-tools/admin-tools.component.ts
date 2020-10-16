@@ -1,13 +1,15 @@
 import { TracksService } from '../../../../shared/services/tracksService';
 import {
     Component,
-    OnInit
+    OnInit,
+    ViewEncapsulation
 } from '@angular/core';
 
 @Component({
     selector: 'app-admin-tools',
     templateUrl: './admin-tools.component.html',
-    styleUrls: ['./admin-tools.component.scss']
+    styleUrls: ['./admin-tools.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class AdminToolsComponent implements OnInit {
 
@@ -26,12 +28,17 @@ export class AdminToolsComponent implements OnInit {
         .subscribe(res => {
             console.log(res);
         }, err => {
-            console.warn(err);
+            console.error(err);
         });
     }
 
     public sumarize(): void {
-        alert('Tracks sumarized!');
+        this._tracks.sumarizeTracks()
+        .subscribe(res => {
+            console.log(res);
+        }, err => {
+            console.error(err);
+        });
     }
 
 }

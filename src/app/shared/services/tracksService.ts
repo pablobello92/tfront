@@ -123,7 +123,8 @@ export class TracksService {
     }
 
     public getUserTracks(filterObject: MapFilter): Observable < Track[] > {
-        const params = '?username=' + filterObject.user + '&city=' + filterObject.city + '&pages=' + filterObject.pages;
+        const params = '?username=' + filterObject.user + '&city=' + filterObject.city + '&pages=' + filterObject.pages
+        + '&from=' + filterObject.startTime.from + '&to=' + filterObject.startTime.to;
         const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.getUserTracks + params;
         return <Observable < Track[] >> this.http.get(endpoint);
     }
@@ -146,6 +147,11 @@ export class TracksService {
             tap(res => {console.log(res);
             })
         );
+    }
+
+    public sumarizeTracks(): Observable < any > {
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.sumarize;
+        return <Observable < any >> this.http.get(endpoint);
     }
 
     /**

@@ -32,7 +32,7 @@ declare const google: any;
 export class ReparationsComponent implements OnInit {
 
     private map: google.maps.Map;
-    overlays: any[];
+    overlays: any[] = [];
 
     private _markersPlaced = 0;
     markersPlaced: BehaviorSubject<number> = new BehaviorSubject<number>(this._markersPlaced);
@@ -43,7 +43,6 @@ export class ReparationsComponent implements OnInit {
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
 
     // TODO: enable buttons prev/next only if there is tracks
-    // Date.parse(new Date(this.tracks[0].startTime))
     constructor(
         private _tracks: TracksService,
         private _cities: CitiesService
@@ -79,9 +78,7 @@ export class ReparationsComponent implements OnInit {
 
         this.markersPlaced.asObservable()
         .subscribe((newValue: number) => {
-            if (newValue === 0) {
-                this.overlays = [];
-            } else if (newValue === 2) {
+            if (newValue === 2) {
                 const lastIndex = this.overlays.length;
                 const newMarkers = [this.overlays[lastIndex - 1], this.overlays[lastIndex - 2]];
                 const coordinates = this._tracks.getCoordinatesFromMarkers(newMarkers);
@@ -125,15 +122,25 @@ export class ReparationsComponent implements OnInit {
         this.markersPlaced.next(this._markersPlaced);
     }
 
-    public resetMarkers(): void {
+    public resetMarkers(): any[] {
         this._markersPlaced = 0;
         this.markersPlaced.next(0);
+        return this.removeLastTwoMarkers();
     }
 
-    // TODO: When posted a new reparation, refresh map overlays
+    public resetLastReparation(): void {
+        this.resetMarkers();
+        this.overlays.splice(this.overlays.length - 1, 1);
+    }
+
+    private removeLastTwoMarkers(): any[] {
+        return this.overlays.splice(this.overlays.length - 3, 2);
+    }
+
     // TODO: add information tooltips to markers
     public postNewReparation(): void {
-        const coordinates = this._tracks.getCoordinatesFromMarkers(this.overlays.slice(0, 2));
+        const lastMarkers = this.resetMarkers();
+        const coordinates = this._tracks.getCoordinatesFromMarkers(lastMarkers);
         const newReparation: Reparation = {
             from: {
                 lat: coordinates[0].lat,
@@ -146,12 +153,7 @@ export class ReparationsComponent implements OnInit {
             city: this.currentCity.name,
             startTime: Date.parse(Date())
         };
-        this._tracks.putNewReparation(newReparation)
-        .subscribe(res => {
-            console.log(res);
-        }, err => {
-            console.error(err);
-        });
+        this._tracks.putNewReparation(newReparation).subscribe();
     }
 
 }

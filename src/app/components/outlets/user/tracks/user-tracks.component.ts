@@ -31,9 +31,9 @@ export class UserTracksComponent implements OnInit {
     private tracks: Track[] = [];
 
     cities: Observable<City[]> = new Observable<City[]>();
-    private currentCity: City = null;
+    currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
-    filterDate: Date[] = null;
+    filterDates: Date[] = null;
 
     /**
      * TODO: agregar un onChange sobre este campo, asi se habilitan/deshabilitan los botones
@@ -45,7 +45,6 @@ export class UserTracksComponent implements OnInit {
     private trackIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(this._trackIndex);
 
     // TODO: enable buttons prev/next only if there is tracks
-    // Date.parse(new Date(this.tracks[0].startTime))
     constructor(
         private _tracks: TracksService,
         private _cities: CitiesService
@@ -67,7 +66,7 @@ export class UserTracksComponent implements OnInit {
                 };
             })
         )
-        .subscribe(newMapCenter => {
+        .subscribe((newMapCenter: MapOptions) => {
             this.map.setOptions(newMapCenter);
         });
 
@@ -105,6 +104,10 @@ export class UserTracksComponent implements OnInit {
         const filterObject: MapFilter = {
             user: 'pablo_bello',
             city: this.currentCity.name,
+            startTime: {
+                from: Date.parse(this.filterDates[0].toDateString()),
+                to: Date.parse(this.filterDates[1].toDateString())
+            },
             pages: this.paginationLimit
         };
         this._tracks.getUserTracks(filterObject)
