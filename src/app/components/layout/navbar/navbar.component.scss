@@ -5,15 +5,12 @@
     left: 0;
     width: 100%;
     height: 70px; // TODO: VINCULAR HEIGHTS CON VAR GLOBAL ASI COMO CON WIDTH
-    padding: 0%;
+    padding: 0px 10px;
     background-color: var(--mainBlue);
     box-shadow: 0 3px 7px 1px rgba(0, 0, 0, .4);
     justify-content: space-between;
 }
 
-/*
-    Probably this could be refactorized, or simplified...
-*/
 .navbar, .navbar-left, .navbar-right, .profile-area, .buttons-area, .link-item {
     display: flex;
 }

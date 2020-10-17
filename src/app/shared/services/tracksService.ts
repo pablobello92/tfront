@@ -8,12 +8,9 @@ import {
     HttpClient
 } from '@angular/common/http';
 import {
-    Observable,
-    empty
+    Observable
 } from 'rxjs';
 import {
-    map,
-    catchError,
     tap
 } from 'rxjs/operators';
 import {
@@ -31,7 +28,6 @@ import {
 import {
     MapFilter
 } from '../interfaces/MapFilter';
-import { Reparation } from '../interfaces/Reparation';
 import { Coordinate } from '../interfaces/Coordinate';
 
 declare var google: any;
@@ -127,17 +123,6 @@ export class TracksService {
         + '&from=' + filterObject.startTime.from + '&to=' + filterObject.startTime.to;
         const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.get + params;
         return <Observable < Track[] >> this.http.get(endpoint);
-    }
-
-    public getReparations(city: string): Observable < Reparation[] > {
-        const params = '?city=' + city ;
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.reparations + params;
-        return <Observable < Reparation[] >> this.http.get(endpoint);
-    }
-
-    public putNewReparation(rep: Reparation): Observable<any> {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.reparations;
-        return <Observable<any>> this.http.put(endpoint, rep);
     }
 
     public executePrediction_roadTypes(): Observable < any > {

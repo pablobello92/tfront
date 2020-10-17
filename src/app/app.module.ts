@@ -19,9 +19,6 @@ import {
     AppConfig
 } from './configs/app.config';
 import {
-    AppConstants
-} from './configs/app.constants';
-import {
     AppRoutingModule
 } from './app-routing.module';
 import {
@@ -39,6 +36,9 @@ import {
 import {
     TracksService
 } from './shared/services/tracksService';
+import {
+    ReparationsService
+} from './shared/services/reparationsService';
 import {
     DashboardComponent
 } from './components/outlets/dashboard/dashboard.component';
@@ -94,7 +94,9 @@ import {
 import {
     ColorsService
 } from './shared/services/colorsService';
-import { CitiesService } from './shared/services/citiesService';
+import {
+    CitiesService
+} from './shared/services/citiesService';
 import {
     UserEditComponent
 } from './components/outlets/user/edit/user-edit.component';
@@ -104,9 +106,15 @@ import {
 import {
     ColorInfoWidgetComponent
 } from './components/outlets/user/tracks/color-info-widget/color-info-widget.component';
-import { AdminToolsComponent } from './components/outlets/admin/admin-tools/admin-tools.component';
-import { ReparationsComponent } from './components/outlets/admin/reparations/reparations/reparations.component';
-
+import {
+    AdminToolsComponent
+} from './components/outlets/admin/admin-tools/admin-tools.component';
+import {
+    ReparationsComponent
+} from './components/outlets/admin/reparations/reparations/reparations.component';
+import {
+    SumarizedTracksComponent
+} from './components/outlets/sumarized-tracks/sumarized-tracks.component';
 
 // AOT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -122,6 +130,7 @@ export function createTranslateLoader(http: HttpClient) {
         NavbarComponent,
         UserEditComponent,
         UserTracksComponent,
+        SumarizedTracksComponent,
         ColorInfoWidgetComponent,
         AdminToolsComponent,
         ReparationsComponent,
@@ -160,9 +169,9 @@ export function createTranslateLoader(http: HttpClient) {
     ],
     providers: [
         AppConfig,
-        AppConstants,
         UsersService,
         TracksService,
+        ReparationsService,
         CitiesService,
         LocalStorageService,
         CommonService,

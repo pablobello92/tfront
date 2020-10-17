@@ -19,6 +19,9 @@ import {
     UserTracksComponent
 } from './components/outlets/user/tracks/user-tracks.component';
 import {
+    SumarizedTracksComponent
+} from './components/outlets/sumarized-tracks/sumarized-tracks.component';
+import {
     AdminToolsComponent
 } from './components/outlets/admin/admin-tools/admin-tools.component';
 import {
@@ -52,6 +55,10 @@ const routes: Routes = [{
             {
                 path: 'user/tracks',
                 component: UserTracksComponent
+            },
+            {
+                path: 'sumarized-tracks',
+                component: SumarizedTracksComponent
             },
             {
                 path: 'admin/tools',
