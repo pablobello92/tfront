@@ -11,10 +11,11 @@ import {
 import { MapOptions, City } from '../../../../../shared/interfaces/City';
 import { Coordinate } from '../../../../../shared/interfaces/Coordinate';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map, skip, tap } from 'rxjs/operators';
+import {  map, skip, tap } from 'rxjs/operators';
 import { TracksService } from '../../../../../shared/services/tracksService';
 import { CitiesService } from '../../../../../shared/services/citiesService';
 import { Reparation } from '../../../../../shared/interfaces/Reparation';
+import { ReparationsService } from '../../../../../shared/services/reparationsService';
 
 declare const google: any;
 
@@ -45,6 +46,7 @@ export class ReparationsComponent implements OnInit {
     // TODO: enable buttons prev/next only if there is tracks
     constructor(
         private _tracks: TracksService,
+        private _reparations: ReparationsService,
         private _cities: CitiesService
     ) {
         this.cities = this._cities.getCities()
@@ -66,7 +68,7 @@ export class ReparationsComponent implements OnInit {
         )
         .subscribe(newMapCenter => {
             this.map.setOptions(newMapCenter);
-            this._tracks.getReparations(this.currentCity.name)
+            this._reparations.getReparations(this.currentCity.name)
             .subscribe(reparations => {
                 const drawables = reparations.map((r: Reparation) => {
                     const coords = <Coordinate[]>[r.from, r.to];
@@ -153,7 +155,7 @@ export class ReparationsComponent implements OnInit {
             city: this.currentCity.name,
             startTime: Date.parse(Date())
         };
-        this._tracks.putNewReparation(newReparation).subscribe();
+        this._reparations.insertReparation(newReparation).subscribe();
     }
 
 }
