@@ -47,8 +47,12 @@ body {
 
 /* General */
 
-.pointer {
+.cursor-pointer {
     cursor: pointer;
+}
+
+.cursor-default {
+    cursor: default;
 }
 
 /* Sobreescritura intencional de estilos Bootstrap y PrimeNG */
