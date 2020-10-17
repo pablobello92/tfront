@@ -15,6 +15,7 @@ import {
     map,
     catchError
 } from 'rxjs/operators';
+import { User } from '../interfaces/User';
 
 @Injectable()
 export class UsersService {
@@ -31,13 +32,14 @@ export class UsersService {
         return <Observable<any>>this.http.get(endpoint, {});
     }
 
-    getUser(userName: any): Observable < any > { // TODO: wrappear en elemento mas completo, con STATUS, etc
+    getUser(userName: string): Observable < User > {
         const endpoint = this.appConfig.server + this.appConfig.endpoints.users.get + '?username=' + userName;
-        return this.http.get(endpoint)
-        .pipe(map(user => {
-            return user;
-        }), catchError((err, caught) => {
-            return new Observable(err);
-        }));
+        return <Observable < User >>this.http.get(endpoint);
+    }
+
+    updateUser(body: any): Observable<any> {
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.users.update;
+        return <Observable<any>>this.http.put(endpoint, body)
+        .pipe(catchError((err, caught) => new Observable(err)));
     }
 }
