@@ -65,6 +65,11 @@ export class SideBarComponent implements OnInit {
             label: translations.titles.my_tracks,
             icon: 'fa fa-fw fa-road',
             routerLink: ['/user/tracks']
+        },
+        {
+            label: translations.titles.sumarized_tracks,
+            icon: 'fa fa-fw fa-globe',
+            routerLink: ['/sumarized-tracks']
         }]
       },
       {
