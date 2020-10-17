@@ -19,14 +19,17 @@ export class AppConfig {
             'anomalies': 'predictions/anomalies',
             'roadTypes': 'predictions/roadTypes'
         },
-        'reparations': 'reparations',
+        'reparations': {
+            'get': 'reparations',
+            'insert': 'reparations/insert'
+        },
         'tracks': {
             'get': 'tracks',
             'sumarize': 'tracks/sumarize'
         },
         'users': {
-            'get': 'users/',
-            'update': 'users/update/'
+            'get': 'users',
+            'update': 'users/update'
         },
         'login': 'login'
     };
