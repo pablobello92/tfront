@@ -25,7 +25,9 @@ import {
 import {
     UsersService
 } from 'src/app/shared/services/usersService';
-
+import {
+    User
+} from '../../../../shared/interfaces/User';
 @Component({
     selector: 'app-user-edit',
     templateUrl: './user-edit.component.html',
@@ -35,17 +37,17 @@ export class UserEditComponent implements OnInit {
 
     msgs: Message[] = [];
     editForm: FormGroup;
-    userName; nickName: string;
+    userName: string;
+    nickName: string;
 
     constructor(
-        private _localStorage: LocalStorageService,
         private _users: UsersService,
         private _confirmation: ConfirmationService,
         private router: Router,
         private fb: FormBuilder
     ) {
-
         this.editForm = this.fb.group({
+            '_id': [null, Validators.required],
             'username': [null, Validators.required],
             'nickname': [null, Validators.required],
             'password': [null, Validators.required],
@@ -67,13 +69,13 @@ export class UserEditComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.userName = 'pablo_bello'; // TODO: vincular esta data a cookies
         this.nickName = 'Pablo Bello';
-        this._users.getUser(this.userName).subscribe(
-            res => {
-               this.populateForm(res);
-            }, err => {
+        this._users.getUser(this.userName)
+            .subscribe((user: User) => {
+                this.populateForm(user);
+            }, (err: any) => {
                 console.error(err);
             });
     }
@@ -98,11 +100,20 @@ export class UserEditComponent implements OnInit {
             rejectLabel: 'No',
             message: 'Está seguro que desea guardar los datos del usuario?',
             accept: () => {
-                const params = this.editForm.value;
-                this.msgs.push({
-                    severity: 'error',
-                    detail: 'Feature no implementada aún.'
-                });
+                const user = < User > this.editForm.value;
+                this._users.updateUser(user)
+                    .subscribe((res: any) => {
+                        this.msgs.push({
+                        severity: 'success',
+                        detail: 'Usuario actualizado exitosamente.'
+                    });
+                    }, (err: any) => {
+                        console.error(err);
+                        this.msgs.push({
+                            severity: 'error',
+                            detail: 'Error al intentar actualizar el usuario.'
+                        })
+                    });
             },
             reject: () => {
                 this.msgs.push({
@@ -117,7 +128,8 @@ export class UserEditComponent implements OnInit {
         this.router.navigate(['dashboard']);
     }
 
-    populateForm(res: any): void {
+    populateForm(res: User): void {
+        this.editForm.get('_id').setValue(res._id);
         this.editForm.get('username').setValue(res.username);
         this.editForm.get('nickname').setValue(res.nickname);
         this.editForm.get('password').setValue(res.password);

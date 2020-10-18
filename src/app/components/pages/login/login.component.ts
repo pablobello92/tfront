@@ -54,7 +54,6 @@ export class LoginComponent implements OnInit {
         this.localStorageService.logIn();
         this.localStorageService.setUserDataField('name', 'PABLO BELLO');
         /*this.localStorageService.setUserDataField('id', '16');
-        this.localStorageService.setUserDataField('id_external_table', '16');
         this.localStorageService.setUserDataField('name', 'PABLO BELLO');
         this.localStorageService.setUserDataField('type', '2');
         this.localStorageService.setUserDataField('token', '12345');*/

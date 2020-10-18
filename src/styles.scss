@@ -1,274 +1,221 @@
-
 @import '../node_modules/primeng/resources/themes/omega/theme.css';
 @import '../node_modules/primeng/resources/primeng.min.css';
 @import '~primeicons/primeicons.css';
 
 :root {
-  --mainBlue: rgb(1, 54, 98, 1);
-  --mainGreen: rgb(196, 214, 0, 1);
-  --lightGray: rgb(230, 230, 230, 1);
-  --lightGray2: rgb(191, 191, 191);
-  --formBorderGray: rgba(0, 0, 0, .15);
-  --bootstrapGreen: rgba(40, 167, 69, 1);
-  --teal: rgba(0,128,128, 1);
-  --orchid: rgba(209,95,238, 1);
-  --darkOrchid: rgba(196, 47, 233, 1);
+    --mainBlue: rgb(1, 54, 98, 1);
+    --mainGreen: rgb(196, 214, 0, 1);
+    --lightGray: rgb(230, 230, 230, 1);
+    --lightGray2: rgb(191, 191, 191);
+    --formBorderGray: rgba(0, 0, 0, .15);
+    --bootstrapGreen: rgba(40, 167, 69, 1);
+    --teal: rgba(0, 128, 128, 1);
+    --orchid: rgba(209, 95, 238, 1);
+    --darkOrchid: rgba(196, 47, 233, 1);
 
-  /* Roads */
+    /* Roads */
 
-  --aqua: #00ffff;
-  --lime: #00ff00;
-  --yellow: #ffff00;
-  --red: #ff0000;
+    --aqua: #00ffff;
+    --lime: #00ff00;
+    --yellow: #ffff00;
+    --red: #ff0000;
 
-  /* British palette */
-  --nasturciaorange: #e84118;
-  --harleyOrange: #c23616;
-  --blueNights: #353b48;
-  --chainGray: #718093;
-  --protossPylon: #00a8ff;
-  --vanadylBlue: #0097e6;
-  --mazarineBlue: #273c75;
-  --seaBrook: #487eb0;
-  --seaBrook: #487eb0;
-
-
-  --sideBarWidth: 15.5%;
+    /* British palette */
+    --nasturciaorange: #e84118;
+    --harleyOrange: #c23616;
+    --blueNights: #353b48;
+    --chainGray: #718093;
+    --protossPylon: #00a8ff;
+    --vanadylBlue: #0097e6;
+    --mazarineBlue: #273c75;
+    --seaBrook: #487eb0;
+    --seaBrook: #487eb0;
 }
 
+
 /* Cuerpo principal */
-html, body {
+
+html,
+body {
     width: 100%;
     height: 100%;
 }
 
-body{
-  margin: 0 auto;
+body {
+    margin: 0 auto;
+}
+
+/* General */
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-default {
+    cursor: default;
 }
 
 /* Sobreescritura intencional de estilos Bootstrap y PrimeNG */
 
 ul {
-  list-style-type: none;
+    list-style-type: none;
 }
 
-.ui-sidebar-left {
-  top: inherit;
-  width: -webkit-fill-available;
-}
-
-.ui-sidebar .ui-menu, .ui-sidebar .ui-widget-header, .ui-sidebar.ui-widget-content  {
-  border: none !important;
-  background: inherit;
-  background-color: inherit;
-}
-
-@media (max-width: 700px) {
-    .ui-menuitem-icon {
-      font-size: x-small !important;
-    }
-    .ui-menuitem-text {
-      font-size: x-small !important;
-    }
-    .ui-submenu-header {
-      font-size: x-small !important;
-    }
-  }
-
-  @media (min-width: 701px) and (max-width: 1050px) {
-    .ui-menuitem-icon {
-      font-size: small !important;
-    }
-    .ui-menuitem-text {
-      font-size: small !important;
-    }
-    .ui-submenu-header {
-      font-size: small !important;
-    }
-  }
-
-  @media (min-width: 1051px){
-    .ui-menuitem-icon {
-      font-size: initial !important;
-    }
-    .ui-menuitem-text {
-      font-size: initial !important;
-    }
-    .ui-submenu-header {
-      font-size: initial !important;
-    }
-  }
-
-  .ui-menu {
-    width: 15% !important;
-  }
-
-  .ui-menu .ui-submenu-header {
-    width: 90% !important;
-  }
-
-  .ui-menu .ui-menuitem {
-    width: 90% !important;
-  }
-
-.ui-widget-header, .ui-menuitem {
-  color: white;
+.ui-widget-header,
+.ui-menuitem {
+    color: white;
 }
 
 .ui-datepicker-header.ui-widget-header {
-  color: initial;
+    color: initial;
 }
 
 .ui-datepicker-buttonbar .ui-button {
-  background-color: var(--bootstrapGreen) !important;
-  color: white !important;
+    background-color: var(--bootstrapGreen) !important;
+    color: white !important;
 }
 
 .ui-menuitem .ui-menuitem-link {
-  color: white;
-  padding-left: 15px;
+    color: white;
+    padding-left: 15px;
 }
 
 .ui-menuitem .ui-state-active {
-  background-color: var(--protossPylon);
+    background-color: var(--protossPylon);
 }
 
 .ui-menuitem .ui-menuitem-link:hover {
-  background-color: var(--vanadylBlue) !important;
+    background-color: var(--vanadylBlue) !important;
 }
 
 .ui-dropdown .ui-dropdown-trigger {
-  color: var(--shuttleBlue);
+    color: var(--shuttleBlue);
 }
 
 /* Sobreescritura: confirmDialog */
 
 .ui-dialog .ui-widget-header {
-  color: initial;
+    color: initial;
 }
 
 .input-block-level {
-  border: 1px solid var(--chainGray);
-  border-radius: 2px;
+    border: 1px solid var(--chainGray);
+    border-radius: 2px;
 }
 
 /* Sobreescritura del Scrollbar */
 
 ::-webkit-scrollbar {
-  width: 12px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 5px;
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--shuttleBlue);
-  border-radius: 2px;
+    background: var(--shuttleBlue);
+    border-radius: 2px;
 }
 
 /* Clases custom */
 
 .outletHeading {
-  margin-bottom: 25px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--lightGray2);
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--lightGray2);
 }
 
-.outletHeading > h3 {
-  color: var(--blueNights);
-  font-weight: 450;
+.outletHeading>h3 {
+    color: var(--blueNights);
+    font-weight: 450;
 }
 
 .btn-transparent {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 .formCheckBox {
-  width: 30px !important;
-  height: 30px !important;
+    width: 30px !important;
+    height: 30px !important;
 }
 
 .form-separator {
-  border-bottom: 1px solid var(--formBorderGray);
-  margin-top: 10px;
-  margin-bottom: 10px;
+    border-bottom: 1px solid var(--formBorderGray);
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .outletFormH3 {
-  font-size: 1.5rem;
-  color: var(--chainGray);
+    font-size: 1.5rem;
+    color: var(--chainGray);
 }
 
 .outletFormH4 {
-  font-size: 1.3rem;
-  color: var(--blueNights);
+    font-size: 1.3rem;
+    color: var(--blueNights);
 }
 
 .outletFormH5 {
-  font-size: 1rem;
-  color: var(--blueNights);
+    font-size: 1rem;
+    color: var(--blueNights);
 }
 
 .italic {
-  font-style: italic;
+    font-style: italic;
 }
 
 .bold {
-  font-weight: bold;
-}
-
-.roundedCircle {
-  border-radius: 50%;
+    font-weight: bold;
 }
 
 .totalWidth {
-  width: 100%;
+    width: 100%;
 }
 
 .scrollableX {
-  overflow-x: scroll;
+    overflow-x: scroll;
 }
 
 .scrollableY {
-  overflow-y: scroll;
+    overflow-y: scroll;
 }
 
 .margin20 {
-  margin: 20px;
+    margin: 20px;
 }
 
 .padding20 {
-  padding: 20px;
+    padding: 20px;
 }
 
 .padding40 {
-  padding: 40px;
+    padding: 40px;
 }
 
-.paddedSides{
-  padding-left: 20px;
-  padding-right: 20px;
+.paddedSides {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .centerContent {
-  text-align: center;
+    text-align: center;
 }
 
 .floatL {
-  float: left;
+    float: left;
 }
 
 .floatR {
-  float: right;
+    float: right;
 }
 
 .tableText {
-  font-size: 14px;
-  color: var(--blueNights);
+    font-size: 14px;
+    color: var(--blueNights);
 }
 
 .white {
-  color: white !important;
+    color: white !important;
 }

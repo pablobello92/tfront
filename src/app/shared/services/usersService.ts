@@ -15,6 +15,7 @@ import {
     map,
     catchError
 } from 'rxjs/operators';
+import { User } from '../interfaces/User';
 
 @Injectable()
 export class UsersService {
@@ -24,35 +25,21 @@ export class UsersService {
         private appConfig: AppConfig
     ) {}
 
-    login(username: string, pass: string): Observable < any > {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.users.login;
-        return this.http.post(endpoint, {
-                username: username,
-                password: pass
-            })
-            .pipe(map(user => {
-                return user;
-            }), catchError((err, caught) => {
-                return new Observable(err);
-            }));
+    //TODO: move to loginService
+    //?Probably doing some researching before... To avoid wasting work hours
+    login(): Observable < any > {
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.login;
+        return <Observable<any>>this.http.get(endpoint, {});
     }
 
-    getUser(userName: any): Observable < any > { // TODO: wrappear en elemento mas completo, con STATUS, etc
+    getUser(userName: string): Observable < User > {
         const endpoint = this.appConfig.server + this.appConfig.endpoints.users.get + '?username=' + userName;
-        return this.http.get(endpoint)
-        .pipe(map(user => {
-            return user;
-        }), catchError((err, caught) => {
-            return new Observable(err);
-        }));
+        return <Observable < User >>this.http.get(endpoint);
     }
-    getTracks(userName: any): Observable <any> {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.get + '?username=' + userName;
-        return this.http.get(endpoint)
-        .pipe(map(user => {
-            return user;
-        }), catchError((err, caught) => {
-            return new Observable(err);
-        }));
+
+    updateUser(body: any): Observable<any> {
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.users.update;
+        return <Observable<any>>this.http.put(endpoint, body)
+        .pipe(catchError((err, caught) => new Observable(err)));
     }
 }

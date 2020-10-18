@@ -1,168 +1,185 @@
 import {
-  BrowserModule
+    BrowserModule
 } from '@angular/platform-browser';
 import {
-  BrowserAnimationsModule
+    BrowserAnimationsModule
 } from '@angular/platform-browser/animations';
 import {
-  NgModule
+    NgModule
 } from '@angular/core';
 import {
-  FormsModule,
-  ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule
 } from '@angular/forms';
 import {
-  HttpClientModule,
-  HttpClient
+    HttpClientModule,
+    HttpClient
 } from '@angular/common/http';
 import {
-  AppConfig
+    AppConfig
 } from './configs/app.config';
 import {
-  AppConstants
-} from './configs/app.constants';
-import {
-  AppRoutingModule
+    AppRoutingModule
 } from './app-routing.module';
 import {
-  AppComponent
+    AppComponent
 } from './app.component';
 import {
-  HomeComponent
+    HomeComponent
 } from './components/home/home.component';
 import {
-  LocalStorageService
+    LocalStorageService
 } from './shared/services/localStorageService';
 import {
-  UsersService
+    UsersService
 } from './shared/services/usersService';
 import {
     TracksService
-  } from './shared/services/tracksService';
+} from './shared/services/tracksService';
 import {
-  DashboardComponent
+    ReparationsService
+} from './shared/services/reparationsService';
+import {
+    DashboardComponent
 } from './components/outlets/dashboard/dashboard.component';
 import {
-  SideBarComponent
+    SideBarComponent
 } from './components/layout/sidebar/sidebar.component';
 import {
-  MenuModule
+    MenuModule
 } from 'primeng/menu';
 import {
-  TableModule
+    TableModule
 } from 'primeng/table';
 import {
-  SidebarModule,
-  ConfirmDialogModule,
-  DropdownModule,
-  PaginatorModule,
-  InputTextareaModule,
-  ColorPickerModule,
-  TooltipModule,
-  GrowlModule,
-  CalendarModule,
-  EditorModule,
-  GMapModule
-} from 'primeng/primeng';
-import {
-  NavbarComponent
-} from './components/layout/navbar/navbar.component';
-import {
-  TranslateModule,
-  TranslateLoader,
-  TranslateService
-} from '@ngx-translate/core';
-import {
-  TranslateHttpLoader
-} from '@ngx-translate/http-loader';
-import {
-  ConfirmationService
-} from 'primeng/components/common/confirmationservice';
-import {
-  CookieService
-} from 'ngx-cookie-service';
-import {
-  LoginComponent
-} from './components/pages/login/login.component';
-import {
-  ErrorComponent
-} from './components/pages/error/error.component';
-import {
-  ReservationsService
-} from './shared/services/reservationsService';
-import {
-  ProvidersService
-} from './shared/services/providersService';
-import {
-  CommonService
-} from './shared/services/commonService';
-import {
-  UserEditComponent
-} from './components/outlets/user/edit/user-edit.component';
-import {
-    UserTracksComponent
-} from './components/outlets/user/tracks/user-tracks.component';
-
-
-
-// AOT requires an exported function for factories
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    DashboardComponent,
-    SideBarComponent,
-    NavbarComponent,
-    UserEditComponent,
-    UserTracksComponent,
-    LoginComponent,
-    ErrorComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    MenuModule,
-    TableModule,
     SidebarModule,
-    EditorModule,
     ConfirmDialogModule,
     DropdownModule,
-    InputTextareaModule,
     PaginatorModule,
+    InputTextareaModule,
     ColorPickerModule,
     TooltipModule,
     GrowlModule,
     CalendarModule,
-    FormsModule,
-    ReactiveFormsModule,
-    GMapModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      }
-    })
-  ],
-  providers: [
-    AppConfig,
-    AppConstants,
-    UsersService,
-    TracksService,
-    ReservationsService,
-    ProvidersService,
-    LocalStorageService,
-    CommonService,
-    TranslateService,
-    ConfirmationService,
+    EditorModule,
+    SliderModule,
+    GMapModule
+} from 'primeng/primeng';
+import {
+    NavbarComponent
+} from './components/layout/navbar/navbar.component';
+import {
+    TranslateModule,
+    TranslateLoader,
+    TranslateService
+} from '@ngx-translate/core';
+import {
+    TranslateHttpLoader
+} from '@ngx-translate/http-loader';
+import {
+    ConfirmationService
+} from 'primeng/components/common/confirmationservice';
+import {
     CookieService
-  ],
-  bootstrap: [AppComponent]
+} from 'ngx-cookie-service';
+import {
+    LoginComponent
+} from './components/pages/login/login.component';
+import {
+    ErrorComponent
+} from './components/pages/error/error.component';
+import {
+    CommonService
+} from './shared/services/commonService';
+import {
+    ColorsService
+} from './shared/services/colorsService';
+import {
+    CitiesService
+} from './shared/services/citiesService';
+import {
+    UserEditComponent
+} from './components/outlets/user/edit/user-edit.component';
+import {
+    UserTracksComponent
+} from './components/outlets/user/tracks/user-tracks.component';
+import {
+    ColorInfoWidgetComponent
+} from './components/outlets/user/tracks/color-info-widget/color-info-widget.component';
+import {
+    AdminToolsComponent
+} from './components/outlets/admin/admin-tools/admin-tools.component';
+import {
+    ReparationsComponent
+} from './components/outlets/admin/reparations/reparations/reparations.component';
+import {
+    SumarizedTracksComponent
+} from './components/outlets/sumarized-tracks/sumarized-tracks.component';
+
+// AOT requires an exported function for factories
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+@NgModule({
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        DashboardComponent,
+        SideBarComponent,
+        NavbarComponent,
+        UserEditComponent,
+        UserTracksComponent,
+        SumarizedTracksComponent,
+        ColorInfoWidgetComponent,
+        AdminToolsComponent,
+        ReparationsComponent,
+        LoginComponent,
+        ErrorComponent
+    ],
+    imports: [
+        AppRoutingModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        CalendarModule,
+        ColorPickerModule,
+        ConfirmDialogModule,
+        DropdownModule,
+        EditorModule,
+        HttpClientModule,
+        InputTextareaModule,
+        MenuModule,
+        PaginatorModule,
+        SidebarModule,
+        SliderModule,
+        TableModule,
+        TooltipModule,
+        GrowlModule,
+        CalendarModule,
+        FormsModule,
+        ReactiveFormsModule,
+        GMapModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
+            }
+        })
+    ],
+    providers: [
+        AppConfig,
+        UsersService,
+        TracksService,
+        ReparationsService,
+        CitiesService,
+        LocalStorageService,
+        CommonService,
+        ColorsService,
+        TranslateService,
+        ConfirmationService,
+        CookieService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

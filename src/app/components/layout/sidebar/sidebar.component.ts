@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   NgZone,
-  Input
+  Input,
+  ViewEncapsulation
 } from '@angular/core';
 import {
   TranslateService,
@@ -20,7 +21,8 @@ import {
 @Component({
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss']
+    styleUrls: ['./sidebar.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class SideBarComponent implements OnInit {
 
@@ -63,6 +65,11 @@ export class SideBarComponent implements OnInit {
             label: translations.titles.my_tracks,
             icon: 'fa fa-fw fa-road',
             routerLink: ['/user/tracks']
+        },
+        {
+            label: translations.titles.sumarized_tracks,
+            icon: 'fa fa-fw fa-globe',
+            routerLink: ['/sumarized-tracks']
         }]
       },
       {
@@ -72,6 +79,19 @@ export class SideBarComponent implements OnInit {
           icon: 'fa fa-fw fa-pencil',
           routerLink: ['/user/edit']
         }]
+      },
+      {
+        label: translations.titles.admin,
+        items: [{
+          label: translations.titles.tools,
+          icon: 'fa fa-fw fa-cog',
+          routerLink: ['/admin/tools']
+        },
+        {
+            label: translations.titles.reparations,
+            icon: 'fa fa-fw fa-cog',
+            routerLink: ['/admin/reparations']
+          }]
       }
     ];
   }
