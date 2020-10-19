@@ -1,30 +1,42 @@
-
-<h1 class="bigTitle">Mis Trayectos</h1>
-
-<!-- FILA: DROPDOWN CIUDAD-->
-<div class="dropdown-row">
-    <span>Por favor, escoja una ciudad</span>
-    <p-dropdown [options]="( cities | async)" [(ngModel)]="currentCity" (onChange)="changeCurrentCity($event.value)" optionLabel="name"></p-dropdown>
+<div class="outletHeading">
+    <h3> Trayectos del usuario </h3>
 </div>
+<div class="card">
+    <div class="card-body filters-card">
+        <div>
+            <span class="text">Ciudad</span>
+            <p-dropdown [options]="( cities | async)" [(ngModel)]="currentCity" (onChange)="changeCurrentCity($event.value)"
+            optionLabel="name" [style]="{'width':'14em'}"></p-dropdown>
+        </div>
 
-<div class="filters-row">
-    <p-calendar [(ngModel)]="filterDates" selectionMode="range" [readonlyInput]="true" [showIcon]="true"></p-calendar>
-    <span># de tracks: {{ paginationLimit }}</span>
-    <p-slider [(ngModel)]="paginationLimit" [min]="1" [max]="10" [step]="1"></p-slider>
-</div>
-
-<div class="mb-2">
-    <button type="button" class="btn btn-danger pull-right" (click)="fetchUserTracks()">Buscar</button>
-</div>
-
-<div class="map-content">
-    <div> <!--COLUMNA 2-->
-        <p-gmap #gmap (onMapReady)="setMap($event)" [overlays]="( currentTrack | async )" [style]="{'width':'100%','height':'240px'}">
-        </p-gmap>
+        <div>
+            <span class="text">Fechas</span>
+            <p-calendar [(ngModel)]="filterDates" selectionMode="range" [readonlyInput]="true" [showIcon]="true"></p-calendar>
+        </div>
+        <div>
+            <span class="text">Cantidad</span>
+            <p-slider [(ngModel)]="paginationLimit" [min]="0" [max]="10" [step]="1" [style]="{'width':'12em'}"></p-slider>
+            <span class="text ml-2">({{ paginationLimit }})</span>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary pull-right" (click)="fetchUserTracks()">Buscar</button>
+        </div>
     </div>
-    <!-- TODO: color widgets! -->
+    <div class="divider"></div>
+    <div class="card-body">
+        <p-gmap #gmap (onMapReady)="setMap($event)" [overlays]="( currentTrack | async )" [style]="{'width':'100%','height':'400px'}">
+        </p-gmap>
+        <div class="prev-next">
+            <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === 0 )" (click)="changeTrackIndex(-1)">ant.</button>
+            <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === (paginationLimit - 1) )" (click)="changeTrackIndex(1)">sig.</button>
+        </div>
+    </div>
 </div>
-<div class="prev-next">
-    <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === 0 )" (click)="changeTrackIndex(-1)">Anterior</button>
-    <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === (paginationLimit - 1) )" (click)="changeTrackIndex(1)">Siguiente</button>
-</div>
+
+
+
+
+
+
+
+
