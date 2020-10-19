@@ -22,8 +22,7 @@ declare const google: any;
 @Component({
     selector: 'app-user-tracks',
     templateUrl: './user-tracks.component.html',
-    styleUrls: ['./user-tracks.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./user-tracks.component.scss']
 })
 export class UserTracksComponent implements OnInit {
     private map: google.maps.Map;
@@ -33,7 +32,7 @@ export class UserTracksComponent implements OnInit {
     cities: Observable<City[]> = new Observable<City[]>();
     currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
-    filterDates: Date[] = [null, null];
+    filterDates: Date[] = [ new Date(), new Date() ];
 
     /**
      * TODO: agregar un onChange sobre este campo, asi se habilitan/deshabilitan los botones

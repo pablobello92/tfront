@@ -6,20 +6,20 @@
         <div>
             <span class="text">Ciudad</span>
             <p-dropdown [options]="( cities | async)" [(ngModel)]="currentCity" (onChange)="changeCurrentCity($event.value)"
-            optionLabel="name" [style]="{'width':'14em'}"></p-dropdown>
+            optionLabel="name" [style]="{'width':'16em'}"></p-dropdown>
         </div>
 
         <div>
             <span class="text">Fechas</span>
-            <p-calendar [(ngModel)]="filterDates" selectionMode="range" [readonlyInput]="true" [showIcon]="true"></p-calendar>
+            <p-calendar [(ngModel)]="filterDates" selectionMode="range" [readonlyInput]="true" [showIcon]="true"
+            [style]="{'width':'16em'}"></p-calendar>
         </div>
         <div>
-            <span class="text">Cantidad</span>
-            <p-slider [(ngModel)]="paginationLimit" [min]="0" [max]="10" [step]="1" [style]="{'width':'12em'}"></p-slider>
-            <span class="text ml-2">({{ paginationLimit }})</span>
+            <span class="text">Cantidad ({{ paginationLimit }})</span>
+            <p-slider [(ngModel)]="paginationLimit" [min]="0" [max]="10" [step]="1" [style]="{'width':'16em'}"></p-slider>
         </div>
         <div>
-            <button type="button" class="btn btn-primary pull-right" (click)="fetchUserTracks()">Buscar</button>
+            <button type="button" class="btn btn-primary" (click)="fetchUserTracks()">Buscar</button>
         </div>
     </div>
     <div class="divider"></div>

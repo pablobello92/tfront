@@ -1,4 +1,3 @@
-app-user-tracks {
     .card {
         display: flex;
         flex-direction: row;
@@ -10,31 +9,42 @@ app-user-tracks {
 
         .filters-card {
             width: 0;
-            > div {
+
+            >div {
                 padding: 5px;
+                display: inline-flex;
+                justify-content: space-between;
+            }&>:last-child {
+                justify-content: flex-end;
             }
+
             .text {
                 margin-right: 10px;
                 display: inline;
                 font-size: 1.5vs;
                 font-weight: 400;
             }
+
+            p-calendar span .input {
+                width: 85%;
+            }
+
             .ui-slider-horizontal {
                 display: inline-flex;
             }
         }
 
         .divider {
-            border: 1px solid rgba(0,0,0,.125);
+            border: 1px solid rgba(0, 0, 0, .125);
         }
 
         .prev-next {
             margin-top: 10px;
             display: flex;
             justify-content: flex-end;
+
             >:last-child {
                 margin-left: 10px;
             }
         }
     }
-}
