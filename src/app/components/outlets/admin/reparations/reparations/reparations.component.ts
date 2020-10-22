@@ -12,10 +12,10 @@ import { MapOptions, City } from '../../../../../shared/interfaces/City';
 import { Coordinate } from '../../../../../shared/interfaces/Coordinate';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {  map, skip, tap } from 'rxjs/operators';
-import { TracksService } from '../../../../../shared/services/tracksService';
-import { CitiesService } from '../../../../../shared/services/citiesService';
+import { TracksService } from '../../../../../shared/services/tracks.service';
+import { CitiesService } from '../../../../../shared/services/cities.service';
 import { Reparation } from '../../../../../shared/interfaces/Reparation';
-import { ReparationsService } from '../../../../../shared/services/reparationsService';
+import { ReparationsService } from '../../../../../shared/services/reparations.service';
 
 declare const google: any;
 
