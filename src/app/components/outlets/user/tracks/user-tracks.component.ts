@@ -6,13 +6,13 @@ import {
 } from '@angular/core';
 import {
     TracksService
-} from 'src/app/shared/services/tracksService';
+} from 'src/app/shared/services/tracks.service';
 
-import { Range } from '../../../../shared/interfaces/Range';
+import { IRange } from '../../../../shared/interfaces/Range';
 import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
 import { tap, map, skip, filter } from 'rxjs/operators';
 import { ColorInfoWidgetComponent } from './color-info-widget/color-info-widget.component';
-import { CitiesService } from '../../../../shared/services/citiesService';
+import { CitiesService } from '../../../../shared/services/cities.service';
 import { City, MapOptions } from '../../../../shared/interfaces/City';
 import { Track } from '../../../../shared/interfaces/Track';
 import { MapFilter } from '../../../../shared/interfaces/MapFilter';
@@ -32,7 +32,10 @@ export class UserTracksComponent implements OnInit {
     cities: Observable<City[]> = new Observable<City[]>();
     currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
-    filterDates: Date[] = [ new Date(), new Date() ];
+    dateFilter = {
+        from: new Date(),
+        to: new Date()
+    };
 
     /**
      * TODO: agregar un onChange sobre este campo, asi se habilitan/deshabilitan los botones
@@ -104,8 +107,8 @@ export class UserTracksComponent implements OnInit {
             user: 'pablo_bello',
             city: this.currentCity.name,
             startTime: {
-                from: (this.filterDates[0] !== null) ? Date.parse(this.filterDates[0].toDateString()) : null,
-                to: (this.filterDates[1] !== null) ?  Date.parse(this.filterDates[1].toDateString()) : null
+                from: Date.parse(this.dateFilter.from.toDateString()),
+                to: Date.parse(this.dateFilter.to.toDateString())
             },
             pages: this.paginationLimit
         };

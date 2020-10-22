@@ -10,9 +10,17 @@
         </div>
 
         <div>
-            <span class="text">Fechas</span>
-            <p-calendar [(ngModel)]="filterDates" selectionMode="range" [readonlyInput]="true" [showIcon]="true"
-            [style]="{'width':'16em'}"></p-calendar>
+            <span class="text">Desde</span>
+            <p-calendar [(ngModel)]="dateFilter.from"
+            [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+            [readonlyInput]="true" [showIcon]="true"></p-calendar>
+
+        </div>
+        <div>
+            <span class="text">Hasta</span>
+            <p-calendar [(ngModel)]="dateFilter.to"
+            [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+            [readonlyInput]="true" [showIcon]="true"></p-calendar>
         </div>
         <div>
             <span class="text">Cantidad ({{ paginationLimit }})</span>
@@ -28,7 +36,7 @@
         </p-gmap>
         <div class="prev-next">
             <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === 0 )" (click)="changeTrackIndex(-1)">ant.</button>
-            <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === (paginationLimit - 1) )" (click)="changeTrackIndex(1)">sig.</button>
+            <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === (paginationLimit - 1000) )" (click)="changeTrackIndex(1)">sig.</button>
         </div>
     </div>
 </div>
