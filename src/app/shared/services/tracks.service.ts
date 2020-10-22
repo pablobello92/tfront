@@ -17,11 +17,11 @@ import {
     Track
 } from '../interfaces/Track';
 import {
-    Range
+    IRange
 } from '../interfaces/Range';
 import {
     ColorsService
-} from './colorsService';
+} from './colors.service';
 import {
     CombinedLimit
 } from '../interfaces/Limit';
@@ -41,7 +41,7 @@ export class TracksService {
         private _colors: ColorsService
     ) {}
 
-    private getRelativeScoreScale(ranges: Range[]): CombinedLimit {
+    private getRelativeScoreScale(ranges: IRange[]): CombinedLimit {
         let min = 100000;
         let max = 0;
         let avg = 0;
@@ -94,7 +94,7 @@ export class TracksService {
         });
     }
 
-    private mapRangeToDrawable(range: Range, limits: CombinedLimit): any {
+    private mapRangeToDrawable(range: IRange, limits: CombinedLimit): any {
         return new google.maps.Polyline({
             path: [{
                     lat: range.start.lat,
@@ -114,7 +114,7 @@ export class TracksService {
 
     public getDrawableFromTrack(track: Track): any[] {
         const limits = this.getRelativeScoreScale(track.ranges);
-        const drawable = track.ranges.map((range: Range) => this.mapRangeToDrawable(range, limits));
+        const drawable = track.ranges.map((range: IRange) => this.mapRangeToDrawable(range, limits));
         return drawable;
     }
 
@@ -132,11 +132,6 @@ export class TracksService {
             tap(res => {console.log(res);
             })
         );
-    }
-
-    public sumarizeTracks(): Observable < any > {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.sumarize;
-        return <Observable < any >> this.http.get(endpoint);
     }
 
     /**
