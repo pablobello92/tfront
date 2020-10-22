@@ -1,7 +1,7 @@
 .sidebar {
     position: fixed;
     bottom: 0;
-    top: 70px;
+    top: var(--navBarHeigth);
     left: 0;
     height: 100%;
     overflow: hidden;
