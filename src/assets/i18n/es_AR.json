@@ -42,17 +42,18 @@
     "titles": {
         "admin": "Admin",
         "configuration": "Configuración",
-        "dashboard": "Panel de Control",
+        "dashboard": "Panel de control",
         "dashboard_welcome": "Bienvenido al dashboard",
         "forgot_password": "Olvidó su contraseña?",
-        "geo": "GEO",
+        "geo": "Rutas",
         "home": "inicio",
-        "login": "Iniciar Sesión",
+        "login": "Iniciar sesión",
         "menu": "Menú",
-        "my_tracks": "Mis Trayectos",
-        "sumarized_tracks": "Trayectos Sumarizados",
+        "my_tracks": "Mis rutas",
+        "profile": "Perfil",
         "reparations": "Reparaciones",
+        "sumarized_tracks": "Rutas sumarizadas",
         "tools": "Herramientas",
-        "user_edit": "Editar Perfil"
+        "user_edit": "Editar perfil"
     }
 }

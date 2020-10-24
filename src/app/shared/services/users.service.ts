@@ -8,11 +8,9 @@ import {
     HttpClient
 } from '@angular/common/http';
 import {
-    Observable,
-    empty
+    Observable
 } from 'rxjs';
 import {
-    map,
     catchError
 } from 'rxjs/operators';
 import { User } from '../interfaces/User';
@@ -24,13 +22,6 @@ export class UsersService {
         private http: HttpClient,
         private appConfig: AppConfig
     ) {}
-
-    //TODO: move to loginService
-    //?Probably doing some researching before... To avoid wasting work hours
-    login(): Observable < any > {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.login;
-        return <Observable<any>>this.http.get(endpoint, {});
-    }
 
     getUser(userName: string): Observable < User > {
         const endpoint = this.appConfig.server + this.appConfig.endpoints.users.get + '?username=' + userName;

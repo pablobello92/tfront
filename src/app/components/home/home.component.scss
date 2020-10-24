@@ -1,52 +1,21 @@
-
-$sidebarWidth: 150px;
-
-.general-outlet {
-  position: fixed;
-  margin: 0 auto;
-  top: 70px;
-  height: 90%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  float: left;
-  transition: width .75s ease;
-  transition: left .75s ease;
-}
-
-
-/*
-    TODO: reemplazar todo esto enroscado por un div padre que haga flex
-    asi se ajusta todo automatico, en funcion del ancho del sidebar
- */
-@media screen and (max-width: 480px) {
-    .stretch {
-        left: 100px;
-        width: calc(100% - 100px);
+app-home {
+    display: flex;
+    flex-direction: column;
+    .content {
+        display: flex;
+        flex-direction: row;
+        height: 90vh;
+        @media screen and (max-width: 968px) {
+            height: 88vh;
+        }
+        .outlet {
+            padding: 40px;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            transition: width .75s ease;
+            transition: left .75s ease;
+        }
     }
-}
-
-@media screen and (min-width: 481px) and (max-width: 768px) {
-    .stretch {
-        left: 150px;
-        width: calc(100% - 150px);
-    }
-}
-
-@media screen and (min-width: 769px) and (max-width: 1050px) {
-    .stretch {
-        left: 200px;
-        width: calc(100% - 200px);
-    }
-}
-
-@media screen and (min-width: 1051px) {
-    .stretch {
-        left: 250px;
-        width: calc(100% - 250px);
-    }
-}
-
-.wide {
-  left: 0;
-  width: 100%;
 }

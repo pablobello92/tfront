@@ -25,7 +25,10 @@ export class AppConfig {
         },
         'tracks': {
             'get': 'tracks',
-            'sumarize': 'tracks/sumarize'
+            'sumarizations': {
+                'get': 'tracks/sumarize',
+                'insert': 'sumarizations/insert'
+            }
         },
         'users': {
             'get': 'users',

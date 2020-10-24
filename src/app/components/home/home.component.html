@@ -1,5 +1,9 @@
 <app-navbar [(display)]="displaySidebar"></app-navbar>
-<app-sidebar [display]="displaySidebar"></app-sidebar>
-<div [ngClass]="displaySidebar? 'stretch': 'wide'" class="general-outlet padding40">
-    <router-outlet></router-outlet>
+<div class="content">
+    <app-sidebar [display]="displaySidebar"></app-sidebar>
+    <div class="outlet" [ngClass]="displaySidebar? 'stretch': 'wide'" >
+        <router-outlet></router-outlet>
+    </div>
 </div>
+
+

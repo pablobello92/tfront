@@ -1,41 +1,36 @@
-<div class="navbar">
-
-    <div class="navbar-left">
-        <div class="profile-area">
-            <span class="profileImage white cursor-pointer" #fsbutton (click)="gotoProfile()" pTooltip="{{'titles.user_edit' | translate}}"></span>
-            <span class="nav-text cursor-default"> {{ userName }}</span>
-        </div>
-        <div class="buttons-area">
-            <span class="link-item cursor-pointer">
-                <a #fsbutton (click)="collapseSidebar()" pTooltip="{{'messages.collapse_sidebar' | translate}}">
-                    <em class="fa fa-navicon"></em>
-                </a>
-            </span>
-            <span class="link-item cursor-pointer">
-                <a #fsbutton (click)="goHome()" pTooltip="{{'titles.home' | translate}}">
-                    <em class="fa fa-home"></em>
-                </a>
-            </span>
-        </div>
+<div class="navbar-left">
+    <div class="profile-area">
+        <span class="profileImage cursor-pointer" #fsbutton (click)="gotoProfile()"
+            pTooltip="{{'titles.user_edit' | translate}}"></span>
+        <span class="nav-text cursor-default"> {{ userName }}</span>
     </div>
-
-    <div class="navbar-right">
-        <p-dropdown class="cursor-pointer" [options]="langs" [(ngModel)]="selectedLang" appendTo="body" (onChange)="changeLang($event)"
-            [style]="{'width':'100px'}">
-            <ng-template let-item pTemplate="selectedItem">
-                <img src="./assets/img/lang/{{item.label}}.png" style="width:24px;vertical-align:middle" />
-            </ng-template>
-            <ng-template let-item pTemplate="item">
-                <div class="ui-helper-clearfix" style="position: relative;height:25px;">
-                    <img src="./assets/img/lang/{{item.label}}.png"
-                        style="width:24px;position:absolute;top:1px;left:5px" />
-                </div>
-            </ng-template>
-        </p-dropdown>
-        <a class="link-item cursor-pointer" #fsbutton (click)="logout()" pTooltip="{{'general.exit' | translate}}">
-            <em class="fa fa-sign-out"></em>
-        </a>
+    <div class="buttons-area">
+        <span class="link-item cursor-pointer">
+            <a #fsbutton (click)="collapseSidebar()" pTooltip="{{'messages.collapse_sidebar' | translate}}">
+                <em class="fa fa-navicon"></em>
+            </a>
+        </span>
+        <span class="link-item cursor-pointer">
+            <a #fsbutton (click)="goHome()" pTooltip="{{'titles.home' | translate}}">
+                <em class="fa fa-home"></em>
+            </a>
+        </span>
     </div>
+</div>
 
-
+<div class="navbar-right">
+    <p-dropdown class="cursor-pointer" [options]="langs" [(ngModel)]="selectedLang" appendTo="body"
+        (onChange)="changeLang($event)" [style]="{'width':'100px'}">
+        <ng-template let-item pTemplate="selectedItem">
+            <img src="./assets/img/lang/{{item.label}}.png" style="width:24px;vertical-align:middle" />
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+            <div class="ui-helper-clearfix" style="position: relative;height:25px;">
+                <img src="./assets/img/lang/{{item.label}}.png" style="width:24px;position:absolute;top:1px;left:5px" />
+            </div>
+        </ng-template>
+    </p-dropdown>
+    <a class="link-item cursor-pointer" #fsbutton (click)="logout()" pTooltip="{{'general.exit' | translate}}">
+        <em class="fa fa-sign-out"></em>
+    </a>
 </div>

@@ -57,15 +57,6 @@ body {
 
 /* Sobreescritura intencional de estilos Bootstrap y PrimeNG */
 
-ul {
-    list-style-type: none;
-}
-
-.ui-widget-header,
-.ui-menuitem {
-    color: white;
-}
-
 .ui-datepicker-header.ui-widget-header {
     color: initial;
 }
@@ -73,19 +64,6 @@ ul {
 .ui-datepicker-buttonbar .ui-button {
     background-color: var(--bootstrapGreen) !important;
     color: white !important;
-}
-
-.ui-menuitem .ui-menuitem-link {
-    color: white;
-    padding-left: 15px;
-}
-
-.ui-menuitem .ui-state-active {
-    background-color: var(--protossPylon);
-}
-
-.ui-menuitem .ui-menuitem-link:hover {
-    background-color: var(--vanadylBlue) !important;
 }
 
 .ui-dropdown .ui-dropdown-trigger {
@@ -157,23 +135,6 @@ ul {
     color: var(--blueNights);
 }
 
-.outletFormH5 {
-    font-size: 1rem;
-    color: var(--blueNights);
-}
-
-.italic {
-    font-style: italic;
-}
-
-.bold {
-    font-weight: bold;
-}
-
-.totalWidth {
-    width: 100%;
-}
-
 .scrollableX {
     overflow-x: scroll;
 }
@@ -186,36 +147,7 @@ ul {
     margin: 20px;
 }
 
-.padding20 {
-    padding: 20px;
-}
-
-.padding40 {
-    padding: 40px;
-}
-
 .paddedSides {
     padding-left: 20px;
     padding-right: 20px;
-}
-
-.centerContent {
-    text-align: center;
-}
-
-.floatL {
-    float: left;
-}
-
-.floatR {
-    float: right;
-}
-
-.tableText {
-    font-size: 14px;
-    color: var(--blueNights);
-}
-
-.white {
-    color: white !important;
 }

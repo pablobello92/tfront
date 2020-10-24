@@ -43,16 +43,17 @@
         "admin": "Admin",
         "configuration": "Settings",
         "dashboard": "Dashboard",
-        "dashboard_welcome": "Welcome to Dashboard",
+        "dashboard_welcome": "Welcome to the dashboard",
         "forgot_password": "Forgot your password?",
-        "geo": "GEO",
+        "geo": "Roads",
         "home": "Home",
         "login": "Login",
         "menu": "Menu",
-        "my_tracks": "My Tracks",
-        "sumarized_tracks": "Sumarized Tracks",
+        "my_tracks": "My tracks",
+        "profile": "Profile",
+        "sumarized_tracks": "Sumarized tracks",
         "reparations": "Reparations",
         "tools": "Tools",
-        "user_edit": "Edit Profile"
+        "user_edit": "Edit profile"
     }
 }

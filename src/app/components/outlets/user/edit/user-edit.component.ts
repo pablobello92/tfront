@@ -13,9 +13,6 @@ import {
     Router
 } from '@angular/router';
 import {
-    LocalStorageService
-} from '../../../../shared/services/localStorageService';
-import {
     ConfirmationService
 } from 'primeng/components/common/confirmationservice';
 
@@ -24,7 +21,7 @@ import {
 } from 'primeng/api';
 import {
     UsersService
-} from 'src/app/shared/services/usersService';
+} from 'src/app/shared/services/users.service';
 import {
     User
 } from '../../../../shared/interfaces/User';
@@ -112,7 +109,7 @@ export class UserEditComponent implements OnInit {
                         this.msgs.push({
                             severity: 'error',
                             detail: 'Error al intentar actualizar el usuario.'
-                        })
+                        });
                     });
             },
             reject: () => {

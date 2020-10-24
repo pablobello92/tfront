@@ -1,5 +1,16 @@
 <div class="admin-tools">
-    <button type="button" class="btn btn-success" (click)="predict(true)"> Predecir anomalías </button>
-    <button type="button" class="btn btn-success" (click)="predict()"> Predecir caminos </button>
-    <button type="button" class="btn btn-success" (click)="sumarize()"> Ejecutar sumarización </button>
+    <button type="button" class="btn btn-primary" (click)="sumarize()">
+        Ejecutar sumarización
+        <span class="fa fa-puzzle-piece"></span>
+    </button>
+    <button type="button" class="btn btn-warning" (click)="predict()">
+        Predecir caminos
+        <span class="fa fa-cogs"></span>
+    </button>
+    <button type="button" class="btn btn-warning" (click)="predict(true)">
+        Predecir anomalías
+        <span class="fa fa-cogs"></span>
+    </button>
 </div>
+<p-growl [(value)]="msgs"></p-growl>
+
