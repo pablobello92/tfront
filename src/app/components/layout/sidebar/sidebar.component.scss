@@ -1,23 +1,13 @@
 app-sidebar {
     .sidebar {
-        //position: fixed;
-        bottom: 0;
+        box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.3) inset;
+        display: flex;
+        flex-direction: row;
         height: 100%;
         overflow: hidden;
+
         background-color: var(--blueNights);
         transition: width .75s ease;
-        box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.3) inset;
-
-        p-menu {
-            .ui-menu {
-                width: 100%;
-                padding: 15px;
-            }
-            .ui-menu, .ui-menuitem, .ui-submenu-header {
-                border: none;
-                background: transparent;
-            }
-        }
 
         &.hide {
             width: 0;
@@ -25,6 +15,47 @@ app-sidebar {
 
         &.show {
             width: 17vw;
+        }
+
+        p-menu {
+            width: 100%;
+            padding-top: 25px;
+            font-weight: 200;
+            >div {
+                width: 100%;
+            }
+            ul {
+                list-style-type: none;
+            }
+
+            .ui-menu,
+            .ui-menuitem,
+            .ui-submenu-header {
+                border: none;
+                padding: 0;
+                margin: 0;
+                background: transparent;
+            }
+
+            .ui-widget-header,
+            .ui-menuitem {
+                color: white;
+            }
+
+            .ui-menuitem-link {
+                border-radius: 1px;
+                padding: 15px 15px;
+                color: white;
+                span.ui-menuitem-text {
+                    padding-left: 5px;
+                }
+            }
+            .ui-state-active {
+                background-color: var(--protossPylon);
+            }
+            .ui-menuitem-link:hover {
+                background-color: var(--chainGray) !important;
+            }
         }
 
         @media screen and (max-width: 968px) {
