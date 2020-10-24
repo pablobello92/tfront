@@ -1,6 +1,7 @@
 import {
     Component,
-    OnInit
+    OnInit,
+    ViewEncapsulation
 } from '@angular/core';
 import {
     Router
@@ -12,7 +13,8 @@ import {
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss']
+    styleUrls: ['./home.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
 

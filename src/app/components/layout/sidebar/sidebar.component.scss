@@ -1,79 +1,82 @@
 app-sidebar {
     .sidebar {
-        position: fixed;
+        //position: fixed;
         bottom: 0;
-        top: var(--navBarHeigth);
-        left: 0;
         height: 100%;
         overflow: hidden;
         background-color: var(--blueNights);
         transition: width .75s ease;
         box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.3) inset;
+
+        p-menu {
+            .ui-menu {
+                width: 100%;
+                padding: 15px;
+            }
+            .ui-menu, .ui-menuitem, .ui-submenu-header {
+                border: none;
+                background: transparent;
+            }
+        }
+
+        &.hide {
+            width: 0;
+        }
+
+        &.show {
+            width: 17vw;
+        }
+
+        @media screen and (max-width: 968px) {
+            &.show {
+                width: 25vw;
+            }
+        }
+
+        @media screen and (max-width: 640px) {
+
+            .ui-menuitem-icon {
+                font-size: x-small !important;
+            }
+
+            .ui-menuitem-text {
+                font-size: x-small !important;
+            }
+
+            .ui-submenu-header {
+                font-size: x-small !important;
+            }
+        }
+
+        @media screen and (min-width: 641px) and (max-width: 1050px) {
+
+            .ui-menuitem-icon {
+                font-size: small !important;
+            }
+
+            .ui-menuitem-text {
+                font-size: small !important;
+            }
+
+            .ui-submenu-header {
+                font-size: small !important;
+            }
+        }
+
+        @media screen and (min-width: 1051px) {
+
+
+            .ui-menuitem-icon {
+                font-size: initial !important;
+            }
+
+            .ui-menuitem-text {
+                font-size: initial !important;
+            }
+
+            .ui-submenu-header {
+                font-size: initial !important;
+            }
+        }
     }
-
-    .hide {
-        width: 0;
-    }
-
-    .show {
-        width: var(--sideBarWidth);
-    }
-
-    p-menu {
-        .ui-menu {
-            width: 100%;
-            padding: 15px;
-        }
-        .ui-menu, .ui-menuitem, .ui-submenu-header {
-            border: none;
-            background: transparent;
-        }
-    }
-
-    @media screen and (max-width: 640px) {
-
-        .ui-menuitem-icon {
-            font-size: x-small !important;
-        }
-
-        .ui-menuitem-text {
-            font-size: x-small !important;
-        }
-
-        .ui-submenu-header {
-            font-size: x-small !important;
-        }
-    }
-
-    @media screen and (min-width: 641px) and (max-width: 1050px) {
-
-        .ui-menuitem-icon {
-            font-size: small !important;
-        }
-
-        .ui-menuitem-text {
-            font-size: small !important;
-        }
-
-        .ui-submenu-header {
-            font-size: small !important;
-        }
-    }
-
-    @media screen and (min-width: 1051px) {
-
-
-        .ui-menuitem-icon {
-            font-size: initial !important;
-        }
-
-        .ui-menuitem-text {
-            font-size: initial !important;
-        }
-
-        .ui-submenu-header {
-            font-size: initial !important;
-        }
-    }
-
 }

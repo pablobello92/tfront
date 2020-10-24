@@ -1,58 +1,54 @@
-
-.navbar {
+app-navbar {
     position: sticky;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--navBarHeigth);
+    height: 15vh;
     padding: 0px 10px;
-    background-color: var(--mainBlue);
     box-shadow: 0 3px 7px 1px rgba(0, 0, 0, .4);
-    justify-content: space-between;
-}
-
-.navbar, .navbar-left, .navbar-right, .profile-area, .buttons-area, .link-item {
     display: flex;
-}
+    justify-content: space-between;
+    background-color: var(--mainBlue);
 
-.navbar, .navbar-left, .navbar-right, .profile-area, .buttons-area {
-    flex-direction: row;
-}
+    .navbar-left, .navbar-right, .profile-area, .buttons-area, .link-item {
+        display: flex;
+    }
 
-.navbar-left, .navbar-right, .profile-area, .buttons-area {
-    align-items: center;
-}
+    .navbar-left, .navbar-right, .profile-area, .buttons-area {
+        flex-direction: row;
+    }
 
-// REFACTOR: demasiado estilo repetido entre navbar/sidebar/home
-// TODO: ver como puedo desacoplar a styles a var global y que funque
+    .navbar-left, .navbar-right, .profile-area, .buttons-area {
+        align-items: center;
+    }
 
-// Initially: the "FIRST" has the same width as the sidebar...
-// Then we should change it
+    .navbar-left {
+        width: 400px;
+        .profile-area {
+            padding-left: 20px;
+            width: 250px;
+        }
+    }
 
-.navbar-left {
-    width: 400px;
-    .profile-area {
-        padding-left: 20px;
-        width: 250px;
+    .fa {
+        color: white;
+        font-size: 25px;
+        margin: 0px 10px;
+    }
+
+    .profileImage {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--protossPylon);
+    }
+
+    .nav-text {
+        margin-left: 20px;
+        color: var(--lightGray);
+        text-transform: uppercase;
+    }
+
+    @media screen and (max-width: 968px) {
+        height: 25vh;
     }
 }
 
-.fa {
-    color: white;
-    font-size: 25px;
-    margin: 0px 10px;
-}
-
-.profileImage {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--protossPylon);
-}
-
-.nav-text {
-    margin-left: 20px;
-    color: var(--lightGray);
-    text-transform: uppercase;
-}
