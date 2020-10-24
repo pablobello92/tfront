@@ -1,10 +1,11 @@
 
 $sidebarWidth: 150px;
 
-.general-outlet {
+.outlet {
   position: fixed;
   margin: 0 auto;
-  top: 70px;
+  padding: 40px;
+  // top: 70px;
   height: 90%;
   overflow-x: hidden;
   overflow-y: scroll;

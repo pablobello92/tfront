@@ -109,7 +109,7 @@ export class UserEditComponent implements OnInit {
                         this.msgs.push({
                             severity: 'error',
                             detail: 'Error al intentar actualizar el usuario.'
-                        })
+                        });
                     });
             },
             reject: () => {

@@ -2,13 +2,14 @@ import { TracksService } from '../../../../shared/services/tracks.service';
 import { AdminToolsService } from '../../../../shared/services/adminTools.service';
 import { SumarizingObject, Track } from '../../../../shared/interfaces/Track';
 import { map } from 'rxjs/operators';
-import { IRange } from '../../../../shared/interfaces/Range';
+import { IRange, SumarizingSegment } from '../../../../shared/interfaces/Range';
 import { getCenter, getDistance } from 'geolib';
 import {
     Component,
     OnInit,
     ViewEncapsulation
 } from '@angular/core';
+import { Message } from 'primeng/api';
 
 @Component({
     selector: 'app-admin-tools',
@@ -16,6 +17,8 @@ import {
     styleUrls: ['./admin-tools.component.scss']
 })
 export class AdminToolsComponent implements OnInit {
+
+    msgs: Message[] = [];
 
     constructor(
         private _tracks: TracksService,
@@ -46,9 +49,15 @@ export class AdminToolsComponent implements OnInit {
             console.log(sumarizedObjects);
             this._adminTools.insertSumarizations(sumarizedObjects)
             .subscribe(result => {
-                console.log(result);
+                this.msgs.push({
+                    severity: 'success',
+                    detail: 'Sumarizaciones actualizadas exitosamente.'
+                });
             }, error => {
-                console.error(error);
+                this.msgs.push({
+                    severity: 'error',
+                    detail: 'Error al intentar actualizar las sumarizaciones.'
+                });
             });
         }, err => {
             console.error(err);
@@ -56,30 +65,30 @@ export class AdminToolsComponent implements OnInit {
     }
 
     private sumarizeByCity(item: SumarizingObject): any {
-        const ranges: IRange[] = [];
+        const ranges: SumarizingSegment[] = [];
         const tracks = item.tracks;
         tracks.forEach((track: Track) => {
             this.addSumarizedSegmentsByTrack(ranges, track);
         });
         return {
             city: item.city,
+            date: Date.parse(new Date().toDateString()),
             ranges
         };
     }
 
-    private addSumarizedSegmentsByTrack(temp: IRange[], track: Track): any {
+    private addSumarizedSegmentsByTrack(temp: SumarizingSegment[], track: Track): any {
         const startTime = track.startTime;
-        const ranges: IRange[] = track.ranges;
-
-        ranges.forEach((range: IRange) => {
-            this.addRangeToResult(range, temp);
+        const segments: SumarizingSegment[] = track.ranges.map((item: IRange) => this.mapRangeToSumarizingRange(item));
+        segments.forEach((segment: SumarizingSegment) => {
+            this.addRangeToResult(segment, temp);
         });
     }
 
     // add Coordinate = { lat/lng } type to elements
-    private addRangeToResult(rangeToMerge: IRange, subTemp: IRange[]): any {
+    private addRangeToResult(rangeToMerge: SumarizingSegment, subTemp: SumarizingSegment[]): any {
         const midpoint = getCenter([rangeToMerge.start, rangeToMerge.end]);
-        const toMerge = subTemp.find((range: IRange) => this.shouldMerge(midpoint, range));
+        const toMerge = subTemp.find((range: SumarizingSegment) => this.shouldMerge(midpoint, range));
         if (!toMerge) {
             rangeToMerge.accuracy = 1;
             subTemp.push(rangeToMerge);
@@ -95,11 +104,19 @@ export class AdminToolsComponent implements OnInit {
         return distanceToStart < distance && distanceToEnd < distance;
     }
 
-    private mergeRanges = (oldRange: IRange, newRange: IRange): void => {
+    private mergeRanges = (oldRange: SumarizingSegment, newRange: SumarizingSegment): void => {
         const NEW_DATA_WEIGHT = 0.6;
         const OLD_DATA_WEIGHT = 1 - NEW_DATA_WEIGHT;
         oldRange.score = oldRange.score * OLD_DATA_WEIGHT + newRange.score * NEW_DATA_WEIGHT;
         oldRange.date = newRange.date;
         oldRange.accuracy++;
+    }
+
+    private mapRangeToSumarizingRange = (range: IRange): SumarizingSegment => {
+        const {speed, stabilityEvents, ...relevantFields} = range;
+        return <SumarizingSegment> {
+            ...relevantFields,
+            accuracy: 0
+        };
     }
 }

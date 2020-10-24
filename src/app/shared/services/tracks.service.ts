@@ -17,7 +17,7 @@ import {
     Track
 } from '../interfaces/Track';
 import {
-    IRange
+    IRange, SumarizingSegment
 } from '../interfaces/Range';
 import {
     ColorsService
@@ -41,83 +41,6 @@ export class TracksService {
         private _colors: ColorsService
     ) {}
 
-    private getRelativeScoreScale(ranges: IRange[]): CombinedLimit {
-        let min = 100000;
-        let max = 0;
-        let avg = 0;
-        let counter = 0;
-
-        ranges.forEach((range) => {
-            const score = range.score;
-            if (score > 0) {
-                counter++;
-                avg += score;
-                min = Math.min(min, score);
-                max = Math.max(max, score);
-            }
-        });
-        avg = avg / counter;
-        const lowerStep = (avg - min) / 4;
-        const upperStep = (max - avg) / 4;
-        const numericLimit = {
-            veryLow: min + lowerStep,
-            low: avg - lowerStep,
-            medium: avg + upperStep,
-            high: max - upperStep
-        };
-        return this._colors.getCombinedLimits(numericLimit);
-    }
-
-    public getCoordinatesFromMarkers(overlays: any[]): Coordinate[] {
-        return overlays.map((overlay: any) =>  <Coordinate>{
-                lat: overlay.position.lat(),
-                lng: overlay.position.lng()
-            }
-        );
-    }
-
-    public getDrawableFromCoordinates(coordinates: Coordinate[], color: string = '#0097e6'): any {
-        return new google.maps.Polyline({
-            path: [{
-                    lat: coordinates[0].lat,
-                    lng: coordinates[0].lng
-                },
-                {
-                    lat: coordinates[1].lat,
-                    lng: coordinates[1].lng
-                }
-            ],
-            geodesic: true,
-            strokeColor: color,
-            strokeOpacity: 1,
-            strokeWeight: 4
-        });
-    }
-
-    private mapRangeToDrawable(range: IRange, limits: CombinedLimit): any {
-        return new google.maps.Polyline({
-            path: [{
-                    lat: range.start.lat,
-                    lng: range.start.lng
-                },
-                {
-                    lat: range.end.lat,
-                    lng: range.end.lng
-                }
-            ],
-            geodesic: true,
-            strokeColor: this._colors.getColor(range.score, limits),
-            strokeOpacity: 1,
-            strokeWeight: 4
-        });
-    }
-
-    public getDrawableFromTrack(track: Track): any[] {
-        const limits = this.getRelativeScoreScale(track.ranges);
-        const drawable = track.ranges.map((range: IRange) => this.mapRangeToDrawable(range, limits));
-        return drawable;
-    }
-
     public getUserTracks(filterObject: MapFilter): Observable < Track[] > {
         const params = '?username=' + filterObject.user + '&city=' + filterObject.city + '&pages=' + filterObject.pages
         + '&from=' + filterObject.startTime.from + '&to=' + filterObject.startTime.to;
@@ -127,28 +50,19 @@ export class TracksService {
 
     public executePrediction_roadTypes(): Observable < any > {
         const endpoint = this.appConfig.server + this.appConfig.endpoints.predictions.roadTypes;
-        return <Observable < any >> this.http.get(endpoint)
-        .pipe(
-            tap(res => {console.log(res);
-            })
-        );
+        return <Observable < any >> this.http.get(endpoint);
     }
 
-    /**
-     *  Asphalt
-     * Cobbles
-     * Concrete
-     * Earth (0..3)
-     * /
-     private getRoadType(value: number): string {
-
+    private getRoadType(value: number): string {
+        return (value < 0.3) ? 'Earth' :
+        (value < 0.6) ? 'Asphalt' :
+        (value < 0.9) ? 'Cobbles' :
+        'Concrete';
     }
-     /*
-     * Call
-     * Door
-     * Message
-     * Pothole
-     * 'Speed Bump'
-     * 'Street Gutter' (0..5)
-    *  */
+
+    private getAnomalyType(value: number): string {
+        return (value < 0.3) ? 'Pothole' :
+        (value < 0.6) ? 'Speed Bump' :
+        'Street Gutter';
+    }
 }

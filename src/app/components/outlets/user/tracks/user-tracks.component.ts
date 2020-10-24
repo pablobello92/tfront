@@ -16,6 +16,7 @@ import { CitiesService } from '../../../../shared/services/cities.service';
 import { City, MapOptions } from '../../../../shared/interfaces/City';
 import { Track } from '../../../../shared/interfaces/Track';
 import { MapFilter } from '../../../../shared/interfaces/MapFilter';
+import { MapsService } from '../../../../shared/services/maps.service';
 
 declare const google: any;
 
@@ -48,8 +49,9 @@ export class UserTracksComponent implements OnInit {
 
     // TODO: enable buttons prev/next only if there is tracks
     constructor(
+        private _cities: CitiesService,
         private _tracks: TracksService,
-        private _cities: CitiesService
+        private _maps: MapsService
     ) {
         this.cities = this._cities.getCities()
         .pipe(
@@ -77,7 +79,7 @@ export class UserTracksComponent implements OnInit {
             skip(1),
             filter((nextIndex: number) => (this.tracks.length > 0)),
             map((nextIndex: number) => this.tracks[nextIndex]),
-            map((trackToDraw: Track) => this._tracks.getDrawableFromTrack(trackToDraw))
+            map((trackToDraw: Track) => this._maps.getDrawableFromRanges(trackToDraw.ranges))
         );
     }
 
