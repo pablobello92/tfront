@@ -4,6 +4,21 @@ import {
 import {
     CookieService
 } from 'ngx-cookie-service';
+import {
+    Observable
+} from 'rxjs';
+import {
+    of
+} from 'rxjs/internal/observable/of';
+import {
+    tap
+} from 'rxjs/operators';
+import {
+    AppConfig
+} from '../../configs/app.config';
+import {
+    HttpClient
+} from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -11,10 +26,34 @@ import {
 export class AuthService {
 
     constructor(
+        private _config: AppConfig,
+        private _http: HttpClient,
         private _cookies: CookieService
     ) {}
-    getAllCookies(): any {
-        this._cookies.getAll();
+
+    login(): Observable < any > {
+        const endpoint = this._config.server + this._config.endpoints.login;
+        /*const payload = {
+            email,
+            password
+        };*/
+        this._cookies.set('logged', 'true');
+        return of(true);
+        /*return <Observable < any >> this._http.post(endpoint, payload)
+        .pipe(
+            tap(res => {
+                this._cookies.set('logged', 'true');
+            })
+        );*/
+    }
+
+    logout(): void {
+        this._cookies.delete('logged');
+        this._cookies.delete('name');
+    }
+
+    isLogged(): boolean {
+        return this._cookies.check('logged');
     }
 
     // TO-DO: expiracion de las cookies
@@ -26,28 +65,11 @@ export class AuthService {
         return this._cookies.get('user.' + key);
     }
 
-    removeAllUserData(): void {
-        this.removeUserDataField('id');
-        this.removeUserDataField('id_external_table');
-        this.removeUserDataField('name');
-        this.removeUserDataField('type');
-        this.removeUserDataField('token');
-    }
-
     removeUserDataField(key: string): void {
         this._cookies.delete('user.' + key);
     }
 
-    isLogged(): boolean {
-        return this._cookies.check('logged');
-    }
 
-    logIn(): void {
-        this._cookies.set('logged', 'true');
-    }
 
-    logOut(): void {
-        this._cookies.delete('logged');
-        this.removeAllUserData();
-    }
+
 }
