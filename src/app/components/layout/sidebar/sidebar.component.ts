@@ -63,7 +63,7 @@ export class SideBarComponent implements OnInit {
         // label: translations.titles.geo,
         items: [{
             label: translations.titles.my_tracks,
-            icon: 'fa fa-fw fa-road',
+            icon: 'fa fa-fw fa-car',
             routerLink: ['/user/tracks']
         },
         {
