@@ -1,17 +1,13 @@
 import {
     Component,
-    OnInit,
-    ViewEncapsulation,
-    EventEmitter
+    OnInit
 } from '@angular/core';
 import {
     TracksService
 } from 'src/app/shared/services/tracks.service';
 
-import { IRange } from '../../../../shared/interfaces/Range';
 import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
 import { tap, map, skip, filter } from 'rxjs/operators';
-import { ColorInfoWidgetComponent } from './color-info-widget/color-info-widget.component';
 import { CitiesService } from '../../../../shared/services/cities.service';
 import { City, MapOptions } from '../../../../shared/interfaces/City';
 import { Track } from '../../../../shared/interfaces/Track';
@@ -34,8 +30,8 @@ export class UserTracksComponent implements OnInit {
     currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
     dateFilter = {
-        from: new Date(),
-        to: new Date()
+        from: new Date(1520532778063.0),
+        to: new Date(1520632778063.0)
     };
 
     /**
