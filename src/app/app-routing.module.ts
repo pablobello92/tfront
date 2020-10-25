@@ -26,7 +26,7 @@ import {
 } from './components/outlets/admin/admin-tools/admin-tools.component';
 import {
     ReparationsComponent
-} from './components/outlets/admin/reparations/reparations/reparations.component';
+} from './components/outlets/admin/reparations/reparations.component';
 import {
     LoginComponent
 } from './components/pages/login/login.component';

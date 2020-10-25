@@ -8,15 +8,15 @@ import {
     GMapModule
 } from 'primeng/gmap';
 
-import { MapOptions, City } from '../../../../../shared/interfaces/City';
-import { Coordinate } from '../../../../../shared/interfaces/Coordinate';
+import { MapOptions, City } from '../../../../shared//interfaces/City';
+import { Coordinate } from '../../../../shared//interfaces/Coordinate';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {  map, skip, tap } from 'rxjs/operators';
-import { TracksService } from '../../../../../shared/services/tracks.service';
-import { CitiesService } from '../../../../../shared/services/cities.service';
-import { Reparation } from '../../../../../shared/interfaces/Reparation';
-import { ReparationsService } from '../../../../../shared/services/reparations.service';
-import { MapsService } from '../../../../../shared/services/maps.service';
+import { TracksService } from '../../../../shared//services/tracks.service';
+import { CitiesService } from '../../../../shared//services/cities.service';
+import { Reparation } from '../../../../shared//interfaces/Reparation';
+import { ReparationsService } from '../../../../shared//services/reparations.service';
+import { MapsService } from '../../../../shared//services/maps.service';
 
 declare const google: any;
 
