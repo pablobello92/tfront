@@ -76,7 +76,7 @@ export class SideBarComponent implements OnInit {
         // label: translations.titles.admin,
         items: [{
             label: translations.titles.reparations,
-            icon: 'fa fa-fw fa-cog',
+            icon: 'fa fa-fw fa-wrench',
             routerLink: ['/admin/reparations']
           },
           {
