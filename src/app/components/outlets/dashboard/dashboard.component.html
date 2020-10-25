@@ -2,23 +2,23 @@
     <h1>{{ 'titles.dashboard' | translate }}</h1>
 </div>
 <div class="dashboard">
-    <button type="button" class="btn btn-warning">
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/tracks')">
         {{ 'titles.my_tracks' | translate }}
         <span class="fa fa-puzzle-piece"></span>
     </button>
-    <button type="button" class="btn btn-warning" >
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/sumarized-tracks')">
         {{ 'titles.sumarized_tracks' | translate }}
         <span class="fa fa-cogs"></span>
     </button>
-    <button type="button" class="btn btn-warning">
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/edit')">
         {{ 'titles.user_edit' | translate }}
         <span class="fa fa-cogs"></span>
     </button>
-    <button type="button" class="btn btn-warning">
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/reparations')">
         {{ 'titles.reparations' | translate }}
         <span class="fa fa-cogs"></span>
     </button>
-    <button type="button" class="btn btn-warning" >
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/tools')">
         {{ 'titles.tools' | translate }}
         <span class="fa fa-cogs"></span>
     </button>
