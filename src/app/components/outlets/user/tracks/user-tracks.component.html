@@ -31,9 +31,9 @@
     <div class="divider"></div>
     <div class="map-content">
         <div class="prev-next">
-            <button type="button" class="btn btn-success" [disabled]="( getTrackIndex() === 0 )"
+            <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === 0 )"
                 (click)="changeTrackIndex(-1)">ant.</button>
-            <button type="button" class="btn btn-success" [disabled]="( getTrackIndex() === (paginationLimit - 1000) )"
+            <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === (paginationLimit - 1000) )"
                 (click)="changeTrackIndex(1)">sig.</button>
         </div>
         <p-gmap #gmap (onMapReady)="setMap($event)" [overlays]="( currentTrack | async )"

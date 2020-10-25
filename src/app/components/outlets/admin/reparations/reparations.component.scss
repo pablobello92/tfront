@@ -1,10 +1,37 @@
-app-reparations {
+.content {
     display: flex;
     flex-direction: column;
+    color: var(--lightGray);
 
-    .button-panel {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 10px;
+    .filters-card {
+        >div {
+            width: 40%;
+            @media screen and (max-width: 1023px) {
+                width: 100%;
+            }
+            padding: 5px;
+            display: inline-flex;
+            justify-content: space-between;
+        }
+
+        .text {
+            margin-right: 10px;
+            display: inline;
+            font-size: 1.5vs;
+            font-weight: 400;
+        }
+    }
+
+    .map-content {
+        margin: 10px 0px 25px 0px;
+        .prev-next {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: flex-end;
+
+            >:last-child {
+                margin-left: 10px;
+            }
+        }
     }
 }
