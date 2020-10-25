@@ -1,22 +1,21 @@
 import {
     Component,
-    OnInit,
-    ViewEncapsulation
+    OnInit
 } from '@angular/core';
 
 import {
     GMapModule
 } from 'primeng/gmap';
 
-import { MapOptions, City } from '../../../../../shared/interfaces/City';
-import { Coordinate } from '../../../../../shared/interfaces/Coordinate';
+import { MapOptions, City } from '../../../../shared//interfaces/City';
+import { Coordinate } from '../../../../shared//interfaces/Coordinate';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {  map, skip, tap } from 'rxjs/operators';
-import { TracksService } from '../../../../../shared/services/tracks.service';
-import { CitiesService } from '../../../../../shared/services/cities.service';
-import { Reparation } from '../../../../../shared/interfaces/Reparation';
-import { ReparationsService } from '../../../../../shared/services/reparations.service';
-import { MapsService } from '../../../../../shared/services/maps.service';
+import { TracksService } from '../../../../shared//services/tracks.service';
+import { CitiesService } from '../../../../shared//services/cities.service';
+import { Reparation } from '../../../../shared//interfaces/Reparation';
+import { ReparationsService } from '../../../../shared//services/reparations.service';
+import { MapsService } from '../../../../shared//services/maps.service';
 
 declare const google: any;
 
@@ -28,8 +27,7 @@ declare const google: any;
 @Component({
     selector: 'app-reparations',
     templateUrl: './reparations.component.html',
-    styleUrls: ['./reparations.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./reparations.component.scss']
 })
 export class ReparationsComponent implements OnInit {
 
@@ -44,9 +42,7 @@ export class ReparationsComponent implements OnInit {
     currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
 
-    // TODO: enable buttons prev/next only if there is tracks
     constructor(
-        private _tracks: TracksService,
         private _maps: MapsService,
         private _reparations: ReparationsService,
         private _cities: CitiesService

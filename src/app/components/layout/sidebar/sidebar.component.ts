@@ -63,7 +63,7 @@ export class SideBarComponent implements OnInit {
         // label: translations.titles.geo,
         items: [{
             label: translations.titles.my_tracks,
-            icon: 'fa fa-fw fa-road',
+            icon: 'fa fa-fw fa-car',
             routerLink: ['/user/tracks']
         },
         {
@@ -75,15 +75,15 @@ export class SideBarComponent implements OnInit {
       {
         // label: translations.titles.admin,
         items: [{
+            label: translations.titles.reparations,
+            icon: 'fa fa-fw fa-wrench',
+            routerLink: ['/admin/reparations']
+          },
+          {
           label: translations.titles.tools,
           icon: 'fa fa-fw fa-cog',
           routerLink: ['/admin/tools']
-        },
-        {
-            label: translations.titles.reparations,
-            icon: 'fa fa-fw fa-cog',
-            routerLink: ['/admin/reparations']
-          }]
+        }]
       },
       {
         // label: translations.titles.profile,

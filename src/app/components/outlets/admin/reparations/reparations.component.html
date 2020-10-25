@@ -1,0 +1,25 @@
+<div class="content">
+    <div class="outletHeading">
+        <h3>{{ 'titles.reparations' | translate }}</h3>
+    </div>
+
+    <div class="filters-card">
+        <div>
+            <span class="text">Por favor, escoja una ciudad</span>
+            <p-dropdown [options]="( cities | async)" [(ngModel)]="currentCity"
+            (onChange)="changeCurrentCity($event.value)" optionLabel="name" [style]="{'width':'16em'}"></p-dropdown>
+        </div>
+
+    </div>
+    <div class="map-content">
+        <div class="prev-next">
+            <button type="button" class="btn btn-warning" [disabled]="( markersPlaced.value  < 2 )"
+                (click)="resetLastReparation()"> Reset </button>
+            <button type="button" class="btn btn-warning" [disabled]="( markersPlaced.value  < 2 )"
+                (click)="postNewReparation()"> Reportar reparación </button>
+        </div>
+        <p-gmap #gmap (onMapReady)="setMap($event)" [overlays]="overlays" (onMapClick)="handleMapClick($event)"
+            [style]="{'width':'100%','height':'240px', 'border': '1px solid var(--lightGray2)'}">
+        </p-gmap>
+    </div>
+</div>

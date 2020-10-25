@@ -1,15 +1,18 @@
+<div class="outletHeading">
+    <h3>{{ 'titles.tools' | translate }}</h3>
+</div>
 <div class="admin-tools">
-    <button type="button" class="btn btn-primary" (click)="sumarize()">
+    <button type="button" class="btn btn-warning" (click)="sumarize()">
         Ejecutar sumarización
         <span class="fa fa-puzzle-piece"></span>
     </button>
     <button type="button" class="btn btn-warning" (click)="predict()">
         Predecir caminos
-        <span class="fa fa-cogs"></span>
+        <span class="fa fa-road"></span>
     </button>
     <button type="button" class="btn btn-warning" (click)="predict(true)">
         Predecir anomalías
-        <span class="fa fa-cogs"></span>
+        <span class="fa fa-flag"></span>
     </button>
 </div>
 <p-growl [(value)]="msgs"></p-growl>

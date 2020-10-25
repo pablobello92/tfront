@@ -7,7 +7,7 @@ app-navbar {
     box-shadow: 0 3px 7px 1px rgba(0, 0, 0, .4);
     display: flex;
     justify-content: space-between;
-    background-color: var(--mainBlue);
+    background-color: var(--vanadylBlue);
 
     .navbar-left, .navbar-right, .profile-area, .buttons-area, .link-item {
         display: flex;
@@ -36,14 +36,15 @@ app-navbar {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: var(--protossPylon);
-        color: white;
+        background-image: url('./../../../../assets/img/animal.png');
+        background-size: cover;
     }
 
     .nav-text {
         margin-left: 20px;
         color: var(--lightGray);
         text-transform: uppercase;
+        cursor: default;
     }
 
     @media screen and (max-width: 968px) {

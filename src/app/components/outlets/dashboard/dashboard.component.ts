@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import {
   Component,
   OnInit
@@ -10,8 +11,14 @@ import {
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() {}
+  constructor(
+    private _router: Router,
+  ) {}
 
   ngOnInit() {}
+
+  public navigateTo(route: string): void {
+    this._router.navigate([route]);
+  }
 
 }

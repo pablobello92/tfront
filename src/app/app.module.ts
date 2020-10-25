@@ -28,14 +28,16 @@ import {
     HomeComponent
 } from './components/home/home.component';
 import {
-    UsersService
-} from './shared/services/users.service';
-import {
     TracksService
 } from './shared/services/tracks.service';
 import {
     ReparationsService
 } from './shared/services/reparations.service';
+import { UsersService } from './shared/services/users.service';
+import { AuthService } from './shared/services/auth.service';
+import { AdminToolsService } from './shared/services/adminTools.service';
+import { SumarizationsService } from './shared/services/sumarizations.service';
+import { MapsService } from './shared/services/maps.service';
 import {
     DashboardComponent
 } from './components/outlets/dashboard/dashboard.component';
@@ -60,7 +62,8 @@ import {
     CalendarModule,
     EditorModule,
     SliderModule,
-    GMapModule
+    GMapModule,
+    SpinnerModule
 } from 'primeng/primeng';
 import {
     NavbarComponent
@@ -108,14 +111,10 @@ import {
 } from './components/outlets/admin/admin-tools/admin-tools.component';
 import {
     ReparationsComponent
-} from './components/outlets/admin/reparations/reparations/reparations.component';
+} from './components/outlets/admin/reparations/reparations.component';
 import {
     SumarizedTracksComponent
 } from './components/outlets/sumarized-tracks/sumarized-tracks.component';
-import { AdminToolsService } from './shared/services/adminTools.service';
-import { AuthService } from './shared/services/auth.service';
-import { SumarizationsService } from './shared/services/sumarizations.service';
-import { MapsService } from './shared/services/maps.service';
 
 // AOT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -160,6 +159,7 @@ export function createTranslateLoader(http: HttpClient) {
         FormsModule,
         ReactiveFormsModule,
         GMapModule,
+        SpinnerModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
