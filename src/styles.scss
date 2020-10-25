@@ -45,6 +45,10 @@ body {
     margin: 0 auto;
 }
 
+h1, h2, h3, h5 {
+    color: var(--lightGray);
+}
+
 /* General */
 
 .cursor-pointer {
@@ -102,12 +106,7 @@ body {
 .outletHeading {
     margin-bottom: 25px;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--lightGray2);
-}
-
-.outletHeading>h3 {
-    color: var(--blueNights);
-    font-weight: 450;
+    border-bottom: 1px solid var(--lightGray);
 }
 
 .btn-transparent {
@@ -123,31 +122,4 @@ body {
     border-bottom: 1px solid var(--formBorderGray);
     margin-top: 10px;
     margin-bottom: 10px;
-}
-
-.outletFormH3 {
-    font-size: 1.5rem;
-    color: var(--chainGray);
-}
-
-.outletFormH4 {
-    font-size: 1.3rem;
-    color: var(--blueNights);
-}
-
-.scrollableX {
-    overflow-x: scroll;
-}
-
-.scrollableY {
-    overflow-y: scroll;
-}
-
-.margin20 {
-    margin: 20px;
-}
-
-.paddedSides {
-    padding-left: 20px;
-    padding-right: 20px;
 }

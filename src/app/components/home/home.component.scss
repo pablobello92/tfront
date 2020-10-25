@@ -5,6 +5,7 @@ app-home {
         display: flex;
         flex-direction: row;
         height: 90vh;
+        background-color: var(--blueNights);
         @media screen and (max-width: 968px) {
             height: 88vh;
         }
