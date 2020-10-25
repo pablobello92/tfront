@@ -1,10 +1,21 @@
 .dashboard {
-  text-align: left;
-  .bigTitle {
-    font-size: 3rem;
-  }
-  .subtitle {
-    color: dimgray;
-    padding-left: 10px;
-  }
+    padding: 25px 100px;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 2;
+    flex-wrap: wrap;
+
+    button {
+        margin: 3px;
+        padding: 75px;
+        border-radius: 1px;
+        flex-grow: 1;
+        font-size: 1vw;
+        &.btn-warning, &.btn-warning .fa{
+            color: var(--blueNights);
+        }
+        span {
+            margin-left: 2px;
+        }
+    }
 }

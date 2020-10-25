@@ -1,36 +1,34 @@
 import {
-  Component,
-  OnInit
+    Component,
+    OnInit,
+    ViewEncapsulation
 } from '@angular/core';
 import {
-  Router
+    Router
 } from '@angular/router';
 import {
-  TranslateService
-} from '@ngx-translate/core';
-import {
-  LocalStorageService
-} from '../../shared/services/localStorageService';
+    AuthService
+} from '../../shared/services/auth.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
 
-  displaySidebar = true;
+    displaySidebar = true;
 
-  constructor(
-    private localStorage: LocalStorageService,
-    private router: Router,
-    private translate: TranslateService
-  ) {}
+    constructor(
+        private _auth: AuthService,
+        private router: Router
+    ) {}
 
-  ngOnInit() {
-    if (!this.localStorage.isLogged()) {
-      this.router.navigate(['login']);
+    ngOnInit() {
+        if (!this._auth.isLogged()) {
+            this.router.navigate(['login']);
+        }
     }
-  }
 
 }

@@ -1,49 +1,49 @@
-app-user-tracks {
+.content {
     display: flex;
     flex-direction: column;
+    color: var(--lightGray);
 
-    .bigTitle {
-        font-size: 3rem;
+    .filters-card {
+        display: flex;
+        flex-direction: column;
+
+        >div {
+            width: 40%;
+            @media screen and (max-width: 1023px) {
+                width: 100%;
+            }
+            padding: 5px;
+            display: inline-flex;
+            justify-content: space-between;
+        }
+
+        &>:last-child {
+            justify-content: flex-end;
+        }
+
+        .text {
+            margin-right: 10px;
+            display: inline;
+            font-size: 1.5vs;
+            font-weight: 400;
+        }
     }
 
-    .subtitle {
-        color: dimgray;
-        padding-left: 10px;
+    .divider {
+        border: 1px solid var(--lightGray);
+        margin: 10px 0px 10px 0px;
     }
 
     .map-content {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .dropdown-row {
-        margin-bottom: 10px;
-        display: inline-flex;
-        flex-direction: row;
-        justify-content: start;
-        span {
-            margin-right: 10px;
-        }
-    }
-
-    .prev-next {
-        margin: 10px 0px;
-        display: flex;
-        justify-content: flex-end;
-        * {
-            margin-left: 10px;
-        }
-    }
-
-    .filters-row {
-        display: flex;
-        flex-direction: column;
-        * {
+        margin: 10px 0px 25px 0px;
+        .prev-next {
             margin-bottom: 10px;
-        }
+            display: flex;
+            justify-content: flex-end;
 
-        p-dropdown, p-slider {
-            width: 200px;
+            >:last-child {
+                margin-left: 10px;
+            }
         }
     }
 }

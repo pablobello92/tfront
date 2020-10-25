@@ -1,7 +1,7 @@
-import { Range } from './Range';
+import { IRange } from './Range';
 import { NumericLimit } from './Limit';
 
 export interface RangesAndLimits {
-    ranges: Range[];
+    ranges: IRange[];
     limits: NumericLimit;
 }

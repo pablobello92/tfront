@@ -1,29 +1,25 @@
 import {
     Component,
-    OnInit,
-    ViewEncapsulation,
-    EventEmitter
+    OnInit
 } from '@angular/core';
 import {
     TracksService
-} from 'src/app/shared/services/tracksService';
+} from 'src/app/shared/services/tracks.service';
 
-import { Range } from '../../../../shared/interfaces/Range';
 import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
 import { tap, map, skip, filter } from 'rxjs/operators';
-import { ColorInfoWidgetComponent } from './color-info-widget/color-info-widget.component';
-import { CitiesService } from '../../../../shared/services/citiesService';
+import { CitiesService } from '../../../../shared/services/cities.service';
 import { City, MapOptions } from '../../../../shared/interfaces/City';
 import { Track } from '../../../../shared/interfaces/Track';
 import { MapFilter } from '../../../../shared/interfaces/MapFilter';
+import { MapsService } from '../../../../shared/services/maps.service';
 
 declare const google: any;
 
 @Component({
     selector: 'app-user-tracks',
     templateUrl: './user-tracks.component.html',
-    styleUrls: ['./user-tracks.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./user-tracks.component.scss']
 })
 export class UserTracksComponent implements OnInit {
     private map: google.maps.Map;
@@ -33,7 +29,10 @@ export class UserTracksComponent implements OnInit {
     cities: Observable<City[]> = new Observable<City[]>();
     currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
-    filterDates: Date[] = [null, null];
+    dateFilter = {
+        from: new Date(1520532778063.0),
+        to: new Date(1520632778063.0)
+    };
 
     /**
      * TODO: agregar un onChange sobre este campo, asi se habilitan/deshabilitan los botones
@@ -46,8 +45,9 @@ export class UserTracksComponent implements OnInit {
 
     // TODO: enable buttons prev/next only if there is tracks
     constructor(
+        private _cities: CitiesService,
         private _tracks: TracksService,
-        private _cities: CitiesService
+        private _maps: MapsService
     ) {
         this.cities = this._cities.getCities()
         .pipe(
@@ -75,7 +75,7 @@ export class UserTracksComponent implements OnInit {
             skip(1),
             filter((nextIndex: number) => (this.tracks.length > 0)),
             map((nextIndex: number) => this.tracks[nextIndex]),
-            map((trackToDraw: Track) => this._tracks.getDrawableFromTrack(trackToDraw))
+            map((trackToDraw: Track) => this._maps.getDrawableFromRanges(trackToDraw.ranges))
         );
     }
 
@@ -105,8 +105,8 @@ export class UserTracksComponent implements OnInit {
             user: 'pablo_bello',
             city: this.currentCity.name,
             startTime: {
-                from: (this.filterDates[0] !== null) ? Date.parse(this.filterDates[0].toDateString()) : null,
-                to: (this.filterDates[1] !== null) ?  Date.parse(this.filterDates[1].toDateString()) : null
+                from: Date.parse(this.dateFilter.from.toDateString()),
+                to: Date.parse(this.dateFilter.to.toDateString())
             },
             pages: this.paginationLimit
         };

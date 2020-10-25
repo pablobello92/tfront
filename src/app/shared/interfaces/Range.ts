@@ -1,13 +1,19 @@
 import { Coordinate } from './Coordinate';
 import { StabilityEvent } from './StabilityEvent';
 
-export interface Range {
-    id: number;
+export interface Segment {
     date: number;
     start: Coordinate;
     end: Coordinate;
-    speed: number;
     score: number;
-    stabilityEvents: StabilityEvent[];
     distance: number;
+}
+
+export interface SumarizingSegment extends Segment {
+    accuracy?: number;
+}
+
+export interface IRange extends Segment {
+    speed: number;
+    stabilityEvents: StabilityEvent[];
 }

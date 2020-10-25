@@ -1,8 +1,25 @@
+<div class="outletHeading">
+    <h1>{{ 'titles.dashboard' | translate }}</h1>
+</div>
 <div class="dashboard">
-      <div class="row">
-          <div class="col-xl-9 col-lg-8 home-text">
-              <h1 class="bigTitle">{{ 'titles.dashboard' | translate }}</h1>
-              <!--<h5 class="subtitle"> {{ 'messages.welcome' | translate }}</h5>-->
-          </div>
-      </div>
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/tracks')">
+        {{ 'titles.my_tracks' | translate }}
+        <span class="fa fa-car"></span>
+    </button>
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/sumarized-tracks')">
+        {{ 'titles.sumarized_tracks' | translate }}
+        <span class="fa fa-globe"></span>
+    </button>
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/edit')">
+        {{ 'titles.user_edit' | translate }}
+        <span class="fa fa-pencil"></span>
+    </button>
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/reparations')">
+        {{ 'titles.reparations' | translate }}
+        <span class="fa fa-wrench"></span>
+    </button>
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/tools')">
+        {{ 'titles.tools' | translate }}
+        <span class="fa fa-cogs"></span>
+    </button>
 </div>

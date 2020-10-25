@@ -1,3 +1,4 @@
+
 import {
     Component,
     OnInit
@@ -13,18 +14,13 @@ import {
     Router
 } from '@angular/router';
 import {
-    LocalStorageService
-} from '../../../../shared/services/localStorageService';
-import {
     ConfirmationService
 } from 'primeng/components/common/confirmationservice';
+import { UsersService } from './../../../../shared/services/users.service';
 
 import {
     Message
 } from 'primeng/api';
-import {
-    UsersService
-} from 'src/app/shared/services/usersService';
 import {
     User
 } from '../../../../shared/interfaces/User';
@@ -112,7 +108,7 @@ export class UserEditComponent implements OnInit {
                         this.msgs.push({
                             severity: 'error',
                             detail: 'Error al intentar actualizar el usuario.'
-                        })
+                        });
                     });
             },
             reject: () => {

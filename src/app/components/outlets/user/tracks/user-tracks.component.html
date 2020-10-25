@@ -1,30 +1,43 @@
+<div class="content">
+    <div class="outletHeading">
+        <h3> {{ 'titles.my_tracks' | translate }} </h3>
+    </div>
+    <div class="filters-card">
+        <div>
+            <span class="text">Ciudad</span>
+            <p-dropdown [options]="( cities | async)" [(ngModel)]="currentCity"
+                (onChange)="changeCurrentCity($event.value)" optionLabel="name" [style]="{'width':'16em'}"></p-dropdown>
+        </div>
 
-<h1 class="bigTitle">Mis Trayectos</h1>
+        <div>
+            <span class="text">Desde</span>
+            <p-calendar [(ngModel)]="dateFilter.from" [monthNavigator]="true" [yearNavigator]="true"
+                yearRange="2000:2030" [readonlyInput]="true" [showIcon]="true"></p-calendar>
 
-<!-- FILA: DROPDOWN CIUDAD-->
-<div class="dropdown-row">
-    <span>Por favor, escoja una ciudad</span>
-    <p-dropdown [options]="( cities | async)" [(ngModel)]="currentCity" (onChange)="changeCurrentCity($event.value)" optionLabel="name"></p-dropdown>
-</div>
-
-<div class="filters-row">
-    <p-calendar [(ngModel)]="filterDates" selectionMode="range" [readonlyInput]="true" [showIcon]="true"></p-calendar>
-    <span># de tracks: {{ paginationLimit }}</span>
-    <p-slider [(ngModel)]="paginationLimit" [min]="1" [max]="10" [step]="1"></p-slider>
-</div>
-
-<div class="mb-2">
-    <button type="button" class="btn btn-danger pull-right" (click)="fetchUserTracks()">Buscar</button>
-</div>
-
-<div class="map-content">
-    <div> <!--COLUMNA 2-->
-        <p-gmap #gmap (onMapReady)="setMap($event)" [overlays]="( currentTrack | async )" [style]="{'width':'100%','height':'240px'}">
+        </div>
+        <div>
+            <span class="text">Hasta</span>
+            <p-calendar [(ngModel)]="dateFilter.to" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+                [readonlyInput]="true" [showIcon]="true"></p-calendar>
+        </div>
+        <div>
+            <span class="text">Cantidad:</span>
+            <p-spinner size="1" [min]="0" [max]="10" [(ngModel)]="paginationLimit"></p-spinner>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" (click)="fetchUserTracks()">Buscar</button>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="map-content">
+        <div class="prev-next">
+            <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === 0 )"
+                (click)="changeTrackIndex(-1)">ant.</button>
+            <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === (paginationLimit - 1000) )"
+                (click)="changeTrackIndex(1)">sig.</button>
+        </div>
+        <p-gmap #gmap (onMapReady)="setMap($event)" [overlays]="( currentTrack | async )"
+            [style]="{'width':'100%','height':'30vw', 'border': '1px solid var(--lightGray2)'}">
         </p-gmap>
     </div>
-    <!-- TODO: color widgets! -->
-</div>
-<div class="prev-next">
-    <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === 0 )" (click)="changeTrackIndex(-1)">Anterior</button>
-    <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === (paginationLimit - 1) )" (click)="changeTrackIndex(1)">Siguiente</button>
 </div>

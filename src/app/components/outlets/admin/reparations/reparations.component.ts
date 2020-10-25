@@ -1,21 +1,21 @@
 import {
     Component,
-    OnInit,
-    ViewEncapsulation
+    OnInit
 } from '@angular/core';
 
 import {
     GMapModule
 } from 'primeng/gmap';
 
-import { MapOptions, City } from '../../../../../shared/interfaces/City';
-import { Coordinate } from '../../../../../shared/interfaces/Coordinate';
+import { MapOptions, City } from '../../../../shared//interfaces/City';
+import { Coordinate } from '../../../../shared//interfaces/Coordinate';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {  map, skip, tap } from 'rxjs/operators';
-import { TracksService } from '../../../../../shared/services/tracksService';
-import { CitiesService } from '../../../../../shared/services/citiesService';
-import { Reparation } from '../../../../../shared/interfaces/Reparation';
-import { ReparationsService } from '../../../../../shared/services/reparationsService';
+import { TracksService } from '../../../../shared//services/tracks.service';
+import { CitiesService } from '../../../../shared//services/cities.service';
+import { Reparation } from '../../../../shared//interfaces/Reparation';
+import { ReparationsService } from '../../../../shared//services/reparations.service';
+import { MapsService } from '../../../../shared//services/maps.service';
 
 declare const google: any;
 
@@ -27,8 +27,7 @@ declare const google: any;
 @Component({
     selector: 'app-reparations',
     templateUrl: './reparations.component.html',
-    styleUrls: ['./reparations.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./reparations.component.scss']
 })
 export class ReparationsComponent implements OnInit {
 
@@ -43,9 +42,8 @@ export class ReparationsComponent implements OnInit {
     currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
 
-    // TODO: enable buttons prev/next only if there is tracks
     constructor(
-        private _tracks: TracksService,
+        private _maps: MapsService,
         private _reparations: ReparationsService,
         private _cities: CitiesService
     ) {
@@ -72,7 +70,7 @@ export class ReparationsComponent implements OnInit {
             .subscribe(reparations => {
                 const drawables = reparations.map((r: Reparation) => {
                     const coords = <Coordinate[]>[r.from, r.to];
-                    return this._tracks.getDrawableFromCoordinates(coords);
+                    return this._maps.getDrawableFromCoordinates(coords);
                 });
                 this.overlays.push(...drawables);
             });
@@ -83,8 +81,8 @@ export class ReparationsComponent implements OnInit {
             if (newValue === 2) {
                 const lastIndex = this.overlays.length;
                 const newMarkers = [this.overlays[lastIndex - 1], this.overlays[lastIndex - 2]];
-                const coordinates = this._tracks.getCoordinatesFromMarkers(newMarkers);
-                const newOverlay = this._tracks.getDrawableFromCoordinates(coordinates, 'lime');
+                const coordinates = this._maps.getCoordinatesFromMarkers(newMarkers);
+                const newOverlay = this._maps.getDrawableFromCoordinates(coordinates, 'lime');
                 this.overlays.push(newOverlay);
             }
         });
@@ -142,7 +140,7 @@ export class ReparationsComponent implements OnInit {
     // TODO: add information tooltips to markers
     public postNewReparation(): void {
         const lastMarkers = this.resetMarkers();
-        const coordinates = this._tracks.getCoordinatesFromMarkers(lastMarkers);
+        const coordinates = this._maps.getCoordinatesFromMarkers(lastMarkers);
         const newReparation: Reparation = {
             from: {
                 lat: coordinates[0].lat,

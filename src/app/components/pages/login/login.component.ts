@@ -17,10 +17,10 @@ import {
 } from 'rxjs';
 import {
     UsersService
-} from '../../../shared/services/usersService';
+} from '../../../shared/services/users.service';
 import {
-    LocalStorageService
-} from '../../../shared/services/localStorageService';
+    AuthService
+} from '../../../shared/services/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private usersService: UsersService,
-        private localStorageService: LocalStorageService,
+        private _auth: AuthService,
         private router: Router,
         private fb: FormBuilder
     ) {
@@ -47,18 +47,22 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.localStorageService.logOut();
+        this._auth.logout();
     }
 
-    onSubmit() {  //TODO: login real, trayendo nombre del usuario o usando el que meti en el input (si es correcto es ese mismo)
-        this.localStorageService.logIn();
-        this.localStorageService.setUserDataField('name', 'PABLO BELLO');
-        /*this.localStorageService.setUserDataField('id', '16');
-        this.localStorageService.setUserDataField('name', 'PABLO BELLO');
-        this.localStorageService.setUserDataField('type', '2');
-        this.localStorageService.setUserDataField('token', '12345');*/
-        this.router.navigate(['']);
+    get f(): any {
+        return this.loginForm.controls;
+    }
 
+    onSubmit() {
+        this._auth.login()
+        .subscribe(res => {
+            this._auth.setUserDataField('name', 'Pablo Bello');
+            console.log(res);
+            this.router.navigate(['']);
+        }, error => {
+            console.error(error);
+        });
         /*this.submitted = true;
         if (this.loginForm.invalid) {
           return;
@@ -84,9 +88,5 @@ export class LoginComponent implements OnInit {
           this.badCredentials = true;
           this.loading = false;
         });*/
-    }
-
-    get f(): any {
-        return this.loginForm.controls;
     }
 }

@@ -1,7 +1,18 @@
-app-admin-tools {
-    .admin-tools {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
+.admin-tools {
+    height: 30vh;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 3;
+
+    button {
+        margin: 3px;
+        flex-grow: 1;
+        font-size: 1vw;
+        &.btn-warning, &.btn-warning .fa{
+            color: var(--blueNights);
+        }
+        span {
+            margin-left: 2px;
+        }
     }
 }

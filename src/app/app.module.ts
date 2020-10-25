@@ -28,17 +28,16 @@ import {
     HomeComponent
 } from './components/home/home.component';
 import {
-    LocalStorageService
-} from './shared/services/localStorageService';
-import {
-    UsersService
-} from './shared/services/usersService';
-import {
     TracksService
-} from './shared/services/tracksService';
+} from './shared/services/tracks.service';
 import {
     ReparationsService
-} from './shared/services/reparationsService';
+} from './shared/services/reparations.service';
+import { UsersService } from './shared/services/users.service';
+import { AuthService } from './shared/services/auth.service';
+import { AdminToolsService } from './shared/services/adminTools.service';
+import { SumarizationsService } from './shared/services/sumarizations.service';
+import { MapsService } from './shared/services/maps.service';
 import {
     DashboardComponent
 } from './components/outlets/dashboard/dashboard.component';
@@ -63,7 +62,8 @@ import {
     CalendarModule,
     EditorModule,
     SliderModule,
-    GMapModule
+    GMapModule,
+    SpinnerModule
 } from 'primeng/primeng';
 import {
     NavbarComponent
@@ -90,13 +90,13 @@ import {
 } from './components/pages/error/error.component';
 import {
     CommonService
-} from './shared/services/commonService';
+} from './shared/services/common.service';
 import {
     ColorsService
-} from './shared/services/colorsService';
+} from './shared/services/colors.service';
 import {
     CitiesService
-} from './shared/services/citiesService';
+} from './shared/services/cities.service';
 import {
     UserEditComponent
 } from './components/outlets/user/edit/user-edit.component';
@@ -111,7 +111,7 @@ import {
 } from './components/outlets/admin/admin-tools/admin-tools.component';
 import {
     ReparationsComponent
-} from './components/outlets/admin/reparations/reparations/reparations.component';
+} from './components/outlets/admin/reparations/reparations.component';
 import {
     SumarizedTracksComponent
 } from './components/outlets/sumarized-tracks/sumarized-tracks.component';
@@ -159,6 +159,7 @@ export function createTranslateLoader(http: HttpClient) {
         FormsModule,
         ReactiveFormsModule,
         GMapModule,
+        SpinnerModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -169,11 +170,14 @@ export function createTranslateLoader(http: HttpClient) {
     ],
     providers: [
         AppConfig,
+        AuthService,
         UsersService,
         TracksService,
+        MapsService,
+        SumarizationsService,
+        AdminToolsService,
         ReparationsService,
         CitiesService,
-        LocalStorageService,
         CommonService,
         ColorsService,
         TranslateService,

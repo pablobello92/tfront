@@ -1,82 +1,83 @@
 import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewEncapsulation
+    Component,
+    OnInit,
+    Input,
+    Output,
+    EventEmitter,
+    ViewEncapsulation
 } from '@angular/core';
 import {
-  Router
+    Router
 } from '@angular/router';
 import {
-  TranslateService
+    TranslateService
 } from '@ngx-translate/core';
 import {
-  LocalStorageService
-} from '../../../shared/services/localStorageService';
-import {
-  SelectItem
+    SelectItem
 } from 'primeng/api';
+import {
+    AuthService
+} from '../../../shared/services/auth.service';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit {
 
-  @Input() display: boolean;
-  @Output() displayChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Input() display: boolean;
+    @Output() displayChange: EventEmitter < boolean > = new EventEmitter < boolean > ();
 
-  userName: string;
+    userName: string;
 
-  langs: SelectItem[] = [];
-  selectedLang: SelectItem;
+    langs: SelectItem[] = [];
+    selectedLang: SelectItem;
 
-  constructor(
-    private localStorage: LocalStorageService,
-    private router: Router,
-    private translate: TranslateService
-  ) {}
+    constructor(
+        private _auth: AuthService,
+        private router: Router,
+        private translate: TranslateService
+    ) {}
 
-  ngOnInit() {
-    this.langs = [{
-      'label': 'spa',
-      'value': 'es_AR'
-    },
-    {
-      'label': 'eng',
-      'value': 'en'
-    }];
-    this.selectedLang = this.langs[0];
-    this.userName = this.localStorage.getUserDataField('name');
-  }
+    ngOnInit() {
+        this.langs = [{
+                'label': 'spa',
+                'value': 'es_AR'
+            },
+            {
+                'label': 'eng',
+                'value': 'en'
+            }
+        ];
+        this.selectedLang = this.langs[0];
+        this.userName = this._auth.getUserDataField('name');
+    }
 
-  doSomething() {
-    alert('asd');
-  }
+    doSomething() {
+        alert('asd');
+    }
 
-  logout() {
-    this.localStorage.logOut();
-    this.router.navigate(['login']);
-  }
+    logout() {
+        this._auth.logout();
+        this.router.navigate(['login']);
+    }
 
-  goHome() {
-    this.router.navigate(['dashboard']);
-  }
+    goHome() {
+        this.router.navigate(['dashboard']);
+    }
 
-  changeLang($event) {
-    this.translate.use($event.value);
-  }
+    changeLang($event) {
+        this.translate.use($event.value);
+    }
 
-  collapseSidebar() {
-    this.displayChange.emit(!this.display);
-  }
+    collapseSidebar() {
+        this.displayChange.emit(!this.display);
+    }
 
-  gotoProfile() {
-    this.router.navigate(['user/edit']);
-  }
+    gotoProfile() {
+        this.router.navigate(['user/edit']);
+    }
 
 }
