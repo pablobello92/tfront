@@ -1,18 +1,9 @@
-.paddedSides {
-    padding-left: 20px;
-    padding-right: 20px;
-}
+.card {
+    background-color: var(--blueNights);
+    color: var(--lightGray);
 
-.margin20 {
-    margin: 20px;
-}
-
-.outletFormH3 {
-    font-size: 1.5rem;
-    color: var(--chainGray);
-}
-
-.outletFormH4 {
-    font-size: 1.3rem;
-    color: var(--blueNights);
+    .row.form-group {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }

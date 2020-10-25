@@ -1,3 +1,4 @@
+
 import {
     Component,
     OnInit
@@ -15,13 +16,11 @@ import {
 import {
     ConfirmationService
 } from 'primeng/components/common/confirmationservice';
+import { UsersService } from './../../../../shared/services/users.service';
 
 import {
     Message
 } from 'primeng/api';
-import {
-    UsersService
-} from 'src/app/shared/services/users.service';
 import {
     User
 } from '../../../../shared/interfaces/User';
