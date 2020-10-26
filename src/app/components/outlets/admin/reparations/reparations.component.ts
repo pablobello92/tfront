@@ -11,18 +11,16 @@ import { MapOptions, City } from '../../../../shared//interfaces/City';
 import { Coordinate } from '../../../../shared//interfaces/Coordinate';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {  map, skip, tap } from 'rxjs/operators';
-import { TracksService } from '../../../../shared//services/tracks.service';
 import { CitiesService } from '../../../../shared//services/cities.service';
 import { Reparation } from '../../../../shared//interfaces/Reparation';
 import { ReparationsService } from '../../../../shared//services/reparations.service';
 import { MapsService } from '../../../../shared//services/maps.service';
+import { Message } from 'primeng/api';
 
 declare const google: any;
 
 /**
  * TODO: The "already marked twice" should be a toaster, or something else asynchronous
- * TODO: customize markers
- * TODO: limit repairs lenght to "una cuadra"... Then the admin should report many
  */
 @Component({
     selector: 'app-reparations',
@@ -41,6 +39,8 @@ export class ReparationsComponent implements OnInit {
     cities: Observable<City[]> = new Observable<City[]>();
     currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
+
+    msgs: Message[] = [];
 
     constructor(
         private _maps: MapsService,
@@ -95,14 +95,25 @@ export class ReparationsComponent implements OnInit {
         this.citySubject.next(this.currentCity);
     }
 
-    setMap($event): void {
+    public setMap($event): void {
         this.map = $event.map;
+    }
+
+    public overlayClicked($event): void {
+        this.msgs.push({
+            severity: 'warning',
+            detail: 'Funcionalidad no implementada.'
+        });
     }
 
     public handleMapClick($event): void {
         if (this._markersPlaced === 2) {
             this.map.setOptions(this.currentMarkerCenter);
-            return alert('Ya se ubicaron dos marcadores. Para corregir, hacer click en reset.');
+            this.msgs.push({
+                severity: 'warning',
+                detail: 'Ya se ubicaron dos marcadores. Para corregir, hacer click en reset.'
+            });
+            return;
         }
         const coords: Coordinate = {
             lat: $event.latLng.lat(),

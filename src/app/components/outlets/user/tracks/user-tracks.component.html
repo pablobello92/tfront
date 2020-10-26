@@ -12,13 +12,17 @@
         <div>
             <span class="text">Desde</span>
             <p-calendar [(ngModel)]="dateFilter.from" [monthNavigator]="true" [yearNavigator]="true"
-                yearRange="2000:2030" [readonlyInput]="true" [showIcon]="true"></p-calendar>
+                yearRange="2000:2030" dateFormat="dd/mm/yy" [readonlyInput]="true" [showIcon]="true"></p-calendar>
 
         </div>
         <div>
             <span class="text">Hasta</span>
-            <p-calendar [(ngModel)]="dateFilter.to" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
-                [readonlyInput]="true" [showIcon]="true"></p-calendar>
+            <p-calendar [(ngModel)]="dateFilter.to" [monthNavigator]="true" [yearNavigator]="true"
+            yearRange="2000:2030" dateFormat="dd/mm/yy" [readonlyInput]="true" [showIcon]="true"></p-calendar>
+        </div>
+        <div>
+            <span class="text">Offset:</span>
+            <p-spinner size="1" [min]="0" [(ngModel)]="offset"></p-spinner>
         </div>
         <div>
             <span class="text">Cantidad:</span>

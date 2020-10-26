@@ -22,28 +22,26 @@ declare const google: any;
     styleUrls: ['./user-tracks.component.scss']
 })
 export class UserTracksComponent implements OnInit {
-    private map: google.maps.Map;
-    currentTrack: Observable<any[]> = new Observable<any[]>();
-    private tracks: Track[] = [];
 
+    private map: google.maps.Map;
+    private tracks: Track[] = [];
+    currentTrack: Observable<any[]> = new Observable<any[]>();
     cities: Observable<City[]> = new Observable<City[]>();
+
     currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
-    dateFilter = {
-        from: new Date(1520532778063.0),
-        to: new Date(1520632778063.0)
-    };
-
-    /**
-     * TODO: agregar un onChange sobre este campo, asi se habilitan/deshabilitan los botones
-     * TODO: agregar paginación!!!
-     */
-    paginationLimit = 5;
 
     private _trackIndex = 0;
     private trackIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(this._trackIndex);
 
-    // TODO: enable buttons prev/next only if there is tracks
+    dateFilter = {
+        from: new Date(1520793625606.0),
+        to: new Date(1537656635848.0)
+    };
+
+    paginationLimit = 5;
+    offset = 0;
+
     constructor(
         private _cities: CitiesService,
         private _tracks: TracksService,
@@ -108,7 +106,8 @@ export class UserTracksComponent implements OnInit {
                 from: Date.parse(this.dateFilter.from.toDateString()),
                 to: Date.parse(this.dateFilter.to.toDateString())
             },
-            pages: this.paginationLimit
+            pages: this.paginationLimit,
+            offset: this.offset
         };
         this._tracks.getUserTracks(filterObject)
         .subscribe((tracks: Track[]) => {

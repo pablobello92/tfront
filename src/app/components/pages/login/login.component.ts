@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit {
         this._auth.login()
         .subscribe(res => {
             this._auth.setUserDataField('name', 'Pablo Bello');
-            console.log(res);
             this.router.navigate(['']);
         }, error => {
             console.error(error);

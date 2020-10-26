@@ -37,12 +37,12 @@ export class TracksService {
 
     constructor(
         private http: HttpClient,
-        private appConfig: AppConfig,
-        private _colors: ColorsService
+        private appConfig: AppConfig
     ) {}
 
     public getUserTracks(filterObject: MapFilter): Observable < Track[] > {
-        const params = '?username=' + filterObject.user + '&city=' + filterObject.city + '&pages=' + filterObject.pages
+        const params = '?username=' + filterObject.user + '&city=' + filterObject.city
+        + '&offset=' + filterObject.offset + '&pages=' + filterObject.pages
         + '&from=' + filterObject.startTime.from + '&to=' + filterObject.startTime.to;
         const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.get + params;
         return <Observable < Track[] >> this.http.get(endpoint);

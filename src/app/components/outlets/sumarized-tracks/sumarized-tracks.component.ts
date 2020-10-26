@@ -11,10 +11,9 @@ import {
     pipe
 } from 'rxjs';
 import {
-    tap,
     map,
     skip,
-    filter
+    tap
 } from 'rxjs/operators';
 import {
     CitiesService
@@ -23,12 +22,7 @@ import {
     City,
     MapOptions
 } from '../../../shared/interfaces/City';
-import { Track, SumarizedObject } from '../../../shared/interfaces/Track';
-import {
-    MapFilter
-} from '../../../shared/interfaces/MapFilter';
 import { SumarizationsService } from './../../../shared/services/sumarizations.service';
-import { TracksService } from '../../../shared/services/tracks.service';
 import { Coordinate } from '../../../shared/interfaces/Coordinate';
 declare const google: any;
 
@@ -42,12 +36,36 @@ export class SumarizedTracksComponent implements OnInit {
     private map: google.maps.Map;
     sumarizations = [];
 
+    cities: Observable<City[]> = new Observable<City[]>();
+    currentCity: City = null;
+    private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
+
     constructor(
-        private _tracks: TracksService,
         private _maps: MapsService,
         private _sumarizations: SumarizationsService,
         private _cities: CitiesService
-    ) {}
+    ) {
+        this.cities = this._cities.getCities()
+        .pipe(
+            tap((cities: City[]) => {
+                this.changeCurrentCity(cities[0]);
+            })
+        );
+
+        this.citySubject.asObservable()
+        .pipe(
+            skip(1),
+            map((city: City) => {
+                return <MapOptions>{
+                    center: city.center,
+                    zoom: city.zoom
+                };
+            })
+        )
+        .subscribe((newMapCenter: MapOptions) => {
+            this.map.setOptions(newMapCenter);
+        });
+    }
 
     ngOnInit() {}
 
@@ -63,10 +81,14 @@ export class SumarizedTracksComponent implements OnInit {
         this.map.setOptions(newMapCenter);
     }
 
+    public changeCurrentCity(c: City): void {
+        this.currentCity = c;
+        this.citySubject.next(this.currentCity);
+    }
+
     public fetchData(): void {
-        this._sumarizations.getSumarizationsByCity('Tandil')
+        this._sumarizations.getSumarizationsByCity(this.currentCity.name)
             .subscribe((res: any) => {
-               console.log(res);
                this.sumarizations =  this._maps.getDrawableFromRanges(res[0].ranges);
             }, err => {
                 console.error(err);
