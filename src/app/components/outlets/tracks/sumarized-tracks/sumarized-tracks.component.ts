@@ -1,5 +1,3 @@
-import { MapsService } from './../../../shared/services/maps.service';
-
 import {
     Component,
     OnInit
@@ -17,13 +15,15 @@ import {
 } from 'rxjs/operators';
 import {
     CitiesService
-} from '../../../shared/services/cities.service';
+} from '../../../../shared/services/cities.service';
+import { MapsService } from './../../../../shared/services/maps.service';
+import { SumarizationsService } from './../../../../shared/services/sumarizations.service';
 import {
     City,
     MapOptions
-} from '../../../shared/interfaces/City';
-import { SumarizationsService } from './../../../shared/services/sumarizations.service';
-import { Coordinate } from '../../../shared/interfaces/Coordinate';
+} from '../../../../shared/interfaces/City';
+
+import { Coordinate } from '../../../../shared/interfaces/Coordinate';
 declare const google: any;
 
 @Component({

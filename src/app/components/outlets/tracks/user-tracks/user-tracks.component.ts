@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {
     TracksService
-} from 'src/app/shared/services/tracks.service';
+} from '../../../../shared/services/tracks.service';
 
 import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
 import { tap, map, skip, filter } from 'rxjs/operators';
