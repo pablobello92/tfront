@@ -11,24 +11,11 @@ import {
     Observable
 } from 'rxjs';
 import {
-    tap
-} from 'rxjs/operators';
-import {
     Track
 } from '../interfaces/Track';
 import {
-    IRange, SumarizingSegment
-} from '../interfaces/Range';
-import {
-    ColorsService
-} from './colors.service';
-import {
-    CombinedLimit
-} from '../interfaces/Limit';
-import {
     MapFilter
 } from '../interfaces/MapFilter';
-import { Coordinate } from '../interfaces/Coordinate';
 
 declare var google: any;
 

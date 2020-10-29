@@ -3,21 +3,6 @@ import {
     Injectable
 } from '@angular/core';
 import {
-    AppConfig
-} from '../../configs/app.config';
-import {
-    HttpClient
-} from '@angular/common/http';
-import {
-    Observable
-} from 'rxjs';
-import {
-    tap
-} from 'rxjs/operators';
-import {
-    Track
-} from '../interfaces/Track';
-import {
     IRange,
     SumarizingSegment
 } from '../interfaces/Range';
@@ -25,11 +10,8 @@ import {
     ColorsService
 } from './colors.service';
 import {
-    CombinedLimit
-} from '../interfaces/Limit';
-import {
-    MapFilter
-} from '../interfaces/MapFilter';
+    RoadCategories
+} from '../interfaces/Categories';
 import {
     Coordinate
 } from '../interfaces/Coordinate';
@@ -43,7 +25,7 @@ export class MapsService {
     ) {}
 
     public getDrawableFromRanges(ranges: Segment[]): any[] {
-        const limits = this.getRelativeScoreScale(ranges);
+        const limits = this.getRelativeRoadCategories(ranges);
         const drawable = ranges.map((range: Segment) => this.mapRangeToDrawable(range, limits));
         return drawable;
     }
@@ -74,7 +56,7 @@ export class MapsService {
         });
     }
 
-    private mapRangeToDrawable(range: IRange | SumarizingSegment, limits: CombinedLimit): any {
+    private mapRangeToDrawable(range: IRange | SumarizingSegment, limits: RoadCategories): any {
         return new google.maps.Polyline({
             path: [{
                     lat: range.start.lat,
@@ -92,7 +74,7 @@ export class MapsService {
         });
     }
 
-    private getRelativeScoreScale(ranges: IRange[] | SumarizingSegment[]): CombinedLimit {
+    public getRelativeRoadCategories(ranges: IRange[] | SumarizingSegment[]): RoadCategories {
         let min = 100000;
         let max = 0;
         let avg = 0;
@@ -116,7 +98,7 @@ export class MapsService {
             medium: avg + upperStep,
             high: max - upperStep
         };
-        return this._colors.getCombinedLimits(numericLimit);
+        return this._colors.getRoadCategories(numericLimit);
     }
 
 }
