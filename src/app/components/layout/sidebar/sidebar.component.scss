@@ -5,13 +5,15 @@ app-sidebar {
         flex-direction: row;
         height: 100%;
         overflow: hidden;
-        transition: width .75s ease;
-        // background-color: var(--vanadylBlue);
+        transition: width 0.3s ease-out 0.3s, opacity 0.3s ease;
+
         &.hide {
-            width: 0;
+           width: 0;
+           opacity: 0;
         }
 
         &.show {
+            opacity: 1;
             width: 17vw;
             border-right: 1px solid var(--lightGray);
         }
@@ -20,9 +22,11 @@ app-sidebar {
             width: 100%;
             padding-top: 25px;
             font-weight: 200;
+
             >div {
                 width: 100%;
             }
+
             ul {
                 list-style-type: none;
             }
@@ -45,13 +49,16 @@ app-sidebar {
                 border-radius: 1px;
                 padding: 15px 15px;
                 color: white;
+
                 span.ui-menuitem-text {
                     padding-left: 5px;
                 }
             }
+
             .ui-state-active {
                 background-color: var(--protossPylon);
             }
+
             .ui-menuitem-link:hover {
                 background-color: var(--chainGray) !important;
             }
@@ -64,46 +71,24 @@ app-sidebar {
         }
 
         @media screen and (max-width: 640px) {
-
-            .ui-menuitem-icon {
-                font-size: x-small !important;
-            }
-
-            .ui-menuitem-text {
-                font-size: x-small !important;
-            }
-
+            .ui-menuitem-icon,
+            .ui-menuitem-text,
             .ui-submenu-header {
                 font-size: x-small !important;
             }
         }
 
         @media screen and (min-width: 641px) and (max-width: 1050px) {
-
-            .ui-menuitem-icon {
-                font-size: small !important;
-            }
-
-            .ui-menuitem-text {
-                font-size: small !important;
-            }
-
+            .ui-menuitem-icon,
+            .ui-menuitem-text,
             .ui-submenu-header {
                 font-size: small !important;
             }
         }
 
         @media screen and (min-width: 1051px) {
-
-
-            .ui-menuitem-icon {
-                font-size: initial !important;
-            }
-
-            .ui-menuitem-text {
-                font-size: initial !important;
-            }
-
+            .ui-menuitem-icon,
+            .ui-menuitem-text,
             .ui-submenu-header {
                 font-size: initial !important;
             }
