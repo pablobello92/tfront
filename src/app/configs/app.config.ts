@@ -36,4 +36,13 @@ export class AppConfig {
         },
         'login': 'login'
     };
+
+    roadColors = {
+        noEvent: '#00ffff', // cyan
+        veryLow: '#00ff00', // green
+        low: '#ffff00', // yellow
+        medium: '#ff8000', // orange
+        high: '#ff0000', // red
+        veryHigh: '#8000ff'  // purple
+    };
 }
