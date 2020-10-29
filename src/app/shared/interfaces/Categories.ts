@@ -1,4 +1,4 @@
-interface Limit<T> {
+export interface SeverityCategories<T> {
     noEvent?: T;
     veryLow: T;
     low: T;
@@ -12,7 +12,4 @@ export interface ColorPair {
     color: string;
 }
 
-export type NumericLimit = Limit<number>;
-export type StringLimit = Limit<string>;
-
-export type CombinedLimit = Limit<ColorPair>;
+export type RoadCategories = SeverityCategories<ColorPair>;
