@@ -34,6 +34,14 @@
     </div>
     <div class="divider"></div>
     <div class="map-content">
+        <div class="chips" *ngIf="roadCategoriesIterable.length">
+            <span> Severidad de los tramos: </span>
+            <app-color-info-widget
+                *ngFor="let item of roadCategoriesIterable"
+                [backgroundColor]="item.color"
+                [text]="item.text">
+            </app-color-info-widget>
+        </div>
         <div class="prev-next">
             <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === 0 )"
                 (click)="changeTrackIndex(-1)">ant.</button>

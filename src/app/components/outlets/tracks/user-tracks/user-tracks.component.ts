@@ -13,6 +13,7 @@ import { City, MapOptions } from '../../../../shared/interfaces/City';
 import { Track } from '../../../../shared/interfaces/Track';
 import { MapFilter } from '../../../../shared/interfaces/MapFilter';
 import { MapsService } from '../../../../shared/services/maps.service';
+import { RoadCategories } from '../../../../shared/interfaces/Categories';
 
 declare const google: any;
 
@@ -26,8 +27,10 @@ export class UserTracksComponent implements OnInit {
     private map: google.maps.Map;
     private tracks: Track[] = [];
     currentTrack: Observable<any[]> = new Observable<any[]>();
-    cities: Observable<City[]> = new Observable<City[]>();
+    roadCategories: RoadCategories = null;
+    roadCategoriesIterable = [];
 
+    cities: Observable<City[]> = new Observable<City[]>();
     currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
 
@@ -73,6 +76,15 @@ export class UserTracksComponent implements OnInit {
             skip(1),
             filter((nextIndex: number) => (this.tracks.length > 0)),
             map((nextIndex: number) => this.tracks[nextIndex]),
+            tap((trackToDraw: Track) => {
+                this.roadCategories = this._maps.getRelativeRoadCategories(trackToDraw.ranges);
+                console.log(this.roadCategories);
+                this.roadCategoriesIterable = Object.entries(this.roadCategories)
+                .map((entry: any[]) => <Object>{
+                    text: entry[0],
+                    color: entry[1].color
+                });
+            }),
             map((trackToDraw: Track) => this._maps.getDrawableFromRanges(trackToDraw.ranges))
         );
     }
