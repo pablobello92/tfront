@@ -24,6 +24,7 @@ import {
 } from '../../../../shared/interfaces/City';
 
 import { Coordinate } from '../../../../shared/interfaces/Coordinate';
+import { RoadCategories } from '../../../../shared/interfaces/Categories';
 declare const google: any;
 
 @Component({
@@ -39,6 +40,9 @@ export class SumarizedTracksComponent implements OnInit {
     cities: Observable<City[]> = new Observable<City[]>();
     currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
+    roadCategories: RoadCategories = null;
+    roadCategoriesIterable = [];
+    public sumarizationDate: Date = null;
 
     constructor(
         private _maps: MapsService,
@@ -88,11 +92,18 @@ export class SumarizedTracksComponent implements OnInit {
 
     public fetchData(): void {
         this._sumarizations.getSumarizationsByCity(this.currentCity.name)
-            .subscribe((res: any) => {
-               this.sumarizations =  this._maps.getDrawableFromRanges(res[0].ranges);
-            }, err => {
-                console.error(err);
+        .subscribe((res: any) => {
+            this.sumarizationDate = new Date(res[0].date);
+            this.sumarizations =  this._maps.getDrawableFromRanges(res[0].ranges);
+            this.roadCategories = this._maps.getRelativeRoadCategories(res[0].ranges);
+            this.roadCategoriesIterable = Object.entries(this.roadCategories)
+            .map((entry: any[]) => <Object>{
+                text: entry[0],
+                color: entry[1].color
             });
+        }, err => {
+            console.error(err);
+        });
     }
 
 }

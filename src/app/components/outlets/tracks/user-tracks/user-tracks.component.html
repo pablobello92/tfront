@@ -4,38 +4,38 @@
     </div>
     <div class="filters-card">
         <div>
-            <span class="text">Ciudad</span>
+            <span class="text">{{ 'general.city' | translate }}</span>
             <p-dropdown [options]="( cities | async)" [(ngModel)]="currentCity"
                 (onChange)="changeCurrentCity($event.value)" optionLabel="name" [style]="{'width':'16em'}"></p-dropdown>
         </div>
 
         <div>
-            <span class="text">Desde</span>
+            <span class="text">{{ 'general.from' | translate }}</span>
             <p-calendar [(ngModel)]="dateFilter.from" [monthNavigator]="true" [yearNavigator]="true"
                 yearRange="2000:2030" dateFormat="dd/mm/yy" [readonlyInput]="true" [showIcon]="true"></p-calendar>
 
         </div>
         <div>
-            <span class="text">Hasta</span>
+            <span class="text">{{ 'general.to' | translate }}</span>
             <p-calendar [(ngModel)]="dateFilter.to" [monthNavigator]="true" [yearNavigator]="true"
             yearRange="2000:2030" dateFormat="dd/mm/yy" [readonlyInput]="true" [showIcon]="true"></p-calendar>
         </div>
         <div>
-            <span class="text">Offset:</span>
+            <span class="text">{{ 'general.skip' | translate }}:</span>
             <p-spinner size="1" [min]="0" [(ngModel)]="offset"></p-spinner>
         </div>
         <div>
-            <span class="text">Cantidad:</span>
+            <span class="text">{{ 'general.quantity' | translate }}:</span>
             <p-spinner size="1" [min]="0" [max]="10" [(ngModel)]="paginationLimit"></p-spinner>
         </div>
         <div>
-            <button type="button" class="btn btn-primary" (click)="fetchUserTracks()">Buscar</button>
+            <button type="button" class="btn btn-primary" (click)="fetchUserTracks()">{{ 'general.search' | translate }}</button>
         </div>
     </div>
     <div class="divider"></div>
     <div class="map-content">
         <div class="chips" *ngIf="roadCategoriesIterable.length">
-            <span> Severidad de los tramos: </span>
+            <span> {{ 'titles.tracks_severity' | translate }}: </span>
             <app-color-info-widget
                 *ngFor="let item of roadCategoriesIterable"
                 [backgroundColor]="item.color"
@@ -44,9 +44,9 @@
         </div>
         <div class="prev-next">
             <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === 0 )"
-                (click)="changeTrackIndex(-1)">ant.</button>
+                (click)="changeTrackIndex(-1)">{{ 'general.prev' | translate }}</button>
             <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === (paginationLimit - 1000) )"
-                (click)="changeTrackIndex(1)">sig.</button>
+                (click)="changeTrackIndex(1)">{{ 'general.next' | translate }}</button>
         </div>
         <p-gmap #gmap (onMapReady)="setMap($event)" [overlays]="( currentTrack | async )"
             [style]="{'width':'100%','height':'30vw', 'border': '1px solid var(--lightGray2)'}">
