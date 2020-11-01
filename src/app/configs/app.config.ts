@@ -13,7 +13,7 @@ export class AppConfig {
 
     endpoints = {
         'cities': {
-            'get': 'cities/'
+            'get': 'cities'
         },
         'predictions': {
             'anomalies': 'predictions/anomalies',
@@ -24,11 +24,11 @@ export class AppConfig {
             'insert': 'reparations/insert'
         },
         'tracks': {
-            'get': 'tracks',
-            'sumarizations': {
-                'get': 'tracks/sumarize',
-                'insert': 'sumarizations/insert'
-            }
+            'get': 'tracks'
+        },
+        'sumarizations': {
+            'index': 'sumarizations',
+            'get': 'sumarizations/get'
         },
         'users': {
             'get': 'users',

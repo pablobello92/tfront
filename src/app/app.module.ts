@@ -35,7 +35,6 @@ import {
 } from './shared/services/reparations.service';
 import { UsersService } from './shared/services/users.service';
 import { AuthService } from './shared/services/auth.service';
-import { AdminToolsService } from './shared/services/adminTools.service';
 import { SumarizationsService } from './shared/services/sumarizations.service';
 import { MapsService } from './shared/services/maps.service';
 import {
@@ -175,7 +174,6 @@ export function createTranslateLoader(http: HttpClient) {
         TracksService,
         MapsService,
         SumarizationsService,
-        AdminToolsService,
         ReparationsService,
         CitiesService,
         CommonService,

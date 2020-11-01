@@ -27,6 +27,11 @@ export class TracksService {
         private appConfig: AppConfig
     ) {}
 
+    public getAllTracks(): Observable < Track[] > {
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.get;
+        return <Observable < Track[] >> this.http.get(endpoint);
+    }
+
     public getUserTracks(filterObject: MapFilter): Observable < Track[] > {
         const params = '?username=' + filterObject.user + '&city=' + filterObject.city
         + '&offset=' + filterObject.offset + '&pages=' + filterObject.pages
