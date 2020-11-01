@@ -6,17 +6,12 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {
-  TranslateService,
-  LangChangeEvent
+  TranslateService
 } from '@ngx-translate/core';
-import {
-  AppConfig
-} from '../../../configs/app.config';
-
-
 import {
     MenuItem
 } from 'primeng/primeng';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -33,8 +28,7 @@ export class SideBarComponent implements OnInit {
     translations: any;
 
     constructor(
-        private zone: NgZone,
-        private appConfig: AppConfig,
+        private _auth: AuthService,
         private translate: TranslateService
     ) {
         this.translate.reloadLang(this.translate.currentLang).subscribe( res => {
@@ -64,7 +58,8 @@ export class SideBarComponent implements OnInit {
         items: [{
             label: translations.titles.my_tracks,
             icon: 'fa fa-fw fa-car',
-            routerLink: ['/user/tracks']
+            routerLink: ['/user/tracks'],
+            disabled: !this._auth.isAdmin()
         },
         {
             label: translations.titles.sumarized_tracks,
@@ -77,12 +72,14 @@ export class SideBarComponent implements OnInit {
         items: [{
             label: translations.titles.reparations,
             icon: 'fa fa-fw fa-wrench',
-            routerLink: ['/admin/reparations']
+            routerLink: ['/admin/reparations'],
+            disabled: !this._auth.isAdmin()
           },
           {
           label: translations.titles.tools,
           icon: 'fa fa-fw fa-cog',
-          routerLink: ['/admin/tools']
+          routerLink: ['/admin/tools'],
+          disabled: !this._auth.isAdmin()
         }]
       },
       {
@@ -90,7 +87,8 @@ export class SideBarComponent implements OnInit {
         items: [{
           label: translations.titles.user_edit,
           icon: 'fa fa-fw fa-pencil',
-          routerLink: ['/user/edit']
+          routerLink: ['/user/edit'],
+          disabled: !this._auth.isAdmin()
         }]
       }
     ];

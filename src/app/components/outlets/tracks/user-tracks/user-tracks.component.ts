@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {
     TracksService
-} from 'src/app/shared/services/tracks.service';
+} from '../../../../shared/services/tracks.service';
 
 import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
 import { tap, map, skip, filter } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { City, MapOptions } from '../../../../shared/interfaces/City';
 import { Track } from '../../../../shared/interfaces/Track';
 import { MapFilter } from '../../../../shared/interfaces/MapFilter';
 import { MapsService } from '../../../../shared/services/maps.service';
+import { RoadCategories } from '../../../../shared/interfaces/Categories';
 
 declare const google: any;
 
@@ -22,28 +23,28 @@ declare const google: any;
     styleUrls: ['./user-tracks.component.scss']
 })
 export class UserTracksComponent implements OnInit {
+
     private map: google.maps.Map;
-    currentTrack: Observable<any[]> = new Observable<any[]>();
     private tracks: Track[] = [];
+    currentTrack: Observable<any[]> = new Observable<any[]>();
+    roadCategories: RoadCategories = null;
+    roadCategoriesIterable = [];
 
     cities: Observable<City[]> = new Observable<City[]>();
     currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
-    dateFilter = {
-        from: new Date(1520532778063.0),
-        to: new Date(1520632778063.0)
-    };
-
-    /**
-     * TODO: agregar un onChange sobre este campo, asi se habilitan/deshabilitan los botones
-     * TODO: agregar paginación!!!
-     */
-    paginationLimit = 5;
 
     private _trackIndex = 0;
     private trackIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(this._trackIndex);
 
-    // TODO: enable buttons prev/next only if there is tracks
+    dateFilter = {
+        from: new Date(1520793625606.0),
+        to: new Date(1537656635848.0)
+    };
+
+    paginationLimit = 5;
+    offset = 0;
+
     constructor(
         private _cities: CitiesService,
         private _tracks: TracksService,
@@ -75,6 +76,15 @@ export class UserTracksComponent implements OnInit {
             skip(1),
             filter((nextIndex: number) => (this.tracks.length > 0)),
             map((nextIndex: number) => this.tracks[nextIndex]),
+            tap((trackToDraw: Track) => {
+                this.roadCategories = this._maps.getRelativeRoadCategories(trackToDraw.ranges);
+                console.log(this.roadCategories);
+                this.roadCategoriesIterable = Object.entries(this.roadCategories)
+                .map((entry: any[]) => <Object>{
+                    text: entry[0],
+                    color: entry[1].color
+                });
+            }),
             map((trackToDraw: Track) => this._maps.getDrawableFromRanges(trackToDraw.ranges))
         );
     }
@@ -108,7 +118,8 @@ export class UserTracksComponent implements OnInit {
                 from: Date.parse(this.dateFilter.from.toDateString()),
                 to: Date.parse(this.dateFilter.to.toDateString())
             },
-            pages: this.paginationLimit
+            pages: this.paginationLimit,
+            offset: this.offset
         };
         this._tracks.getUserTracks(filterObject)
         .subscribe((tracks: Track[]) => {

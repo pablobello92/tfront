@@ -31,7 +31,7 @@ export class AuthService {
         private _cookies: CookieService
     ) {}
 
-    login(): Observable < any > {
+    public login(): Observable < any > {
         const endpoint = this._config.server + this._config.endpoints.login;
         /*const payload = {
             email,
@@ -47,21 +47,25 @@ export class AuthService {
         );*/
     }
 
-    logout(): void {
+    public logout(): void {
         this._cookies.delete('logged');
         this._cookies.delete('name');
     }
 
-    isLogged(): boolean {
+    public isLogged(): boolean {
         return this._cookies.check('logged');
     }
 
+    public isAdmin(): boolean {
+        return true;
+    }
+
     // TO-DO: expiracion de las cookies
-    setUserDataField(key: string, value: string): void {
+    public setUserDataField(key: string, value: string): void {
         this._cookies.set('user.' + key, value);
     }
 
-    getUserDataField(key: string): string {
+    public getUserDataField(key: string): string {
         return this._cookies.get('user.' + key);
     }
 

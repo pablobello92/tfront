@@ -17,10 +17,10 @@ import {
 } from './components/outlets/user/edit/user-edit.component';
 import {
     UserTracksComponent
-} from './components/outlets/user/tracks/user-tracks.component';
+} from './components/outlets/tracks/user-tracks/user-tracks.component';
 import {
     SumarizedTracksComponent
-} from './components/outlets/sumarized-tracks/sumarized-tracks.component';
+} from './components/outlets/tracks/sumarized-tracks/sumarized-tracks.component';
 import {
     AdminToolsComponent
 } from './components/outlets/admin/admin-tools/admin-tools.component';

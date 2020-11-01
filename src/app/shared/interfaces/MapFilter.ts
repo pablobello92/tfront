@@ -6,4 +6,5 @@ export interface MapFilter {
         to: number
     };
     pages: number;
+    offset: number;
 }

@@ -1,4 +1,3 @@
-import { SumarizedObject } from './../interfaces/Track';
 import {
     Injectable
 } from '@angular/core';
@@ -22,12 +21,12 @@ export class SumarizationsService {
 
     public getSumarizationsByCity(city: string): Observable < any > {
         const params = '?city=' + city ;
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.sumarizations.get + params;
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.sumarizations.get + params;
         return <Observable < any >> this.http.get(endpoint);
     }
 
-    /*public insertSumarizations(rep: Reparation): Observable<any> {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.reparations.insert;
-        return <Observable<any>> this.http.put(endpoint, rep);
-    }*/
+    public sumarizeTracks(): Observable < any > {
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.sumarizations.index;
+        return <Observable < any >> this.http.get(endpoint);
+    }
 }

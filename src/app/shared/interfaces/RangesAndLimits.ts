@@ -1,7 +1,7 @@
 import { IRange } from './Range';
-import { NumericLimit } from './Limit';
+import { SeverityCategories } from './Categories';
 
 export interface RangesAndLimits {
     ranges: IRange[];
-    limits: NumericLimit;
+    limits: SeverityCategories<number>;
 }

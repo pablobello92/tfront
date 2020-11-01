@@ -35,7 +35,6 @@ import {
 } from './shared/services/reparations.service';
 import { UsersService } from './shared/services/users.service';
 import { AuthService } from './shared/services/auth.service';
-import { AdminToolsService } from './shared/services/adminTools.service';
 import { SumarizationsService } from './shared/services/sumarizations.service';
 import { MapsService } from './shared/services/maps.service';
 import {
@@ -102,10 +101,10 @@ import {
 } from './components/outlets/user/edit/user-edit.component';
 import {
     UserTracksComponent
-} from './components/outlets/user/tracks/user-tracks.component';
+} from './components/outlets/tracks/user-tracks/user-tracks.component';
 import {
     ColorInfoWidgetComponent
-} from './components/outlets/user/tracks/color-info-widget/color-info-widget.component';
+} from './components/outlets/tracks/color-info-widget/color-info-widget.component';
 import {
     AdminToolsComponent
 } from './components/outlets/admin/admin-tools/admin-tools.component';
@@ -114,7 +113,7 @@ import {
 } from './components/outlets/admin/reparations/reparations.component';
 import {
     SumarizedTracksComponent
-} from './components/outlets/sumarized-tracks/sumarized-tracks.component';
+} from './components/outlets/tracks/sumarized-tracks/sumarized-tracks.component';
 
 // AOT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -175,7 +174,6 @@ export function createTranslateLoader(http: HttpClient) {
         TracksService,
         MapsService,
         SumarizationsService,
-        AdminToolsService,
         ReparationsService,
         CitiesService,
         CommonService,

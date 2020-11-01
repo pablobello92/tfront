@@ -6,7 +6,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h4>Datos del usuario</h4>
+            <h4>{{'titles.user_data' | translate}} </h4>
         </div>
         <div class="card-body">
             <div class="row form-group">
@@ -59,74 +59,74 @@
                     </div>
                 </div>
                 <div class="col">
-                    <label for="inputSex">Sexo</label>
+                    <label for="inputSex">{{'general.gender' | translate}}</label>
                     <input type="text" id="inputSex" formControlName="sex" class="form-control">
                     <div class="text-danger" *ngIf="f.sex.hasError('required') && (f.sex.dirty || f.sex.touched)">
-                        {{'general.field' | translate}} Sexo
+                        {{'general.field' | translate}} {{'general.gender' | translate}}
                         {{'messages.errors.required' | translate}}
                     </div>
                 </div>
                 <div class="col">
-                    <label for="inputYearofbirth">Año de nacimiento</label>
+                    <label for="inputYearofbirth">{{ 'titles.birth_year' | translate }}</label>
                     <input type="text" id="inputYearofbirth" formControlName="yearofbirth" class="form-control">
                     <div class="text-danger"
                         *ngIf="f.yearofbirth.hasError('required') && (f.yearofbirth.dirty || f.yearofbirth.touched)">
-                        {{'general.field' | translate}} Año de nacimiento
+                        {{'general.field' | translate}} {{ 'titles.birth_year' | translate }}
                         {{'messages.errors.required' | translate}}
                     </div>
                 </div>
             </div>
 
-            <h4 class="outletFormH4 margin20">Datos del teléfono</h4>
+            <h4 class="outletFormH4 margin20">{{'titles.device_data' | translate}}</h4>
 
             <div formGroupName="smartphone" class="row form-group">
                 <div class="col">
-                    <label>Marca</label>
+                    <label>{{'general.brand' | translate}}</label>
                     <input type="text" formControlName="brand" class="form-control">
                     <div class="text-danger" *ngIf="f.smartphone.get('brand').hasError('required') &&
                         (f.smartphone.get('brand').dirty || f.smartphone.get('brand').touched)">
-                        {{'general.field' | translate}} Marca
+                        {{'general.field' | translate}} {{'general.brand' | translate}}
                         {{'messages.errors.required' | translate}}
                     </div>
                 </div>
                 <div class="col">
-                    <label>Modelo</label>
+                    <label>{{'general.model' | translate}}</label>
                     <input type="text" formControlName="model" class="form-control">
                     <div class="text-danger" *ngIf="f.smartphone.get('model').hasError('required') &&
                             (f.smartphone.get('model').dirty || f.smartphone.get('model').touched)">
-                        {{'general.field' | translate}} Modelo
+                        {{'general.field' | translate}} {{'general.model' | translate}}
                         {{'messages.errors.required' | translate}}
                     </div>
                 </div>
             </div>
 
-            <h4 class="outletFormH4 margin20">Datos del vehículo</h4>
+            <h4 class="outletFormH4 margin20">{{'titles.vehicle_data' | translate}} </h4>
 
             <div formGroupName="car" class="row form-group">
                 <div class="col">
-                    <label>Marca</label>
+                    <label>{{'general.brand' | translate}}</label>
                     <input type="text" formControlName="brand" class="form-control">
                     <div class="text-danger" *ngIf="f.car.get('brand').hasError('required') &&
                             (f.car.get('brand').dirty || f.car.get('brand').touched)">
-                        {{'general.field' | translate}} Marca
+                        {{'general.field' | translate}} {{'general.brand' | translate}}
                         {{'messages.errors.required' | translate}}
                     </div>
                 </div>
                 <div class="col">
-                    <label>Modelo</label>
+                    <label>{{ 'general.model' | translate }}</label>
                     <input type="text" formControlName="model" class="form-control">
                     <div class="text-danger" *ngIf="f.car.get('model').hasError('required') &&
                                 (f.car.get('model').dirty || f.car.get('model').touched)">
-                        {{'general.field' | translate}} Modelo
+                        {{'general.field' | translate}} {{ 'general.model' | translate }}
                         {{'messages.errors.required' | translate}}
                     </div>
                 </div>
                 <div class="col">
-                        <label for="inputYear">Año</label>
+                        <label for="inputYear">{{ 'general.year' | translate }}</label>
                         <input type="text" id="inputYear" formControlName="year" class="form-control">
                         <div class="text-danger" *ngIf="f.car.get('model').hasError('required') &&
                                     (f.car.get('year').dirty || f.car.get('year').touched)">
-                            {{'general.field' | translate}} Año
+                            {{'general.field' | translate}} {{ 'general.year' | translate }}
                             {{'messages.errors.required' | translate}}
                         </div>
                     </div>
