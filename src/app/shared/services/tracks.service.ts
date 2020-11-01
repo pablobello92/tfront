@@ -45,6 +45,11 @@ export class TracksService {
         return <Observable < any >> this.http.get(endpoint);
     }
 
+    public executePrediction_anomalies(): Observable < any > {
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.predictions.anomalies;
+        return <Observable < any >> this.http.get(endpoint);
+    }
+
     private getRoadType(value: number): string {
         return (value < 0.3) ? 'Earth' :
         (value < 0.6) ? 'Asphalt' :

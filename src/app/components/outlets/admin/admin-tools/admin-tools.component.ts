@@ -24,14 +24,31 @@ export class AdminToolsComponent implements OnInit {
 
     public predict(anomalies = false): void {
         if (anomalies) {
-            alert('anomalies predicted!');
+            this._tracks.executePrediction_anomalies()
+            .subscribe(res => {
+                this.msgs.push({
+                    severity: 'success',
+                    detail: 'Predicción exitosa: clasificación de anomalías'
+                });
+            }, err => {
+                this.msgs.push({
+                    severity: 'error',
+                    detail: 'Error al realizar la predicción.'
+                });
+            });
             return;
         }
         this._tracks.executePrediction_roadTypes()
         .subscribe(res => {
-            console.log(res);
+            this.msgs.push({
+                severity: 'success',
+                detail: 'Predicción exitosa: clasificación de caminos'
+            });
         }, err => {
-            console.error(err);
+            this.msgs.push({
+                severity: 'error',
+                detail: 'Error al realizar la predicción.'
+            });
         });
     }
 
