@@ -14,6 +14,7 @@ import { Track } from '../../../../shared/interfaces/Track';
 import { MapFilter } from '../../../../shared/interfaces/MapFilter';
 import { MapsService } from '../../../../shared/services/maps.service';
 import { RoadCategories } from '../../../../shared/interfaces/Categories';
+import { AuthService } from '../../../../shared/services/auth.service';
 
 declare const google: any;
 
@@ -24,6 +25,7 @@ declare const google: any;
 })
 export class UserTracksComponent implements OnInit {
 
+    private username: string = null;
     private map: google.maps.Map;
     private tracks: Track[] = [];
     currentTrack: Observable<any[]> = new Observable<any[]>();
@@ -48,8 +50,10 @@ export class UserTracksComponent implements OnInit {
     constructor(
         private _cities: CitiesService,
         private _tracks: TracksService,
-        private _maps: MapsService
+        private _maps: MapsService,
+        private _auth: AuthService
     ) {
+        this.username = this._auth.getCookie('username');
         this.cities = this._cities.getCities()
         .pipe(
             tap((cities: City[]) => {
@@ -112,7 +116,7 @@ export class UserTracksComponent implements OnInit {
 
     public fetchUserTracks(): void {
         const filterObject: MapFilter = {
-            user: 'pablo_bello', //TODO: put cookie user
+            user: this.username,
             city: this.currentCity.name,
             startTime: {
                 from: Date.parse(this.dateFilter.from.toDateString()),

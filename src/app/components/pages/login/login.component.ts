@@ -51,8 +51,9 @@ export class LoginComponent implements OnInit {
         .subscribe((res: any) => {
             if (res !== null) {
                 this._auth.setCookie('logged', 'true');
-                this._auth.setCookie('name', res.nickname);
-                console.log(res);
+                this._auth.setCookie('username', res.username);
+                this._auth.setCookie('nickname', res.nickname);
+                this._auth.setCookie('userLevel', res.userLevel);
                 this.router.navigate(['']);
             } else {
                 this.loading = false;

@@ -46,52 +46,44 @@ export class SideBarComponent implements OnInit {
 
   setItems(translations: any) {
     this.items = [{
-        // label: translations.titles.menu,
         items: [{
           label: translations.titles.home,
           icon: 'fa fa-fw fa-home',
           routerLink: ['/dashboard']
         }]
-      },
-      {
-        // label: translations.titles.geo,
+      }, {
         items: [{
             label: translations.titles.my_tracks,
             icon: 'fa fa-fw fa-car',
-            routerLink: ['/user/tracks'],
-            disabled: !this._auth.isAdmin()
+            routerLink: (this._auth.isAdmin()) ? null : ['/admin/tracks'],
+            disabled: this._auth.isAdmin()
         },
         {
             label: translations.titles.sumarized_tracks,
             icon: 'fa fa-fw fa-globe',
             routerLink: ['/sumarized-tracks']
         }]
-      },
-      {
-        // label: translations.titles.admin,
+      }, {
         items: [{
             label: translations.titles.reparations,
             icon: 'fa fa-fw fa-wrench',
-            routerLink: ['/admin/reparations'],
+            routerLink: (this._auth.isAdmin()) ? ['/admin/reparations'] : null,
             disabled: !this._auth.isAdmin()
           },
           {
           label: translations.titles.tools,
           icon: 'fa fa-fw fa-cog',
-          routerLink: ['/admin/tools'],
+          routerLink: (this._auth.isAdmin()) ? ['/admin/tools'] : null,
           disabled: !this._auth.isAdmin()
         }]
-      },
-      {
-        // label: translations.titles.profile,
+      }, {
         items: [{
           label: translations.titles.user_edit,
           icon: 'fa fa-fw fa-pencil',
-          routerLink: ['/user/edit'],
-          disabled: !this._auth.isAdmin()
+          routerLink: (this._auth.isAdmin()) ? null : ['/user/edit'],
+          disabled: this._auth.isAdmin()
         }]
-      }
-    ];
+      }];
   }
 
 }

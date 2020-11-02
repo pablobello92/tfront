@@ -44,7 +44,7 @@ export class AuthService {
     }
 
     public isAdmin(): boolean {
-        return true;
+        return ( this._cookies.get('userLevel') === '0');
     }
 
     // TO-DO: expiracion de las cookies

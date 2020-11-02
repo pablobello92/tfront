@@ -2,7 +2,7 @@
     <h1>{{ 'titles.dashboard' | translate }}</h1>
 </div>
 <div class="dashboard">
-    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/tracks')" [disabled]="!_auth.isAdmin()">
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/tracks')" [disabled]="_auth.isAdmin()">
         {{ 'titles.my_tracks' | translate }}
         <span class="fa fa-car"></span>
     </button>
@@ -10,7 +10,7 @@
         {{ 'titles.sumarized_tracks' | translate }}
         <span class="fa fa-globe"></span>
     </button>
-    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/edit')" [disabled]="!_auth.isAdmin()">
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/edit')" [disabled]="_auth.isAdmin()">
         {{ 'titles.user_edit' | translate }}
         <span class="fa fa-pencil"></span>
     </button>

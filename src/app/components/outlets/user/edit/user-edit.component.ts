@@ -1,4 +1,3 @@
-
 import {
     Component,
     OnInit
@@ -16,8 +15,12 @@ import {
 import {
     ConfirmationService
 } from 'primeng/components/common/confirmationservice';
-import { UsersService } from './../../../../shared/services/users.service';
-
+import {
+    UsersService
+} from './../../../../shared/services/users.service';
+import {
+    AuthService
+} from '../../../../shared/services/auth.service';
 import {
     Message
 } from 'primeng/api';
@@ -39,6 +42,7 @@ export class UserEditComponent implements OnInit {
     constructor(
         private _users: UsersService,
         private _confirmation: ConfirmationService,
+        private _auth: AuthService,
         private router: Router,
         private fb: FormBuilder
     ) {
@@ -66,8 +70,8 @@ export class UserEditComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.userName = 'pablo_bello'; //TODO: put cookie user
-        this.nickName = 'Pablo Bello';
+        this.userName = this._auth.getCookie('username');
+        this.nickName = this._auth.getCookie('nickname');
         this._users.getUser(this.userName)
             .subscribe((user: User) => {
                 this.populateForm(user);
@@ -90,7 +94,7 @@ export class UserEditComponent implements OnInit {
         return this.editForm.controls;
     }
 
-    onSubmit(): void { // TODO: Edición del usuario
+    onSubmit(): void {
         this._confirmation.confirm({
             acceptLabel: 'Sí',
             rejectLabel: 'No',
@@ -100,9 +104,9 @@ export class UserEditComponent implements OnInit {
                 this._users.updateUser(user)
                     .subscribe((res: any) => {
                         this.msgs.push({
-                        severity: 'success',
-                        detail: 'Usuario actualizado exitosamente.'
-                    });
+                            severity: 'success',
+                            detail: 'Usuario actualizado exitosamente.'
+                        });
                     }, (err: any) => {
                         console.error(err);
                         this.msgs.push({
