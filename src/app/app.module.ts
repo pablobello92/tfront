@@ -13,7 +13,8 @@ import {
 } from '@angular/forms';
 import {
     HttpClientModule,
-    HttpClient
+    HttpClient,
+    HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import {
     AppConfig
@@ -114,6 +115,7 @@ import {
 import {
     SumarizedTracksComponent
 } from './components/outlets/tracks/sumarized-tracks/sumarized-tracks.component';
+// import { AuthInterceptorService } from './shared/services/authInterceptor.service';
 
 // AOT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -180,7 +182,12 @@ export function createTranslateLoader(http: HttpClient) {
         ColorsService,
         TranslateService,
         ConfirmationService,
-        CookieService
+        CookieService/*,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptorService,
+            multi: true
+        }*/
     ],
     bootstrap: [AppComponent]
 })

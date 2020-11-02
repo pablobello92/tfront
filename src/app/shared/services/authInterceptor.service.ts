@@ -17,8 +17,9 @@ import {
 export class AuthInterceptorService implements HttpInterceptor {
 
     constructor() {}
-    intercept(req: HttpRequest < any > , next: HttpHandler): Observable < HttpEvent < any >> {
-        throw new Error('Method not implemented.');
-    }
 
+    intercept(req: HttpRequest < any > , next: HttpHandler): Observable < HttpEvent < any >> {
+       console.log('request intercepted');
+       return next.handle(req);
+    }
 }

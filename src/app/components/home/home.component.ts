@@ -1,6 +1,5 @@
 import {
     Component,
-    OnInit,
     ViewEncapsulation
 } from '@angular/core';
 import {
@@ -16,7 +15,7 @@ import {
     styleUrls: ['./home.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
     displaySidebar = true;
 
@@ -24,11 +23,4 @@ export class HomeComponent implements OnInit {
         private _auth: AuthService,
         private router: Router
     ) {}
-
-    ngOnInit() {
-        if (!this._auth.isLogged()) {
-            this.router.navigate(['login']);
-        }
-    }
-
 }

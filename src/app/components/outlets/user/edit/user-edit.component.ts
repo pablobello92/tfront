@@ -66,7 +66,7 @@ export class UserEditComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.userName = 'pablo_bello'; // TODO: vincular esta data a cookies
+        this.userName = 'pablo_bello'; //TODO: put cookie user
         this.nickName = 'Pablo Bello';
         this._users.getUser(this.userName)
             .subscribe((user: User) => {

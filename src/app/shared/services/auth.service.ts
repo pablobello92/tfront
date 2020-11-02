@@ -8,12 +8,6 @@ import {
     Observable
 } from 'rxjs';
 import {
-    of
-} from 'rxjs/internal/observable/of';
-import {
-    tap
-} from 'rxjs/operators';
-import {
     AppConfig
 } from '../../configs/app.config';
 import {
@@ -31,20 +25,13 @@ export class AuthService {
         private _cookies: CookieService
     ) {}
 
-    public login(): Observable < any > {
+    public login(username: string, password: string): Observable < any > {
         const endpoint = this._config.server + this._config.endpoints.login;
-        /*const payload = {
-            email,
+        const payload = {
+            username,
             password
-        };*/
-        this._cookies.set('logged', 'true');
-        return of(true);
-        /*return <Observable < any >> this._http.post(endpoint, payload)
-        .pipe(
-            tap(res => {
-                this._cookies.set('logged', 'true');
-            })
-        );*/
+        };
+        return <Observable < any >> this._http.post(endpoint, payload);
     }
 
     public logout(): void {
@@ -61,16 +48,16 @@ export class AuthService {
     }
 
     // TO-DO: expiracion de las cookies
-    public setUserDataField(key: string, value: string): void {
-        this._cookies.set('user.' + key, value);
+    public setCookie(key: string, value: string): void {
+        this._cookies.set(key, value);
     }
 
-    public getUserDataField(key: string): string {
-        return this._cookies.get('user.' + key);
+    public getCookie(key: string): string {
+        return this._cookies.get( key);
     }
 
     removeUserDataField(key: string): void {
-        this._cookies.delete('user.' + key);
+        this._cookies.delete(key);
     }
 
 

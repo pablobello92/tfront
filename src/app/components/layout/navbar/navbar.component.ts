@@ -52,11 +52,7 @@ export class NavbarComponent implements OnInit {
             }
         ];
         this.selectedLang = this.langs[0];
-        this.userName = this._auth.getUserDataField('name');
-    }
-
-    doSomething() {
-        alert('asd');
+        this.userName = this._auth.getCookie('name');
     }
 
     logout() {

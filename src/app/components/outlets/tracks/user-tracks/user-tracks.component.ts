@@ -112,7 +112,7 @@ export class UserTracksComponent implements OnInit {
 
     public fetchUserTracks(): void {
         const filterObject: MapFilter = {
-            user: 'pablo_bello',
+            user: 'pablo_bello', //TODO: put cookie user
             city: this.currentCity.name,
             startTime: {
                 from: Date.parse(this.dateFilter.from.toDateString()),

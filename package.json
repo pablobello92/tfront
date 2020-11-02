@@ -1,5 +1,5 @@
 {
-  "name": "baches:control_panel",
+  "name": "baches_control_panel",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",

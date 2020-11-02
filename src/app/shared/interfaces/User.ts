@@ -7,6 +7,7 @@ export interface User {
     email: String;
     sex: String;
     yearofbirth: Number;
+    userLevel: Number;
     car: {
         brand: String,
         model: String,

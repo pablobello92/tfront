@@ -3,21 +3,13 @@ import {
     OnInit
 } from '@angular/core';
 import {
-    Router,
-    ActivatedRoute
+    Router
 } from '@angular/router';
 import {
     FormGroup,
     FormBuilder,
-    Validators,
-    AbstractControl
+    Validators
 } from '@angular/forms';
-import {
-    Observable
-} from 'rxjs';
-import {
-    UsersService
-} from '../../../shared/services/users.service';
 import {
     AuthService
 } from '../../../shared/services/auth.service';
@@ -28,20 +20,19 @@ import {
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-
     loginForm: FormGroup;
     message: string;
-    submitted;loading;loginError;badCredentials = false;
+    loading = false;
+    loginError = false;
+    badCredentials = false;
 
     constructor(
-        private usersService: UsersService,
-        private _auth: AuthService,
         private router: Router,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private _auth: AuthService
     ) {
         this.loginForm = this.fb.group({
-            'user': [null, Validators.required],
+            'username': [null, Validators.required],
             'password': [null, Validators.required]
         });
     }
@@ -55,37 +46,22 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        this._auth.login()
-        .subscribe(res => {
-            this._auth.setUserDataField('name', 'Pablo Bello');
-            this.router.navigate(['']);
-        }, error => {
-            console.error(error);
-        });
-        /*this.submitted = true;
-        if (this.loginForm.invalid) {
-          return;
-        }
-        this.badCredentials = false;
-        this.loginError = false;
         this.loading = true;
-        this.usersService.login(this.f.email.value, this.f.password.value)
-        .subscribe(res => {
-          if (res.status === 'OK') {
-            this.localStorageService.logIn();
-            this.localStorageService.setUserDataField('id', res.id);
-            this.localStorageService.setUserDataField('id_external_table', res.id_external_table);
-            this.localStorageService.setUserDataField('name', res.name);
-            this.localStorageService.setUserDataField('type', res.type);
-            this.localStorageService.setUserDataField('token', res.token);
-            this.router.navigate(['']);
-          } else {
-            this.loading = false;
+        this._auth.login(this.f.username.value, this.f.password.value)
+        .subscribe((res: any) => {
+            if (res !== null) {
+                this._auth.setCookie('logged', 'true');
+                this._auth.setCookie('name', res.nickname);
+                console.log(res);
+                this.router.navigate(['']);
+            } else {
+                this.loading = false;
+                this.badCredentials = true;
+            }
+        }, (error: any) => {
+            // console.error(error);
             this.loginError = true;
-          }
-        }, err => {
-          this.badCredentials = true;
-          this.loading = false;
-        });*/
+            this.loading = false;
+        });
     }
 }
