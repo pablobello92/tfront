@@ -1,12 +1,9 @@
-import { Accelerometer } from './Accelerometer';
 import { IRange, SumarizingSegment } from './Range';
 
 export interface Track {
-    id: number;
-    startTime: number;
     city: String;
+    startTime: number;
     ranges: IRange[];
-    accelerometers: Accelerometer[];
 }
 
 export interface SumarizingObject {
