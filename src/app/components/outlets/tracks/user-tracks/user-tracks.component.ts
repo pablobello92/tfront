@@ -82,7 +82,6 @@ export class UserTracksComponent implements OnInit {
             map((nextIndex: number) => this.tracks[nextIndex]),
             tap((trackToDraw: Track) => {
                 this.roadCategories = this._maps.getRelativeRoadCategories(trackToDraw.ranges);
-                console.log(this.roadCategories);
                 this.roadCategoriesIterable = Object.entries(this.roadCategories)
                 .map((entry: any[]) => <Object>{
                     text: entry[0],

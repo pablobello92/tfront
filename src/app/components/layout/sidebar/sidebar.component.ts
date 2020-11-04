@@ -1,17 +1,18 @@
 import {
-  Component,
-  OnInit,
-  NgZone,
-  Input,
-  ViewEncapsulation
+    Component,
+    OnInit,
+    Input,
+    ViewEncapsulation
 } from '@angular/core';
 import {
-  TranslateService
+    TranslateService
 } from '@ngx-translate/core';
 import {
     MenuItem
 } from 'primeng/primeng';
-import { AuthService } from '../../../shared/services/auth.service';
+import {
+    AuthService
+} from '../../../shared/services/auth.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -31,59 +32,56 @@ export class SideBarComponent implements OnInit {
         private _auth: AuthService,
         private translate: TranslateService
     ) {
-        this.translate.reloadLang(this.translate.currentLang).subscribe( res => {
+        this.translate.reloadLang(this.translate.currentLang).subscribe(res => {
             this.setItems(res);
         });
     }
 
     ngOnInit() {
-        this.translate.onLangChange.subscribe( () => {
-            this.translate.reloadLang(this.translate.currentLang).subscribe( res => {
+        this.translate.onLangChange.subscribe(() => {
+            this.translate.reloadLang(this.translate.currentLang).subscribe(res => {
                 this.setItems(res);
             });
         });
     }
 
-  setItems(translations: any) {
-    this.items = [{
-        items: [{
-          label: translations.titles.home,
-          icon: 'fa fa-fw fa-home',
-          routerLink: ['/dashboard']
-        }]
-      }, {
-        items: [{
-            label: translations.titles.my_tracks,
-            icon: 'fa fa-fw fa-car',
-            routerLink: (this._auth.isAdmin()) ? null : ['/admin/tracks'],
-            disabled: this._auth.isAdmin()
-        },
-        {
-            label: translations.titles.sumarized_tracks,
-            icon: 'fa fa-fw fa-globe',
-            routerLink: ['/sumarized-tracks']
-        }]
-      }, {
-        items: [{
-            label: translations.titles.reparations,
-            icon: 'fa fa-fw fa-wrench',
-            routerLink: (this._auth.isAdmin()) ? ['/admin/reparations'] : null,
-            disabled: !this._auth.isAdmin()
-          },
-          {
-          label: translations.titles.tools,
-          icon: 'fa fa-fw fa-cog',
-          routerLink: (this._auth.isAdmin()) ? ['/admin/tools'] : null,
-          disabled: !this._auth.isAdmin()
-        }]
-      }, {
-        items: [{
-          label: translations.titles.user_edit,
-          icon: 'fa fa-fw fa-pencil',
-          routerLink: (this._auth.isAdmin()) ? null : ['/user/edit'],
-          disabled: this._auth.isAdmin()
-        }]
-      }];
-  }
+    setItems(translations: any) {
+        this.items = [
+            {
+                label: translations.titles.home,
+                icon: 'fa fa-fw fa-home',
+                routerLink: ['/dashboard']
+            },
+            {
+                label: translations.titles.my_tracks,
+                icon: 'fa fa-fw fa-car',
+                routerLink: (this._auth.isAdmin()) ? null : ['/user/tracks'],
+                disabled: this._auth.isAdmin()
+            },
+            {
+                label: translations.titles.sumarized_tracks,
+                icon: 'fa fa-fw fa-globe',
+                routerLink: ['/sumarized-tracks']
+            },
+            {
+                label: translations.titles.user_edit,
+                icon: 'fa fa-fw fa-pencil',
+                routerLink: (this._auth.isAdmin()) ? null : ['/user/edit'],
+                disabled: this._auth.isAdmin()
+            },
+            {
+                label: translations.titles.reparations,
+                icon: 'fa fa-fw fa-wrench',
+                routerLink: (this._auth.isAdmin()) ? ['/admin/reparations'] : null,
+                visible: this._auth.isAdmin()
+            },
+            {
+                label: translations.titles.tools,
+                icon: 'fa fa-fw fa-cog',
+                routerLink: (this._auth.isAdmin()) ? ['/admin/tools'] : null,
+                visible: this._auth.isAdmin()
+            }
+        ];
+    }
 
 }

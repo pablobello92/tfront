@@ -12,9 +12,7 @@ import {
 import {
     TranslateService
 } from '@ngx-translate/core';
-import {
-    SelectItem
-} from 'primeng/api';
+import { SelectItem, Message } from 'primeng/api';
 import {
     AuthService
 } from '../../../shared/services/auth.service';
@@ -30,6 +28,7 @@ export class NavbarComponent implements OnInit {
     @Input() display: boolean;
     @Output() displayChange: EventEmitter < boolean > = new EventEmitter < boolean > ();
 
+    msgs: Message[] = [];
     userName: string;
 
     langs: SelectItem[] = [];
@@ -73,7 +72,14 @@ export class NavbarComponent implements OnInit {
     }
 
     gotoProfile() {
-        this.router.navigate(['user/edit']);
+        if (this._auth.isAdmin()) {
+            this.msgs.push({
+                severity: 'warning',
+                detail: 'Actualmente un admin no puede editar su perfil.'
+            });
+        } else {
+            this.router.navigate(['user/edit']);
+        }
     }
 
 }

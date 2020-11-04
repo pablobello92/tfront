@@ -14,11 +14,11 @@
         {{ 'titles.user_edit' | translate }}
         <span class="fa fa-pencil"></span>
     </button>
-    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/reparations')" [disabled]="!_auth.isAdmin()">
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/reparations')" *ngIf="_auth.isAdmin()">
         {{ 'titles.reparations' | translate }}
         <span class="fa fa-wrench"></span>
     </button>
-    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/tools')" [disabled]="!_auth.isAdmin()">
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/tools')" *ngIf="_auth.isAdmin()">
         {{ 'titles.tools' | translate }}
         <span class="fa fa-cogs"></span>
     </button>

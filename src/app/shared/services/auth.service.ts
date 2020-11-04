@@ -36,7 +36,9 @@ export class AuthService {
 
     public logout(): void {
         this._cookies.delete('logged');
-        this._cookies.delete('name');
+        this._cookies.delete('username');
+        this._cookies.delete('nickname');
+        this._cookies.delete('userLevel');
     }
 
     public isLogged(): boolean {
