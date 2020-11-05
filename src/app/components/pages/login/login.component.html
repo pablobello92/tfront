@@ -6,16 +6,14 @@
         <label for="inputUser" class="sr-only">{{'general.user' | translate}}</label>
         <input type="text" id="inputUser" formControlName="username" class="form-control"
             placeholder="{{'general.user' | translate}}" autocomplete="off" required autofocus>
-        <div class="text-danger"
-            *ngIf="f.username.hasError('required') && (f.username.dirty || f.username.touched)">
+        <div class="text-danger" *ngIf="f.username.hasError('required') && (f.username.dirty || f.username.touched)">
             {{'general.field' | translate}} {{'general.user' | translate}} {{'messages.errors.required' | translate}}
         </div>
 
         <label for="inputPassword" class="sr-only">{{'general.PASSWORD' | translate}}</label>
         <input type="password" id="inputPassword" formControlName="password" class="form-control"
             placeholder="{{'general.password' | translate}}" required>
-        <div class="text-danger"
-        *ngIf="f.password.errors && (f.password.dirty || f.password.touched)">
+        <div class="text-danger" *ngIf="f.password.errors && (f.password.dirty || f.password.touched)">
             {{'general.field' | translate}} {{'general.password' | translate}}
             {{'messages.errors.required' | translate}}
         </div>
