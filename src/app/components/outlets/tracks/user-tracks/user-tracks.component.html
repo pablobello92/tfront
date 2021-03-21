@@ -43,9 +43,9 @@
             </app-color-info-widget>
         </div>
         <div class="prev-next">
-            <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === 0 )"
+            <button type="button" class="btn btn-warning" [disabled]="(getTrackIndex() === null || getTrackIndex() === 0)"
                 (click)="changeTrackIndex(-1)">{{ 'general.prev' | translate }}</button>
-            <button type="button" class="btn btn-warning" [disabled]="( getTrackIndex() === (paginationLimit - 1000) )"
+            <button type="button" class="btn btn-warning" [disabled]="(getTrackIndex() === null || getTrackIndex() === paginationLimit - 1)"
                 (click)="changeTrackIndex(1)">{{ 'general.next' | translate }}</button>
         </div>
         <p-gmap #gmap (onMapReady)="setMap($event)" [overlays]="( currentTrack | async )"

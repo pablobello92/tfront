@@ -36,7 +36,7 @@ export class UserTracksComponent implements OnInit {
     currentCity: City = null;
     private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
 
-    private _trackIndex = 0;
+    private _trackIndex: number = null;
     private trackIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(this._trackIndex);
 
     dateFilter = {
