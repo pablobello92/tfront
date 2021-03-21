@@ -2,14 +2,17 @@
     <div class="outletHeading">
         <h3>{{ 'titles.reparations' | translate }}</h3>
     </div>
-
     <div class="filters-card">
         <div>
             <span class="text">{{ 'general.city' | translate }}</span>
             <p-dropdown [options]="( cities | async)" [(ngModel)]="currentCity"
             (onChange)="changeCurrentCity($event.value)" optionLabel="name" [style]="{'width':'16em'}"></p-dropdown>
         </div>
-
+        <div>
+            <span class="text">{{ 'general.date' | translate }}</span>
+            <p-calendar [(ngModel)]="dateFilter" [monthNavigator]="true" [yearNavigator]="true"
+            yearRange="2000:2030" dateFormat="dd/mm/yy" [readonlyInput]="true" [showIcon]="true"></p-calendar>
+        </div>
     </div>
     <div class="map-content">
         <div class="prev-next">

@@ -1,10 +1,10 @@
 export interface MapFilter {
-    user: string;
-    city: string;
+    user?: string;
+    city?: string;
     startTime?: {
         from: number,
-        to: number
+        to?: number
     };
-    pages: number;
-    offset: number;
+    pages?: number;
+    offset?: number;
 }

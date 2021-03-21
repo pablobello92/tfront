@@ -11,6 +11,7 @@ import {
     Observable
 } from 'rxjs';
 import { Reparation } from '../interfaces/Reparation';
+import { MapFilter } from '../interfaces/MapFilter';
 
 @Injectable()
 export class ReparationsService {
@@ -20,8 +21,8 @@ export class ReparationsService {
         private appConfig: AppConfig
     ) {}
 
-    public getReparations(city: string): Observable < Reparation[] > {
-        const params = '?city=' + city ;
+    public getReparations(filterObject: MapFilter): Observable < Reparation[] > {
+        const params = '?city=' + filterObject.city + '&startTime=' + filterObject.startTime.from ;
         const endpoint = this.appConfig.server + this.appConfig.endpoints.reparations.get + params;
         return <Observable < Reparation[] >> this.http.get(endpoint);
     }

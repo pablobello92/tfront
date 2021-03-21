@@ -16,6 +16,7 @@ import { Reparation } from '../../../../shared//interfaces/Reparation';
 import { ReparationsService } from '../../../../shared//services/reparations.service';
 import { MapsService } from '../../../../shared//services/maps.service';
 import { Message } from 'primeng/api';
+import { MapFilter } from '../../../../shared/interfaces/MapFilter';
 
 declare const google: any;
 
@@ -42,6 +43,8 @@ export class ReparationsComponent implements OnInit {
 
     msgs: Message[] = [];
 
+    dateFilter = new Date(1520793625606.0);
+
     constructor(
         private _maps: MapsService,
         private _reparations: ReparationsService,
@@ -66,7 +69,13 @@ export class ReparationsComponent implements OnInit {
         )
         .subscribe(newMapCenter => {
             this.map.setOptions(newMapCenter);
-            this._reparations.getReparations(this.currentCity.name)
+            const filterObject: MapFilter = {
+                city: this.currentCity.name,
+                startTime: {
+                    from: Date.parse(this.dateFilter.toDateString())
+                }
+            };
+            this._reparations.getReparations(filterObject)
             .subscribe(reparations => {
                 const drawables = reparations.map((r: Reparation) => {
                     const coords = <Coordinate[]>[r.from, r.to];
