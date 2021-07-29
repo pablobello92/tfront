@@ -1,4 +1,6 @@
-import { Segment } from './../interfaces/Range';
+import {
+    Segment
+} from './../interfaces/Range';
 import {
     Injectable
 } from '@angular/core';

@@ -2,12 +2,6 @@ import {
     Component,
     ViewEncapsulation
 } from '@angular/core';
-import {
-    Router
-} from '@angular/router';
-import {
-    AuthService
-} from '../../shared/services/auth.service';
 
 @Component({
     selector: 'app-home',
@@ -19,8 +13,5 @@ export class HomeComponent {
 
     displaySidebar = true;
 
-    constructor(
-        private _auth: AuthService,
-        private router: Router
-    ) {}
+    constructor() {}
 }

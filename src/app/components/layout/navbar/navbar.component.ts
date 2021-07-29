@@ -12,10 +12,13 @@ import {
 import {
     TranslateService
 } from '@ngx-translate/core';
-import { SelectItem, Message } from 'primeng/api';
 import {
-    AuthService
-} from '../../../shared/services/auth.service';
+    SelectItem,
+    Message
+} from 'primeng/api';
+import {
+    CookiesService
+} from '../../../shared/services/cookies.service';
 
 @Component({
     selector: 'app-navbar',
@@ -35,7 +38,7 @@ export class NavbarComponent implements OnInit {
     selectedLang: SelectItem;
 
     constructor(
-        private _auth: AuthService,
+        private _cookies: CookiesService,
         private router: Router,
         private translate: TranslateService
     ) {}
@@ -51,11 +54,11 @@ export class NavbarComponent implements OnInit {
             }
         ];
         this.selectedLang = this.langs[0];
-        this.userName = this._auth.getCookie('nickname');
+        this.userName = this._cookies.getCookie('nickname');
     }
 
     logout() {
-        this._auth.logout();
+        this._cookies.deleteAllCookies();
         this.router.navigate(['login']);
     }
 
@@ -72,7 +75,7 @@ export class NavbarComponent implements OnInit {
     }
 
     gotoProfile() {
-        if (this._auth.isAdmin()) {
+        if (this._cookies.isAdmin()) {
             this.msgs.push({
                 severity: 'warning',
                 detail: 'Actualmente un admin no puede editar su perfil.'

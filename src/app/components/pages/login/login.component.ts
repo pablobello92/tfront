@@ -11,8 +11,11 @@ import {
     Validators
 } from '@angular/forms';
 import {
-    AuthService
-} from '../../../shared/services/auth.service';
+    CookiesService
+} from '../../../shared/services/cookies.service';
+import {
+    UsersService
+} from 'src/app/shared/services/users.service';
 
 @Component({
     selector: 'app-login',
@@ -29,7 +32,8 @@ export class LoginComponent implements OnInit {
     constructor(
         private router: Router,
         private fb: FormBuilder,
-        private _auth: AuthService
+        private _cookies: CookiesService,
+        private _users: UsersService
     ) {
         this.loginForm = this.fb.group({
             'username': [null, Validators.required],
@@ -38,7 +42,9 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._auth.logout();
+        if (this._cookies.isLogged()) {
+            this.router.navigate(['dashboard']);
+        }
     }
 
     get f(): any {
@@ -47,20 +53,16 @@ export class LoginComponent implements OnInit {
 
     onSubmit() {
         this.loading = true;
-        this._auth.login(this.f.username.value, this.f.password.value)
+        this._users.loginUser(this.f.username.value, this.f.password.value)
         .subscribe((res: any) => {
             if (res !== null) {
-                this._auth.setCookie('logged', 'true');
-                this._auth.setCookie('username', res.username);
-                this._auth.setCookie('nickname', res.nickname);
-                this._auth.setCookie('userLevel', res.userLevel);
-                this.router.navigate(['']);
+                this._cookies.setLoginCookies(res);
+                this.router.navigate(['dashboard']);
             } else {
                 this.loading = false;
                 this.badCredentials = true;
             }
         }, (error: any) => {
-            // console.error(error);
             this.loginError = true;
             this.loading = false;
         });

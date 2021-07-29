@@ -17,28 +17,21 @@ import {
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService {
+export class CookiesService {
 
     constructor(
-        private _config: AppConfig,
-        private _http: HttpClient,
         private _cookies: CookieService
     ) {}
 
-    public login(username: string, password: string): Observable < any > {
-        const endpoint = this._config.server + this._config.endpoints.login;
-        const payload = {
-            username,
-            password
-        };
-        return <Observable < any >> this._http.post(endpoint, payload);
+    public setLoginCookies(res: any): void {
+        this._cookies.set('logged', 'true');
+        this._cookies.set('username', res.username);
+        this._cookies.set('nickname', res.nickname);
+        this._cookies.set('userLevel', res.userLevel);
     }
 
-    public logout(): void {
-        this._cookies.delete('logged');
-        this._cookies.delete('username');
-        this._cookies.delete('nickname');
-        this._cookies.delete('userLevel');
+    public deleteAllCookies(): void {
+        this._cookies.deleteAll();
     }
 
     public isLogged(): boolean {
@@ -46,12 +39,11 @@ export class AuthService {
     }
 
     public isAdmin(): boolean {
-        return ( this._cookies.get('userLevel') === '0');
+        return (this._cookies.get('userLevel') === '0');
     }
 
-    // TO-DO: expiracion de las cookies
     public setCookie(key: string, value: string): void {
-        this._cookies.set(key, value);
+        this._cookies.set(key, value, 1);
     }
 
     public getCookie(key: string): string {
@@ -61,8 +53,5 @@ export class AuthService {
     removeUserDataField(key: string): void {
         this._cookies.delete(key);
     }
-
-
-
 
 }

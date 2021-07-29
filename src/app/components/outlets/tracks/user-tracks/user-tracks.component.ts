@@ -6,15 +6,40 @@ import {
     TracksService
 } from '../../../../shared/services/tracks.service';
 
-import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
-import { tap, map, skip, filter } from 'rxjs/operators';
-import { CitiesService } from '../../../../shared/services/cities.service';
-import { City, MapOptions } from '../../../../shared/interfaces/City';
-import { Track } from '../../../../shared/interfaces/Track';
-import { MapFilter } from '../../../../shared/interfaces/MapFilter';
-import { MapsService } from '../../../../shared/services/maps.service';
-import { RoadCategories } from '../../../../shared/interfaces/Categories';
-import { AuthService } from '../../../../shared/services/auth.service';
+import {
+    BehaviorSubject,
+    Observable,
+    of ,
+    pipe
+} from 'rxjs';
+import {
+    tap,
+    map,
+    skip,
+    filter
+} from 'rxjs/operators';
+import {
+    CitiesService
+} from '../../../../shared/services/cities.service';
+import {
+    City,
+    MapOptions
+} from '../../../../shared/interfaces/City';
+import {
+    Track
+} from '../../../../shared/interfaces/Track';
+import {
+    MapFilter
+} from '../../../../shared/interfaces/MapFilter';
+import {
+    MapsService
+} from '../../../../shared/services/maps.service';
+import {
+    RoadCategories
+} from '../../../../shared/interfaces/Categories';
+import {
+    CookiesService
+} from '../../../../shared/services/cookies.service';
 
 declare const google: any;
 
@@ -28,16 +53,16 @@ export class UserTracksComponent implements OnInit {
     private username: string = null;
     private map: google.maps.Map;
     private tracks: Track[] = [];
-    currentTrack: Observable<any[]> = new Observable<any[]>();
+    currentTrack: Observable < any[] > = new Observable < any[] > ();
     roadCategories: RoadCategories = null;
     roadCategoriesIterable = [];
 
-    cities: Observable<City[]> = new Observable<City[]>();
+    cities: Observable < City[] > = new Observable < City[] > ();
     currentCity: City = null;
-    private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
+    private citySubject: BehaviorSubject < City > = new BehaviorSubject < City > (this.currentCity);
 
     private _trackIndex: number = null;
-    private trackIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(this._trackIndex);
+    private trackIndexSubject: BehaviorSubject < number > = new BehaviorSubject < number > (this._trackIndex);
 
     dateFilter = {
         from: new Date(1520793625606.0),
@@ -51,49 +76,48 @@ export class UserTracksComponent implements OnInit {
         private _cities: CitiesService,
         private _tracks: TracksService,
         private _maps: MapsService,
-        private _auth: AuthService
+        private _cookies: CookiesService
     ) {
-        this.username = this._auth.getCookie('username');
+        this.username = this._cookies.getCookie('username');
         this.cities = this._cities.getCities()
-        .pipe(
-            tap((cities: City[]) => {
-                this.changeCurrentCity(cities[0]);
-            })
-        );
+            .pipe(
+                tap((cities: City[]) => {
+                    this.changeCurrentCity(cities[0]);
+                })
+            );
 
         this.citySubject.asObservable()
-        .pipe(
-            skip(1),
-            map((city: City) => {
-                return <MapOptions>{
-                    center: city.center,
-                    zoom: city.zoom
-                };
-            })
-        )
-        .subscribe((newMapCenter: MapOptions) => {
-            this.map.setOptions(newMapCenter);
-        });
+            .pipe(
+                skip(1),
+                map((city: City) => {
+                    return <MapOptions > {
+                        center: city.center,
+                        zoom: city.zoom
+                    };
+                })
+            )
+            .subscribe((newMapCenter: MapOptions) => {
+                this.map.setOptions(newMapCenter);
+            });
 
         this.currentTrack = this.trackIndexSubject.asObservable()
-        .pipe(
-            skip(1),
-            filter((nextIndex: number) => (this.tracks.length > 0)),
-            map((nextIndex: number) => this.tracks[nextIndex]),
-            tap((trackToDraw: Track) => {
-                this.roadCategories = this._maps.getRelativeRoadCategories(trackToDraw.ranges);
-                this.roadCategoriesIterable = Object.entries(this.roadCategories)
-                .map((entry: any[]) => <Object>{
-                    text: entry[0],
-                    color: entry[1].color
-                });
-            }),
-            map((trackToDraw: Track) => this._maps.getDrawableFromRanges(trackToDraw.ranges))
-        );
+            .pipe(
+                skip(1),
+                filter((nextIndex: number) => (this.tracks.length > 0)),
+                map((nextIndex: number) => this.tracks[nextIndex]),
+                tap((trackToDraw: Track) => {
+                    this.roadCategories = this._maps.getRelativeRoadCategories(trackToDraw.ranges);
+                    this.roadCategoriesIterable = Object.entries(this.roadCategories)
+                        .map((entry: any[]) => < Object > {
+                            text: entry[0],
+                            color: entry[1].color
+                        });
+                }),
+                map((trackToDraw: Track) => this._maps.getDrawableFromRanges(trackToDraw.ranges))
+            );
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     public setMap($event) {
         this.map = $event.map;
@@ -105,7 +129,7 @@ export class UserTracksComponent implements OnInit {
     }
 
     public changeTrackIndex(n: number): void {
-        this._trackIndex =  this._trackIndex + n;
+        this._trackIndex = this._trackIndex + n;
         this.trackIndexSubject.next(this._trackIndex);
     }
 
@@ -125,11 +149,11 @@ export class UserTracksComponent implements OnInit {
             offset: this.offset
         };
         this._tracks.getUserTracks(filterObject)
-        .subscribe((tracks: Track[]) => {
-            this.tracks = tracks;
-            this.trackIndexSubject.next(0);
-        }, err => {
-            console.error(err);
-        });
+            .subscribe((tracks: Track[]) => {
+                this.tracks = tracks;
+                this.trackIndexSubject.next(0);
+            }, err => {
+                console.error(err);
+            });
     }
 }

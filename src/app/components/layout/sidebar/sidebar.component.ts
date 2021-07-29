@@ -11,8 +11,8 @@ import {
     MenuItem
 } from 'primeng/primeng';
 import {
-    AuthService
-} from '../../../shared/services/auth.service';
+    CookiesService
+} from '../../../shared/services/cookies.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -29,7 +29,7 @@ export class SideBarComponent implements OnInit {
     translations: any;
 
     constructor(
-        private _auth: AuthService,
+        private _cookies: CookiesService,
         private translate: TranslateService
     ) {
         this.translate.reloadLang(this.translate.currentLang).subscribe(res => {
@@ -55,8 +55,8 @@ export class SideBarComponent implements OnInit {
             {
                 label: translations.titles.my_tracks,
                 icon: 'fa fa-fw fa-car',
-                routerLink: (this._auth.isAdmin()) ? null : ['/user/tracks'],
-                disabled: this._auth.isAdmin()
+                routerLink: (this._cookies.isAdmin()) ? null : ['/user/tracks'],
+                disabled: this._cookies.isAdmin()
             },
             {
                 label: translations.titles.sumarized_tracks,
@@ -66,20 +66,20 @@ export class SideBarComponent implements OnInit {
             {
                 label: translations.titles.user_edit,
                 icon: 'fa fa-fw fa-pencil',
-                routerLink: (this._auth.isAdmin()) ? null : ['/user/edit'],
-                disabled: this._auth.isAdmin()
+                routerLink: (this._cookies.isAdmin()) ? null : ['/user/edit'],
+                disabled: this._cookies.isAdmin()
             },
             {
                 label: translations.titles.reparations,
                 icon: 'fa fa-fw fa-wrench',
-                routerLink: (this._auth.isAdmin()) ? ['/admin/reparations'] : null,
-                visible: this._auth.isAdmin()
+                routerLink: (this._cookies.isAdmin()) ? ['/admin/reparations'] : null,
+                visible: this._cookies.isAdmin()
             },
             {
                 label: translations.titles.tools,
                 icon: 'fa fa-fw fa-cog',
-                routerLink: (this._auth.isAdmin()) ? ['/admin/tools'] : null,
-                visible: this._auth.isAdmin()
+                routerLink: (this._cookies.isAdmin()) ? ['/admin/tools'] : null,
+                visible: this._cookies.isAdmin()
             }
         ];
     }

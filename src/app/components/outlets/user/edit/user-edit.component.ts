@@ -19,8 +19,8 @@ import {
     UsersService
 } from './../../../../shared/services/users.service';
 import {
-    AuthService
-} from '../../../../shared/services/auth.service';
+    CookiesService
+} from '../../../../shared/services/cookies.service';
 import {
     Message
 } from 'primeng/api';
@@ -42,7 +42,7 @@ export class UserEditComponent implements OnInit {
     constructor(
         private _users: UsersService,
         private _confirmation: ConfirmationService,
-        private _auth: AuthService,
+        private _cookies: CookiesService,
         private router: Router,
         private fb: FormBuilder
     ) {
@@ -70,8 +70,8 @@ export class UserEditComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.userName = this._auth.getCookie('username');
-        this.nickName = this._auth.getCookie('nickname');
+        this.userName = this._cookies.getCookie('username');
+        this.nickName = this._cookies.getCookie('nickname');
         this._users.getUser(this.userName)
             .subscribe((user: User) => {
                 this.populateForm(user);

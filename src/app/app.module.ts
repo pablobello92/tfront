@@ -34,10 +34,18 @@ import {
 import {
     ReparationsService
 } from './shared/services/reparations.service';
-import { UsersService } from './shared/services/users.service';
-import { AuthService } from './shared/services/auth.service';
-import { SumarizationsService } from './shared/services/sumarizations.service';
-import { MapsService } from './shared/services/maps.service';
+import {
+    UsersService
+} from './shared/services/users.service';
+import {
+    CookiesService
+} from './shared/services/cookies.service';
+import {
+    SumarizationsService
+} from './shared/services/sumarizations.service';
+import {
+    MapsService
+} from './shared/services/maps.service';
 import {
     DashboardComponent
 } from './components/outlets/dashboard/dashboard.component';
@@ -171,7 +179,7 @@ export function createTranslateLoader(http: HttpClient) {
     ],
     providers: [
         AppConfig,
-        AuthService,
+        CookiesService,
         UsersService,
         TracksService,
         MapsService,
@@ -182,12 +190,13 @@ export function createTranslateLoader(http: HttpClient) {
         ColorsService,
         TranslateService,
         ConfirmationService,
-        CookieService/*,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptorService,
-            multi: true
-        }*/
+        CookieService
+        /*,
+                {
+                    provide: HTTP_INTERCEPTORS,
+                    useClass: AuthInterceptorService,
+                    multi: true
+                }*/
     ],
     bootstrap: [AppComponent]
 })
