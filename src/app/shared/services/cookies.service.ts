@@ -4,15 +4,6 @@ import {
 import {
     CookieService
 } from 'ngx-cookie-service';
-import {
-    Observable
-} from 'rxjs';
-import {
-    AppConfig
-} from '../../configs/app.config';
-import {
-    HttpClient
-} from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
