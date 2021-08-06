@@ -2,7 +2,7 @@ app-navbar {
     position: sticky;
     position: -webkit-sticky;
     top: 0;
-    height: 10vh;
+    height: 64px;
     padding: 25px 25px;
     box-shadow: 0 3px 7px 1px rgba(0, 0, 0, .4);
     display: flex;
@@ -15,9 +15,6 @@ app-navbar {
 
     .navbar-left, .navbar-right, .profile-area, .buttons-area {
         flex-direction: row;
-    }
-
-    .navbar-left, .navbar-right, .profile-area, .buttons-area {
         align-items: center;
     }
 

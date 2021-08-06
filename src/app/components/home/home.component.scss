@@ -1,11 +1,10 @@
 app-home {
-    display: flex;
-    flex-direction: column;
     .content {
         display: flex;
         flex-direction: row;
-        height: 90vh;
+        height: calc(100% - 64px);
         background-color: var(--blueNights);
+        // TODO: Take a look at this... test this
         @media screen and (max-width: 968px) {
             height: 88vh;
         }
@@ -14,7 +13,7 @@ app-home {
             width: 100%;
             height: 100%;
             overflow-x: hidden;
-            overflow-y: scroll;
+            overflow-y: scroll; // TODO: take a look at this scroll property
             transition: width .75s ease;
             transition: left .75s ease;
         }
