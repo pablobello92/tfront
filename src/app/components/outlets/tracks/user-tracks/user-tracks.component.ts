@@ -5,11 +5,10 @@ import {
 import {
     TracksService
 } from '../../../../shared/services/tracks.service';
-
 import {
     BehaviorSubject,
     Observable,
-    of ,
+    of,
     pipe
 } from 'rxjs';
 import {
@@ -90,7 +89,7 @@ export class UserTracksComponent implements OnInit {
             .pipe(
                 skip(1),
                 map((city: City) => {
-                    return <MapOptions > {
+                    return <MapOptions> {
                         center: city.center,
                         zoom: city.zoom
                     };
