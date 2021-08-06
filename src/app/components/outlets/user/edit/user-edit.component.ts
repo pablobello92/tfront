@@ -14,7 +14,7 @@ import {
 } from '@angular/router';
 import {
     ConfirmationService
-} from 'primeng/components/common/confirmationservice';
+} from 'primeng/api';
 import {
     UsersService
 } from './../../../../shared/services/users.service';

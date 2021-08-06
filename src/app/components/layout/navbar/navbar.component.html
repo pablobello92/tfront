@@ -17,7 +17,8 @@
         </span>
     </div>
 </div>
-<p-growl [(value)]="msgs"></p-growl>
+<!-- TODO: change it for a PrimeNG toast component -->
+<!-- <p-growl [(value)]="msgs"></p-growl> -->
 <div class="navbar-right">
     <p-dropdown class="cursor-pointer" [options]="langs" [(ngModel)]="selectedLang" appendTo="body"
         (onChange)="changeLang($event)" [style]="{'width':'100px'}">

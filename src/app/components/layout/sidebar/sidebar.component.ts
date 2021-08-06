@@ -9,7 +9,7 @@ import {
 } from '@ngx-translate/core';
 import {
     MenuItem
-} from 'primeng/primeng';
+} from 'primeng/api';
 import {
     CookiesService
 } from '../../../shared/services/cookies.service';

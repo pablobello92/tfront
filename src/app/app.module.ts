@@ -52,27 +52,56 @@ import {
 import {
     SideBarComponent
 } from './components/layout/sidebar/sidebar.component';
+
+import {
+    CalendarModule
+} from 'primeng/calendar';
+import {
+    ColorPickerModule
+} from 'primeng/colorpicker';
+import {
+    ConfirmDialogModule
+} from 'primeng/confirmdialog';
+import {
+    DropdownModule
+} from 'primeng/dropdown';
+import {
+    EditorModule
+} from 'primeng/editor';
+import {
+    GMapModule
+} from 'primeng/gmap';
+import {
+    InputTextareaModule
+} from 'primeng/inputtextarea';
 import {
     MenuModule
 } from 'primeng/menu';
 import {
+    PaginatorModule
+} from 'primeng/paginator';
+import {
+    SidebarModule
+} from 'primeng/sidebar';
+import {
+    SliderModule
+} from 'primeng/slider';
+import {
+    SpinnerModule
+} from 'primeng/spinner';
+import {
     TableModule
 } from 'primeng/table';
 import {
-    SidebarModule,
-    ConfirmDialogModule,
-    DropdownModule,
-    PaginatorModule,
-    InputTextareaModule,
-    ColorPickerModule,
-    TooltipModule,
-    GrowlModule,
-    CalendarModule,
-    EditorModule,
-    SliderModule,
-    GMapModule,
-    SpinnerModule
-} from 'primeng/primeng';
+    ToastModule
+} from 'primeng/toast';
+import {
+    TooltipModule
+} from 'primeng/tooltip';
+import {
+    ConfirmationService
+} from 'primeng/api';
+
 import {
     NavbarComponent
 } from './components/layout/navbar/navbar.component';
@@ -84,9 +113,6 @@ import {
 import {
     TranslateHttpLoader
 } from '@ngx-translate/http-loader';
-import {
-    ConfirmationService
-} from 'primeng/components/common/confirmationservice';
 import {
     CookieService
 } from 'ngx-cookie-service';
@@ -163,8 +189,7 @@ export function createTranslateLoader(http: HttpClient) {
         SliderModule,
         TableModule,
         TooltipModule,
-        GrowlModule,
-        CalendarModule,
+        ToastModule,
         FormsModule,
         ReactiveFormsModule,
         GMapModule,
