@@ -20,7 +20,7 @@
 <!-- TODO: change it for a PrimeNG toast component -->
 <!-- <p-growl [(value)]="msgs"></p-growl> -->
 <div class="navbar-right">
-    <p-dropdown class="cursor-pointer" [options]="langs" [(ngModel)]="selectedLang" appendTo="body"
+    <!-- <p-dropdown class="cursor-pointer" [options]="langs" [(ngModel)]="selectedLang" appendTo="body"
         (onChange)="changeLang($event)" [style]="{'width':'100px'}">
         <ng-template let-item pTemplate="selectedItem">
             <img src="./assets/img/lang/{{item.label}}.png" style="width:24px;vertical-align:middle" />
@@ -30,8 +30,8 @@
                 <img src="./assets/img/lang/{{item.label}}.png" style="width:24px;position:absolute;top:1px;left:5px" />
             </div>
         </ng-template>
-    </p-dropdown>
-    <a class="link-item cursor-pointer" #fsbutton (click)="logout()" pTooltip="{{'general.exit' | translate}}">
+    </p-dropdown> -->
+    <a class="link-item cursor-pointer" #fsbutton (click)="logout()">
         <em class="fa fa-sign-out"></em>
     </a>
 </div>
