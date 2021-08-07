@@ -103,6 +103,13 @@ import {
 } from 'primeng/api';
 
 import {
+    MatFormFieldModule
+} from '@angular/material/form-field';
+import {
+    MatSelectModule
+} from '@angular/material/select';
+
+import {
     NavbarComponent
 } from './components/layout/navbar/navbar.component';
 import {
@@ -176,12 +183,22 @@ export function createTranslateLoader(http: HttpClient) {
         AppRoutingModule,
         BrowserModule,
         BrowserAnimationsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
+            }
+        }),
+        MatFormFieldModule,
+        MatSelectModule,
         CalendarModule,
         ColorPickerModule,
         ConfirmDialogModule,
         DropdownModule,
         EditorModule,
-        HttpClientModule,
         InputTextareaModule,
         MenuModule,
         PaginatorModule,
@@ -191,16 +208,12 @@ export function createTranslateLoader(http: HttpClient) {
         TooltipModule,
         ToastModule,
         FormsModule,
-        ReactiveFormsModule,
         GMapModule,
-        SpinnerModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (createTranslateLoader),
-                deps: [HttpClient]
-            }
-        })
+        SpinnerModule
+    ],
+    exports: [
+        MatFormFieldModule,
+        MatSelectModule
     ],
     providers: [
         AppConfig,
@@ -216,12 +229,6 @@ export function createTranslateLoader(http: HttpClient) {
         TranslateService,
         ConfirmationService,
         CookieService
-        /*,
-                {
-                    provide: HTTP_INTERCEPTORS,
-                    useClass: AuthInterceptorService,
-                    multi: true
-                }*/
     ],
     bootstrap: [AppComponent]
 })

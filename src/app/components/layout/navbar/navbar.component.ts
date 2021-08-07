@@ -6,6 +6,7 @@ import {
     EventEmitter,
     ViewEncapsulation
 } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import {
     Router
 } from '@angular/router';
@@ -36,6 +37,9 @@ export class NavbarComponent implements OnInit {
 
     langs: SelectItem[] = [];
     selectedLang: SelectItem;
+
+    toppings = new FormControl();
+    toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
     constructor(
         private _cookies: CookiesService,
