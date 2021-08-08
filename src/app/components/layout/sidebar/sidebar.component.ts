@@ -24,7 +24,7 @@ export class SideBarComponent implements OnInit {
 
     @Input() display: boolean;
 
-    items: MenuItem[] = [];
+    links: MenuItem[] = [];
 
     translations: any;
 
@@ -32,52 +32,57 @@ export class SideBarComponent implements OnInit {
         private _cookies: CookiesService,
         private translate: TranslateService
     ) {
-        this.translate.reloadLang(this.translate.currentLang).subscribe(res => {
-            this.setItems(res);
-        });
+        // TODO: probably we could make everything in the constructor, adding a startWith()
+        // This way we get rid of having two subscriptions, for the first is only used for initialization
+        this.translate.reloadLang(this.translate.currentLang)
+            .subscribe((translations: any) => {
+                this.setLinks(translations);
+            });
     }
 
     ngOnInit() {
-        this.translate.onLangChange.subscribe(() => {
-            this.translate.reloadLang(this.translate.currentLang).subscribe(res => {
-                this.setItems(res);
+        this.translate.onLangChange
+            .subscribe(_ => {
+                this.translate.reloadLang(this.translate.currentLang)
+                    .subscribe((translations: any) => {
+                        this.setLinks(translations);
+                    });
             });
-        });
     }
 
-    setItems(translations: any) {
-        this.items = [
+    setLinks(translations: any) {
+        this.links = [
             {
                 label: translations.titles.home,
-                icon: 'fa fa-fw fa-home',
+                icon: 'home',
                 routerLink: ['/dashboard']
             },
             {
                 label: translations.titles.my_tracks,
-                icon: 'fa fa-fw fa-car',
+                icon: 'directions_car',
                 routerLink: (this._cookies.isAdmin()) ? null : ['/user/tracks'],
                 disabled: this._cookies.isAdmin()
             },
             {
                 label: translations.titles.sumarized_tracks,
-                icon: 'fa fa-fw fa-globe',
+                icon: 'public',
                 routerLink: ['/sumarized-tracks']
             },
             {
                 label: translations.titles.user_edit,
-                icon: 'fa fa-fw fa-pencil',
+                icon: 'create',
                 routerLink: (this._cookies.isAdmin()) ? null : ['/user/edit'],
                 disabled: this._cookies.isAdmin()
             },
             {
                 label: translations.titles.reparations,
-                icon: 'fa fa-fw fa-wrench',
+                icon: 'build',
                 routerLink: (this._cookies.isAdmin()) ? ['/admin/reparations'] : null,
                 visible: this._cookies.isAdmin()
             },
             {
                 label: translations.titles.tools,
-                icon: 'fa fa-fw fa-cog',
+                icon: 'construction',
                 routerLink: (this._cookies.isAdmin()) ? ['/admin/tools'] : null,
                 visible: this._cookies.isAdmin()
             }

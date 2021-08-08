@@ -52,6 +52,9 @@ import {
 import {
     SideBarComponent
 } from './components/layout/sidebar/sidebar.component';
+import {
+    SidebarItemComponent
+} from './components/layout/sidebar/sidebar-item/sidebar-item.component';
 
 import {
     CalendarModule
@@ -108,6 +111,21 @@ import {
 import {
     MatSelectModule
 } from '@angular/material/select';
+import {
+    MatListModule
+} from '@angular/material/list';
+import {
+    MatDatepickerModule
+} from '@angular/material/datepicker';
+import {
+    MatNativeDateModule
+} from '@angular/material/core';
+import {
+    MatIconModule
+} from '@angular/material/icon';
+import {
+    MatInputModule
+} from '@angular/material/input';
 
 import {
     NavbarComponent
@@ -169,6 +187,7 @@ export function createTranslateLoader(http: HttpClient) {
         HomeComponent,
         DashboardComponent,
         SideBarComponent,
+        SidebarItemComponent,
         NavbarComponent,
         UserEditComponent,
         UserTracksComponent,
@@ -193,7 +212,12 @@ export function createTranslateLoader(http: HttpClient) {
             }
         }),
         MatFormFieldModule,
+        MatInputModule,
         MatSelectModule,
+        MatListModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
         CalendarModule,
         ColorPickerModule,
         ConfirmDialogModule,
@@ -213,10 +237,17 @@ export function createTranslateLoader(http: HttpClient) {
     ],
     exports: [
         MatFormFieldModule,
-        MatSelectModule
+        MatInputModule,
+        MatSelectModule,
+        MatListModule,
+        MatIconModule,
+        MatDatepickerModule
     ],
     providers: [
+        CommonService,
+        TranslateService,
         AppConfig,
+        CookieService,
         CookiesService,
         UsersService,
         TracksService,
@@ -224,11 +255,9 @@ export function createTranslateLoader(http: HttpClient) {
         SumarizationsService,
         ReparationsService,
         CitiesService,
-        CommonService,
         ColorsService,
-        TranslateService,
         ConfirmationService,
-        CookieService
+        MatDatepickerModule
     ],
     bootstrap: [AppComponent]
 })

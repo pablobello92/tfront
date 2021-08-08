@@ -36,10 +36,6 @@ export class NavbarComponent implements OnInit {
     userName: string;
 
     langs: SelectItem[] = [];
-    selectedLang: SelectItem;
-
-    toppings = new FormControl();
-    toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
     constructor(
         private _cookies: CookiesService,
@@ -57,7 +53,6 @@ export class NavbarComponent implements OnInit {
                 'value': 'en'
             }
         ];
-        this.selectedLang = this.langs[0];
         this.userName = this._cookies.getCookie('nickname');
     }
 

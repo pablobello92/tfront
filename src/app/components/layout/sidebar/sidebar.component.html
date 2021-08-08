@@ -1,3 +1,9 @@
 <div class="sidebar" [ngClass]="display? 'show': 'hide'">
-    <p-menu [model]="items" orientation="vertical"></p-menu>
+    <!-- <p-menu [model]="items" orientation="vertical"></p-menu> -->
+    <mat-nav-list>
+        <mat-list-item *ngFor="let link of links">
+            <mat-icon> {{ link.icon }} </mat-icon>
+            <a routerLink="{{ link.routerLink }}"> {{ link.label }} </a>
+        </mat-list-item>
+    </mat-nav-list>
 </div>

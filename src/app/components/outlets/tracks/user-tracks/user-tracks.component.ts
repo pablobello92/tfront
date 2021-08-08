@@ -67,6 +67,7 @@ export class UserTracksComponent implements OnInit {
         from: new Date(1520793625606.0),
         to: new Date(1537656635848.0)
     };
+    dateFrom = new Date(1520793625606.0);
 
     paginationLimit = 5;
     offset = 0;

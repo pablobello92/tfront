@@ -5,14 +5,29 @@
     <div class="filters-card">
         <div>
             <span class="text">{{ 'general.city' | translate }}</span>
-            <p-dropdown [options]="( cities | async)" [(ngModel)]="currentCity"
-                (onChange)="changeCurrentCity($event.value)" optionLabel="name" [style]="{'width':'16em'}"></p-dropdown>
+            <!-- <p-dropdown [options]="( cities | async)" [(ngModel)]="currentCity"
+                (onChange)="changeCurrentCity($event.value)" optionLabel="name" [style]="{'width':'16em'}"></p-dropdown> -->
+
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'general.city' | translate }}</mat-label>
+                <mat-select (selectionChange)="changeCurrentCity($event.value)">
+                    <mat-option *ngFor="let city of ( cities | async)" [value]="city.id"> {{ city.name }} </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
 
         <div>
             <span class="text">{{ 'general.from' | translate }}</span>
-            <p-calendar [(ngModel)]="dateFilter.from" [monthNavigator]="true" [yearNavigator]="true"
-                yearRange="2000:2030" dateFormat="dd/mm/yy" [readonlyInput]="true" [showIcon]="true"></p-calendar>
+            <!-- <p-calendar [(ngModel)]="dateFilter.from" [monthNavigator]="true" [yearNavigator]="true"
+                yearRange="2000:2030" dateFormat="dd/mm/yy" [readonlyInput]="true" [showIcon]="true"></p-calendar> -->
+
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'general.from' | translate }}</mat-label>
+                <input matInput [matDatepicker]="dateFilter.from">
+                <mat-datepicker-toggle matSuffix [for]="dateFilter.from"></mat-datepicker-toggle>
+                <mat-datepicker #dateFilter.from></mat-datepicker>
+            </mat-form-field>
+
 
         </div>
         <div>
