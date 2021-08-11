@@ -7,16 +7,43 @@ import {
     GMapModule
 } from 'primeng/gmap';
 
-import { MapOptions, City } from '../../../../shared//interfaces/City';
-import { Coordinate } from '../../../../shared//interfaces/Coordinate';
-import { BehaviorSubject, Observable } from 'rxjs';
-import {  map, skip, tap } from 'rxjs/operators';
-import { CitiesService } from '../../../../shared//services/cities.service';
-import { Reparation } from '../../../../shared//interfaces/Reparation';
-import { ReparationsService } from '../../../../shared//services/reparations.service';
-import { MapsService } from '../../../../shared//services/maps.service';
-import { Message } from 'primeng/api';
-import { MapFilter } from '../../../../shared/interfaces/MapFilter';
+import {
+    MapOptions,
+    City
+} from '../../../../shared//interfaces/City';
+import {
+    Coordinate
+} from '../../../../shared//interfaces/Coordinate';
+import {
+    BehaviorSubject,
+    Observable
+} from 'rxjs';
+import {
+    map,
+    skip,
+    tap
+} from 'rxjs/operators';
+import {
+    CitiesService
+} from '../../../../shared//services/cities.service';
+import {
+    Reparation
+} from '../../../../shared//interfaces/Reparation';
+import {
+    ReparationsService
+} from '../../../../shared//services/reparations.service';
+import {
+    MapsService
+} from '../../../../shared//services/maps.service';
+import {
+    Message
+} from 'primeng/api';
+import {
+    MapFilter
+} from '../../../../shared/interfaces/MapFilter';
+import {
+    MatDatepickerInputEvent
+} from '@angular/material/datepicker';
 
 declare const google: any;
 
@@ -34,12 +61,12 @@ export class ReparationsComponent implements OnInit {
     overlays: any[] = [];
 
     private _markersPlaced = 0;
-    markersPlaced: BehaviorSubject<number> = new BehaviorSubject<number>(this._markersPlaced);
+    markersPlaced: BehaviorSubject < number > = new BehaviorSubject < number > (this._markersPlaced);
     private currentMarkerCenter: MapOptions;
 
-    cities: Observable<City[]> = new Observable<City[]>();
+    cities: Observable < City[] > = new Observable < City[] > ();
     currentCity: City = null;
-    private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
+    private citySubject: BehaviorSubject < City > = new BehaviorSubject < City > (this.currentCity);
 
     msgs: Message[] = [];
 
@@ -51,50 +78,50 @@ export class ReparationsComponent implements OnInit {
         private _cities: CitiesService
     ) {
         this.cities = this._cities.getCities()
-        .pipe(
-            tap((cities: City[]) => {
-                this.changeCurrentCity(cities[0]);
-            })
-        );
+            .pipe(
+                tap((cities: City[]) => {
+                    this.changeCurrentCity(cities[0]);
+                })
+            );
 
         this.citySubject.asObservable()
-        .pipe(
-            skip(1),
-            map((city: City) => {
-                return <MapOptions>{
-                    center: city.center,
-                    zoom: city.zoom
+            .pipe(
+                skip(1),
+                map((city: City) => {
+                    return <MapOptions > {
+                        center: city.center,
+                        zoom: city.zoom
+                    };
+                })
+            )
+            .subscribe(newMapCenter => {
+                this.map.setOptions(newMapCenter);
+                const filterObject: MapFilter = {
+                    city: this.currentCity.name,
+                    startTime: {
+                        from: Date.parse(this.dateFilter.toDateString())
+                    }
                 };
-            })
-        )
-        .subscribe(newMapCenter => {
-            this.map.setOptions(newMapCenter);
-            const filterObject: MapFilter = {
-                city: this.currentCity.name,
-                startTime: {
-                    from: Date.parse(this.dateFilter.toDateString())
-                }
-            };
-            this._reparations.getReparations(filterObject)
-            .subscribe(reparations => {
-                const drawables = reparations.map((r: Reparation) => {
-                    const coords = <Coordinate[]>[r.from, r.to];
-                    return this._maps.getDrawableFromCoordinates(coords);
-                });
-                this.overlays.push(...drawables);
+                this._reparations.getReparations(filterObject)
+                    .subscribe(reparations => {
+                        const drawables = reparations.map((r: Reparation) => {
+                            const coords = < Coordinate[] > [r.from, r.to];
+                            return this._maps.getDrawableFromCoordinates(coords);
+                        });
+                        this.overlays.push(...drawables);
+                    });
             });
-        });
 
         this.markersPlaced.asObservable()
-        .subscribe((newValue: number) => {
-            if (newValue === 2) {
-                const lastIndex = this.overlays.length;
-                const newMarkers = [this.overlays[lastIndex - 1], this.overlays[lastIndex - 2]];
-                const coordinates = this._maps.getCoordinatesFromMarkers(newMarkers);
-                const newOverlay = this._maps.getDrawableFromCoordinates(coordinates, 'lime');
-                this.overlays.push(newOverlay);
-            }
-        });
+            .subscribe((newValue: number) => {
+                if (newValue === 2) {
+                    const lastIndex = this.overlays.length;
+                    const newMarkers = [this.overlays[lastIndex - 1], this.overlays[lastIndex - 2]];
+                    const coordinates = this._maps.getCoordinatesFromMarkers(newMarkers);
+                    const newOverlay = this._maps.getDrawableFromCoordinates(coordinates, 'lime');
+                    this.overlays.push(newOverlay);
+                }
+            });
     }
 
     ngOnInit() {}
@@ -128,10 +155,13 @@ export class ReparationsComponent implements OnInit {
             lat: $event.latLng.lat(),
             lng: $event.latLng.lng()
         };
-        const newMarker = new google.maps.Marker({position: coords, title: 'Desde'});
+        const newMarker = new google.maps.Marker({
+            position: coords,
+            title: 'Desde'
+        });
         this.overlays.push(newMarker);
 
-        this.currentMarkerCenter = <MapOptions> {
+        this.currentMarkerCenter = < MapOptions > {
             center: {
                 lat: coords.lat,
                 lng: coords.lng,
@@ -176,4 +206,8 @@ export class ReparationsComponent implements OnInit {
         this._reparations.insertReparation(newReparation).subscribe();
     }
 
+    // TODO: this probably would need a refactor
+    public onDateChange($event: MatDatepickerInputEvent < Date > ): void {
+        this.dateFilter = $event.value;
+    }
 }
