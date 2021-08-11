@@ -121,6 +121,9 @@ import {
     MatIconModule
 } from '@angular/material/icon';
 import {
+    MatTooltipModule
+} from '@angular/material/tooltip'
+import {
     MatInputModule
 } from '@angular/material/input';
 
@@ -211,6 +214,7 @@ export function createTranslateLoader(http: HttpClient) {
         MatInputModule,
         MatSelectModule,
         MatListModule,
+        MatTooltipModule,
         MatIconModule,
         MatDatepickerModule,
         MatNativeDateModule,
@@ -237,6 +241,7 @@ export function createTranslateLoader(http: HttpClient) {
         MatSelectModule,
         MatListModule,
         MatIconModule,
+        MatTooltipModule,
         MatDatepickerModule
     ],
     providers: [
