@@ -46,11 +46,15 @@
         </div>
         <div>
             <span class="text">{{ 'general.skip' | translate }}:</span>
-            <p-spinner size="1" [min]="0" [(ngModel)]="offset"></p-spinner>
+            <mat-form-field>
+                <input matInput type="number" min="0" [(ngModel)]="offset">
+            </mat-form-field>
         </div>
         <div>
             <span class="text">{{ 'general.quantity' | translate }}:</span>
-            <p-spinner size="1" [min]="0" [max]="10" [(ngModel)]="paginationLimit"></p-spinner>
+            <mat-form-field>
+                <input matInput type="number" min="0" max="10" [(ngModel)]="paginationLimit">
+            </mat-form-field>
         </div>
         <div>
             <button type="button" class="btn btn-primary" (click)="fetchUserTracks()">{{ 'general.search' | translate }}</button>
