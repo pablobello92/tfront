@@ -23,7 +23,10 @@
     <mat-form-field appearance="fill">
         <mat-label>{{ 'titles.language' | translate }}</mat-label>
         <mat-select (selectionChange)="changeLang($event)">
-          <mat-option *ngFor="let lang of langs" [value]="lang.value"> {{ lang.label }} </mat-option>
+          <mat-option *ngFor="let lang of langs" [value]="lang.value">
+                <img src="./assets/img/lang/{{ lang.label }}.png" style="width:24px;"/>
+              {{ lang.label }}
+            </mat-option>
         </mat-select>
     </mat-form-field>
 
