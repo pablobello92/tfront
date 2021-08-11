@@ -45,11 +45,11 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
         this.langs = [{
-                'label': 'Español',
+                'label': 'espanol',
                 'value': 'es_AR'
             },
             {
-                'label': 'English',
+                'label': 'english',
                 'value': 'en'
             }
         ];
