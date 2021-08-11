@@ -24,9 +24,17 @@ import {
 import {
     Message
 } from 'primeng/api';
+
+import {
+    MatDialog
+} from "@angular/material/dialog";
+
 import {
     User
 } from '../../../../shared/interfaces/User';
+import {
+    ConfirmDialogComponent
+} from 'src/app/components/shared/confirm-dialog/confirm-dialog.component';
 @Component({
     selector: 'app-user-edit',
     templateUrl: './user-edit.component.html',
@@ -44,7 +52,8 @@ export class UserEditComponent implements OnInit {
         private _confirmation: ConfirmationService,
         private _cookies: CookiesService,
         private router: Router,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        public dialog: MatDialog
     ) {
         this.editForm = this.fb.group({
             '_id': [null, Validators.required],
@@ -94,8 +103,42 @@ export class UserEditComponent implements OnInit {
         return this.editForm.controls;
     }
 
+    // TODO: add i18n for this
+    // TODO: replace msgs.push() de p-growl por método correspondiente de componente snackBar
+    // TODO: de Angular Material
     onSubmit(): void {
-        this._confirmation.confirm({
+        this.dialog.open(ConfirmDialogComponent, {
+                data: {
+                    title: 'Confirmación',
+                    body: 'Está seguro que desea guardar los datos del usuario?'
+                }
+            })
+            .afterClosed()
+            .subscribe((result: boolean) => {
+                if (result) {
+                    const user = < User > this.editForm.value;
+                    this._users.updateUser(user)
+                        .subscribe((res: any) => {
+                            this.msgs.push({
+                                severity: 'success',
+                                detail: 'Usuario actualizado exitosamente.'
+                            });
+                        }, (err: any) => {
+                            console.error(err);
+                            this.msgs.push({
+                                severity: 'error',
+                                detail: 'Error al intentar actualizar el usuario.'
+                            });
+                        });
+                } else {
+                    this.msgs.push({
+                        severity: 'warn',
+                        detail: 'Acción cancelada'
+                    });
+                }
+            });
+
+        /* this._confirmation.confirm({
             acceptLabel: 'Sí',
             rejectLabel: 'No',
             message: 'Está seguro que desea guardar los datos del usuario?',
@@ -121,7 +164,7 @@ export class UserEditComponent implements OnInit {
                     detail: 'Acción cancelada'
                 });
             }
-        });
+        }); */
     }
 
     goBack(): void {
