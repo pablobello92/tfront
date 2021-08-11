@@ -52,9 +52,6 @@ import {
 import {
     SideBarComponent
 } from './components/layout/sidebar/sidebar.component';
-import {
-    SidebarItemComponent
-} from './components/layout/sidebar/sidebar-item/sidebar-item.component';
 
 import {
     CalendarModule
@@ -187,7 +184,6 @@ export function createTranslateLoader(http: HttpClient) {
         HomeComponent,
         DashboardComponent,
         SideBarComponent,
-        SidebarItemComponent,
         NavbarComponent,
         UserEditComponent,
         UserTracksComponent,

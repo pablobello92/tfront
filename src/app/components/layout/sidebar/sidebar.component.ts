@@ -9,7 +9,7 @@ import {
 } from '@ngx-translate/core';
 import {
     MenuItem
-} from 'primeng/api';
+} from 'src/app/shared/interfaces/MenuItem';
 import {
     CookiesService
 } from '../../../shared/services/cookies.service';
@@ -51,40 +51,41 @@ export class SideBarComponent implements OnInit {
     }
 
     setLinks(translations: any) {
-        this.links = [
-            {
+        this.links = [{
                 label: translations.titles.home,
                 icon: 'home',
-                routerLink: ['/dashboard']
+                routerLink: ['/dashboard'],
+                enabled: true
             },
             {
                 label: translations.titles.my_tracks,
                 icon: 'directions_car',
-                routerLink: (this._cookies.isAdmin()) ? null : ['/user/tracks'],
-                disabled: this._cookies.isAdmin()
+                routerLink: ['/user/tracks'],
+                enabled: !this._cookies.isAdmin()
             },
             {
                 label: translations.titles.sumarized_tracks,
                 icon: 'public',
-                routerLink: ['/sumarized-tracks']
+                routerLink: ['/sumarized-tracks'],
+                enabled: true
             },
             {
                 label: translations.titles.user_edit,
                 icon: 'create',
-                routerLink: (this._cookies.isAdmin()) ? null : ['/user/edit'],
-                disabled: this._cookies.isAdmin()
+                routerLink: ['/user/edit'],
+                enabled: !this._cookies.isAdmin()
             },
             {
                 label: translations.titles.reparations,
                 icon: 'build',
-                routerLink: (this._cookies.isAdmin()) ? ['/admin/reparations'] : null,
-                visible: this._cookies.isAdmin()
+                routerLink: ['/admin/reparations'],
+                enabled: this._cookies.isAdmin()
             },
             {
                 label: translations.titles.tools,
                 icon: 'construction',
-                routerLink: (this._cookies.isAdmin()) ? ['/admin/tools'] : null,
-                visible: this._cookies.isAdmin()
+                routerLink: ['/admin/tools'],
+                enabled: this._cookies.isAdmin()
             }
         ];
     }
