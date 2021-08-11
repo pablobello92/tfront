@@ -10,30 +10,39 @@
 
             <mat-form-field appearance="fill">
                 <mat-label>{{ 'general.city' | translate }}</mat-label>
-                <mat-select (selectionChange)="changeCurrentCity($event.value)">
-                    <mat-option *ngFor="let city of ( cities | async)" [value]="city.id"> {{ city.name }} </mat-option>
+                <mat-select [(value)]="currentCity" (selectionChange)="changeCurrentCity($event.value)">
+                    <mat-option *ngFor="let city of ( cities | async)" [value]="city"> {{ city.name }} </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
 
         <div>
+            <!-- TODO: CAMBIAR FORMATO, ACOTAR EL RANGO DE SELECCION, Y QUE SOLO SE PUEDA CAMBIAR USANDO EL CALENDARIO -->
             <span class="text">{{ 'general.from' | translate }}</span>
             <!-- <p-calendar [(ngModel)]="dateFilter.from" [monthNavigator]="true" [yearNavigator]="true"
                 yearRange="2000:2030" dateFormat="dd/mm/yy" [readonlyInput]="true" [showIcon]="true"></p-calendar> -->
 
             <mat-form-field appearance="fill">
-                <mat-label>{{ 'general.from' | translate }}</mat-label>
-                <input matInput [matDatepicker]="dateFilter.from">
-                <mat-datepicker-toggle matSuffix [for]="dateFilter.from"></mat-datepicker-toggle>
-                <mat-datepicker #dateFilter.from></mat-datepicker>
+                <mat-label>{{ 'titles.select_date' | translate }}</mat-label>
+                <input matInput [matDatepicker]="pickerFrom" [value]="dateFilter.from" (dateInput)="onDateChange($event, 'from')" (dateChange)="onDateChange($event, 'from')">
+                <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFrom></mat-datepicker>
             </mat-form-field>
+
+
 
 
         </div>
         <div>
             <span class="text">{{ 'general.to' | translate }}</span>
-            <p-calendar [(ngModel)]="dateFilter.to" [monthNavigator]="true" [yearNavigator]="true"
-            yearRange="2000:2030" dateFormat="dd/mm/yy" [readonlyInput]="true" [showIcon]="true"></p-calendar>
+            <!-- <p-calendar [(ngModel)]="dateFilter.to" [monthNavigator]="true" [yearNavigator]="true"
+            yearRange="2000:2030" dateFormat="dd/mm/yy" [readonlyInput]="true" [showIcon]="true"></p-calendar> -->
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'titles.select_date' | translate }}</mat-label>
+                <input matInput [matDatepicker]="pickerTo" [value]="dateFilter.to" (dateInput)="onDateChange($event, 'to')" (dateChange)="onDateChange($event, 'to')">
+                <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                <mat-datepicker #pickerTo></mat-datepicker>
+            </mat-form-field>
         </div>
         <div>
             <span class="text">{{ 'general.skip' | translate }}:</span>

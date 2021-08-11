@@ -40,6 +40,10 @@ import {
     CookiesService
 } from '../../../../shared/services/cookies.service';
 
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { DateAdapter } from '@angular/material/core';
+
+
 declare const google: any;
 
 @Component({
@@ -67,7 +71,6 @@ export class UserTracksComponent implements OnInit {
         from: new Date(1520793625606.0),
         to: new Date(1537656635848.0)
     };
-    dateFrom = new Date(1520793625606.0);
 
     paginationLimit = 5;
     offset = 0;
@@ -76,8 +79,10 @@ export class UserTracksComponent implements OnInit {
         private _cities: CitiesService,
         private _tracks: TracksService,
         private _maps: MapsService,
-        private _cookies: CookiesService
+        private _cookies: CookiesService,
+        private _adapter: DateAdapter<any>
     ) {
+        this._adapter.setLocale('es-ES');
         this.username = this._cookies.getCookie('username');
         this.cities = this._cities.getCities()
             .pipe(
@@ -123,6 +128,8 @@ export class UserTracksComponent implements OnInit {
         this.map = $event.map;
     }
 
+    // ? Why do I need this currentCity property besides the Observable??
+    // TODO: take a look at this
     public changeCurrentCity(c: City): void {
         this.currentCity = c;
         this.citySubject.next(this.currentCity);
@@ -155,5 +162,11 @@ export class UserTracksComponent implements OnInit {
             }, err => {
                 console.error(err);
             });
+    }
+
+    // TODO: this probably would need a refactor
+    public onDateChange($event: MatDatepickerInputEvent<Date>, name): void {
+        this.dateFilter[name] = $event.value;
+        console.log(name, this.dateFilter[name]);
     }
 }
