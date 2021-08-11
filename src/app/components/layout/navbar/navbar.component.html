@@ -17,9 +17,9 @@
         </span>
     </div>
 </div>
-<!-- TODO: change it for a PrimeNG toast component -->
-<!-- <p-growl [(value)]="msgs"></p-growl> -->
 <div class="navbar-right">
+
+    <!-- TODO: add the flag imgs -->
     <mat-form-field appearance="fill">
         <mat-label>{{ 'titles.language' | translate }}</mat-label>
         <mat-select (selectionChange)="changeLang($event)">
@@ -27,6 +27,7 @@
         </mat-select>
     </mat-form-field>
 
+    <!-- TODO: when the dropdown it's okay, the remove this commented code -->
     <!-- <p-dropdown class="cursor-pointer" [options]="langs" [(ngModel)]="selectedLang" appendTo="body"
         (onChange)="changeLang($event)" [style]="{'width':'100px'}">
         <ng-template let-item pTemplate="selectedItem">
@@ -42,3 +43,5 @@
         <em class="fa fa-sign-out"></em>
     </a>
 </div>
+<!-- TODO: change it for a PrimeNG toast component -->
+<!-- <p-growl [(value)]="msgs"></p-growl> -->
