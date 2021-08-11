@@ -167,6 +167,5 @@ export class UserTracksComponent implements OnInit {
     // TODO: this probably would need a refactor
     public onDateChange($event: MatDatepickerInputEvent<Date>, name): void {
         this.dateFilter[name] = $event.value;
-        console.log(name, this.dateFilter[name]);
     }
 }
