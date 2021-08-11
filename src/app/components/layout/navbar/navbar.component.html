@@ -39,9 +39,11 @@
             </div>
         </ng-template>
     </p-dropdown> -->
-    <a class="link-item cursor-pointer" #fsbutton (click)="logout()">
-        <em class="fa fa-sign-out"></em>
-    </a>
+    <span class="link-item cursor-pointer">
+        <a #fsbutton (click)="logout()" pTooltip="{{'general.exit' | translate}}">
+            <em class="fa fa-sign-out"></em>
+        </a>
+    </span>
 </div>
 <!-- TODO: change it for a PrimeNG toast component -->
 <!-- <p-growl [(value)]="msgs"></p-growl> -->

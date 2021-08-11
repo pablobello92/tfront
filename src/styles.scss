@@ -37,15 +37,16 @@
 
 /* Cuerpo principal */
 
-html,
-body {
-    width: 100%;
+html, body {
     height: 100%;
 }
 
 body {
-    margin: 0 auto;
+    margin: 0;
+    overflow: hidden;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
 
 h1,
 h2,
@@ -138,6 +139,3 @@ p-gmap {
         background: var(--protossPylon);
     }
 }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
