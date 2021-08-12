@@ -1,6 +1,5 @@
 import {
-    Component,
-    OnInit
+    Component
 } from '@angular/core';
 import {
     TracksService
@@ -40,8 +39,12 @@ import {
     CookiesService
 } from '../../../../shared/services/cookies.service';
 
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { DateAdapter } from '@angular/material/core';
+import {
+    MatDatepickerInputEvent
+} from '@angular/material/datepicker';
+import {
+    DateAdapter
+} from '@angular/material/core';
 
 
 declare const google: any;
@@ -51,16 +54,20 @@ declare const google: any;
     templateUrl: './user-tracks.component.html',
     styleUrls: ['./user-tracks.component.scss']
 })
-export class UserTracksComponent implements OnInit {
+export class UserTracksComponent {
 
-    title = 'My first AGM project';
-    lat = 51.678418;
-    lng = 7.809007;
+    public currentMapOptions: MapOptions = {
+        center: {
+            lat: 0,
+            lng: 0
+        },
+        zoom: 0
+    };
+
+    public currentTrack: any = null;
 
     private username: string = null;
-    private map: google.maps.Map;
     private tracks: Track[] = [];
-    currentTrack: Observable < any[] > = new Observable < any[] > ();
     roadCategories: RoadCategories = null;
     roadCategoriesIterable = [];
 
@@ -76,15 +83,15 @@ export class UserTracksComponent implements OnInit {
         to: new Date(1537656635848.0)
     };
 
-    paginationLimit = 5;
-    offset = 0;
+    public paginationLimit = 5;
+    public offset = 0;
 
     constructor(
         private _cities: CitiesService,
         private _tracks: TracksService,
         private _maps: MapsService,
         private _cookies: CookiesService,
-        private _adapter: DateAdapter<any>
+        private _adapter: DateAdapter < any >
     ) {
         this._adapter.setLocale('es-ES');
         this.username = this._cookies.getCookie('username');
@@ -106,10 +113,10 @@ export class UserTracksComponent implements OnInit {
                 })
             )
             .subscribe((newMapCenter: MapOptions) => {
-                // this.map.setOptions(newMapCenter);
+                this.currentMapOptions = newMapCenter;
             });
 
-        this.currentTrack = this.trackIndexSubject.asObservable()
+        this.trackIndexSubject.asObservable()
             .pipe(
                 skip(1),
                 filter((nextIndex: number) => (this.tracks.length > 0)),
@@ -123,14 +130,11 @@ export class UserTracksComponent implements OnInit {
                         });
                 }),
                 map((trackToDraw: Track) => this._maps.getDrawableFromRanges(trackToDraw.ranges))
-            );
+            ).subscribe((newTrack: any) => {
+                this.currentTrack = newTrack;
+            });
     }
 
-    ngOnInit() {}
-
-    public setMap($event) {
-        this.map = $event.map;
-    }
 
     // ? Why do I need this currentCity property besides the Observable??
     // TODO: take a look at this
@@ -169,7 +173,7 @@ export class UserTracksComponent implements OnInit {
     }
 
     // TODO: this probably would need a refactor
-    public onDateChange($event: MatDatepickerInputEvent<Date>, name): void {
+    public onDateChange($event: MatDatepickerInputEvent < Date > , name): void {
         this.dateFilter[name] = $event.value;
     }
 }

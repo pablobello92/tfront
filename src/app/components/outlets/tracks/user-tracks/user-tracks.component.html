@@ -24,7 +24,8 @@
 
             <mat-form-field appearance="fill">
                 <mat-label>{{ 'titles.select_date' | translate }}</mat-label>
-                <input matInput [matDatepicker]="pickerFrom" [value]="dateFilter.from" (dateInput)="onDateChange($event, 'from')" (dateChange)="onDateChange($event, 'from')">
+                <input matInput [matDatepicker]="pickerFrom" [value]="dateFilter.from"
+                    (dateInput)="onDateChange($event, 'from')" (dateChange)="onDateChange($event, 'from')">
                 <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
                 <mat-datepicker #pickerFrom></mat-datepicker>
             </mat-form-field>
@@ -36,7 +37,8 @@
             yearRange="2000:2030" dateFormat="dd/mm/yy" [readonlyInput]="true" [showIcon]="true"></p-calendar> -->
             <mat-form-field appearance="fill">
                 <mat-label>{{ 'titles.select_date' | translate }}</mat-label>
-                <input matInput [matDatepicker]="pickerTo" [value]="dateFilter.to" (dateInput)="onDateChange($event, 'to')" (dateChange)="onDateChange($event, 'to')">
+                <input matInput [matDatepicker]="pickerTo" [value]="dateFilter.to"
+                    (dateInput)="onDateChange($event, 'to')" (dateChange)="onDateChange($event, 'to')">
                 <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
                 <mat-datepicker #pickerTo></mat-datepicker>
             </mat-form-field>
@@ -54,30 +56,41 @@
             </mat-form-field>
         </div>
         <div>
-            <button type="button" class="btn btn-primary" (click)="fetchUserTracks()">{{ 'general.search' | translate }}</button>
+            <button type="button" class="btn btn-primary"
+                (click)="fetchUserTracks()">{{ 'general.search' | translate }}</button>
         </div>
     </div>
     <div class="divider"></div>
     <div class="map-content">
         <div class="chips" *ngIf="roadCategoriesIterable.length">
             <span> {{ 'titles.tracks_severity' | translate }}: </span>
-            <app-color-info-widget
-                *ngFor="let item of roadCategoriesIterable"
-                [backgroundColor]="item.color"
+            <app-color-info-widget *ngFor="let item of roadCategoriesIterable" [backgroundColor]="item.color"
                 [text]="item.text">
             </app-color-info-widget>
         </div>
         <div class="prev-next">
-            <button type="button" class="btn btn-warning" [disabled]="(getTrackIndex() === null || getTrackIndex() === 0)"
+            <button type="button" class="btn btn-warning"
+                [disabled]="(getTrackIndex() === null || getTrackIndex() === 0)"
                 (click)="changeTrackIndex(-1)">{{ 'general.prev' | translate }}</button>
-            <button type="button" class="btn btn-warning" [disabled]="(getTrackIndex() === null || getTrackIndex() === paginationLimit - 1)"
+            <button type="button" class="btn btn-warning"
+                [disabled]="(getTrackIndex() === null || getTrackIndex() === paginationLimit - 1)"
                 (click)="changeTrackIndex(1)">{{ 'general.next' | translate }}</button>
         </div>
-        <!-- <p-gmap #gmap (onMapReady)="setMap($event)" [overlays]="( currentTrack | async )"
-            [style]="{'width':'100%','height':'30vw', 'border': '1px solid var(--lightGray2)'}">
-        </p-gmap> -->
-        <agm-map [latitude]="lat" [longitude]="lng">
-            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+
+        <agm-map [style]="{'width':'100%','height':'30vw', 'border': '1px solid var(--lightGray2)'}"
+            [latitude]="currentMapOptions.center.lat" [longitude]="currentMapOptions.center.lng"
+            [zoom]="currentMapOptions.zoom">
+            <ng-container *ngIf="currentTrack">
+                <agm-polyline [strokeColor]="currentTrack.strokeColor" [strokeOpacity]="currentTrack.strokeOpacity"
+                    [strokeWeight]="currentTrack.strokeWeight">
+                    <agm-polyline-point [latitude]="currentTrack.path[0].lat" [longitude]="currentTrack.path[0].lng">
+                    </agm-polyline-point>
+                    <agm-polyline-point [latitude]="currentTrack.path[1].lat" [longitude]="currentTrack.path[1].lng">
+                    </agm-polyline-point>
+                </agm-polyline>
+            </ng-container>
+            <agm-marker [latitude]="currentMapOptions.center.lat" [longitude]="currentMapOptions.center.lng">
+            </agm-marker>
         </agm-map>
     </div>
 </div>
