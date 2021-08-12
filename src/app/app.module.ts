@@ -54,50 +54,8 @@ import {
 } from './components/layout/sidebar/sidebar.component';
 
 import {
-    CalendarModule
-} from 'primeng/calendar';
-import {
-    ColorPickerModule
-} from 'primeng/colorpicker';
-import {
-    DropdownModule
-} from 'primeng/dropdown';
-import {
-    EditorModule
-} from 'primeng/editor';
-import {
     GMapModule
 } from 'primeng/gmap';
-import {
-    InputTextareaModule
-} from 'primeng/inputtextarea';
-import {
-    MenuModule
-} from 'primeng/menu';
-import {
-    PaginatorModule
-} from 'primeng/paginator';
-import {
-    SidebarModule
-} from 'primeng/sidebar';
-import {
-    SliderModule
-} from 'primeng/slider';
-import {
-    SpinnerModule
-} from 'primeng/spinner';
-import {
-    TableModule
-} from 'primeng/table';
-import {
-    ToastModule
-} from 'primeng/toast';
-import {
-    TooltipModule
-} from 'primeng/tooltip';
-import {
-    ConfirmationService
-} from 'primeng/api';
 
 import {
     MatFormFieldModule
@@ -218,21 +176,8 @@ export function createTranslateLoader(http: HttpClient) {
         MatSnackBarModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        CalendarModule,
-        ColorPickerModule,
-        DropdownModule,
-        EditorModule,
-        InputTextareaModule,
-        MenuModule,
-        PaginatorModule,
-        SidebarModule,
-        SliderModule,
-        TableModule,
-        TooltipModule,
-        ToastModule,
         FormsModule,
-        GMapModule,
-        SpinnerModule
+        GMapModule
     ],
     exports: [
         MatFormFieldModule,
@@ -257,7 +202,6 @@ export function createTranslateLoader(http: HttpClient) {
         ReparationsService,
         CitiesService,
         ColorsService,
-        ConfirmationService,
         MatDatepickerModule
     ],
     bootstrap: [AppComponent]

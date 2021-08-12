@@ -2,11 +2,6 @@ import {
     Component,
     OnInit
 } from '@angular/core';
-
-import {
-    GMapModule
-} from 'primeng/gmap';
-
 import {
     MapOptions,
     City
