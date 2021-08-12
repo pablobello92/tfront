@@ -13,14 +13,16 @@ import {
     TranslateService
 } from '@ngx-translate/core';
 import {
-    SelectItem
-} from 'primeng/api';
-import {
     CookiesService
 } from '../../../shared/services/cookies.service';
 import {
     MatSnackBar
 } from '@angular/material/snack-bar';
+
+interface SelectItem {
+    label: string;
+    value: string;
+};
 
 @Component({
     selector: 'app-navbar',
@@ -45,12 +47,12 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
         this.langs = [{
-                'label': 'espanol',
-                'value': 'es_AR'
+                label: 'espanol',
+                value: 'es_AR'
             },
             {
-                'label': 'english',
-                'value': 'en'
+                label: 'english',
+                value: 'en'
             }
         ];
         this.userName = this._cookies.getCookie('nickname');
