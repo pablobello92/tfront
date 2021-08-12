@@ -58,6 +58,10 @@ import {
 } from 'primeng/gmap';
 
 import {
+    AgmCoreModule
+} from '@agm/core';
+
+import {
     MatFormFieldModule
 } from '@angular/material/form-field';
 import {
@@ -160,6 +164,9 @@ export function createTranslateLoader(http: HttpClient) {
         BrowserAnimationsModule,
         HttpClientModule,
         ReactiveFormsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCBH_ZKFx7zqViMLC69V17VdZEkgbNtl5A'
+        }),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

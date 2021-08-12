@@ -53,6 +53,10 @@ declare const google: any;
 })
 export class UserTracksComponent implements OnInit {
 
+    title = 'My first AGM project';
+    lat = 51.678418;
+    lng = 7.809007;
+
     private username: string = null;
     private map: google.maps.Map;
     private tracks: Track[] = [];
@@ -102,7 +106,7 @@ export class UserTracksComponent implements OnInit {
                 })
             )
             .subscribe((newMapCenter: MapOptions) => {
-                this.map.setOptions(newMapCenter);
+                // this.map.setOptions(newMapCenter);
             });
 
         this.currentTrack = this.trackIndexSubject.asObservable()
