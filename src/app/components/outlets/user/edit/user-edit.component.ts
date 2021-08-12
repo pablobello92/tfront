@@ -6,28 +6,24 @@ import {
     FormGroup,
     FormBuilder,
     Validators,
-    AbstractControl,
-    FormControl
+    AbstractControl
 } from '@angular/forms';
 import {
     Router
 } from '@angular/router';
-import {
-    ConfirmationService
-} from 'primeng/api';
 import {
     UsersService
 } from './../../../../shared/services/users.service';
 import {
     CookiesService
 } from '../../../../shared/services/cookies.service';
-import {
-    Message
-} from 'primeng/api';
 
 import {
     MatDialog
 } from "@angular/material/dialog";
+import {
+    MatSnackBar
+} from '@angular/material/snack-bar';
 
 import {
     User
@@ -42,18 +38,17 @@ import {
 })
 export class UserEditComponent implements OnInit {
 
-    msgs: Message[] = [];
     editForm: FormGroup;
     userName: string;
     nickName: string;
 
     constructor(
         private _users: UsersService,
-        private _confirmation: ConfirmationService,
         private _cookies: CookiesService,
         private router: Router,
         private fb: FormBuilder,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private _snackBar: MatSnackBar
     ) {
         this.editForm = this.fb.group({
             '_id': [null, Validators.required],
@@ -104,8 +99,7 @@ export class UserEditComponent implements OnInit {
     }
 
     // TODO: add i18n for this
-    // TODO: replace msgs.push() de p-growl por método correspondiente de componente snackBar
-    // TODO: de Angular Material
+    // TODO: Add success/error/warn classes for the snackbars
     onSubmit(): void {
         this.dialog.open(ConfirmDialogComponent, {
                 data: {
@@ -119,52 +113,27 @@ export class UserEditComponent implements OnInit {
                     const user = < User > this.editForm.value;
                     this._users.updateUser(user)
                         .subscribe((res: any) => {
-                            this.msgs.push({
-                                severity: 'success',
-                                detail: 'Usuario actualizado exitosamente.'
+                            this._snackBar.open('Usuario actualizado exitosamente', 'Ok', {
+                                duration: 1500,
+                                horizontalPosition: 'right',
+                                verticalPosition: 'top',
                             });
                         }, (err: any) => {
                             console.error(err);
-                            this.msgs.push({
-                                severity: 'error',
-                                detail: 'Error al intentar actualizar el usuario.'
+                            this._snackBar.open('Error al intentar actualizar el usuario', 'Ok', {
+                                duration: 1500,
+                                horizontalPosition: 'right',
+                                verticalPosition: 'top',
                             });
                         });
                 } else {
-                    this.msgs.push({
-                        severity: 'warn',
-                        detail: 'Acción cancelada'
+                    this._snackBar.open('Acción cancelada', 'Ok', {
+                        duration: 1500,
+                        horizontalPosition: 'right',
+                        verticalPosition: 'top',
                     });
                 }
             });
-
-        /* this._confirmation.confirm({
-            acceptLabel: 'Sí',
-            rejectLabel: 'No',
-            message: 'Está seguro que desea guardar los datos del usuario?',
-            accept: () => {
-                const user = < User > this.editForm.value;
-                this._users.updateUser(user)
-                    .subscribe((res: any) => {
-                        this.msgs.push({
-                            severity: 'success',
-                            detail: 'Usuario actualizado exitosamente.'
-                        });
-                    }, (err: any) => {
-                        console.error(err);
-                        this.msgs.push({
-                            severity: 'error',
-                            detail: 'Error al intentar actualizar el usuario.'
-                        });
-                    });
-            },
-            reject: () => {
-                this.msgs.push({
-                    severity: 'warn',
-                    detail: 'Acción cancelada'
-                });
-            }
-        }); */
     }
 
     goBack(): void {

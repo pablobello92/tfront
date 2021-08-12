@@ -36,14 +36,14 @@ import {
     MapsService
 } from '../../../../shared//services/maps.service';
 import {
-    Message
-} from 'primeng/api';
-import {
     MapFilter
 } from '../../../../shared/interfaces/MapFilter';
 import {
     MatDatepickerInputEvent
 } from '@angular/material/datepicker';
+import {
+    MatSnackBar
+} from '@angular/material/snack-bar';
 
 declare const google: any;
 
@@ -68,14 +68,13 @@ export class ReparationsComponent implements OnInit {
     currentCity: City = null;
     private citySubject: BehaviorSubject < City > = new BehaviorSubject < City > (this.currentCity);
 
-    msgs: Message[] = [];
-
     dateFilter = new Date(1520793625606.0);
 
     constructor(
         private _maps: MapsService,
         private _reparations: ReparationsService,
-        private _cities: CitiesService
+        private _cities: CitiesService,
+        private _snackBar: MatSnackBar
     ) {
         this.cities = this._cities.getCities()
             .pipe(
@@ -136,18 +135,16 @@ export class ReparationsComponent implements OnInit {
     }
 
     public overlayClicked($event): void {
-        this.msgs.push({
-            severity: 'warning',
-            detail: 'Funcionalidad no implementada.'
-        });
+        alert('Funcionalidad no implementada.');
     }
 
     public handleMapClick($event): void {
         if (this._markersPlaced === 2) {
             this.map.setOptions(this.currentMarkerCenter);
-            this.msgs.push({
-                severity: 'warning',
-                detail: 'Ya se ubicaron dos marcadores. Para corregir, hacer click en reset.'
+            this._snackBar.open('Ya se ubicaron dos marcadores. Para corregir, hacer click en reset', 'Ok', {
+                duration: 1500,
+                horizontalPosition: 'right',
+                verticalPosition: 'top',
             });
             return;
         }

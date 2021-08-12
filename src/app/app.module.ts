@@ -60,9 +60,6 @@ import {
     ColorPickerModule
 } from 'primeng/colorpicker';
 import {
-    ConfirmDialogModule
-} from 'primeng/confirmdialog';
-import {
     DropdownModule
 } from 'primeng/dropdown';
 import {
@@ -126,7 +123,9 @@ import {
 import {
     MatInputModule
 } from '@angular/material/input';
-
+import {
+    MatSnackBarModule
+} from '@angular/material/snack-bar';
 import {
     NavbarComponent
 } from './components/layout/navbar/navbar.component';
@@ -216,11 +215,11 @@ export function createTranslateLoader(http: HttpClient) {
         MatListModule,
         MatTooltipModule,
         MatIconModule,
+        MatSnackBarModule,
         MatDatepickerModule,
         MatNativeDateModule,
         CalendarModule,
         ColorPickerModule,
-        ConfirmDialogModule,
         DropdownModule,
         EditorModule,
         InputTextareaModule,
@@ -241,6 +240,7 @@ export function createTranslateLoader(http: HttpClient) {
         MatSelectModule,
         MatListModule,
         MatIconModule,
+        MatSnackBarModule,
         MatTooltipModule,
         MatDatepickerModule
     ],

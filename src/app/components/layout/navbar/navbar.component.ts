@@ -6,7 +6,6 @@ import {
     EventEmitter,
     ViewEncapsulation
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import {
     Router
 } from '@angular/router';
@@ -14,12 +13,14 @@ import {
     TranslateService
 } from '@ngx-translate/core';
 import {
-    SelectItem,
-    Message
+    SelectItem
 } from 'primeng/api';
 import {
     CookiesService
 } from '../../../shared/services/cookies.service';
+import {
+    MatSnackBar
+} from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-navbar',
@@ -32,15 +33,14 @@ export class NavbarComponent implements OnInit {
     @Input() display: boolean;
     @Output() displayChange: EventEmitter < boolean > = new EventEmitter < boolean > ();
 
-    msgs: Message[] = [];
     userName: string;
-
     langs: SelectItem[] = [];
 
     constructor(
-        private _cookies: CookiesService,
         private router: Router,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private _cookies: CookiesService,
+        private _snackBar: MatSnackBar
     ) {}
 
     ngOnInit() {
@@ -75,9 +75,10 @@ export class NavbarComponent implements OnInit {
 
     gotoProfile() {
         if (this._cookies.isAdmin()) {
-            this.msgs.push({
-                severity: 'warning',
-                detail: 'Actualmente un admin no puede editar su perfil.'
+            this._snackBar.open('Actualmente un admin no puede editar su perfil', 'Ok', {
+                duration: 1500,
+                horizontalPosition: 'right',
+                verticalPosition: 'top',
             });
         } else {
             this.router.navigate(['user/edit']);
