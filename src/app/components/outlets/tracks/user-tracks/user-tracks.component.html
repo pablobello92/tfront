@@ -80,17 +80,19 @@
         <agm-map [style]="{'width':'100%','height':'30vw', 'border': '1px solid var(--lightGray2)'}"
             [latitude]="currentMapOptions.center.lat" [longitude]="currentMapOptions.center.lng"
             [zoom]="currentMapOptions.zoom">
-            <ng-container *ngIf="currentTrack">
-                <agm-polyline [strokeColor]="currentTrack.strokeColor" [strokeOpacity]="currentTrack.strokeOpacity"
-                    [strokeWeight]="currentTrack.strokeWeight">
-                    <agm-polyline-point [latitude]="currentTrack.path[0].lat" [longitude]="currentTrack.path[0].lng">
-                    </agm-polyline-point>
-                    <agm-polyline-point [latitude]="currentTrack.path[1].lat" [longitude]="currentTrack.path[1].lng">
-                    </agm-polyline-point>
+                <agm-polyline *ngFor="let polyline of currentTrack; let i = index;"
+                    [visible]="true"
+                    [geodesic]="polyline.geodesic"
+                    [strokeColor]="polyline.strokeColor"
+                    [strokeOpacity]="polyline.strokeOpacity"
+                    [strokeWeight]="polyline.strokeWeight">
+
+                        <agm-polyline-point
+                            *ngFor="let coord of polyline.path; let j=index;"
+                            [latitude]="coord.lat"
+                            [longitude]="coord.lng">
+                        </agm-polyline-point>
                 </agm-polyline>
-            </ng-container>
-            <agm-marker [latitude]="currentMapOptions.center.lat" [longitude]="currentMapOptions.center.lng">
-            </agm-marker>
         </agm-map>
     </div>
 </div>

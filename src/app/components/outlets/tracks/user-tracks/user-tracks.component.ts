@@ -7,7 +7,6 @@ import {
 import {
     BehaviorSubject,
     Observable,
-    of,
     pipe
 } from 'rxjs';
 import {
@@ -45,6 +44,9 @@ import {
 import {
     DateAdapter
 } from '@angular/material/core';
+import {
+    Polyline
+} from 'src/app/shared/interfaces/Polyline';
 
 
 declare const google: any;
@@ -56,15 +58,16 @@ declare const google: any;
 })
 export class UserTracksComponent {
 
+    // TODO: remove this mock and use the center subject!
     public currentMapOptions: MapOptions = {
         center: {
-            lat: 0,
-            lng: 0
+            lat: -37.3234275,
+            lng: -59.1371982
         },
-        zoom: 0
+        zoom: 12
     };
 
-    public currentTrack: any = null;
+    public currentTrack: Polyline[] = [];
 
     private username: string = null;
     private tracks: Track[] = [];
@@ -129,9 +132,9 @@ export class UserTracksComponent {
                             color: entry[1].color
                         });
                 }),
-                map((trackToDraw: Track) => this._maps.getDrawableFromRanges(trackToDraw.ranges))
-            ).subscribe((newTrack: any) => {
-                this.currentTrack = newTrack;
+                map((trackToDraw: Track) => this._maps.getPolylinesFromRanges(trackToDraw.ranges))
+            ).subscribe((polyLines: Polyline[]) => {
+                this.currentTrack = polyLines;
             });
     }
 

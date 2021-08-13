@@ -1,6 +1,8 @@
-import { Coordinate } from './Coordinate';
+import {
+    Coordinate
+} from './Coordinate';
 
-export interface Line {
+export interface Polyline {
     path: Coordinate[];
     geodesic: boolean;
     strokeColor: string;

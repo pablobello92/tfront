@@ -94,7 +94,7 @@ export class SumarizedTracksComponent implements OnInit {
         this._sumarizations.getSumarizationsByCity(this.currentCity.name)
         .subscribe((res: any) => {
             this.sumarizationDate = new Date(res[0].date);
-            this.sumarizations =  this._maps.getDrawableFromRanges(res[0].ranges);
+            this.sumarizations =  this._maps.getPolylinesFromRanges(res[0].ranges);
             this.roadCategories = this._maps.getRelativeRoadCategories(res[0].ranges);
             this.roadCategoriesIterable = Object.entries(this.roadCategories)
             .map((entry: any[]) => <Object>{

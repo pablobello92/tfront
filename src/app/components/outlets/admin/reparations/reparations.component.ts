@@ -100,7 +100,7 @@ export class ReparationsComponent implements OnInit {
                     .subscribe(reparations => {
                         const drawables = reparations.map((r: Reparation) => {
                             const coords = < Coordinate[] > [r.from, r.to];
-                            return this._maps.getDrawableFromCoordinates(coords);
+                            return this._maps.mapCoordinateToPolyline(coords);
                         });
                         this.overlays.push(...drawables);
                     });
@@ -112,7 +112,7 @@ export class ReparationsComponent implements OnInit {
                     const lastIndex = this.overlays.length;
                     const newMarkers = [this.overlays[lastIndex - 1], this.overlays[lastIndex - 2]];
                     const coordinates = this._maps.getCoordinatesFromMarkers(newMarkers);
-                    const newOverlay = this._maps.getDrawableFromCoordinates(coordinates, 'lime');
+                    const newOverlay = this._maps.mapCoordinateToPolyline(coordinates, 'lime');
                     this.overlays.push(newOverlay);
                 }
             });
