@@ -67,7 +67,7 @@ export class UserTracksComponent {
         zoom: 12
     };
 
-    public currentTrack: Polyline[] = [];
+    public currentTrack: Observable<Polyline[]> = new Observable<Polyline[]>();
 
     private username: string = null;
     private tracks: Track[] = [];
@@ -75,7 +75,7 @@ export class UserTracksComponent {
     roadCategoriesIterable = [];
 
     cities: Observable < City[] > = new Observable < City[] > ();
-    currentCity: City = null;
+    public currentCity: City = null;
     private citySubject: BehaviorSubject < City > = new BehaviorSubject < City > (this.currentCity);
 
     private _trackIndex: number = null;
@@ -119,7 +119,7 @@ export class UserTracksComponent {
                 this.currentMapOptions = newMapCenter;
             });
 
-        this.trackIndexSubject.asObservable()
+            this.currentTrack = this.trackIndexSubject.asObservable()
             .pipe(
                 skip(1),
                 filter((nextIndex: number) => (this.tracks.length > 0)),
@@ -133,9 +133,7 @@ export class UserTracksComponent {
                         });
                 }),
                 map((trackToDraw: Track) => this._maps.getPolylinesFromRanges(trackToDraw.ranges))
-            ).subscribe((polyLines: Polyline[]) => {
-                this.currentTrack = polyLines;
-            });
+            );
     }
 
 

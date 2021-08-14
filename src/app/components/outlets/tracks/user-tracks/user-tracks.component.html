@@ -80,7 +80,7 @@
         <agm-map [style]="{'width':'100%','height':'30vw', 'border': '1px solid var(--lightGray2)'}"
             [latitude]="currentMapOptions.center.lat" [longitude]="currentMapOptions.center.lng"
             [zoom]="currentMapOptions.zoom">
-                <agm-polyline *ngFor="let polyline of currentTrack; let i = index;"
+                <agm-polyline *ngFor="let polyline of ( currentTrack | async )"
                     [visible]="true"
                     [geodesic]="polyline.geodesic"
                     [strokeColor]="polyline.strokeColor"
@@ -88,7 +88,7 @@
                     [strokeWeight]="polyline.strokeWeight">
 
                         <agm-polyline-point
-                            *ngFor="let coord of polyline.path; let j=index;"
+                            *ngFor="let coord of polyline.path"
                             [latitude]="coord.lat"
                             [longitude]="coord.lng">
                         </agm-polyline-point>
