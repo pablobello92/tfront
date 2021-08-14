@@ -1,5 +1,3 @@
-@import '~primeicons/primeicons.css';
-
 :root {
     --mainBlue: rgb(1, 54, 98, 1);
     --mainGreen: rgb(196, 214, 0, 1);
@@ -113,7 +111,7 @@ button.btn-primary {
 }
 
 /* GMap */
-p-gmap {
+agm-map {
     button.gm-control-active {
         background: var(--bootstrapYellow) !important;
     }
