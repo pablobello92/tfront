@@ -48,9 +48,6 @@ import {
     Polyline
 } from 'src/app/shared/interfaces/Polyline';
 
-
-declare const google: any;
-
 @Component({
     selector: 'app-user-tracks',
     templateUrl: './user-tracks.component.html',

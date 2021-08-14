@@ -40,8 +40,6 @@ import {
     MatSnackBar
 } from '@angular/material/snack-bar';
 
-declare const google: any;
-
 /**
  * TODO: The "already marked twice" should be a toaster, or something else asynchronous
  */
@@ -52,8 +50,16 @@ declare const google: any;
 })
 export class ReparationsComponent implements OnInit {
 
-    private map: google.maps.Map;
-    overlays: any[] = [];
+    // TODO: remove this mock and use the center subject!
+    public currentMapOptions: MapOptions = {
+        center: {
+            lat: -37.3234275,
+            lng: -59.1371982
+        },
+        zoom: 12
+    };
+
+    public overlays: any[] = [];
 
     private _markersPlaced = 0;
     markersPlaced: BehaviorSubject < number > = new BehaviorSubject < number > (this._markersPlaced);
@@ -88,8 +94,8 @@ export class ReparationsComponent implements OnInit {
                     };
                 })
             )
-            .subscribe(newMapCenter => {
-                this.map.setOptions(newMapCenter);
+            .subscribe((newMapCenter: MapOptions) => {
+                this.currentMapOptions = newMapCenter;
                 const filterObject: MapFilter = {
                     city: this.currentCity.name,
                     startTime: {
@@ -125,17 +131,15 @@ export class ReparationsComponent implements OnInit {
         this.citySubject.next(this.currentCity);
     }
 
-    public setMap($event): void {
-        this.map = $event.map;
-    }
-
     public overlayClicked($event): void {
         alert('Funcionalidad no implementada.');
     }
 
     public handleMapClick($event): void {
-        if (this._markersPlaced === 2) {
-            this.map.setOptions(this.currentMarkerCenter);
+        alert('funcionalidad comentada hasta adaptar el feature de agregar los dos marcadores al nuevo agm-map');
+        /* if (this._markersPlaced === 2) {
+            // TODO: take a look at this!!
+            this.currentMapOptions = this.currentMarkerCenter;
             this._snackBar.open('Ya se ubicaron dos marcadores. Para corregir, hacer click en reset', 'Ok', {
                 duration: 1500,
                 horizontalPosition: 'right',
@@ -161,7 +165,7 @@ export class ReparationsComponent implements OnInit {
             zoom: 16
         };
         this._markersPlaced++;
-        this.markersPlaced.next(this._markersPlaced);
+        this.markersPlaced.next(this._markersPlaced); */
     }
 
     public resetMarkers(): any[] {

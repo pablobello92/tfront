@@ -31,9 +31,26 @@
                 (click)="postNewReparation()"> {{ 'general.save' | translate }} </button>
         </div>
         <!-- TODO: Agregar tooltips para los reparations -->
-        <p-gmap #gmap (onMapReady)="setMap($event)" (onOverlayClick)="overlayClicked($event)" [overlays]="overlays"
-            (onMapClick)="handleMapClick($event)"
-            [style]="{'width':'100%','height':'240px', 'border': '1px solid var(--lightGray2)'}">
-        </p-gmap>
+        <agm-map
+            [style]="{'width':'100%','height':'30vw', 'border': '1px solid var(--lightGray2)'}"
+            [latitude]="currentMapOptions.center.lat"
+            [longitude]="currentMapOptions.center.lng"
+            [zoom]="currentMapOptions.zoom"
+            (mapClick)="handleMapClick($event)">
+                <agm-polyline *ngFor="let polyline of overlays"
+                    [visible]="true"
+                    [geodesic]="polyline.geodesic"
+                    [strokeColor]="polyline.strokeColor"
+                    [strokeOpacity]="polyline.strokeOpacity"
+                    [strokeWeight]="polyline.strokeWeight"
+                    (lineClick)="overlayClicked($event)">
+
+                        <agm-polyline-point
+                            *ngFor="let coord of polyline.path"
+                            [latitude]="coord.lat"
+                            [longitude]="coord.lng">
+                        </agm-polyline-point>
+                </agm-polyline>
+        </agm-map>
     </div>
 </div>

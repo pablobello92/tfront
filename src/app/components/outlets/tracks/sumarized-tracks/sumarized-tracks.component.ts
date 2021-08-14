@@ -32,8 +32,6 @@ import {
     RoadCategories
 } from '../../../../shared/interfaces/Categories';
 
-declare const google: any;
-
 @Component({
     selector: 'app-sumarized-tracks',
     templateUrl: './sumarized-tracks.component.html',
