@@ -54,13 +54,8 @@ import {
 } from './components/layout/sidebar/sidebar.component';
 
 import {
-    GMapModule
-} from 'primeng/gmap';
-
-import {
     AgmCoreModule
 } from '@agm/core';
-
 import {
     MatFormFieldModule
 } from '@angular/material/form-field';
@@ -183,8 +178,7 @@ export function createTranslateLoader(http: HttpClient) {
         MatSnackBarModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        FormsModule,
-        GMapModule
+        FormsModule
     ],
     exports: [
         MatFormFieldModule,
