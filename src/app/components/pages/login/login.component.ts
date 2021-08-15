@@ -51,12 +51,14 @@ export class LoginComponent implements OnInit {
         return this.loginForm.controls;
     }
 
+    // TODO: Esto de hacer el navigate deberia ir en un guard?
+    // TODO: Creo que no, aun asi lo dejo acá comentado...
     onSubmit() {
         this.loading = true;
         this._users.loginUser(this.f.username.value, this.f.password.value)
         .subscribe((res: any) => {
             if (res !== null) {
-                this._cookies.setLoginCookies(res);
+                this._cookies.setAllCookies(res);
                 this.router.navigate(['dashboard']);
             } else {
                 this.loading = false;

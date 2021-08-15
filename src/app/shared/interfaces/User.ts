@@ -1,13 +1,13 @@
 
 export interface User {
     _id?: string;
+    level: Number;
     username: String;
-    nickname: String;
     password: String;
+    nickname: String;
     email: String;
     sex: String;
     yearofbirth: Number;
-    userLevel: Number;
     car: {
         brand: String,
         model: String,

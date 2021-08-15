@@ -33,6 +33,9 @@ import {
 import {
     ErrorComponent
 } from './components/pages/error/error.component';
+import {
+    IsAdminGuard
+} from './shared/services/guards/is-admin.guard';
 
 
 
@@ -62,7 +65,10 @@ const routes: Routes = [{
             },
             {
                 path: 'admin/tools',
-                component: AdminToolsComponent
+                component: AdminToolsComponent,
+                canActivate: [
+                    IsAdminGuard
+                ]
             },
             {
                 path: 'admin/reparations',
