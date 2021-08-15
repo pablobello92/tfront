@@ -26,9 +26,6 @@ import {
 } from '../../../../shared/interfaces/City';
 
 import {
-    Coordinate
-} from '../../../../shared/interfaces/Coordinate';
-import {
     RoadCategories
 } from '../../../../shared/interfaces/Categories';
 
@@ -91,11 +88,12 @@ export class SumarizedTracksComponent {
         this.citySubject.next(this.currentCity);
     }
 
+    // TODO: refactor this!... make a pipe() and last a subscription
     public fetchData(): void {
         this._sumarizations.getSumarizationsByCity(this.currentCity.name)
-            .subscribe((res: any) => {
-                this.sumarizationDate = new Date(res[0].date);
+            .subscribe((res: any[]) => {
                 this.sumarizations = this._maps.getPolylinesFromRanges(res[0].ranges);
+                this.sumarizationDate = new Date(res[0].date);
                 this.roadCategories = this._maps.getRelativeRoadCategories(res[0].ranges);
                 this.roadCategoriesIterable = Object.entries(this.roadCategories)
                     .map((entry: any[]) => < Object > {
