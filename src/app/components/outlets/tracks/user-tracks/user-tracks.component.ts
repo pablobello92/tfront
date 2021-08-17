@@ -37,7 +37,6 @@ import {
 import {
     CookiesService
 } from '../../../../shared/services/cookies.service';
-
 import {
     MatDatepickerInputEvent
 } from '@angular/material/datepicker';
@@ -66,9 +65,9 @@ export class UserTracksComponent {
 
     public currentTrack: Observable<Polyline[]> = new Observable<Polyline[]>();
 
-    private username: string = null;
+    private userId: number | null = null;
     private tracks: Track[] = [];
-    roadCategories: RoadCategories = null;
+    roadCategories: RoadCategories | null = null;
     roadCategoriesIterable = [];
 
     cities: Observable < City[] > = new Observable < City[] > ();
@@ -94,7 +93,7 @@ export class UserTracksComponent {
         private _adapter: DateAdapter < any >
     ) {
         this._adapter.setLocale('es-ES');
-        this.username = this._cookies.getCookie('username');
+        this.userId = parseInt(this._cookies.getCookie('userId'));
         this.cities = this._cities.getCities()
             .pipe(
                 tap((cities: City[]) => {
@@ -152,8 +151,8 @@ export class UserTracksComponent {
 
     public fetchUserTracks(): void {
         const filterObject: MapFilter = {
-            user: this.username,
-            city: this.currentCity.name,
+            userId: this.userId,
+            cityId: this.currentCity.id,
             startTime: {
                 from: Date.parse(this.dateFilter.from.toDateString()),
                 to: Date.parse(this.dateFilter.to.toDateString())

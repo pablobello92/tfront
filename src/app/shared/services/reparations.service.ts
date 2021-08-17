@@ -22,7 +22,7 @@ export class ReparationsService {
     ) {}
 
     public getReparations(filterObject: MapFilter): Observable < Reparation[] > {
-        const params = '?city=' + filterObject.city + '&startTime=' + filterObject.startTime.from ;
+        const params = '?cityId=' + filterObject.cityId + '&startTime=' + filterObject.startTime.from ;
         const endpoint = this.appConfig.server + this.appConfig.endpoints.reparations.get + params;
         return <Observable < Reparation[] >> this.http.get(endpoint);
     }

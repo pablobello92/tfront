@@ -5,9 +5,6 @@
     <div class="filters-card">
         <div>
             <span class="text">{{ 'general.city' | translate }}</span>
-            <!-- <p-dropdown [options]="( cities | async)" [(ngModel)]="currentCity"
-                (onChange)="changeCurrentCity($event.value)" optionLabel="name" [style]="{'width':'16em'}"></p-dropdown> -->
-
             <mat-form-field appearance="fill">
                 <mat-label>{{ 'general.city' | translate }}</mat-label>
                 <mat-select [(value)]="currentCity" (selectionChange)="changeCurrentCity($event.value)">

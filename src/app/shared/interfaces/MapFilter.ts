@@ -1,6 +1,6 @@
 export interface MapFilter {
-    user?: string;
-    city?: string;
+    userId?: number;
+    cityId?: number;
     startTime?: {
         from: number,
         to?: number

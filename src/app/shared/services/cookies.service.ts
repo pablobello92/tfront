@@ -45,6 +45,7 @@ export class CookiesService {
 
     public setAllCookies(res: any): void {
         this._cookies.set('logged', 'true');
+        this._cookies.set('userId', res.id);
         this._cookies.set('username', res.username);
         this._cookies.set('nickname', res.nickname);
         this._cookies.set('level', res.level);
@@ -52,6 +53,7 @@ export class CookiesService {
 
     public deleteAllCookies(): void {
         this._cookies.delete('logged');
+        this._cookies.delete('userId');
         this._cookies.delete('username');
         this._cookies.delete('nickname');
         this._cookies.delete('level');

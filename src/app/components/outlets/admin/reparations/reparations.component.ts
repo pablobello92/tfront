@@ -97,7 +97,7 @@ export class ReparationsComponent implements OnInit {
             .subscribe((newMapCenter: MapOptions) => {
                 this.currentMapOptions = newMapCenter;
                 const filterObject: MapFilter = {
-                    city: this.currentCity.name,
+                    cityId: this.currentCity.id,
                     startTime: {
                         from: Date.parse(this.dateFilter.toDateString())
                     }

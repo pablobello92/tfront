@@ -33,7 +33,7 @@ export class TracksService {
     }
 
     public getUserTracks(filterObject: MapFilter): Observable < Track[] > {
-        const params = '?username=' + filterObject.user + '&city=' + filterObject.city
+        const params = '?userId=' + filterObject.userId + '&cityId=' + filterObject.cityId
         + '&offset=' + filterObject.offset + '&pages=' + filterObject.pages
         + '&from=' + filterObject.startTime.from + '&to=' + filterObject.startTime.to;
         const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.get + params;
