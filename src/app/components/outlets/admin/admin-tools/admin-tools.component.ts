@@ -10,6 +10,9 @@ import {
 import {
     TracksService
 } from '../../../../shared/services/tracks.service';
+import {
+    CookiesService
+} from './../../../../shared/services/cookies.service';
 
 @Component({
     selector: 'app-admin-tools',
@@ -18,11 +21,16 @@ import {
 })
 export class AdminToolsComponent {
 
+    private linkedCities: number[] | null = null;
+
     constructor(
         private _tracks: TracksService,
         private _sumarization: SumarizationsService,
+        private _cookies: CookiesService,
         private _snackBar: MatSnackBar
-    ) {}
+    ) {
+        this.linkedCities  = JSON.parse(this._cookies.getCookie('linkedCities'));
+    }
 
     public sumarize(): void {
         this._sumarization.sumarizeTracks()
@@ -45,8 +53,11 @@ export class AdminToolsComponent {
     // TODO: Add success/error/warn classes for the snackbars
     // !Probably this snackbars should be detached into a separate common service!!!
     public predict(anomalies = false): void {
+        const payload = {
+            linkedCities: this.linkedCities
+        }
         if (anomalies) {
-            this._tracks.executePrediction_anomalies()
+            this._tracks.executePrediction_anomalies(payload)
                 .subscribe(res => {
                     this._snackBar.open('Predicción exitosa: clasificación de anomalías.', 'Ok', {
                         duration: 1500,
@@ -62,7 +73,7 @@ export class AdminToolsComponent {
                 });
             return;
         }
-        this._tracks.executePrediction_roadTypes()
+        this._tracks.executePrediction_roadTypes(payload)
             .subscribe((res: any) => {
                 console.clear();
                 console.log(res);

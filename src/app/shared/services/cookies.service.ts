@@ -49,6 +49,7 @@ export class CookiesService {
         this._cookies.set('username', res.username);
         this._cookies.set('nickname', res.nickname);
         this._cookies.set('level', res.level);
+        this._cookies.set('linkedCities', JSON.stringify(res.linkedCities));
     }
 
     public deleteAllCookies(): void {
@@ -57,6 +58,7 @@ export class CookiesService {
         this._cookies.delete('username');
         this._cookies.delete('nickname');
         this._cookies.delete('level');
+        this._cookies.delete('linkedCities');
     }
 
 }
