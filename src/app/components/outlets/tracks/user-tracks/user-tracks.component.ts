@@ -93,7 +93,7 @@ export class UserTracksComponent {
         private _adapter: DateAdapter < any >
     ) {
         this._adapter.setLocale('es-ES');
-        this.userId = parseInt(this._cookies.getCookie('userId'));
+        this.userId = parseInt(this._cookies.getCookie('id'));
         this.cities = this._cities.getCities()
             .pipe(
                 tap((cities: City[]) => {

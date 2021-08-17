@@ -10,12 +10,20 @@ import {
 })
 export class CookiesService {
 
+    private keys: any[] = [
+        'id',
+        'username',
+        'nickname',
+        'level',
+        'linkedCities'
+    ];
+
     constructor(
         private _cookies: CookieService
     ) {}
 
     public isLogged(): boolean {
-        return this._cookies.check('logged');
+        return this._cookies.check('id');
     }
 
     public isSuperAdmin(): boolean {
@@ -44,21 +52,20 @@ export class CookiesService {
     }
 
     public setAllCookies(res: any): void {
-        this._cookies.set('logged', 'true');
-        this._cookies.set('userId', res.id);
-        this._cookies.set('username', res.username);
-        this._cookies.set('nickname', res.nickname);
-        this._cookies.set('level', res.level);
-        this._cookies.set('linkedCities', JSON.stringify(res.linkedCities));
+        this.keys.forEach((key: string) => {
+            console.log(key, typeof(res[key]));
+            if(typeof(res[key]) !== 'string') {
+                this._cookies.set(key, JSON.stringify(res[key]));
+            } else {
+                this._cookies.set(key, res[key]);
+            }
+        });
     }
 
     public deleteAllCookies(): void {
-        this._cookies.delete('logged');
-        this._cookies.delete('userId');
-        this._cookies.delete('username');
-        this._cookies.delete('nickname');
-        this._cookies.delete('level');
-        this._cookies.delete('linkedCities');
+        this.keys.forEach((key: string) => {
+            this._cookies.delete(key);
+        });
     }
 
 }
