@@ -75,19 +75,17 @@ export class AdminToolsComponent {
         }
         this._tracks.executePrediction_roadTypes(payload)
             .subscribe((res: any) => {
-                console.clear();
-                console.log(res);
-                /* this._snackBar.open('Predicción exitosa: clasificación de caminos.', 'Ok', {
+                this._snackBar.open('Predicción exitosa: clasificación de caminos.', 'Ok', {
                     duration: 1500,
                     horizontalPosition: 'right',
                     verticalPosition: 'top',
-                }); */
-            }, err => {
-               /*  this._snackBar.open('Error al realizar la predicción.', 'Ok', {
+                });
+            }, (error: any) => {
+               this._snackBar.open('Error al realizar la predicción.', 'Ok', {
                     duration: 1500,
                     horizontalPosition: 'right',
                     verticalPosition: 'top',
-                }); */
+                });
             });
     }
 }
