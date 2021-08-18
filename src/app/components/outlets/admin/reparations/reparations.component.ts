@@ -2,27 +2,46 @@ import {
     Component,
     OnInit
 } from '@angular/core';
-
 import {
-    GMapModule
-} from 'primeng/gmap';
-
-import { MapOptions, City } from '../../../../shared//interfaces/City';
-import { Coordinate } from '../../../../shared//interfaces/Coordinate';
-import { BehaviorSubject, Observable } from 'rxjs';
-import {  map, skip, tap } from 'rxjs/operators';
-import { TracksService } from '../../../../shared//services/tracks.service';
-import { CitiesService } from '../../../../shared//services/cities.service';
-import { Reparation } from '../../../../shared//interfaces/Reparation';
-import { ReparationsService } from '../../../../shared//services/reparations.service';
-import { MapsService } from '../../../../shared//services/maps.service';
-
-declare const google: any;
+    MapOptions,
+    City
+} from '../../../../shared//interfaces/City';
+import {
+    Coordinate
+} from '../../../../shared//interfaces/Coordinate';
+import {
+    BehaviorSubject,
+    Observable
+} from 'rxjs';
+import {
+    map,
+    skip,
+    tap
+} from 'rxjs/operators';
+import {
+    CitiesService
+} from '../../../../shared//services/cities.service';
+import {
+    Reparation
+} from '../../../../shared//interfaces/Reparation';
+import {
+    ReparationsService
+} from '../../../../shared//services/reparations.service';
+import {
+    MapsService
+} from '../../../../shared//services/maps.service';
+import {
+    MapFilter
+} from '../../../../shared/interfaces/MapFilter';
+import {
+    MatDatepickerInputEvent
+} from '@angular/material/datepicker';
+import {
+    MatSnackBar
+} from '@angular/material/snack-bar';
 
 /**
  * TODO: The "already marked twice" should be a toaster, or something else asynchronous
- * TODO: customize markers
- * TODO: limit repairs lenght to "una cuadra"... Then the admin should report many
  */
 @Component({
     selector: 'app-reparations',
@@ -31,61 +50,78 @@ declare const google: any;
 })
 export class ReparationsComponent implements OnInit {
 
-    private map: google.maps.Map;
-    overlays: any[] = [];
+    // TODO: remove this mock and use the center subject!
+    public currentMapOptions: MapOptions = {
+        center: {
+            lat: -37.3234275,
+            lng: -59.1371982
+        },
+        zoom: 12
+    };
+
+    public overlays: any[] = [];
 
     private _markersPlaced = 0;
-    markersPlaced: BehaviorSubject<number> = new BehaviorSubject<number>(this._markersPlaced);
+    markersPlaced: BehaviorSubject < number > = new BehaviorSubject < number > (this._markersPlaced);
     private currentMarkerCenter: MapOptions;
 
-    cities: Observable<City[]> = new Observable<City[]>();
+    cities: Observable < City[] > = new Observable < City[] > ();
     currentCity: City = null;
-    private citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(this.currentCity);
+    private citySubject: BehaviorSubject < City > = new BehaviorSubject < City > (this.currentCity);
+
+    dateFilter = new Date(1520793625606.0);
 
     constructor(
         private _maps: MapsService,
         private _reparations: ReparationsService,
-        private _cities: CitiesService
+        private _cities: CitiesService,
+        private _snackBar: MatSnackBar
     ) {
         this.cities = this._cities.getCities()
-        .pipe(
-            tap((cities: City[]) => {
-                this.changeCurrentCity(cities[0]);
-            })
-        );
+            .pipe(
+                tap((cities: City[]) => {
+                    this.changeCurrentCity(cities[0]);
+                })
+            );
 
         this.citySubject.asObservable()
-        .pipe(
-            skip(1),
-            map((city: City) => {
-                return <MapOptions>{
-                    center: city.center,
-                    zoom: city.zoom
+            .pipe(
+                skip(1),
+                map((city: City) => {
+                    return <MapOptions > {
+                        center: city.center,
+                        zoom: city.zoom
+                    };
+                })
+            )
+            .subscribe((newMapCenter: MapOptions) => {
+                this.currentMapOptions = newMapCenter;
+                const filterObject: MapFilter = {
+                    cityId: this.currentCity.id,
+                    startTime: {
+                        from: Date.parse(this.dateFilter.toDateString())
+                    }
                 };
-            })
-        )
-        .subscribe(newMapCenter => {
-            this.map.setOptions(newMapCenter);
-            this._reparations.getReparations(this.currentCity.name)
-            .subscribe(reparations => {
-                const drawables = reparations.map((r: Reparation) => {
-                    const coords = <Coordinate[]>[r.from, r.to];
-                    return this._maps.getDrawableFromCoordinates(coords);
-                });
-                this.overlays.push(...drawables);
+                this._reparations.getReparations(filterObject)
+                    .subscribe(reparations => {
+                        const drawables = reparations.map((r: Reparation) => {
+                            const coords = < Coordinate[] > [r.from, r.to];
+                            return this._maps.mapCoordinateToPolyline(coords);
+                        });
+                        this.overlays.push(...drawables);
+                    });
             });
-        });
 
         this.markersPlaced.asObservable()
-        .subscribe((newValue: number) => {
-            if (newValue === 2) {
-                const lastIndex = this.overlays.length;
-                const newMarkers = [this.overlays[lastIndex - 1], this.overlays[lastIndex - 2]];
-                const coordinates = this._maps.getCoordinatesFromMarkers(newMarkers);
-                const newOverlay = this._maps.getDrawableFromCoordinates(coordinates, 'lime');
-                this.overlays.push(newOverlay);
-            }
-        });
+            .subscribe((newValue: number) => {
+                if (newValue === 2) {
+                    const lastIndex = this.overlays.length;
+                    const newMarkers = [this.overlays[lastIndex - 1], this.overlays[lastIndex - 2]];
+                    const coordinates = this._maps.getCoordinatesFromMarkers(newMarkers);
+                    const newOverlay = this._maps.mapCoordinateToPolyline(coordinates, 'lime');
+                    this.overlays.push(newOverlay);
+                }
+            });
     }
 
     ngOnInit() {}
@@ -95,23 +131,33 @@ export class ReparationsComponent implements OnInit {
         this.citySubject.next(this.currentCity);
     }
 
-    setMap($event): void {
-        this.map = $event.map;
+    public overlayClicked($event): void {
+        alert('Funcionalidad no implementada.');
     }
 
     public handleMapClick($event): void {
-        if (this._markersPlaced === 2) {
-            this.map.setOptions(this.currentMarkerCenter);
-            return alert('Ya se ubicaron dos marcadores. Para corregir, hacer click en reset.');
+        alert('funcionalidad comentada hasta adaptar el feature de agregar los dos marcadores al nuevo agm-map');
+        /* if (this._markersPlaced === 2) {
+            // TODO: take a look at this!!
+            this.currentMapOptions = this.currentMarkerCenter;
+            this._snackBar.open('Ya se ubicaron dos marcadores. Para corregir, hacer click en reset', 'Ok', {
+                duration: 1500,
+                horizontalPosition: 'right',
+                verticalPosition: 'top',
+            });
+            return;
         }
         const coords: Coordinate = {
             lat: $event.latLng.lat(),
             lng: $event.latLng.lng()
         };
-        const newMarker = new google.maps.Marker({position: coords, title: 'Desde'});
+        const newMarker = new google.maps.Marker({
+            position: coords,
+            title: 'Desde'
+        });
         this.overlays.push(newMarker);
 
-        this.currentMarkerCenter = <MapOptions> {
+        this.currentMarkerCenter = < MapOptions > {
             center: {
                 lat: coords.lat,
                 lng: coords.lng,
@@ -119,7 +165,7 @@ export class ReparationsComponent implements OnInit {
             zoom: 16
         };
         this._markersPlaced++;
-        this.markersPlaced.next(this._markersPlaced);
+        this.markersPlaced.next(this._markersPlaced); */
     }
 
     public resetMarkers(): any[] {
@@ -156,4 +202,8 @@ export class ReparationsComponent implements OnInit {
         this._reparations.insertReparation(newReparation).subscribe();
     }
 
+    // TODO: this probably would need a refactor
+    public onDateChange($event: MatDatepickerInputEvent < Date > ): void {
+        this.dateFilter = $event.value;
+    }
 }

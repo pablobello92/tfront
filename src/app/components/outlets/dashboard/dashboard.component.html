@@ -2,7 +2,7 @@
     <h1>{{ 'titles.dashboard' | translate }}</h1>
 </div>
 <div class="dashboard">
-    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/tracks')">
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/tracks')" [disabled]="_cookies.isAdmin()">
         {{ 'titles.my_tracks' | translate }}
         <span class="fa fa-car"></span>
     </button>
@@ -10,15 +10,15 @@
         {{ 'titles.sumarized_tracks' | translate }}
         <span class="fa fa-globe"></span>
     </button>
-    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/edit')">
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/edit')" [disabled]="_cookies.isAdmin()">
         {{ 'titles.user_edit' | translate }}
         <span class="fa fa-pencil"></span>
     </button>
-    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/reparations')">
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/reparations')" *ngIf="_cookies.isAdmin()">
         {{ 'titles.reparations' | translate }}
         <span class="fa fa-wrench"></span>
     </button>
-    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/tools')">
+    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/tools')" *ngIf="_cookies.isAdmin()">
         {{ 'titles.tools' | translate }}
         <span class="fa fa-cogs"></span>
     </button>

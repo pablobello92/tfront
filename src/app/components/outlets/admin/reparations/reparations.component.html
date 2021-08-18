@@ -2,24 +2,55 @@
     <div class="outletHeading">
         <h3>{{ 'titles.reparations' | translate }}</h3>
     </div>
-
     <div class="filters-card">
         <div>
-            <span class="text">Por favor, escoja una ciudad</span>
-            <p-dropdown [options]="( cities | async)" [(ngModel)]="currentCity"
-            (onChange)="changeCurrentCity($event.value)" optionLabel="name" [style]="{'width':'16em'}"></p-dropdown>
+            <span class="text">{{ 'general.city' | translate }}</span>
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'general.city' | translate }}</mat-label>
+                <mat-select [(value)]="currentCity" (selectionChange)="changeCurrentCity($event.value)">
+                    <mat-option *ngFor="let city of ( cities | async)" [value]="city"> {{ city.name }} </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-
+        <div>
+            <span class="text">{{ 'general.date' | translate }}</span>
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'titles.select_date' | translate }}</mat-label>
+                <input matInput [matDatepicker]="picker" [value]="dateFilter" (dateInput)="onDateChange($event)"
+                    (dateChange)="onDateChange($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
     </div>
     <div class="map-content">
         <div class="prev-next">
             <button type="button" class="btn btn-warning" [disabled]="( markersPlaced.value  < 2 )"
                 (click)="resetLastReparation()"> Reset </button>
             <button type="button" class="btn btn-warning" [disabled]="( markersPlaced.value  < 2 )"
-                (click)="postNewReparation()"> Reportar reparación </button>
+                (click)="postNewReparation()"> {{ 'general.save' | translate }} </button>
         </div>
-        <p-gmap #gmap (onMapReady)="setMap($event)" [overlays]="overlays" (onMapClick)="handleMapClick($event)"
-            [style]="{'width':'100%','height':'240px', 'border': '1px solid var(--lightGray2)'}">
-        </p-gmap>
+        <!-- TODO: Agregar tooltips para los reparations -->
+        <agm-map
+            [style]="{'width':'100%','height':'30vw', 'border': '1px solid var(--lightGray2)'}"
+            [latitude]="currentMapOptions.center.lat"
+            [longitude]="currentMapOptions.center.lng"
+            [zoom]="currentMapOptions.zoom"
+            (mapClick)="handleMapClick($event)">
+                <agm-polyline *ngFor="let polyline of overlays"
+                    [visible]="true"
+                    [geodesic]="polyline.geodesic"
+                    [strokeColor]="polyline.strokeColor"
+                    [strokeOpacity]="polyline.strokeOpacity"
+                    [strokeWeight]="polyline.strokeWeight"
+                    (lineClick)="overlayClicked($event)">
+
+                        <agm-polyline-point
+                            *ngFor="let coord of polyline.path"
+                            [latitude]="coord.lat"
+                            [longitude]="coord.lng">
+                        </agm-polyline-point>
+                </agm-polyline>
+        </agm-map>
     </div>
 </div>

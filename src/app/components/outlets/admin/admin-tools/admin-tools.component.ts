@@ -1,122 +1,91 @@
-import { TracksService } from '../../../../shared/services/tracks.service';
-import { AdminToolsService } from '../../../../shared/services/adminTools.service';
-import { SumarizingObject, Track } from '../../../../shared/interfaces/Track';
-import { map } from 'rxjs/operators';
-import { IRange, SumarizingSegment } from '../../../../shared/interfaces/Range';
-import { getCenter, getDistance } from 'geolib';
 import {
-    Component,
-    OnInit,
-    ViewEncapsulation
+    Component
 } from '@angular/core';
-import { Message } from 'primeng/api';
+import {
+    MatSnackBar
+} from '@angular/material/snack-bar';
+import {
+    SumarizationsService
+} from './../../../../shared/services/sumarizations.service';
+import {
+    TracksService
+} from '../../../../shared/services/tracks.service';
+import {
+    CookiesService
+} from './../../../../shared/services/cookies.service';
 
 @Component({
     selector: 'app-admin-tools',
     templateUrl: './admin-tools.component.html',
     styleUrls: ['./admin-tools.component.scss']
 })
-export class AdminToolsComponent implements OnInit {
+export class AdminToolsComponent {
 
-    msgs: Message[] = [];
+    private linkedCities: number[] | null = null;
 
     constructor(
         private _tracks: TracksService,
-        private _adminTools: AdminToolsService
-    ) {}
-
-    ngOnInit() {}
-
-    public predict(anomalies = false): void {
-        if (anomalies) {
-            alert('anomalies predicted!');
-            return;
-        }
-        this._tracks.executePrediction_roadTypes()
-        .subscribe(res => {
-            console.log(res);
-        }, err => {
-            console.error(err);
-        });
+        private _sumarization: SumarizationsService,
+        private _cookies: CookiesService,
+        private _snackBar: MatSnackBar
+    ) {
+        this.linkedCities  = JSON.parse(this._cookies.getCookie('linkedCities'));
     }
 
     public sumarize(): void {
-        this._adminTools.getMock()
-        .pipe(
-            map((mock: SumarizingObject[]) => mock.map((item: SumarizingObject) => this.sumarizeByCity(item)))
-        )
-        .subscribe((sumarizedObjects: any[]) => {
-            console.log(sumarizedObjects);
-            this._adminTools.insertSumarizations(sumarizedObjects)
-            .subscribe(result => {
-                this.msgs.push({
-                    severity: 'success',
-                    detail: 'Sumarizaciones actualizadas exitosamente.'
+        this._sumarization.sumarizeTracks()
+            .subscribe((res: any) => {
+                this._snackBar.open('Sumarizaciones actualizadas exitosamente.', 'Ok', {
+                    duration: 1500,
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top',
                 });
-            }, error => {
-                this.msgs.push({
-                    severity: 'error',
-                    detail: 'Error al intentar actualizar las sumarizaciones.'
+            }, (err: any) => {
+                this._snackBar.open('Error al intentar actualizar las sumarizaciones.', 'Ok', {
+                    duration: 1500,
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top',
                 });
             });
-        }, err => {
-            console.error(err);
-        });
     }
 
-    private sumarizeByCity(item: SumarizingObject): any {
-        const ranges: SumarizingSegment[] = [];
-        const tracks = item.tracks;
-        tracks.forEach((track: Track) => {
-            this.addSumarizedSegmentsByTrack(ranges, track);
-        });
-        return {
-            city: item.city,
-            date: Date.parse(new Date().toDateString()),
-            ranges
-        };
-    }
-
-    private addSumarizedSegmentsByTrack(temp: SumarizingSegment[], track: Track): any {
-        const startTime = track.startTime;
-        const segments: SumarizingSegment[] = track.ranges.map((item: IRange) => this.mapRangeToSumarizingRange(item));
-        segments.forEach((segment: SumarizingSegment) => {
-            this.addRangeToResult(segment, temp);
-        });
-    }
-
-    // add Coordinate = { lat/lng } type to elements
-    private addRangeToResult(rangeToMerge: SumarizingSegment, subTemp: SumarizingSegment[]): any {
-        const midpoint = getCenter([rangeToMerge.start, rangeToMerge.end]);
-        const toMerge = subTemp.find((range: SumarizingSegment) => this.shouldMerge(midpoint, range));
-        if (!toMerge) {
-            rangeToMerge.accuracy = 1;
-            subTemp.push(rangeToMerge);
-        } else {
-            this.mergeRanges(toMerge, rangeToMerge);
+    // TODO: add i18n for this
+    // TODO: Add success/error/warn classes for the snackbars
+    // !Probably this snackbars should be detached into a separate common service!!!
+    public predict(anomalies = false): void {
+        const payload = {
+            linkedCities: this.linkedCities
         }
-    }
-
-    private shouldMerge = (point: any, range: any): boolean => {
-        const distance = getDistance(range.start, range.end);
-        const distanceToStart = getDistance(range.start, point);
-        const distanceToEnd = getDistance(range.end, point);
-        return distanceToStart < distance && distanceToEnd < distance;
-    }
-
-    private mergeRanges = (oldRange: SumarizingSegment, newRange: SumarizingSegment): void => {
-        const NEW_DATA_WEIGHT = 0.6;
-        const OLD_DATA_WEIGHT = 1 - NEW_DATA_WEIGHT;
-        oldRange.score = oldRange.score * OLD_DATA_WEIGHT + newRange.score * NEW_DATA_WEIGHT;
-        oldRange.date = newRange.date;
-        oldRange.accuracy++;
-    }
-
-    private mapRangeToSumarizingRange = (range: IRange): SumarizingSegment => {
-        const {speed, stabilityEvents, ...relevantFields} = range;
-        return <SumarizingSegment> {
-            ...relevantFields,
-            accuracy: 0
-        };
+        if (anomalies) {
+            this._tracks.executePrediction_anomalies(payload)
+                .subscribe(res => {
+                    this._snackBar.open('Predicción exitosa: clasificación de anomalías.', 'Ok', {
+                        duration: 1500,
+                        horizontalPosition: 'right',
+                        verticalPosition: 'top',
+                    });
+                }, err => {
+                    this._snackBar.open('Error al realizar la predicción.', 'Ok', {
+                        duration: 1500,
+                        horizontalPosition: 'right',
+                        verticalPosition: 'top',
+                    });
+                });
+            return;
+        }
+        this._tracks.executePrediction_roadTypes(payload)
+            .subscribe((res: any) => {
+                this._snackBar.open('Predicción exitosa: clasificación de caminos.', 'Ok', {
+                    duration: 1500,
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top',
+                });
+            }, (error: any) => {
+               this._snackBar.open('Error al realizar la predicción.', 'Ok', {
+                    duration: 1500,
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top',
+                });
+            });
     }
 }

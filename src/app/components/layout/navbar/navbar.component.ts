@@ -13,11 +13,16 @@ import {
     TranslateService
 } from '@ngx-translate/core';
 import {
-    SelectItem
-} from 'primeng/api';
+    CookiesService
+} from '../../../shared/services/cookies.service';
 import {
-    AuthService
-} from '../../../shared/services/auth.service';
+    MatSnackBar
+} from '@angular/material/snack-bar';
+
+interface SelectItem {
+    label: string;
+    value: string;
+};
 
 @Component({
     selector: 'app-navbar',
@@ -31,36 +36,30 @@ export class NavbarComponent implements OnInit {
     @Output() displayChange: EventEmitter < boolean > = new EventEmitter < boolean > ();
 
     userName: string;
-
     langs: SelectItem[] = [];
-    selectedLang: SelectItem;
 
     constructor(
-        private _auth: AuthService,
         private router: Router,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private _cookies: CookiesService,
+        private _snackBar: MatSnackBar
     ) {}
 
     ngOnInit() {
         this.langs = [{
-                'label': 'spa',
-                'value': 'es_AR'
+                label: 'espanol',
+                value: 'es_AR'
             },
             {
-                'label': 'eng',
-                'value': 'en'
+                label: 'english',
+                value: 'en'
             }
         ];
-        this.selectedLang = this.langs[0];
-        this.userName = this._auth.getUserDataField('name');
-    }
-
-    doSomething() {
-        alert('asd');
+        this.userName = this._cookies.getCookie('nickname');
     }
 
     logout() {
-        this._auth.logout();
+        this._cookies.deleteAllCookies();
         this.router.navigate(['login']);
     }
 
@@ -77,7 +76,15 @@ export class NavbarComponent implements OnInit {
     }
 
     gotoProfile() {
-        this.router.navigate(['user/edit']);
+        if (this._cookies.isAdmin()) {
+            this._snackBar.open('Actualmente un admin no puede editar su perfil', 'Ok', {
+                duration: 1500,
+                horizontalPosition: 'right',
+                verticalPosition: 'top',
+            });
+        } else {
+            this.router.navigate(['user/edit']);
+        }
     }
 
 }

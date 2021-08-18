@@ -13,8 +13,6 @@ import {
 })
 export class AppComponent {
 
-  title = 'Baches';
-
   constructor(
     private translate: TranslateService
   ) {

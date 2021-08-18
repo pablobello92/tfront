@@ -3,17 +3,15 @@
 </div>
 <div class="admin-tools">
     <button type="button" class="btn btn-warning" (click)="sumarize()">
-        Ejecutar sumarización
+        {{ 'titles.execute_sumarization' | translate }}
         <span class="fa fa-puzzle-piece"></span>
     </button>
     <button type="button" class="btn btn-warning" (click)="predict()">
-        Predecir caminos
+        {{ 'titles.predict_roads' | translate }}
         <span class="fa fa-road"></span>
     </button>
     <button type="button" class="btn btn-warning" (click)="predict(true)">
-        Predecir anomalías
+        {{ 'titles.predict_anomalies' | translate }}
         <span class="fa fa-flag"></span>
     </button>
 </div>
-<p-growl [(value)]="msgs"></p-growl>
-

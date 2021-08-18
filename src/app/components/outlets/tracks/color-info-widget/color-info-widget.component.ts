@@ -7,6 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ColorInfoWidgetComponent implements OnInit {
 
+    @Input()
+    backgroundColor: string;
+    @Input()
+    color: string;
+    @Input()
+    text: string;
+
     constructor() { }
 
     ngOnInit() {

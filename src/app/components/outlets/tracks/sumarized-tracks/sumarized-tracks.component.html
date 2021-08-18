@@ -1,0 +1,51 @@
+<div class="content">
+    <div class="outletHeading">
+        <h3> {{ 'titles.sumarized_tracks' | translate }} </h3>
+    </div>
+    <div class="filters-card">
+        <div>
+            <span class="text">{{ 'general.city' | translate }}</span>
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'general.city' | translate }}</mat-label>
+                <mat-select [(value)]="currentCity" (selectionChange)="changeCurrentCity($event.value)">
+                    <mat-option *ngFor="let city of ( cities | async)" [value]="city"> {{ city.name }} </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="map-content">
+        <div class="chips" *ngIf="roadCategoriesIterable.length">
+            <span> {{ 'titles.tracks_severity' | translate }}: </span>
+            <app-color-info-widget
+                *ngFor="let item of roadCategoriesIterable"
+                [backgroundColor]="item.color"
+                [text]="item.text">
+            </app-color-info-widget>
+        </div>
+        <div class="buttons">
+            <button type="button" class="btn btn-warning" (click)="fetchData()">{{ 'general.search' | translate }}</button>
+        </div>
+        <agm-map
+            [style]="{'width':'100%','height':'30vw', 'border': '1px solid var(--lightGray2)'}"
+            [latitude]="currentMapOptions.center.lat" [longitude]="currentMapOptions.center.lng"
+            [zoom]="currentMapOptions.zoom">
+
+            <agm-polyline *ngFor="let polyline of sumarizations"
+                [visible]="true"
+                [geodesic]="polyline.geodesic"
+                [strokeColor]="polyline.strokeColor"
+                [strokeOpacity]="polyline.strokeOpacity"
+                [strokeWeight]="polyline.strokeWeight">
+
+                <agm-polyline-point
+                    *ngFor="let coord of polyline.path"
+                    [latitude]="coord.lat"
+                    [longitude]="coord.lng">
+                </agm-polyline-point>
+        </agm-polyline>
+        </agm-map>
+        <br>
+        <span>{{ 'titles.sumarization_date' | translate }}: {{ sumarizationDate }}</span>
+    </div>
+</div>

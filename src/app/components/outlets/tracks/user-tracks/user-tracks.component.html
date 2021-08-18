@@ -1,0 +1,95 @@
+<div class="content">
+    <div class="outletHeading">
+        <h3> {{ 'titles.my_tracks' | translate }} </h3>
+    </div>
+    <div class="filters-card">
+        <div>
+            <span class="text">{{ 'general.city' | translate }}</span>
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'general.city' | translate }}</mat-label>
+                <mat-select [(value)]="currentCity" (selectionChange)="changeCurrentCity($event.value)">
+                    <mat-option *ngFor="let city of ( cities | async)" [value]="city"> {{ city.name }} </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <!-- TODO: CAMBIAR FORMATO, ACOTAR EL RANGO DE SELECCION, Y QUE SOLO SE PUEDA CAMBIAR USANDO EL CALENDARIO -->
+            <span class="text">{{ 'general.from' | translate }}</span>
+            <!-- <p-calendar [(ngModel)]="dateFilter.from" [monthNavigator]="true" [yearNavigator]="true"
+                yearRange="2000:2030" dateFormat="dd/mm/yy" [readonlyInput]="true" [showIcon]="true"></p-calendar> -->
+
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'titles.select_date' | translate }}</mat-label>
+                <input matInput [matDatepicker]="pickerFrom" [value]="dateFilter.from"
+                    (dateInput)="onDateChange($event, 'from')" (dateChange)="onDateChange($event, 'from')">
+                <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFrom></mat-datepicker>
+            </mat-form-field>
+
+        </div>
+        <div>
+            <span class="text">{{ 'general.to' | translate }}</span>
+            <!-- <p-calendar [(ngModel)]="dateFilter.to" [monthNavigator]="true" [yearNavigator]="true"
+            yearRange="2000:2030" dateFormat="dd/mm/yy" [readonlyInput]="true" [showIcon]="true"></p-calendar> -->
+            <mat-form-field appearance="fill">
+                <mat-label>{{ 'titles.select_date' | translate }}</mat-label>
+                <input matInput [matDatepicker]="pickerTo" [value]="dateFilter.to"
+                    (dateInput)="onDateChange($event, 'to')" (dateChange)="onDateChange($event, 'to')">
+                <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                <mat-datepicker #pickerTo></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div>
+            <span class="text">{{ 'general.skip' | translate }}:</span>
+            <mat-form-field>
+                <input matInput type="number" min="0" [(ngModel)]="offset">
+            </mat-form-field>
+        </div>
+        <div>
+            <span class="text">{{ 'general.quantity' | translate }}:</span>
+            <mat-form-field>
+                <input matInput type="number" min="0" max="10" [(ngModel)]="paginationLimit">
+            </mat-form-field>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary"
+                (click)="fetchUserTracks()">{{ 'general.search' | translate }}</button>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="map-content">
+        <div class="chips" *ngIf="roadCategoriesIterable.length">
+            <span> {{ 'titles.tracks_severity' | translate }}: </span>
+            <app-color-info-widget *ngFor="let item of roadCategoriesIterable" [backgroundColor]="item.color"
+                [text]="item.text">
+            </app-color-info-widget>
+        </div>
+        <div class="prev-next">
+            <button type="button" class="btn btn-warning"
+                [disabled]="(getTrackIndex() === null || getTrackIndex() === 0)"
+                (click)="changeTrackIndex(-1)">{{ 'general.prev' | translate }}</button>
+            <button type="button" class="btn btn-warning"
+                [disabled]="(getTrackIndex() === null || getTrackIndex() === paginationLimit - 1)"
+                (click)="changeTrackIndex(1)">{{ 'general.next' | translate }}</button>
+        </div>
+
+        <agm-map [style]="{'width':'100%','height':'30vw', 'border': '1px solid var(--lightGray2)'}"
+            [latitude]="currentMapOptions.center.lat" [longitude]="currentMapOptions.center.lng"
+            [zoom]="currentMapOptions.zoom">
+                <agm-polyline *ngFor="let polyline of ( currentTrack | async )"
+                    [visible]="true"
+                    [geodesic]="polyline.geodesic"
+                    [strokeColor]="polyline.strokeColor"
+                    [strokeOpacity]="polyline.strokeOpacity"
+                    [strokeWeight]="polyline.strokeWeight">
+
+                        <agm-polyline-point
+                            *ngFor="let coord of polyline.path"
+                            [latitude]="coord.lat"
+                            [longitude]="coord.lng">
+                        </agm-polyline-point>
+                </agm-polyline>
+        </agm-map>
+    </div>
+</div>
