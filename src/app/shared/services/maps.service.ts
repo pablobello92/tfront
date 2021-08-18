@@ -1,4 +1,6 @@
-import { Segment } from './../interfaces/Range';
+import {
+    Segment
+} from './../interfaces/Range';
 import {
     Injectable
 } from '@angular/core';
@@ -15,6 +17,9 @@ import {
 import {
     Coordinate
 } from '../interfaces/Coordinate';
+import {
+    Polyline
+} from '../interfaces/Polyline';
 @Injectable({
     providedIn: 'root'
 })
@@ -24,9 +29,9 @@ export class MapsService {
         private _colors: ColorsService
     ) {}
 
-    public getDrawableFromRanges(ranges: Segment[]): any[] {
+    public getPolylinesFromRanges(ranges: Segment[]): Polyline[] {
         const limits = this.getRelativeRoadCategories(ranges);
-        const drawable = ranges.map((range: Segment) => this.mapRangeToDrawable(range, limits));
+        const drawable = ranges.map((range: Segment) => this.mapRangeToPolyline(range, limits));
         return drawable;
     }
 
@@ -38,8 +43,10 @@ export class MapsService {
         });
     }
 
-    public getDrawableFromCoordinates(coordinates: Coordinate[], color: string = '#0097e6'): any {
-        return new google.maps.Polyline({
+    // TODO: get rid of the geodesic and visible properties!!!
+    public mapCoordinateToPolyline(coordinates: Coordinate[], color: string = '#0097e6'): Polyline {
+        // return new google.maps.Polyline({});
+        return {
             path: [{
                     lat: coordinates[0].lat,
                     lng: coordinates[0].lng
@@ -53,11 +60,12 @@ export class MapsService {
             strokeColor: color,
             strokeOpacity: 1,
             strokeWeight: 4
-        });
+        };
     }
 
-    private mapRangeToDrawable(range: IRange | SumarizingSegment, limits: RoadCategories): any {
-        return new google.maps.Polyline({
+    private mapRangeToPolyline(range: IRange | SumarizingSegment, limits: RoadCategories): Polyline {
+        // return new google.maps.Polyline({});
+        return {
             path: [{
                     lat: range.start.lat,
                     lng: range.start.lng
@@ -71,7 +79,7 @@ export class MapsService {
             strokeColor: this._colors.getColor(range.score, limits),
             strokeOpacity: 1,
             strokeWeight: 4
-        });
+        };
     }
 
     public getRelativeRoadCategories(ranges: IRange[] | SumarizingSegment[]): RoadCategories {

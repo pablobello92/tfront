@@ -13,7 +13,8 @@ import {
 } from '@angular/forms';
 import {
     HttpClientModule,
-    HttpClient
+    HttpClient,
+    HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import {
     AppConfig
@@ -33,37 +34,55 @@ import {
 import {
     ReparationsService
 } from './shared/services/reparations.service';
-import { UsersService } from './shared/services/users.service';
-import { AuthService } from './shared/services/auth.service';
-import { SumarizationsService } from './shared/services/sumarizations.service';
-import { MapsService } from './shared/services/maps.service';
+import {
+    UsersService
+} from './shared/services/users.service';
+import {
+    CookiesService
+} from './shared/services/cookies.service';
+import {
+    SumarizationsService
+} from './shared/services/sumarizations.service';
+import {
+    MapsService
+} from './shared/services/maps.service';
 import {
     DashboardComponent
 } from './components/outlets/dashboard/dashboard.component';
 import {
     SideBarComponent
 } from './components/layout/sidebar/sidebar.component';
+
 import {
-    MenuModule
-} from 'primeng/menu';
+    AgmCoreModule
+} from '@agm/core';
 import {
-    TableModule
-} from 'primeng/table';
+    MatFormFieldModule
+} from '@angular/material/form-field';
 import {
-    SidebarModule,
-    ConfirmDialogModule,
-    DropdownModule,
-    PaginatorModule,
-    InputTextareaModule,
-    ColorPickerModule,
-    TooltipModule,
-    GrowlModule,
-    CalendarModule,
-    EditorModule,
-    SliderModule,
-    GMapModule,
-    SpinnerModule
-} from 'primeng/primeng';
+    MatSelectModule
+} from '@angular/material/select';
+import {
+    MatListModule
+} from '@angular/material/list';
+import {
+    MatDatepickerModule
+} from '@angular/material/datepicker';
+import {
+    MatNativeDateModule
+} from '@angular/material/core';
+import {
+    MatIconModule
+} from '@angular/material/icon';
+import {
+    MatTooltipModule
+} from '@angular/material/tooltip'
+import {
+    MatInputModule
+} from '@angular/material/input';
+import {
+    MatSnackBarModule
+} from '@angular/material/snack-bar';
 import {
     NavbarComponent
 } from './components/layout/navbar/navbar.component';
@@ -75,9 +94,6 @@ import {
 import {
     TranslateHttpLoader
 } from '@ngx-translate/http-loader';
-import {
-    ConfirmationService
-} from 'primeng/components/common/confirmationservice';
 import {
     CookieService
 } from 'ngx-cookie-service';
@@ -114,6 +130,7 @@ import {
 import {
     SumarizedTracksComponent
 } from './components/outlets/tracks/sumarized-tracks/sumarized-tracks.component';
+// import { AuthInterceptorService } from './shared/services/authInterceptor.service';
 
 // AOT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -140,47 +157,53 @@ export function createTranslateLoader(http: HttpClient) {
         AppRoutingModule,
         BrowserModule,
         BrowserAnimationsModule,
-        CalendarModule,
-        ColorPickerModule,
-        ConfirmDialogModule,
-        DropdownModule,
-        EditorModule,
         HttpClientModule,
-        InputTextareaModule,
-        MenuModule,
-        PaginatorModule,
-        SidebarModule,
-        SliderModule,
-        TableModule,
-        TooltipModule,
-        GrowlModule,
-        CalendarModule,
-        FormsModule,
         ReactiveFormsModule,
-        GMapModule,
-        SpinnerModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCBH_ZKFx7zqViMLC69V17VdZEkgbNtl5A'
+        }),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
                 useFactory: (createTranslateLoader),
                 deps: [HttpClient]
             }
-        })
+        }),
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatListModule,
+        MatTooltipModule,
+        MatIconModule,
+        MatSnackBarModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        FormsModule
+    ],
+    exports: [
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatListModule,
+        MatIconModule,
+        MatSnackBarModule,
+        MatTooltipModule,
+        MatDatepickerModule
     ],
     providers: [
+        CommonService,
+        TranslateService,
         AppConfig,
-        AuthService,
+        CookieService,
+        CookiesService,
         UsersService,
         TracksService,
         MapsService,
         SumarizationsService,
         ReparationsService,
         CitiesService,
-        CommonService,
         ColorsService,
-        TranslateService,
-        ConfirmationService,
-        CookieService
+        MatDatepickerModule
     ],
     bootstrap: [AppComponent]
 })

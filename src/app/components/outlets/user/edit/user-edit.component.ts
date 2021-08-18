@@ -1,4 +1,3 @@
-
 import {
     Component,
     OnInit
@@ -7,23 +6,31 @@ import {
     FormGroup,
     FormBuilder,
     Validators,
-    AbstractControl,
-    FormControl
+    AbstractControl
 } from '@angular/forms';
 import {
     Router
 } from '@angular/router';
 import {
-    ConfirmationService
-} from 'primeng/components/common/confirmationservice';
-import { UsersService } from './../../../../shared/services/users.service';
+    UsersService
+} from './../../../../shared/services/users.service';
+import {
+    CookiesService
+} from '../../../../shared/services/cookies.service';
 
 import {
-    Message
-} from 'primeng/api';
+    MatDialog
+} from "@angular/material/dialog";
+import {
+    MatSnackBar
+} from '@angular/material/snack-bar';
+
 import {
     User
 } from '../../../../shared/interfaces/User';
+import {
+    ConfirmDialogComponent
+} from 'src/app/components/shared/confirm-dialog/confirm-dialog.component';
 @Component({
     selector: 'app-user-edit',
     templateUrl: './user-edit.component.html',
@@ -31,16 +38,17 @@ import {
 })
 export class UserEditComponent implements OnInit {
 
-    msgs: Message[] = [];
     editForm: FormGroup;
     userName: string;
     nickName: string;
 
     constructor(
         private _users: UsersService,
-        private _confirmation: ConfirmationService,
+        private _cookies: CookiesService,
         private router: Router,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        public dialog: MatDialog,
+        private _snackBar: MatSnackBar
     ) {
         this.editForm = this.fb.group({
             '_id': [null, Validators.required],
@@ -66,8 +74,8 @@ export class UserEditComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.userName = 'pablo_bello'; // TODO: vincular esta data a cookies
-        this.nickName = 'Pablo Bello';
+        this.userName = this._cookies.getCookie('username');
+        this.nickName = this._cookies.getCookie('nickname');
         this._users.getUser(this.userName)
             .subscribe((user: User) => {
                 this.populateForm(user);
@@ -90,34 +98,42 @@ export class UserEditComponent implements OnInit {
         return this.editForm.controls;
     }
 
-    onSubmit(): void { // TODO: Edición del usuario
-        this._confirmation.confirm({
-            acceptLabel: 'Sí',
-            rejectLabel: 'No',
-            message: 'Está seguro que desea guardar los datos del usuario?',
-            accept: () => {
-                const user = < User > this.editForm.value;
-                this._users.updateUser(user)
-                    .subscribe((res: any) => {
-                        this.msgs.push({
-                        severity: 'success',
-                        detail: 'Usuario actualizado exitosamente.'
-                    });
-                    }, (err: any) => {
-                        console.error(err);
-                        this.msgs.push({
-                            severity: 'error',
-                            detail: 'Error al intentar actualizar el usuario.'
+    // TODO: add i18n for this
+    // TODO: Add success/error/warn classes for the snackbars
+    onSubmit(): void {
+        this.dialog.open(ConfirmDialogComponent, {
+                data: {
+                    title: 'Confirmación',
+                    body: 'Está seguro que desea guardar los datos del usuario?'
+                }
+            })
+            .afterClosed()
+            .subscribe((result: boolean) => {
+                if (result) {
+                    const user = < User > this.editForm.value;
+                    this._users.updateUser(user)
+                        .subscribe((res: any) => {
+                            this._snackBar.open('Usuario actualizado exitosamente', 'Ok', {
+                                duration: 1500,
+                                horizontalPosition: 'right',
+                                verticalPosition: 'top',
+                            });
+                        }, (err: any) => {
+                            console.error(err);
+                            this._snackBar.open('Error al intentar actualizar el usuario', 'Ok', {
+                                duration: 1500,
+                                horizontalPosition: 'right',
+                                verticalPosition: 'top',
+                            });
                         });
+                } else {
+                    this._snackBar.open('Acción cancelada', 'Ok', {
+                        duration: 1500,
+                        horizontalPosition: 'right',
+                        verticalPosition: 'top',
                     });
-            },
-            reject: () => {
-                this.msgs.push({
-                    severity: 'warn',
-                    detail: 'Acción cancelada'
-                });
-            }
-        });
+                }
+            });
     }
 
     goBack(): void {

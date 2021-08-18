@@ -4,6 +4,8 @@
     color: var(--lightGray);
 
     .filters-card {
+        display: flex;
+        flex-direction: column;
         >div {
             width: 40%;
             @media screen and (max-width: 1023px) {

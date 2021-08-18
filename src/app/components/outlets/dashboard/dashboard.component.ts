@@ -5,8 +5,8 @@ import {
     Router
 } from '@angular/router';
 import {
-    AuthService
-} from '../../../shared/services/auth.service';
+    CookiesService
+} from '../../../shared/services/cookies.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -17,7 +17,7 @@ export class DashboardComponent {
 
     constructor(
         private _router: Router,
-        public _auth: AuthService
+        public _cookies: CookiesService
     ) {}
 
     public navigateTo(route: string): void {

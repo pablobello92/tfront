@@ -19,8 +19,8 @@ export class SumarizationsService {
         private appConfig: AppConfig
     ) {}
 
-    public getSumarizationsByCity(city: string): Observable < any > {
-        const params = '?city=' + city ;
+    public getSumarizationsByCity(cityId: number): Observable < any > {
+        const params = '?cityId=' + cityId ;
         const endpoint = this.appConfig.server + this.appConfig.endpoints.sumarizations.get + params;
         return <Observable < any >> this.http.get(endpoint);
     }

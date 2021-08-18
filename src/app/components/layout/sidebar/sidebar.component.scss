@@ -18,17 +18,26 @@ app-sidebar {
             border-right: 1px solid var(--lightGray);
         }
 
-        p-menu {
+        mat-nav-list {
             width: 100%;
             padding-top: 25px;
             font-weight: 200;
+        }
 
+        mat-icon,
+        a {
+            color: white;
+            cursor: pointer;
+        }
+
+        a {
+            padding-left: 12px;
+        }
+
+        p-menu {
+            /*
             >div {
                 width: 100%;
-            }
-
-            ul {
-                list-style-type: none;
             }
 
             .ui-menu,
@@ -61,9 +70,10 @@ app-sidebar {
 
             .ui-menuitem-link:hover {
                 background-color: var(--chainGray) !important;
-            }
+            }*/
         }
 
+        // TODO: This responsive rules should be added after completing the mat-list
         @media screen and (max-width: 968px) {
             &.show {
                 width: 25vw;
