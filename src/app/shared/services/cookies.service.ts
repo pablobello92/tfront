@@ -53,7 +53,6 @@ export class CookiesService {
 
     public setAllCookies(res: any): void {
         this.keys.forEach((key: string) => {
-            console.log(key, typeof(res[key]));
             if(typeof(res[key]) !== 'string') {
                 this._cookies.set(key, JSON.stringify(res[key]));
             } else {

@@ -40,13 +40,8 @@ export class TracksService {
         return <Observable < Track[] >> this.http.get(endpoint);
     }
 
-    public executePrediction_roadTypes(payload: any): Observable < any > {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.predictions.roadTypes;
-        return <Observable < any >> this.http.post(endpoint, payload);
-    }
-
-    public executePrediction_anomalies(payload: any): Observable < any > {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.predictions.anomalies;
+    public executePrediction(payload: any): Observable < any > {
+        const endpoint = this.appConfig.server + this.appConfig.endpoints.predictions;
         return <Observable < any >> this.http.post(endpoint, payload);
     }
 }

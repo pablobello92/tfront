@@ -54,34 +54,19 @@ export class AdminToolsComponent {
     // !Probably this snackbars should be detached into a separate common service!!!
     public predict(anomalies = false): void {
         const payload = {
+            anomalies,
             linkedCities: this.linkedCities
         }
-        if (anomalies) {
-            this._tracks.executePrediction_anomalies(payload)
-                .subscribe(res => {
-                    this._snackBar.open('Predicción exitosa: clasificación de anomalías.', 'Ok', {
-                        duration: 1500,
-                        horizontalPosition: 'right',
-                        verticalPosition: 'top',
-                    });
-                }, err => {
-                    this._snackBar.open('Error al realizar la predicción.', 'Ok', {
-                        duration: 1500,
-                        horizontalPosition: 'right',
-                        verticalPosition: 'top',
-                    });
-                });
-            return;
-        }
-        this._tracks.executePrediction_roadTypes(payload)
+        const message = (anomalies) ? 'anomalías' : 'caminos';
+        this._tracks.executePrediction(payload)
             .subscribe((res: any) => {
-                this._snackBar.open('Predicción exitosa: clasificación de caminos.', 'Ok', {
+                this._snackBar.open('Predicción exitosa: clasificación de ' + message + '.', 'Ok', {
                     duration: 1500,
                     horizontalPosition: 'right',
                     verticalPosition: 'top',
                 });
             }, (error: any) => {
-               this._snackBar.open('Error al realizar la predicción.', 'Ok', {
+                this._snackBar.open('Error al realizar la predicción.', 'Ok', {
                     duration: 1500,
                     horizontalPosition: 'right',
                     verticalPosition: 'top',
