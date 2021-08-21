@@ -25,8 +25,8 @@ export class SumarizationsService {
         return <Observable < any >> this.http.get(endpoint);
     }
 
-    public sumarizeTracks(): Observable < any > {
+    public sumarizeTracks(payload: any): Observable < any > {
         const endpoint = SERVER + ENDPOINTS.sumarizations.index;
-        return <Observable < any >> this.http.get(endpoint);
+        return <Observable < any >> this.http.post(endpoint, payload);
     }
 }

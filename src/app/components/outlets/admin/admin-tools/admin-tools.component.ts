@@ -36,7 +36,10 @@ export class AdminToolsComponent {
     }
 
     public sumarize(): void {
-        this._sumarization.sumarizeTracks()
+        const payload = {
+            linkedCities: this.linkedCities
+        }
+        this._sumarization.sumarizeTracks(payload)
             .subscribe((res: any) => {
                 this._snackBar.open('Sumarizaciones actualizadas exitosamente.', 'Ok', {
                     duration: 1500,
