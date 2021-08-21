@@ -13,12 +13,8 @@ import {
 } from '@angular/forms';
 import {
     HttpClientModule,
-    HttpClient,
-    HTTP_INTERCEPTORS
+    HttpClient
 } from '@angular/common/http';
-import {
-    AppConfig
-} from './configs/app.config';
 import {
     AppRoutingModule
 } from './app-routing.module';
@@ -193,7 +189,6 @@ export function createTranslateLoader(http: HttpClient) {
     providers: [
         CommonService,
         TranslateService,
-        AppConfig,
         CookieService,
         CookiesService,
         UsersService,

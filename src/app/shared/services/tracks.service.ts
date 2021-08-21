@@ -1,9 +1,7 @@
 import {
     Injectable
 } from '@angular/core';
-import {
-    AppConfig
-} from '../../configs/app.config';
+
 import {
     HttpClient
 } from '@angular/common/http';
@@ -16,19 +14,20 @@ import {
 import {
     MapFilter
 } from '../interfaces/MapFilter';
-
-declare var google: any;
+import {
+    ENDPOINTS,
+    SERVER
+} from '../../../app/configs/app.config';
 
 @Injectable()
 export class TracksService {
 
     constructor(
-        private http: HttpClient,
-        private appConfig: AppConfig
+        private http: HttpClient
     ) {}
 
     public getAllTracks(): Observable < Track[] > {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.get;
+        const endpoint = SERVER + ENDPOINTS.tracks.get;
         return <Observable < Track[] >> this.http.get(endpoint);
     }
 
@@ -36,12 +35,12 @@ export class TracksService {
         const params = '?userId=' + filterObject.userId + '&cityId=' + filterObject.cityId
         + '&offset=' + filterObject.offset + '&pages=' + filterObject.pages
         + '&from=' + filterObject.startTime.from + '&to=' + filterObject.startTime.to;
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.tracks.get + params;
+        const endpoint = SERVER + ENDPOINTS.tracks.get + params;
         return <Observable < Track[] >> this.http.get(endpoint);
     }
 
     public executePrediction(payload: any): Observable < any > {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.predictions;
+        const endpoint = SERVER + ENDPOINTS.predictions;
         return <Observable < any >> this.http.post(endpoint, payload);
     }
 }

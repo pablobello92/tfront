@@ -1,45 +1,42 @@
 import {
-    Injectable
-} from '@angular/core';
-import {
     environment
 } from '../../environments/environment';
 
+export const SERVER: string = environment.uri;
 
-@Injectable()
-export class AppConfig {
+export const ENDPOINTS: any = {
+    cities: {
+        get: 'cities'
+    },
+    predictions: 'predictions',
+    reparations: {
+        get: 'reparations',
+        insert: 'reparations/insert'
+    },
+    tracks: {
+        get: 'tracks'
+    },
+    sumarizations: {
+        index: 'sumarizations',
+        get: 'sumarizations/get'
+    },
+    users: {
+        get: 'users',
+        update: 'users/update'
+    },
+    login: 'login'
+};
 
-    server = environment.uri;
+export enum ROAD_COLORS {
+    NO_EVENT = '#00ffff',
+    VERY_LOW = '#00ff00',
+    LOW = '#ffff00',
+    MEDIUM = '#ff8000',
+    HIGH = '#ff0000',
+    VERY_HIGH = '#8000ff'
+};
 
-    endpoints = {
-        cities: {
-            get: 'cities'
-        },
-        predictions: 'predictions',
-        reparations: {
-            get: 'reparations',
-            insert: 'reparations/insert'
-        },
-        tracks: {
-            get: 'tracks'
-        },
-        sumarizations: {
-            index: 'sumarizations',
-            get: 'sumarizations/get'
-        },
-        users: {
-            get: 'users',
-            update: 'users/update'
-        },
-        login: 'login'
-    };
-
-    roadColors = {
-        noEvent: '#00ffff', // cyan
-        veryLow: '#00ff00', // green
-        low: '#ffff00', // yellow
-        medium: '#ff8000', // orange
-        high: '#ff0000', // red
-        veryHigh: '#8000ff'  // purple
-    };
+export enum PREDICTION_TYPES {
+    ROADS,
+    ANOMALIES
 }

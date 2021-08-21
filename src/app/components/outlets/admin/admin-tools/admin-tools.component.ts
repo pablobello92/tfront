@@ -13,6 +13,9 @@ import {
 import {
     CookiesService
 } from './../../../../shared/services/cookies.service';
+import {
+    PREDICTION_TYPES
+} from 'src/app/configs/app.config';
 
 @Component({
     selector: 'app-admin-tools',
@@ -54,7 +57,7 @@ export class AdminToolsComponent {
     // !Probably this snackbars should be detached into a separate common service!!!
     public predict(anomalies = false): void {
         const payload = {
-            anomalies,
+            type: (anomalies) ? PREDICTION_TYPES.ANOMALIES : PREDICTION_TYPES.ROADS,
             linkedCities: this.linkedCities
         }
         const message = (anomalies) ? 'anomalías' : 'caminos';

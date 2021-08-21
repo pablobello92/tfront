@@ -45,7 +45,6 @@ export class MapsService {
 
     // TODO: get rid of the geodesic and visible properties!!!
     public mapCoordinateToPolyline(coordinates: Coordinate[], color: string = '#0097e6'): Polyline {
-        // return new google.maps.Polyline({});
         return {
             path: [{
                     lat: coordinates[0].lat,
@@ -64,7 +63,6 @@ export class MapsService {
     }
 
     private mapRangeToPolyline(range: IRange | SumarizingSegment, limits: RoadCategories): Polyline {
-        // return new google.maps.Polyline({});
         return {
             path: [{
                     lat: range.start.lat,
