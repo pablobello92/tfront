@@ -3,13 +3,6 @@ import {
     OnInit
 } from '@angular/core';
 import {
-    MapOptions,
-    City
-} from '../../../../shared//interfaces/City';
-import {
-    Coordinate
-} from '../../../../shared//interfaces/Coordinate';
-import {
     BehaviorSubject,
     Observable
 } from 'rxjs';
@@ -20,13 +13,13 @@ import {
 } from 'rxjs/operators';
 import {
     CitiesService
-} from '../../../../shared//services/cities.service';
+} from '../../../../shared/services/cities.service';
 import {
     Reparation
-} from '../../../../shared//interfaces/Reparation';
+} from '../../../../shared/interfaces/Reparation';
 import {
     ReparationsService
-} from '../../../../shared//services/reparations.service';
+} from '../../../../shared/services/reparations.service';
 import {
     MapsService
 } from '../../../../shared//services/maps.service';
@@ -34,11 +27,18 @@ import {
     MapFilter
 } from '../../../../shared/interfaces/MapFilter';
 import {
+    MapOptions,
+    City
+} from '../../../../shared//interfaces/City';
+import {
+    Coordinate
+} from '../../../../shared//interfaces/Coordinate';
+import {
+    CommonService
+} from '../../../../shared/services/common.service';
+import {
     MatDatepickerInputEvent
 } from '@angular/material/datepicker';
-import {
-    MatSnackBar
-} from '@angular/material/snack-bar';
 
 /**
  * TODO: The "already marked twice" should be a toaster, or something else asynchronous
@@ -75,7 +75,7 @@ export class ReparationsComponent implements OnInit {
         private _maps: MapsService,
         private _reparations: ReparationsService,
         private _cities: CitiesService,
-        private _snackBar: MatSnackBar
+        private _common: CommonService
     ) {
         this.cities = this._cities.getCities()
             .pipe(
@@ -140,11 +140,7 @@ export class ReparationsComponent implements OnInit {
         /* if (this._markersPlaced === 2) {
             // TODO: take a look at this!!
             this.currentMapOptions = this.currentMarkerCenter;
-            this._snackBar.open('Ya se ubicaron dos marcadores. Para corregir, hacer click en reset', 'Ok', {
-                duration: 1500,
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
-            });
+            this._common.displaySnackBar('Ya se ubicaron dos marcadores. Para corregir, hacer click en reset', 'Ok');
             return;
         }
         const coords: Coordinate = {

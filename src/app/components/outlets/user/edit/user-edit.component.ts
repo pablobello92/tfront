@@ -17,20 +17,19 @@ import {
 import {
     CookiesService
 } from '../../../../shared/services/cookies.service';
-
 import {
-    MatDialog
-} from "@angular/material/dialog";
-import {
-    MatSnackBar
-} from '@angular/material/snack-bar';
-
+    CommonService
+} from '../../../../../app/shared/services/common.service';
 import {
     User
 } from '../../../../shared/interfaces/User';
 import {
     ConfirmDialogComponent
-} from 'src/app/components/shared/confirm-dialog/confirm-dialog.component';
+} from '../../../../../app/components/shared/confirm-dialog/confirm-dialog.component';
+import {
+    MatDialog
+} from "@angular/material/dialog";
+
 @Component({
     selector: 'app-user-edit',
     templateUrl: './user-edit.component.html',
@@ -45,10 +44,10 @@ export class UserEditComponent implements OnInit {
     constructor(
         private _users: UsersService,
         private _cookies: CookiesService,
+        private _common: CommonService,
         private router: Router,
         private fb: FormBuilder,
-        public dialog: MatDialog,
-        private _snackBar: MatSnackBar
+        public dialog: MatDialog
     ) {
         this.editForm = this.fb.group({
             '_id': [null, Validators.required],
@@ -113,25 +112,13 @@ export class UserEditComponent implements OnInit {
                     const user = < User > this.editForm.value;
                     this._users.updateUser(user)
                         .subscribe((res: any) => {
-                            this._snackBar.open('Usuario actualizado exitosamente', 'Ok', {
-                                duration: 1500,
-                                horizontalPosition: 'right',
-                                verticalPosition: 'top',
-                            });
+                            this._common.displaySnackBar('Usuario actualizado exitosamente', 'Ok');
                         }, (err: any) => {
                             console.error(err);
-                            this._snackBar.open('Error al intentar actualizar el usuario', 'Ok', {
-                                duration: 1500,
-                                horizontalPosition: 'right',
-                                verticalPosition: 'top',
-                            });
+                            this._common.displaySnackBar('Error al intentar actualizar el usuario', 'Ok');
                         });
                 } else {
-                    this._snackBar.open('Acción cancelada', 'Ok', {
-                        duration: 1500,
-                        horizontalPosition: 'right',
-                        verticalPosition: 'top',
-                    });
+                    this._common.displaySnackBar('Acción cancelada', 'Ok');
                 }
             });
     }

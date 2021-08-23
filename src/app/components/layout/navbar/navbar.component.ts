@@ -16,8 +16,8 @@ import {
     CookiesService
 } from '../../../shared/services/cookies.service';
 import {
-    MatSnackBar
-} from '@angular/material/snack-bar';
+    CommonService
+} from 'src/app/shared/services/common.service';
 
 interface SelectItem {
     label: string;
@@ -42,7 +42,7 @@ export class NavbarComponent implements OnInit {
         private router: Router,
         private translate: TranslateService,
         private _cookies: CookiesService,
-        private _snackBar: MatSnackBar
+        private _common: CommonService
     ) {}
 
     ngOnInit() {
@@ -77,11 +77,7 @@ export class NavbarComponent implements OnInit {
 
     gotoProfile() {
         if (this._cookies.isAdmin()) {
-            this._snackBar.open('Actualmente un admin no puede editar su perfil', 'Ok', {
-                duration: 1500,
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
-            });
+            this._common.displaySnackBar('Actualmente un admin no puede editar su perfil', 'Ok');
         } else {
             this.router.navigate(['user/edit']);
         }
