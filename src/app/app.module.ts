@@ -126,7 +126,9 @@ import {
 import {
     SumarizedTracksComponent
 } from './components/outlets/tracks/sumarized-tracks/sumarized-tracks.component';
-// import { AuthInterceptorService } from './shared/services/authInterceptor.service';
+import {
+    environment
+} from 'src/environments/environment';
 
 // AOT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -156,7 +158,7 @@ export function createTranslateLoader(http: HttpClient) {
         HttpClientModule,
         ReactiveFormsModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCBH_ZKFx7zqViMLC69V17VdZEkgbNtl5A'
+            apiKey: environment.gmaps_api_key
         }),
         TranslateModule.forRoot({
             loader: {
