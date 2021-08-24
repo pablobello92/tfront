@@ -112,13 +112,13 @@ export class UserEditComponent implements OnInit {
                     const user = < User > this.editForm.value;
                     this._users.updateUser(user)
                         .subscribe((res: any) => {
-                            this._common.displaySnackBar('Usuario actualizado exitosamente', 'Ok');
+                            this._common.displaySnackBar('messages.snackbar.success', 'Ok');
                         }, (err: any) => {
                             console.error(err);
-                            this._common.displaySnackBar('Error al intentar actualizar el usuario', 'Ok');
+                            this._common.displaySnackBar('messages.snackbar.error', 'Ok');
                         });
                 } else {
-                    this._common.displaySnackBar('Acción cancelada', 'Ok');
+                    this._common.displaySnackBar('messages.snackbar.action_canceled', 'Ok');
                 }
             });
     }

@@ -1,6 +1,6 @@
 {
     "app": {
-        "name": "Baches Control Panel"
+        "name": "Panel de Control de Baches"
     },
     "general": {
         "address": "Dirección",
@@ -51,6 +51,28 @@
             "invalid_email": "Debe ser una dirección de email válida",
             "confirm_password_msg": "Las contraseñas no coinciden",
             "bad_credentials": "Credenciales incorrectas"
+        },
+        "dialog": {
+            "sure": "Está seguro?",
+            "title": "Confirmation"
+        },
+        "snackbar": {
+            "admin_tools": {
+                "sumarizations": {
+                    "success": "Sumarizaciones actualizadas exitosamente.",
+                    "error": "Ocurrió un error al intentar ejecutar la sumarización."
+                },
+                "predictions": {
+                    "success": "Predicción ejecutada exitosamente.",
+                    "error": "Ocurrió un error al intentar ejecutar la predicción."
+                }
+            },
+            "user_edit": {
+                "success": "Usuario actualizado exitosamente.",
+                "error": "Ocurrió un error al intentar actualizar el usuario."
+            },
+            "action_canceled": "Acción cancelada.",
+            "navbar_admin_cant_edit": "Actualmente un administrador no puede editar su perfil."
         }
     },
     "titles": {

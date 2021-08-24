@@ -41,9 +41,9 @@ export class AdminToolsComponent {
         }
         this._sumarization.sumarizeTracks(payload)
             .subscribe((res: any) => {
-                this._common.displaySnackBar('Sumarizaciones actualizadas exitosamente.', 'Ok');
+                this._common.displaySnackBar('messages.snackbar.admin_tools.sumarizations.success', 'Ok');
             }, (err: any) => {
-                this._common.displaySnackBar('Error al intentar actualizar las sumarizaciones.', 'Ok');
+                this._common.displaySnackBar('messages.snackbar.admin_tools.sumarizations.error', 'Ok');
             });
     }
 
@@ -54,12 +54,11 @@ export class AdminToolsComponent {
             type: (anomalies) ? PREDICTION_TYPES.ANOMALIES : PREDICTION_TYPES.ROADS,
             linkedCities: this.linkedCities
         }
-        const message = (anomalies) ? 'anomalías' : 'caminos';
         this._tracks.executePrediction(payload)
             .subscribe((res: any) => {
-                this._common.displaySnackBar('Predicción ejecutada exitosamente.', 'Ok');
+                this._common.displaySnackBar('messages.snackbar.admin_tools.predictions.success', 'Ok');
             }, (error: any) => {
-                this._common.displaySnackBar('Error al realizar la predicción.', 'Ok');
+                this._common.displaySnackBar('messages.snackbar.admin_tools.predictions.error', 'Ok');
             });
     }
 }

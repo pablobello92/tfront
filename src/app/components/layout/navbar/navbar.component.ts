@@ -76,8 +76,8 @@ export class NavbarComponent implements OnInit {
     }
 
     gotoProfile() {
-        if (this._cookies.isAdmin()) {
-            this._common.displaySnackBar('Actualmente un admin no puede editar su perfil', 'Ok');
+        if (this._cookies.isAdmin() || this._cookies.isSuperAdmin()) {
+            this._common.displaySnackBar('messages.snackbar.navbar_admin_cant_edit', 'Ok');
         } else {
             this.router.navigate(['user/edit']);
         }

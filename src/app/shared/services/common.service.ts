@@ -31,16 +31,15 @@ export class CommonService {
     public isLoading$: Observable<boolean> = this._isLoading.asObservable();
 
     constructor(
-        private _snackBar: MatSnackBar,
-        private _translate: TranslateService
+        private _translate: TranslateService,
+        private _snackBar: MatSnackBar
     ) {}
 
     public toggleIsLoading(): void {
         this._isLoading.next(!this._isLoading.value);
     }
 
-    //TODO: use _translate to translate right here!
-    public displaySnackBar(msg: string, action: string, config: MatSnackBarConfig<any> = this.standardConfig): void {
-        this._snackBar.open(msg, action, config);
+    public displaySnackBar(msg_path: string, action: string, config: MatSnackBarConfig<any> = this.standardConfig): void {
+        this._snackBar.open(this._translate.instant(msg_path), action, config);
     }
 }

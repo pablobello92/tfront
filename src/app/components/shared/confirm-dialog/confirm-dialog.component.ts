@@ -1,9 +1,7 @@
 import {
     Component,
-    Inject,
-    Input
+    Inject
 } from '@angular/core';
-
 import {
     MatDialogRef,
     MAT_DIALOG_DATA

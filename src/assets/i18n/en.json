@@ -51,6 +51,28 @@
             "invalid_email": "Must be a valid email address.",
             "confirm_password_msg": "Passwords don't match",
             "bad_credentials": "Bad credentials"
+        },
+        "dialog": {
+            "sure": "Are you sure?",
+            "title": "Confirmation"
+        },
+        "snackbar": {
+            "admin_tools": {
+                "sumarizations": {
+                    "success": "Sumarizations updated successfully.",
+                    "error": "An error ocurred when trying to execute the sumarization."
+                },
+                "predictions": {
+                    "success": "Prediction executed successfully.",
+                    "error": "An error ocurred when trying to execute the prediction."
+                }
+            },
+            "user_edit": {
+                "success": "User updated successfully.",
+                "error": "An error ocurred when trying to update the user."
+            },
+            "action_canceled": "Action canceled.",
+            "navbar_admin_cant_edit": "Currently an administrator can't edit his own profile."
         }
     },
     "titles": {
