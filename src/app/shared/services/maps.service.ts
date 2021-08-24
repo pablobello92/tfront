@@ -18,6 +18,7 @@ import {
     Coordinate
 } from '../interfaces/Coordinate';
 import {
+    Marker,
     Polyline
 } from '../interfaces/Polyline';
 @Injectable({
@@ -36,14 +37,13 @@ export class MapsService {
     }
 
 
-    public getCoordinatesFromMarkers(overlays: any[]): Coordinate[] {
-        return overlays.map((overlay: any) => < Coordinate > {
-            lat: overlay.position.lat(),
-            lng: overlay.position.lng()
+    public getCoordinatesFromMarkers(markers: Marker[]): Coordinate[] {
+        return markers.map((marker: Marker) => <Coordinate> {
+            lat: marker.lat,
+            lng: marker.lng
         });
     }
 
-    // TODO: get rid of the geodesic and visible properties!!!
     public mapCoordinateToPolyline(coordinates: Coordinate[], color: string = '#0097e6'): Polyline {
         return {
             path: [{
@@ -55,7 +55,6 @@ export class MapsService {
                     lng: coordinates[1].lng
                 }
             ],
-            geodesic: true,
             strokeColor: color,
             strokeOpacity: 1,
             strokeWeight: 4
@@ -73,7 +72,6 @@ export class MapsService {
                     lng: range.end.lng
                 }
             ],
-            geodesic: true,
             strokeColor: this._colors.getColor(range.score, limits),
             strokeOpacity: 1,
             strokeWeight: 4
