@@ -27,7 +27,7 @@
             <button type="button" class="btn btn-warning" (click)="fetchData()">{{ 'general.search' | translate }}</button>
         </div>
         <agm-map
-            [style]="{'width':'100%','height':'30vw', 'border': '1px solid var(--lightGray2)'}"
+            [style]="{'width':'100%','height':'30vw'}"
             [latitude]="currentMapOptions.center.lat" [longitude]="currentMapOptions.center.lng"
             [zoom]="currentMapOptions.zoom">
 

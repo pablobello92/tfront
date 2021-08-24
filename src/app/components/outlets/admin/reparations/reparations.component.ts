@@ -12,6 +12,16 @@ import {
     tap
 } from 'rxjs/operators';
 import {
+    MatDatepickerInputEvent
+} from '@angular/material/datepicker';
+import {
+    MatDialog
+} from '@angular/material/dialog';
+import {
+    Polyline
+} from '../../../../shared/interfaces/Polyline';
+
+import {
     CitiesService
 } from '../../../../shared/services/cities.service';
 import {
@@ -37,9 +47,8 @@ import {
     CommonService
 } from '../../../../shared/services/common.service';
 import {
-    MatDatepickerInputEvent
-} from '@angular/material/datepicker';
-
+    ConfirmDialogComponent
+} from '../../../../components/shared/confirm-dialog/confirm-dialog.component';
 /**
  * TODO: The "already marked twice" should be a toaster, or something else asynchronous
  */
@@ -59,7 +68,7 @@ export class ReparationsComponent implements OnInit {
         zoom: 12
     };
 
-    public overlays: any[] = [];
+    public overlays: Polyline[] = [];
 
     private _markersPlaced = 0;
     markersPlaced: BehaviorSubject < number > = new BehaviorSubject < number > (this._markersPlaced);
@@ -75,7 +84,8 @@ export class ReparationsComponent implements OnInit {
         private _maps: MapsService,
         private _reparations: ReparationsService,
         private _cities: CitiesService,
-        private _common: CommonService
+        private _common: CommonService,
+        public dialog: MatDialog
     ) {
         this.cities = this._cities.getCities()
             .pipe(
@@ -131,8 +141,13 @@ export class ReparationsComponent implements OnInit {
         this.citySubject.next(this.currentCity);
     }
 
-    public overlayClicked($event): void {
-        alert('Funcionalidad no implementada.');
+    public overlayClicked(polyline: Polyline): void {
+        this.dialog.open(ConfirmDialogComponent, {
+            data: {
+                title: 'Información',
+                body: 'Color: ' + polyline.strokeColor
+            }
+        });
     }
 
     public handleMapClick($event): void {

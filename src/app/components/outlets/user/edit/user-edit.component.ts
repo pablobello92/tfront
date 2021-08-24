@@ -97,8 +97,6 @@ export class UserEditComponent implements OnInit {
         return this.editForm.controls;
     }
 
-    // TODO: add i18n for this
-    // TODO: Add success/error/warn classes for the snackbars
     onSubmit(): void {
         this.dialog.open(ConfirmDialogComponent, {
                 data: {
@@ -112,10 +110,10 @@ export class UserEditComponent implements OnInit {
                     const user = < User > this.editForm.value;
                     this._users.updateUser(user)
                         .subscribe((res: any) => {
-                            this._common.displaySnackBar('messages.snackbar.success', 'Ok');
+                            this._common.displaySnackBar('messages.snackbar.user_edit.success', 'Ok');
                         }, (err: any) => {
                             console.error(err);
-                            this._common.displaySnackBar('messages.snackbar.error', 'Ok');
+                            this._common.displaySnackBar('messages.snackbar.user_edit.error', 'Ok');
                         });
                 } else {
                     this._common.displaySnackBar('messages.snackbar.action_canceled', 'Ok');
