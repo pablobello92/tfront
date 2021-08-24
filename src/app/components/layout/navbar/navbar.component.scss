@@ -19,7 +19,7 @@ app-navbar {
     }
 
     .profile-area {
-        width: 250px;
+        width: 16vw;
     }
 
     .fa {
@@ -42,6 +42,23 @@ app-navbar {
         color: var(--lightGray);
         text-transform: uppercase;
         cursor: default;
+    }
+
+    mat-button-toggle-group {
+        border: none;
+
+        .mat-button-toggle-appearance-standard {
+            background: var(--vanadylBlue);
+        }
+
+        .mat-button-toggle-checked {
+            background: var(--blueNights);
+        }
+
+        .mat-button-toggle-appearance-standard,
+        .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+            color: white;
+        }
     }
 
     @media screen and (max-width: 968px) {

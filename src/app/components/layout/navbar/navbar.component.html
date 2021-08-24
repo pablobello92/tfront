@@ -20,7 +20,9 @@
 </div>
 <div class="navbar-right">
     <mat-button-toggle-group name="langs" aria-label="languages" class="mr-4">
-        <mat-button-toggle *ngFor="let lang of langs" [value]="lang.value" (click)="changeLang(lang.value)">{{ lang.label }}</mat-button-toggle>
+        <mat-button-toggle *ngFor="let lang of langs" (click)="changeLang(lang.value)" [checked]="getChecked(lang.value)">
+            {{ lang.label }}
+        </mat-button-toggle>
     </mat-button-toggle-group>
 
     <span class="link-item cursor-pointer">

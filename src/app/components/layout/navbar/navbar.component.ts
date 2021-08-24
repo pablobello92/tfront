@@ -30,7 +30,7 @@ interface SelectItem {
 export class NavbarComponent implements OnInit {
 
     @Input() display: boolean;
-    @Output() displayChange: EventEmitter < boolean > = new EventEmitter < boolean > ();
+    @Output() displayChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     userName: string;
     langs: SelectItem[] = [];
@@ -56,6 +56,10 @@ export class NavbarComponent implements OnInit {
 
     changeLang(value) {
         this.translate.use(value);
+    }
+
+    getChecked(value: string): boolean {
+        return (this.translate.currentLang === value);
     }
 
     collapseSidebar() {
