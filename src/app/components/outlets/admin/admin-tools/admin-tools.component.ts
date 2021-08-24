@@ -47,8 +47,6 @@ export class AdminToolsComponent {
             });
     }
 
-    // TODO: add i18n for this
-    // TODO: Add success/error/warn classes for the snackbars
     public predict(anomalies = false): void {
         const payload = {
             type: (anomalies) ? PREDICTION_TYPES.ANOMALIES : PREDICTION_TYPES.ROADS,

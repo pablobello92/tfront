@@ -58,6 +58,11 @@
         },
         "snackbar": {
             "admin_tools": {
+                "reparations": {
+                    "two_markers": "You've already placed two markers. To reset the markers, click on Reset.",
+                    "success": "Reparation added successfully.",
+                    "error": "An error ocurred when trying to add the Reparation."
+                },
                 "sumarizations": {
                     "success": "Sumarizations updated successfully.",
                     "error": "An error ocurred when trying to execute the sumarization."

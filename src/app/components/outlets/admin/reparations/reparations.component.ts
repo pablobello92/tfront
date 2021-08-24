@@ -71,12 +71,12 @@ export class ReparationsComponent implements OnInit {
     public overlays: Polyline[] = [];
 
     private _markersPlaced = 0;
-    markersPlaced: BehaviorSubject < number > = new BehaviorSubject < number > (this._markersPlaced);
+    markersPlaced: BehaviorSubject <number> = new BehaviorSubject <number> (this._markersPlaced);
     private currentMarkerCenter: MapOptions;
 
-    cities: Observable < City[] > = new Observable < City[] > ();
+    cities: Observable <City[]> = new Observable <City[]> ();
     currentCity: City = null;
-    private citySubject: BehaviorSubject < City > = new BehaviorSubject < City > (this.currentCity);
+    private citySubject: BehaviorSubject <City> = new BehaviorSubject <City> (this.currentCity);
 
     dateFilter = new Date(1520793625606.0);
 
@@ -98,7 +98,7 @@ export class ReparationsComponent implements OnInit {
             .pipe(
                 skip(1),
                 map((city: City) => {
-                    return <MapOptions > {
+                    return <MapOptions> {
                         center: city.center,
                         zoom: city.zoom
                     };
@@ -115,7 +115,7 @@ export class ReparationsComponent implements OnInit {
                 this._reparations.getReparations(filterObject)
                     .subscribe(reparations => {
                         const drawables = reparations.map((r: Reparation) => {
-                            const coords = < Coordinate[] > [r.from, r.to];
+                            const coords = <Coordinate[]> [r.from, r.to];
                             return this._maps.mapCoordinateToPolyline(coords);
                         });
                         this.overlays.push(...drawables);
@@ -151,11 +151,10 @@ export class ReparationsComponent implements OnInit {
     }
 
     public handleMapClick($event): void {
-        alert('funcionalidad comentada hasta adaptar el feature de agregar los dos marcadores al nuevo agm-map');
-        /* if (this._markersPlaced === 2) {
+        if (this._markersPlaced === 2) {
             // TODO: take a look at this!!
             this.currentMapOptions = this.currentMarkerCenter;
-            this._common.displaySnackBar('Ya se ubicaron dos marcadores. Para corregir, hacer click en reset', 'Ok');
+            this._common.displaySnackBar('messages.snackbar.reparations.two_markers', 'Ok');
             return;
         }
         const coords: Coordinate = {
@@ -166,9 +165,9 @@ export class ReparationsComponent implements OnInit {
             position: coords,
             title: 'Desde'
         });
-        this.overlays.push(newMarker);
+        // this.overlays.push(newMarker);
 
-        this.currentMarkerCenter = < MapOptions > {
+        this.currentMarkerCenter = <MapOptions> {
             center: {
                 lat: coords.lat,
                 lng: coords.lng,
@@ -176,7 +175,7 @@ export class ReparationsComponent implements OnInit {
             zoom: 16
         };
         this._markersPlaced++;
-        this.markersPlaced.next(this._markersPlaced); */
+        this.markersPlaced.next(this._markersPlaced);
     }
 
     public resetMarkers(): any[] {
@@ -194,7 +193,6 @@ export class ReparationsComponent implements OnInit {
         return this.overlays.splice(this.overlays.length - 3, 2);
     }
 
-    // TODO: add information tooltips to markers
     public postNewReparation(): void {
         const lastMarkers = this.resetMarkers();
         const coordinates = this._maps.getCoordinatesFromMarkers(lastMarkers);
@@ -210,11 +208,16 @@ export class ReparationsComponent implements OnInit {
             city: this.currentCity.name,
             startTime: Date.parse(Date())
         };
-        this._reparations.insertReparation(newReparation).subscribe();
+        this._reparations.insertReparation(newReparation)
+            .subscribe((res: any) => {
+                this._common.displaySnackBar('messages.snackbar.admin_tools.reparations.success', 'Ok');
+            }, (error: any) => {
+                this._common.displaySnackBar('messages.snackbar.admin_tools.reparations.error', 'Ok');
+            });
     }
 
     // TODO: this probably would need a refactor
-    public onDateChange($event: MatDatepickerInputEvent < Date > ): void {
+    public onDateChange($event: MatDatepickerInputEvent <Date> ): void {
         this.dateFilter = $event.value;
     }
 }

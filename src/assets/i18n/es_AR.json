@@ -58,6 +58,11 @@
         },
         "snackbar": {
             "admin_tools": {
+                "reparations": {
+                    "two_markers": "Ya se ubicaron dos marcadores. Para corregir, haga click en Reset.",
+                    "success": "Reparación agregada exitosamente.",
+                    "error": "Ocurrió un error al intentar agregar la Reparación."
+                },
                 "sumarizations": {
                     "success": "Sumarizaciones actualizadas exitosamente.",
                     "error": "Ocurrió un error al intentar ejecutar la sumarización."
