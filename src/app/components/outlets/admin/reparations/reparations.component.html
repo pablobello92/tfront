@@ -35,21 +35,26 @@
             [latitude]="currentMapOptions.center.lat"
             [longitude]="currentMapOptions.center.lng"
             [zoom]="currentMapOptions.zoom"
-            (mapClick)="handleMapClick($event)">
-                <agm-polyline *ngFor="let polyline of overlays"
+            (mapReady)="mapReadyHandler($event)">
+                <agm-polyline *ngFor="let p of polylines"
                     [visible]="true"
-                    [geodesic]="polyline.geodesic"
-                    [strokeColor]="polyline.strokeColor"
-                    [strokeOpacity]="polyline.strokeOpacity"
-                    [strokeWeight]="polyline.strokeWeight"
-                    (lineClick)="overlayClicked(polyline)">
+                    [strokeColor]="p.strokeColor"
+                    [strokeOpacity]="p.strokeOpacity"
+                    [strokeWeight]="p.strokeWeight"
+                    (lineClick)="overlayClicked(p)">
 
                         <agm-polyline-point
-                            *ngFor="let coord of polyline.path"
+                            *ngFor="let coord of p.path"
                             [latitude]="coord.lat"
                             [longitude]="coord.lng">
                         </agm-polyline-point>
                 </agm-polyline>
+
+                <agm-marker
+                    *ngFor="let m of markers"
+                    [latitude]="m.lat"
+                    [longitude]="m.lng">
+                </agm-marker>
         </agm-map>
     </div>
 </div>

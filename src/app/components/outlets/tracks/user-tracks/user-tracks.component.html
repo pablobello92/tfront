@@ -79,7 +79,6 @@
             [zoom]="currentMapOptions.zoom">
                 <agm-polyline *ngFor="let polyline of ( currentTrack | async )"
                     [visible]="true"
-                    [geodesic]="polyline.geodesic"
                     [strokeColor]="polyline.strokeColor"
                     [strokeOpacity]="polyline.strokeOpacity"
                     [strokeWeight]="polyline.strokeWeight">

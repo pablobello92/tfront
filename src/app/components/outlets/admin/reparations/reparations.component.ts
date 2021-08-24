@@ -1,12 +1,14 @@
 import {
     Component,
-    OnInit
+    NgZone,
+    OnDestroy
 } from '@angular/core';
 import {
     BehaviorSubject,
     Observable
 } from 'rxjs';
 import {
+    filter,
     map,
     skip,
     tap
@@ -18,6 +20,7 @@ import {
     MatDialog
 } from '@angular/material/dialog';
 import {
+    Marker,
     Polyline
 } from '../../../../shared/interfaces/Polyline';
 
@@ -49,15 +52,16 @@ import {
 import {
     ConfirmDialogComponent
 } from '../../../../components/shared/confirm-dialog/confirm-dialog.component';
-/**
- * TODO: The "already marked twice" should be a toaster, or something else asynchronous
- */
+
 @Component({
     selector: 'app-reparations',
     templateUrl: './reparations.component.html',
     styleUrls: ['./reparations.component.scss']
 })
-export class ReparationsComponent implements OnInit {
+export class ReparationsComponent implements OnDestroy {
+
+    public map: google.maps.Map;
+    public mapClickListener: google.maps.MapsEventListener | null = null;
 
     // TODO: remove this mock and use the center subject!
     public currentMapOptions: MapOptions = {
@@ -68,14 +72,14 @@ export class ReparationsComponent implements OnInit {
         zoom: 12
     };
 
-    public overlays: Polyline[] = [];
+    public polylines: Polyline[] = [];
+    public markers: Marker[] = [];
 
-    private _markersPlaced = 0;
-    markersPlaced: BehaviorSubject <number> = new BehaviorSubject <number> (this._markersPlaced);
-    private currentMarkerCenter: MapOptions;
+    public markersPlaced: BehaviorSubject <number> = new BehaviorSubject <number> (0);
+    public currentMarkerCenter: MapOptions;
 
-    cities: Observable <City[]> = new Observable <City[]> ();
-    currentCity: City = null;
+    public cities: Observable <City[]> = new Observable <City[]> ();
+    public currentCity: City = null;
     private citySubject: BehaviorSubject <City> = new BehaviorSubject <City> (this.currentCity);
 
     dateFilter = new Date(1520793625606.0);
@@ -85,7 +89,8 @@ export class ReparationsComponent implements OnInit {
         private _reparations: ReparationsService,
         private _cities: CitiesService,
         private _common: CommonService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private _zone: NgZone
     ) {
         this.cities = this._cities.getCities()
             .pipe(
@@ -118,23 +123,23 @@ export class ReparationsComponent implements OnInit {
                             const coords = <Coordinate[]> [r.from, r.to];
                             return this._maps.mapCoordinateToPolyline(coords);
                         });
-                        this.overlays.push(...drawables);
+                        this.polylines.push(...drawables);
                     });
             });
 
         this.markersPlaced.asObservable()
-            .subscribe((newValue: number) => {
-                if (newValue === 2) {
-                    const lastIndex = this.overlays.length;
-                    const newMarkers = [this.overlays[lastIndex - 1], this.overlays[lastIndex - 2]];
-                    const coordinates = this._maps.getCoordinatesFromMarkers(newMarkers);
-                    const newOverlay = this._maps.mapCoordinateToPolyline(coordinates, 'lime');
-                    this.overlays.push(newOverlay);
-                }
+        .pipe(
+            filter((value: number) => value === 2),
+            map(() => {
+                const coordinates = this._maps.getCoordinatesFromMarkers(this.markers);
+                const overlay = this._maps.mapCoordinateToPolyline(coordinates, 'lime');
+                return overlay;
+            })
+        )
+            .subscribe((polyline: Polyline) => {
+                this.polylines.push(polyline);
             });
     }
-
-    ngOnInit() {}
 
     public changeCurrentCity(c: City): void {
         this.currentCity = c;
@@ -142,7 +147,7 @@ export class ReparationsComponent implements OnInit {
     }
 
     // TODO: this probably would need a refactor
-    public onDateChange($event: MatDatepickerInputEvent <Date> ): void {
+    public onDateChange($event: MatDatepickerInputEvent<Date>): void {
         this.dateFilter = $event.value;
     }
 
@@ -155,47 +160,49 @@ export class ReparationsComponent implements OnInit {
         });
     }
 
-    public handleMapClick($event): void {
-        if (this._markersPlaced === 2) {
-            // TODO: take a look at this!!
-            this.currentMapOptions = this.currentMarkerCenter;
-            this._common.displaySnackBar('messages.snackbar.reparations.two_markers', 'Ok');
-            return;
-        }
-        const coords: Coordinate = {
-            lat: $event.latLng.lat(),
-            lng: $event.latLng.lng()
-        };
-        const newMarker = new google.maps.Marker({
-            position: coords,
-            title: 'Desde'
+    public mapReadyHandler(map: google.maps.Map): void {
+        this.map = map;
+        this.mapClickListener = this.map.addListener('click', ($event: google.maps.MouseEvent) => {
+            this._zone.run(() => {
+                if (this.markersPlaced.value === 2) {
+                    this.currentMapOptions = this.currentMarkerCenter;
+                    this._common.displaySnackBar('messages.snackbar.reparations.two_markers', 'Ok');
+                    return;
+                }
+                const coords: Coordinate = {
+                    lat: $event.latLng.lat(),
+                    lng: $event.latLng.lng()
+                };
+                const newMarker: Marker = {
+                    lat: coords.lat,
+                    lng: coords.lng,
+                    title: 'Marcador'
+                };
+                this.markers.push(newMarker);
+                this.currentMarkerCenter = <MapOptions> {
+                    center: {
+                        lat: coords.lat,
+                        lng: coords.lng,
+                    },
+                    zoom: 16
+                };
+                this.markersPlaced.next(this.markersPlaced.value + 1);
+            });
         });
-        // this.overlays.push(newMarker);
-
-        this.currentMarkerCenter = <MapOptions> {
-            center: {
-                lat: coords.lat,
-                lng: coords.lng,
-            },
-            zoom: 16
-        };
-        this._markersPlaced++;
-        this.markersPlaced.next(this._markersPlaced);
-    }
-
-    public resetMarkers(): any[] {
-        this._markersPlaced = 0;
-        this.markersPlaced.next(0);
-        return this.removeLastTwoMarkers();
     }
 
     public resetLastReparation(): void {
         this.resetMarkers();
-        this.overlays.splice(this.overlays.length - 1, 1);
+        this.polylines.splice(this.polylines.length - 1, 1);
+    }
+
+    public resetMarkers(): any[] {
+        this.markersPlaced.next(0);
+        return this.removeLastTwoMarkers();
     }
 
     private removeLastTwoMarkers(): any[] {
-        return this.overlays.splice(this.overlays.length - 3, 2);
+        return this.polylines.splice(this.polylines.length - 3, 2);
     }
 
     public postNewReparation(): void {
@@ -219,5 +226,11 @@ export class ReparationsComponent implements OnInit {
             }, (error: any) => {
                 this._common.displaySnackBar('messages.snackbar.admin_tools.reparations.error', 'Ok');
             });
+    }
+
+    public ngOnDestroy(): void {
+        if (this.mapClickListener) {
+            this.mapClickListener.remove();
+        }
     }
 }
