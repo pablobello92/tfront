@@ -1,5 +1,5 @@
 export interface Axis {
-    raw: Number;
-    delta: Number;
-    diff: Number;
+    raw: number;
+    delta: number;
+    diff: number;
 }

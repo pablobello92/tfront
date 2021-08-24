@@ -1,5 +1,9 @@
-import { Coordinate } from './Coordinate';
-import { StabilityEvent } from './StabilityEvent';
+import {
+    Coordinate
+} from './Coordinate';
+import {
+    StabilityEvent
+} from './StabilityEvent';
 
 export interface Segment {
     date: number;

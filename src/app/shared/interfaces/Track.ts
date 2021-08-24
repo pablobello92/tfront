@@ -1,4 +1,7 @@
-import { IRange, SumarizingSegment } from './Range';
+import {
+    IRange,
+    SumarizingSegment
+} from './Range';
 
 export interface Track {
     city: String;

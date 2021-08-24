@@ -1,4 +1,6 @@
-import { Coordinate } from './Coordinate';
+import {
+    Coordinate
+} from './Coordinate';
 
 export interface MapOptions {
     center: Coordinate;
