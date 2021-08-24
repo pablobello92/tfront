@@ -71,8 +71,7 @@
                 "success": "Usuario actualizado exitosamente.",
                 "error": "Ocurrió un error al intentar actualizar el usuario."
             },
-            "action_canceled": "Acción cancelada.",
-            "navbar_admin_cant_edit": "Actualmente un administrador no puede editar su perfil."
+            "action_canceled": "Acción cancelada."
         }
     },
     "titles": {

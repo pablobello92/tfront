@@ -36,6 +36,9 @@ import {
 import {
     IsAdminGuard
 } from './shared/services/guards/is-admin.guard';
+import {
+    IsRegularUserGuard
+} from './shared/services/guards/is-regular-user.guard';
 
 
 
@@ -57,22 +60,30 @@ const routes: Routes = [{
             },
             {
                 path: 'user/tracks',
-                component: UserTracksComponent
+                component: UserTracksComponent,
+                canActivate: [
+                    IsRegularUserGuard
+                ]
             },
             {
                 path: 'sumarized-tracks',
                 component: SumarizedTracksComponent
             },
             {
-                path: 'admin/tools',
-                component: AdminToolsComponent,
+                path: 'admin',
                 canActivate: [
                     IsAdminGuard
+                ],
+                children: [
+                    {
+                        path: 'tools',
+                        component: AdminToolsComponent
+                    },
+                    {
+                        path: 'reparations',
+                        component: ReparationsComponent
+                    }
                 ]
-            },
-            {
-                path: 'admin/reparations',
-                component: ReparationsComponent
             }
         ]
     },

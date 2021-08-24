@@ -61,7 +61,7 @@ export class SideBarComponent implements OnInit {
                 label: translations.titles.my_tracks,
                 icon: 'directions_car',
                 routerLink: ['/user/tracks'],
-                enabled: !this._cookies.isAdmin()
+                enabled: this._cookies.isRegularUser()
             },
             {
                 label: translations.titles.sumarized_tracks,
@@ -73,19 +73,19 @@ export class SideBarComponent implements OnInit {
                 label: translations.titles.user_edit,
                 icon: 'create',
                 routerLink: ['/user/edit'],
-                enabled: !this._cookies.isAdmin()
+                enabled: true
             },
             {
                 label: translations.titles.reparations,
                 icon: 'build',
                 routerLink: ['/admin/reparations'],
-                enabled: this._cookies.isAdmin()
+                enabled: this._cookies.hasAdminLevel()
             },
             {
                 label: translations.titles.tools,
                 icon: 'construction',
                 routerLink: ['/admin/tools'],
-                enabled: this._cookies.isAdmin()
+                enabled: this._cookies.hasAdminLevel()
             }
         ];
     }

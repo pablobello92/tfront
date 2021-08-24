@@ -71,8 +71,7 @@
                 "success": "User updated successfully.",
                 "error": "An error ocurred when trying to update the user."
             },
-            "action_canceled": "Action canceled.",
-            "navbar_admin_cant_edit": "Currently an administrator can't edit his own profile."
+            "action_canceled": "Action canceled."
         }
     },
     "titles": {

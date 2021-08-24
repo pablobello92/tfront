@@ -15,9 +15,6 @@ import {
 import {
     CookiesService
 } from '../../../shared/services/cookies.service';
-import {
-    CommonService
-} from 'src/app/shared/services/common.service';
 
 interface SelectItem {
     label: string;
@@ -41,8 +38,7 @@ export class NavbarComponent implements OnInit {
     constructor(
         private router: Router,
         private translate: TranslateService,
-        private _cookies: CookiesService,
-        private _common: CommonService
+        private _cookies: CookiesService
     ) {}
 
     ngOnInit() {
@@ -76,11 +72,7 @@ export class NavbarComponent implements OnInit {
     }
 
     gotoProfile() {
-        if (this._cookies.isAdmin() || this._cookies.isSuperAdmin()) {
-            this._common.displaySnackBar('messages.snackbar.navbar_admin_cant_edit', 'Ok');
-        } else {
-            this.router.navigate(['user/edit']);
-        }
+        this.router.navigate(['user/edit']);
     }
 
 }

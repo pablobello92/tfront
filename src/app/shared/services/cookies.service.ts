@@ -34,7 +34,11 @@ export class CookiesService {
         return (this._cookies.get('level') === '1');
     }
 
-    public isRegular(): boolean {
+    public hasAdminLevel(): boolean {
+        return (this.isAdmin() || this.isSuperAdmin());
+    }
+
+    public isRegularUser(): boolean {
         return (this._cookies.get('level') === '2');
     }
 

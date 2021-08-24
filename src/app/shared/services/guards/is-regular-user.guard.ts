@@ -18,7 +18,7 @@ import {
 @Injectable({
     providedIn: 'root'
 })
-export class IsAdminGuard implements CanActivate {
+export class IsRegularUserGuard implements CanActivate {
 
     constructor(
         private cookies: CookiesService,
@@ -27,7 +27,7 @@ export class IsAdminGuard implements CanActivate {
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable < boolean | UrlTree > | Promise < boolean | UrlTree > | boolean | UrlTree {
-        if( this.cookies.hasAdminLevel() ) {
+        if( this.cookies.isRegularUser() ) {
             return true;
         } else {
             this.router.navigate(['dashboard']);
