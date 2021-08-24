@@ -80,6 +80,9 @@ import {
     MatSnackBarModule
 } from '@angular/material/snack-bar';
 import {
+    MatButtonToggleModule
+} from '@angular/material/button-toggle';
+import {
     NavbarComponent
 } from './components/layout/navbar/navbar.component';
 import {
@@ -128,7 +131,7 @@ import {
 } from './components/outlets/tracks/sumarized-tracks/sumarized-tracks.component';
 import {
     environment
-} from 'src/environments/environment';
+} from '../environments/environment';
 
 // AOT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -170,6 +173,7 @@ export function createTranslateLoader(http: HttpClient) {
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
+        MatButtonToggleModule,
         MatListModule,
         MatTooltipModule,
         MatIconModule,

@@ -141,6 +141,11 @@ export class ReparationsComponent implements OnInit {
         this.citySubject.next(this.currentCity);
     }
 
+    // TODO: this probably would need a refactor
+    public onDateChange($event: MatDatepickerInputEvent <Date> ): void {
+        this.dateFilter = $event.value;
+    }
+
     public overlayClicked(polyline: Polyline): void {
         this.dialog.open(ConfirmDialogComponent, {
             data: {
@@ -214,10 +219,5 @@ export class ReparationsComponent implements OnInit {
             }, (error: any) => {
                 this._common.displaySnackBar('messages.snackbar.admin_tools.reparations.error', 'Ok');
             });
-    }
-
-    // TODO: this probably would need a refactor
-    public onDateChange($event: MatDatepickerInputEvent <Date> ): void {
-        this.dateFilter = $event.value;
     }
 }

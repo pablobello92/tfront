@@ -43,36 +43,35 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
         this.langs = [{
-                label: 'espanol',
+                label: 'Español',
                 value: 'es_AR'
             },
             {
-                label: 'english',
+                label: 'English',
                 value: 'en'
             }
         ];
         this.userName = this._cookies.getCookie('nickname');
     }
 
-    logout() {
-        this._cookies.deleteAllCookies();
-        this.router.navigate(['login']);
-    }
-
-    goHome() {
-        this.router.navigate(['dashboard']);
-    }
-
-    changeLang($event) {
-        this.translate.use($event.value);
+    changeLang(value) {
+        this.translate.use(value);
     }
 
     collapseSidebar() {
         this.displayChange.emit(!this.display);
     }
 
+    goHome() {
+        this.router.navigate(['dashboard']);
+    }
+
     gotoProfile() {
         this.router.navigate(['user/edit']);
     }
 
+    logout() {
+        this._cookies.deleteAllCookies();
+        this.router.navigate(['login']);
+    }
 }

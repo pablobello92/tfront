@@ -19,17 +19,10 @@
     </div>
 </div>
 <div class="navbar-right">
+    <mat-button-toggle-group name="langs" aria-label="languages" class="mr-4">
+        <mat-button-toggle *ngFor="let lang of langs" [value]="lang.value" (click)="changeLang(lang.value)">{{ lang.label }}</mat-button-toggle>
+    </mat-button-toggle-group>
 
-    <!-- TODO: add the flag imgs -->
-    <mat-form-field appearance="fill">
-        <mat-label>{{ 'titles.language' | translate }}</mat-label>
-        <mat-select (selectionChange)="changeLang($event)">
-            <mat-option *ngFor="let lang of langs" [value]="lang.value">
-                <img src="./assets/img/lang/{{ lang.label }}.png" style="width:24px;" />
-                {{ lang.label }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
     <span class="link-item cursor-pointer">
         <a #fsbutton (click)="logout()" matTooltip="{{'general.exit' | translate}}">
             <em class="fa fa-sign-out"></em>
