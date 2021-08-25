@@ -79,8 +79,8 @@ export class MapsService {
     }
 
     public getRelativeRoadCategories(ranges: IRange[] | SumarizingSegment[]): RoadCategories {
-        let min = 100000;
         let max = 0;
+        let min = Infinity;
         let avg = 0;
         let counter = 0;
 
