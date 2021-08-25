@@ -12,6 +12,9 @@ import {
     MatSnackBar,
     MatSnackBarConfig
 } from '@angular/material/snack-bar';
+import {
+    MapOptions
+} from '../interfaces/City';
 
 
 @Injectable({
@@ -25,6 +28,12 @@ export class CommonService {
         verticalPosition: 'top',
     }
 
+    public mapOptionsSubject: BehaviorSubject<any> = new BehaviorSubject<any>({
+        center: {
+            lat: 0,
+            lng: 0
+        }
+    });
 
     // TODO: this is for implementing the spinner later on
     private _isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -41,5 +50,13 @@ export class CommonService {
 
     public displaySnackBar(msg_path: string, action: string, config: MatSnackBarConfig<any> = this.standardConfig): void {
         this._snackBar.open(this._translate.instant(msg_path), action, config);
+    }
+
+    public updateMapSubject(options: MapOptions): void {
+        this.mapOptionsSubject.next(options);
+    }
+
+    public getMapSubject(): Observable<MapOptions> {
+        return this.mapOptionsSubject.asObservable();
     }
 }

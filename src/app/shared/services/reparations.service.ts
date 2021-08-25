@@ -11,9 +11,6 @@ import {
     Reparation
 } from '../interfaces/Reparation';
 import {
-    MapFilter
-} from '../interfaces/MapFilter';
-import {
     ENDPOINTS,
     SERVER
 } from '../../../app/configs/app.config';
@@ -25,10 +22,10 @@ export class ReparationsService {
         private http: HttpClient
     ) {}
 
-    public getReparations(filterObject: MapFilter): Observable < Reparation[] > {
-        const params = '?cityId=' + filterObject.cityId + '&startTime=' + filterObject.startTime.from ;
+    public getReparations(filterObject: any): Observable < Reparation[] > {
+        const params = '?cityId=' + filterObject.cityId + '&date=' + filterObject.startTime.from ;
         const endpoint = SERVER + ENDPOINTS.reparations.get + params;
-        return <Observable < Reparation[] >> this.http.get(endpoint);
+        return <Observable<Reparation[]>> this.http.get(endpoint);
     }
 
     public insertReparation(rep: Reparation): Observable<any> {

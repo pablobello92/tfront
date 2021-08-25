@@ -2,12 +2,8 @@ import {
     Component
 } from '@angular/core';
 import {
-    TracksService
-} from '../../../../shared/services/tracks.service';
-import {
     BehaviorSubject,
-    Observable,
-    pipe
+    Observable
 } from 'rxjs';
 import {
     tap,
@@ -16,8 +12,17 @@ import {
     filter
 } from 'rxjs/operators';
 import {
+    MatDatepickerInputEvent
+} from '@angular/material/datepicker';
+import {
+    DateAdapter
+} from '@angular/material/core';
+import {
     CitiesService
 } from '../../../../shared/services/cities.service';
+import {
+    TracksService
+} from '../../../../shared/services/tracks.service';
 import {
     City,
     MapOptions
@@ -38,14 +43,14 @@ import {
     CookiesService
 } from '../../../../shared/services/cookies.service';
 import {
-    MatDatepickerInputEvent
-} from '@angular/material/datepicker';
-import {
-    DateAdapter
-} from '@angular/material/core';
-import {
     Polyline
 } from 'src/app/shared/interfaces/Polyline';
+import {
+    CommonService
+} from 'src/app/shared/services/common.service';
+import {
+    ISimpleRange
+} from 'src/app/shared/interfaces/ISimpleRange';
 
 @Component({
     selector: 'app-user-tracks',
@@ -54,65 +59,55 @@ import {
 })
 export class UserTracksComponent {
 
-    // TODO: remove this mock and use the center subject!
-    public currentMapOptions: MapOptions = {
-        center: {
-            lat: -37.3234275,
-            lng: -59.1371982
-        },
-        zoom: 12
-    };
+    public currentMapOptions: MapOptions | null = null;
 
     public currentTrack: Observable<Polyline[]> = new Observable<Polyline[]>();
 
     private userId: number | null = null;
     private tracks: Track[] = [];
-    roadCategories: RoadCategories | null = null;
-    roadCategoriesIterable = [];
+    public roadCategories: RoadCategories | null = null;
+    public roadCategoriesIterable = [];
 
-    cities: Observable < City[] > = new Observable < City[] > ();
-    public currentCity: City = null;
-    private citySubject: BehaviorSubject < City > = new BehaviorSubject < City > (this.currentCity);
+    public cities: Observable<City[]> = new Observable<City[]> ();
+    public citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(null);
 
-    private _trackIndex: number = null;
-    private trackIndexSubject: BehaviorSubject < number > = new BehaviorSubject < number > (this._trackIndex);
+    public trackIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(null);
 
-    dateFilter = {
+    public dateSubject: BehaviorSubject<ISimpleRange<Date>> = new BehaviorSubject<ISimpleRange<Date>>({
         from: new Date(1520793625606.0),
         to: new Date(1537656635848.0)
-    };
+    });
 
     public paginationLimit = 5;
     public offset = 0;
 
     constructor(
+        private _common: CommonService,
         private _cities: CitiesService,
         private _tracks: TracksService,
         private _maps: MapsService,
         private _cookies: CookiesService,
-        private _adapter: DateAdapter < any >
+        private _adapter: DateAdapter<any>
     ) {
         this._adapter.setLocale('es-ES');
         this.userId = parseInt(this._cookies.getCookie('id'));
         this.cities = this._cities.getCities()
             .pipe(
                 tap((cities: City[]) => {
-                    this.changeCurrentCity(cities[0]);
+                    this.onCityChange(cities[0]);
                 })
             );
 
         this.citySubject.asObservable()
             .pipe(
                 skip(1),
-                map((city: City) => {
-                    return <MapOptions> {
-                        center: city.center,
-                        zoom: city.zoom
-                    };
-                })
+                map((city: City) => <MapOptions> {
+                        center: city.center
+                    }
+                )
             )
-            .subscribe((newMapCenter: MapOptions) => {
-                this.currentMapOptions = newMapCenter;
+            .subscribe((options: MapOptions) => {
+                this.currentMapOptions = options;
             });
 
             this.currentTrack = this.trackIndexSubject.asObservable()
@@ -132,30 +127,27 @@ export class UserTracksComponent {
             );
     }
 
+    public onCityChange(c: City): void {
+        this.citySubject.next(c);
+    }
 
-    // ? Why do I need this currentCity property besides the Observable??
-    // TODO: take a look at this
-    public changeCurrentCity(c: City): void {
-        this.currentCity = c;
-        this.citySubject.next(this.currentCity);
+    public onDateChange($event: MatDatepickerInputEvent<Date>, name): void {
+        const nextValue = this.dateSubject.value;
+        nextValue[name] = $event.value;
+        this.dateSubject.next(nextValue);
     }
 
     public changeTrackIndex(n: number): void {
-        this._trackIndex = this._trackIndex + n;
-        this.trackIndexSubject.next(this._trackIndex);
-    }
-
-    public getTrackIndex(): number {
-        return this.trackIndexSubject.value;
+        this.trackIndexSubject.next(this.trackIndexSubject.value + n);
     }
 
     public fetchUserTracks(): void {
         const filterObject: MapFilter = {
             userId: this.userId,
-            cityId: this.currentCity.id,
+            cityId: this.citySubject.value.id,
             startTime: {
-                from: Date.parse(this.dateFilter.from.toDateString()),
-                to: Date.parse(this.dateFilter.to.toDateString())
+                from: Date.parse(this.dateSubject.value.from.toDateString()),
+                to: Date.parse(this.dateSubject.value.to.toDateString())
             },
             pages: this.paginationLimit,
             offset: this.offset
@@ -167,10 +159,5 @@ export class UserTracksComponent {
             }, err => {
                 console.error(err);
             });
-    }
-
-    // TODO: this probably would need a refactor
-    public onDateChange($event: MatDatepickerInputEvent < Date > , name): void {
-        this.dateFilter[name] = $event.value;
     }
 }

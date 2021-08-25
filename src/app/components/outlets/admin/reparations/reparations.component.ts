@@ -11,6 +11,7 @@ import {
     filter,
     map,
     skip,
+    switchMap,
     tap
 } from 'rxjs/operators';
 import {
@@ -63,69 +64,63 @@ export class ReparationsComponent implements OnDestroy {
     public map: google.maps.Map;
     public mapClickListener: google.maps.MapsEventListener | null = null;
 
-    // TODO: remove this mock and use the center subject!
-    public currentMapOptions: MapOptions = {
-        center: {
-            lat: -37.3234275,
-            lng: -59.1371982
-        },
-        zoom: 12
-    };
-
     public polylines: Polyline[] = [];
     public markers: Marker[] = [];
+    public markersPlaced: BehaviorSubject <number> = new BehaviorSubject<number>(0);
 
-    public markersPlaced: BehaviorSubject <number> = new BehaviorSubject <number> (0);
-    public currentMarkerCenter: MapOptions;
+    public currentMapOptions: MapOptions | null = null;
 
     public cities: Observable <City[]> = new Observable <City[]> ();
-    public currentCity: City = null;
-    private citySubject: BehaviorSubject <City> = new BehaviorSubject <City> (this.currentCity);
+    public citySubject: BehaviorSubject <City> = new BehaviorSubject <City | null> (null);
 
-    dateFilter = new Date(1520793625606.0);
+    public dateSubject: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date(1520793625606.0));
 
     constructor(
+        private _zone: NgZone,
         private _maps: MapsService,
         private _reparations: ReparationsService,
         private _cities: CitiesService,
         private _common: CommonService,
-        public dialog: MatDialog,
-        private _zone: NgZone
+        public dialog: MatDialog
     ) {
         this.cities = this._cities.getCities()
             .pipe(
                 tap((cities: City[]) => {
-                    this.changeCurrentCity(cities[0]);
+                    this.onCityChange(cities[0]);
                 })
             );
 
         this.citySubject.asObservable()
             .pipe(
                 skip(1),
-                map((city: City) => {
-                    return <MapOptions> {
+                map((city: City) => <MapOptions>{
                         center: city.center,
-                        zoom: city.zoom
-                    };
-                })
+                    })
             )
-            .subscribe((newMapCenter: MapOptions) => {
-                this.currentMapOptions = newMapCenter;
-                const filterObject: MapFilter = {
-                    cityId: this.currentCity.id,
-                    startTime: {
-                        from: Date.parse(this.dateFilter.toDateString())
-                    }
-                };
-                this._reparations.getReparations(filterObject)
-                    .subscribe(reparations => {
-                        const drawables = reparations.map((r: Reparation) => {
-                            const coords = <Coordinate[]> [r.from, r.to];
-                            return this._maps.mapCoordinateToPolyline(coords);
-                        });
-                        this.polylines.push(...drawables);
-                    });
+            .subscribe((options: MapOptions) => {
+                this._common.updateMapSubject(options);
             });
+
+        this._common.getMapSubject()
+        .pipe(
+            skip(1),
+            tap((options: MapOptions) => {
+                this.currentMapOptions = options;
+            }),
+            map(() => <MapFilter>{
+                cityId: this.citySubject.value.id,
+                startTime: {
+                    from: Date.parse(this.dateSubject.value.toDateString())
+                }
+            }),
+            switchMap((filter: MapFilter) => this._reparations.getReparations(filter))
+        )
+        .subscribe((reparations: Reparation[]) => {
+            const drawables = reparations.map((r: Reparation) =>
+                this._maps.mapCoordinateToPolyline(<Coordinate[]>[r.from, r.to])
+            );
+            this.polylines.push(...drawables);
+        });
 
         this.markersPlaced.asObservable()
         .pipe(
@@ -141,14 +136,12 @@ export class ReparationsComponent implements OnDestroy {
             });
     }
 
-    public changeCurrentCity(c: City): void {
-        this.currentCity = c;
-        this.citySubject.next(this.currentCity);
+    public onCityChange(c: City): void {
+        this.citySubject.next(c);
     }
 
-    // TODO: this probably would need a refactor
     public onDateChange($event: MatDatepickerInputEvent<Date>): void {
-        this.dateFilter = $event.value;
+        this.dateSubject.next($event.value);
     }
 
     public overlayClicked(polyline: Polyline): void {
@@ -165,8 +158,7 @@ export class ReparationsComponent implements OnDestroy {
         this.mapClickListener = this.map.addListener('click', ($event: google.maps.MouseEvent) => {
             this._zone.run(() => {
                 if (this.markersPlaced.value === 2) {
-                    this.currentMapOptions = this.currentMarkerCenter;
-                    this._common.displaySnackBar('messages.snackbar.reparations.two_markers', 'Ok');
+                    this._common.displaySnackBar('messages.snackbar.admin_tools.reparations.two_markers', 'Ok');
                     return;
                 }
                 const coords: Coordinate = {
@@ -179,13 +171,6 @@ export class ReparationsComponent implements OnDestroy {
                     title: 'Marcador'
                 };
                 this.markers.push(newMarker);
-                this.currentMarkerCenter = <MapOptions> {
-                    center: {
-                        lat: coords.lat,
-                        lng: coords.lng,
-                    },
-                    zoom: 16
-                };
                 this.markersPlaced.next(this.markersPlaced.value + 1);
             });
         });
@@ -193,22 +178,20 @@ export class ReparationsComponent implements OnDestroy {
 
     public resetLastReparation(): void {
         this.resetMarkers();
-        this.polylines.splice(this.polylines.length - 1, 1);
+        this.polylines.pop();
     }
 
-    public resetMarkers(): any[] {
+    public resetMarkers(): Marker[] {
         this.markersPlaced.next(0);
-        return this.removeLastTwoMarkers();
-    }
-
-    private removeLastTwoMarkers(): any[] {
-        return this.polylines.splice(this.polylines.length - 3, 2);
+        return this.markers.splice(0, 2);
     }
 
     public postNewReparation(): void {
         const lastMarkers = this.resetMarkers();
         const coordinates = this._maps.getCoordinatesFromMarkers(lastMarkers);
         const newReparation: Reparation = {
+            cityId: this.citySubject.value.id,
+            date: Date.parse(Date()),
             from: {
                 lat: coordinates[0].lat,
                 lng: coordinates[0].lng
@@ -216,14 +199,16 @@ export class ReparationsComponent implements OnDestroy {
             to: {
                 lat: coordinates[1].lat,
                 lng: coordinates[1].lng
-            },
-            city: this.currentCity.name,
-            startTime: Date.parse(Date())
+            }
         };
         this._reparations.insertReparation(newReparation)
             .subscribe((res: any) => {
+                const lastReparation = this.polylines.pop();
+                lastReparation.strokeColor = '#0097e6';
+                this.polylines.push(lastReparation);
                 this._common.displaySnackBar('messages.snackbar.admin_tools.reparations.success', 'Ok');
             }, (error: any) => {
+                this.polylines.pop();
                 this._common.displaySnackBar('messages.snackbar.admin_tools.reparations.error', 'Ok');
             });
     }

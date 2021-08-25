@@ -3,8 +3,7 @@ import {
 } from '@angular/core';
 import {
     BehaviorSubject,
-    Observable,
-    pipe
+    Observable
 } from 'rxjs';
 import {
     map,
@@ -28,6 +27,9 @@ import {
 import {
     RoadCategories
 } from '../../../../shared/interfaces/Categories';
+import {
+    CommonService
+} from '../../../../shared/services/common.service';
 
 @Component({
     selector: 'app-sumarized-tracks',
@@ -36,21 +38,13 @@ import {
 })
 export class SumarizedTracksComponent {
 
-    // TODO: remove this mock and use the center subject!
-    public currentMapOptions: MapOptions = {
-        center: {
-            lat: -37.3234275,
-            lng: -59.1371982
-        },
-        zoom: 12
-    };
+    public currentMapOptions: MapOptions | null = null;
 
     public sumarizations = [];
     public sumarizationDate: Date = null;
 
     public cities: Observable < City[] > = new Observable < City[] > ();
-    public currentCity: City = null;
-    private citySubject: BehaviorSubject < City > = new BehaviorSubject < City > (this.currentCity);
+    public citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(null);
 
     public roadCategories: RoadCategories = null;
     public roadCategoriesIterable = [];
@@ -59,38 +53,42 @@ export class SumarizedTracksComponent {
     constructor(
         private _maps: MapsService,
         private _sumarizations: SumarizationsService,
-        private _cities: CitiesService
+        private _cities: CitiesService,
+        private _common: CommonService
     ) {
         this.cities = this._cities.getCities()
             .pipe(
                 tap((cities: City[]) => {
-                    this.changeCurrentCity(cities[0]);
+                    this.onCityChange(cities[0]);
                 })
             );
 
         this.citySubject.asObservable()
             .pipe(
                 skip(1),
-                map((city: City) => {
-                    return <MapOptions > {
-                        center: city.center,
-                        zoom: city.zoom
-                    };
-                })
+                map((city: City) => <MapOptions>{
+                        center: city.center
+                    }
+                )
             )
-            .subscribe((newMapCenter: MapOptions) => {
-                this.currentMapOptions = newMapCenter;
+            .subscribe((options: MapOptions) => {
+                this._common.updateMapSubject(options);
             });
+
+        this._common.getMapSubject()
+        .pipe(skip(1))
+        .subscribe((options: MapOptions) => {
+            this.currentMapOptions = options;
+        });
     }
 
-    public changeCurrentCity(c: City): void {
-        this.currentCity = c;
-        this.citySubject.next(this.currentCity);
+    public onCityChange(c: City): void {
+        this.citySubject.next(c);
     }
 
     // TODO: refactor this!... make a pipe() and last a subscription
     public fetchData(): void {
-        this._sumarizations.getSumarizationsByCity(this.currentCity.id)
+        this._sumarizations.getSumarizationsByCity(this.citySubject.value.id)
             .subscribe((res: any[]) => {
                 this.sumarizations = this._maps.getPolylinesFromRanges(res[0].ranges);
                 this.sumarizationDate = new Date(res[0].date);
