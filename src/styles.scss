@@ -1,32 +1,30 @@
 :root {
-    --mainBlue: rgb(1, 54, 98, 1);
-    --mainGreen: rgb(196, 214, 0, 1);
+
+    // Dark theme: shades
+    --menu-dark: #181818;
+    --background-dark: #212121;
+    --hover-dark: #3D3D3D;
+    --primary-text-dark: #FFFFFF;
+    --secondary-text-dark: #AAAAAA;
+
+    // Color to replace
     --lightGray: rgb(230, 230, 230, 1);
     --lightGray2: rgb(191, 191, 191);
     --formBorderGray: rgba(0, 0, 0, .15);
     --bootstrapGreen: rgba(40, 167, 69, 1);
     --bootstrapYellow: rgba(255, 193, 7, 1);
-    --teal: rgba(0, 128, 128, 1);
-    --orchid: rgba(209, 95, 238, 1);
-    --darkOrchid: rgba(196, 47, 233, 1);
 
-    /* Roads */
-
+    // Roads
     --aqua: #00ffff;
     --lime: #00ff00;
     --yellow: #ffff00;
     --red: #ff0000;
 
-    /* British palette */
-    --nasturciaorange: #e84118;
-    --harleyOrange: #c23616;
+    // British palette
     --blueNights: #353b48;
     --chainGray: #718093;
     --protossPylon: #00a8ff;
     --vanadylBlue: #0097e6;
-    --mazarineBlue: #273c75;
-    --seaBrook: #487eb0;
-    --seaBrook: #487eb0;
 }
 
 
