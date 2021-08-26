@@ -105,4 +105,11 @@ export class MapsService {
         return this._colors.getRoadCategories(numericLimit);
     }
 
+    public getColorCategories(categories: RoadCategories): any[] {
+        return Object.entries(categories)
+        .map((entry: any[]) => < Object > {
+            text: entry[0],
+            color: entry[1].color
+        });
+    }
 }

@@ -37,9 +37,6 @@ import {
     MapsService
 } from '../../../../shared/services/maps.service';
 import {
-    RoadCategories
-} from '../../../../shared/interfaces/Categories';
-import {
     CookiesService
 } from '../../../../shared/services/cookies.service';
 import {
@@ -65,8 +62,7 @@ export class UserTracksComponent {
 
     private userId: number | null = null;
     private tracks: Track[] = [];
-    public roadCategories: RoadCategories | null = null;
-    public roadCategoriesIterable = [];
+    public roadCategories: any[]  = [];
 
     public cities: Observable<City[]> = new Observable<City[]> ();
     public citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(null);
@@ -116,12 +112,7 @@ export class UserTracksComponent {
                 filter((nextIndex: number) => (this.tracks.length > 0)),
                 map((nextIndex: number) => this.tracks[nextIndex]),
                 tap((trackToDraw: Track) => {
-                    this.roadCategories = this._maps.getRelativeRoadCategories(trackToDraw.ranges);
-                    this.roadCategoriesIterable = Object.entries(this.roadCategories)
-                        .map((entry: any[]) => < Object > {
-                            text: entry[0],
-                            color: entry[1].color
-                        });
+                    this.roadCategories = this._maps.getColorCategories(this._maps.getRelativeRoadCategories(trackToDraw.ranges));
                 }),
                 map((trackToDraw: Track) => this._maps.getPolylinesFromRanges(trackToDraw.ranges))
             );
