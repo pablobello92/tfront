@@ -2,12 +2,11 @@ app-navbar {
     position: sticky;
     position: -webkit-sticky;
     top: 0;
-    height: 64px;
-    padding: 25px 25px;
+    padding: 8px 18px;
     box-shadow: 0 3px 7px 1px rgba(0, 0, 0, .4);
     display: flex;
     justify-content: space-between;
-    background-color: var(--vanadylBlue);
+    background: var(--mainPink);
 
     .navbar-left, .navbar-right, .profile-area, .buttons-area, .link-item {
         display: flex;
@@ -18,14 +17,12 @@ app-navbar {
         align-items: center;
     }
 
-    .profile-area {
-        width: 16vw;
+    .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+        line-height: 42px;
     }
 
-    .fa {
-        color: white;
-        font-size: 2em;
-        margin: 0px 10px;
+    .profile-area {
+        width: 16vw;
     }
 
     .profileImage {
@@ -42,27 +39,6 @@ app-navbar {
         color: var(--lightGray);
         text-transform: uppercase;
         cursor: default;
-    }
-
-    mat-button-toggle-group {
-        border: none;
-
-        .mat-button-toggle-appearance-standard {
-            background: var(--vanadylBlue);
-        }
-
-        .mat-button-toggle-checked {
-            background: var(--blueNights);
-        }
-
-        .mat-button-toggle-appearance-standard,
-        .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
-            color: white;
-        }
-    }
-
-    @media screen and (max-width: 968px) {
-        height: 12vh;
     }
 }
 

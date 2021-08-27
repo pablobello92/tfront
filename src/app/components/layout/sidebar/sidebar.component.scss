@@ -1,21 +1,18 @@
-app-sidebar {
-    .sidebar {
-        // box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.3) inset;
+.sidebar {
         display: flex;
         flex-direction: row;
         height: 100%;
         overflow: hidden;
-        transition: width 0.3s ease-out 0.3s, opacity 0.3s ease;
+        background: var(--blue-nights);
+        transition: width 0.3s ease-out 0.3s;
+        background-color: var(--menu-dark);
 
         &.hide {
-           width: 0;
-           opacity: 0;
+            width: 0;
         }
 
         &.show {
-            opacity: 1;
             width: 17vw;
-            border-right: 1px solid var(--lightGray);
         }
 
         mat-nav-list {
@@ -33,75 +30,35 @@ app-sidebar {
         a {
             padding-left: 12px;
         }
+    }
 
-        p-menu {
-            /*
-            >div {
-                width: 100%;
-            }
-
-            .ui-menu,
-            .ui-menuitem,
-            .ui-submenu-header {
-                border: none;
-                padding: 0;
-                margin: 0;
-                background: transparent;
-            }
-
-            .ui-widget-header,
-            .ui-menuitem {
-                color: white;
-            }
-
-            .ui-menuitem-link {
-                border-radius: 1px;
-                padding: 15px 15px;
-                color: white;
-
-                span.ui-menuitem-text {
-                    padding-left: 5px;
-                }
-            }
-
-            .ui-state-active {
-                background-color: var(--protossPylon);
-            }
-
-            .ui-menuitem-link:hover {
-                background-color: var(--chainGray) !important;
-            }*/
-        }
-
-        // TODO: This responsive rules should be added after completing the mat-list
-        @media screen and (max-width: 968px) {
-            &.show {
-                width: 25vw;
-            }
-        }
-
-        @media screen and (max-width: 640px) {
-            .ui-menuitem-icon,
-            .ui-menuitem-text,
-            .ui-submenu-header {
-                font-size: x-small !important;
-            }
-        }
-
-        @media screen and (min-width: 641px) and (max-width: 1050px) {
-            .ui-menuitem-icon,
-            .ui-menuitem-text,
-            .ui-submenu-header {
-                font-size: small !important;
-            }
-        }
-
-        @media screen and (min-width: 1051px) {
-            .ui-menuitem-icon,
-            .ui-menuitem-text,
-            .ui-submenu-header {
-                font-size: initial !important;
-            }
+    // TODO: This responsive rules should be added after completing the mat-list
+    @media screen and (max-width: 968px) {
+        &.show {
+            width: 25vw;
         }
     }
-}
+
+    @media screen and (max-width: 640px) {
+        .ui-menuitem-icon,
+        .ui-menuitem-text,
+        .ui-submenu-header {
+            font-size: x-small !important;
+        }
+    }
+
+    @media screen and (min-width: 641px) and (max-width: 1050px) {
+        .ui-menuitem-icon,
+        .ui-menuitem-text,
+        .ui-submenu-header {
+            font-size: small !important;
+        }
+    }
+
+    @media screen and (min-width: 1051px) {
+        .ui-menuitem-icon,
+        .ui-menuitem-text,
+        .ui-submenu-header {
+            font-size: initial !important;
+        }
+    }

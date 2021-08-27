@@ -2,16 +2,16 @@
     <h3>{{ 'titles.tools' | translate }}</h3>
 </div>
 <div class="admin-tools">
-    <button type="button" class="btn btn-warning" (click)="sumarize()">
+    <button mat-raised-button (click)="sumarize()">
         {{ 'titles.execute_sumarization' | translate }}
-        <span class="fa fa-puzzle-piece"></span>
+        <mat-icon>functions</mat-icon>
     </button>
-    <button type="button" class="btn btn-warning" (click)="predict()">
-        {{ 'titles.predict_roads' | translate }}
-        <span class="fa fa-road"></span>
+    <button mat-raised-button (click)="predict()">
+        {{ 'titles.execute_prediction_roads' | translate }}
+        <mat-icon>psychology</mat-icon>
     </button>
-    <button type="button" class="btn btn-warning" (click)="predict(true)">
-        {{ 'titles.predict_anomalies' | translate }}
-        <span class="fa fa-flag"></span>
+    <button mat-raised-button (click)="predict(true)">
+        {{ 'titles.execute_prediction_anomalies' | translate }}
+        <mat-icon>psychology</mat-icon>
     </button>
 </div>

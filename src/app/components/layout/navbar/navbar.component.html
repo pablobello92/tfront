@@ -6,16 +6,18 @@
         <span class="nav-text cursor-default"> {{ userName }}</span>
     </div>
     <div class="buttons-area">
-        <span class="link-item cursor-pointer">
-            <a #fsbutton (click)="collapseSidebar()" matTooltip="{{'messages.collapse_sidebar' | translate}}">
-                <em class="fa fa-navicon"></em>
-            </a>
-        </span>
-        <span class="link-item cursor-pointer">
-            <a #fsbutton (click)="goHome()" matTooltip="{{'titles.home' | translate}}">
-                <em class="fa fa-home"></em>
-            </a>
-        </span>
+        <button mat-icon-button
+            aria-label="navigate to homepage"
+            matTooltip="{{'messages.collapse_sidebar' | translate}}"
+            (click)="collapseSidebar()">
+                <mat-icon>menu</mat-icon>
+        </button>
+        <button mat-icon-button
+            aria-label="navigate to homepage"
+            matTooltip="{{'titles.home' | translate}}"
+            (click)="goHome()">
+            <mat-icon>home</mat-icon>
+        </button>
     </div>
 </div>
 <div class="navbar-right">
@@ -25,9 +27,10 @@
         </mat-button-toggle>
     </mat-button-toggle-group>
 
-    <span class="link-item cursor-pointer">
-        <a #fsbutton (click)="logout()" matTooltip="{{'general.exit' | translate}}">
-            <em class="fa fa-sign-out"></em>
-        </a>
-    </span>
+    <button mat-icon-button
+        aria-label="logout"
+        matTooltip="{{'general.exit' | translate}}"
+        (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+    </button>
 </div>

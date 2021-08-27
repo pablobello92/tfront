@@ -11,11 +11,13 @@
         border-radius: 1px;
         flex-grow: 1;
         font-size: 1vw;
-        &.btn-warning, &.btn-warning .fa{
-            color: var(--blueNights);
-        }
-        span {
+        font-weight: normal;
+        color: var(--background-dark);
+        mat-icon {
             margin-left: 2px;
         }
+    }
+    button:not(.mat-button-disabled) {
+        background-color: var(--mainLightBlue);
     }
 }

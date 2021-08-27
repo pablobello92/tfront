@@ -18,6 +18,7 @@ import {
 
 interface SelectItem {
     label: string;
+    title: string;
     value: string;
 };
 
@@ -43,11 +44,13 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
         this.langs = [{
-                label: 'Español',
+                title: 'Español',
+                label: 'es',
                 value: 'es_AR'
             },
             {
-                label: 'English',
+                title: 'English',
+                label: 'en',
                 value: 'en'
             }
         ];

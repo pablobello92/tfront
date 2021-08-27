@@ -1,8 +1,7 @@
 import {
     Component,
     OnInit,
-    Input,
-    ViewEncapsulation
+    Input
 } from '@angular/core';
 import {
     TranslateService
@@ -17,8 +16,7 @@ import {
 @Component({
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./sidebar.component.scss']
 })
 export class SideBarComponent implements OnInit {
 
@@ -54,36 +52,36 @@ export class SideBarComponent implements OnInit {
         this.links = [{
                 label: translations.titles.home,
                 icon: 'home',
-                routerLink: ['/dashboard'],
+                routerLink: ['/'],
                 enabled: true
             },
             {
                 label: translations.titles.my_tracks,
-                icon: 'directions_car',
+                icon: 'drive_eta',
                 routerLink: ['/user/tracks'],
                 enabled: this._cookies.isRegularUser()
             },
             {
                 label: translations.titles.sumarized_tracks,
-                icon: 'public',
+                icon: 'emoji_transportation',
                 routerLink: ['/sumarized-tracks'],
                 enabled: true
             },
             {
                 label: translations.titles.user_edit,
-                icon: 'create',
+                icon: 'manage_accounts',
                 routerLink: ['/user/edit'],
                 enabled: true
             },
             {
                 label: translations.titles.reparations,
-                icon: 'build',
+                icon: 'edit_road',
                 routerLink: ['/admin/reparations'],
                 enabled: this._cookies.hasAdminLevel()
             },
             {
                 label: translations.titles.tools,
-                icon: 'construction',
+                icon: 'build',
                 routerLink: ['/admin/tools'],
                 enabled: this._cookies.hasAdminLevel()
             }
