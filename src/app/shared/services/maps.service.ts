@@ -1,12 +1,12 @@
 import {
-    Segment
+    ISegment
 } from './../interfaces/Range';
 import {
     Injectable
 } from '@angular/core';
 import {
     IRange,
-    SumarizingSegment
+    ISumarizingSegment
 } from '../interfaces/Range';
 import {
     ColorsService
@@ -30,9 +30,9 @@ export class MapsService {
         private _colors: ColorsService
     ) {}
 
-    public getPolylinesFromRanges(ranges: Segment[]): Polyline[] {
+    public getPolylinesFromRanges(ranges: ISegment[]): Polyline[] {
         const limits = this.getRelativeRoadCategories(ranges);
-        const drawable = ranges.map((range: Segment) => this.mapRangeToPolyline(range, limits));
+        const drawable = ranges.map((range: ISegment) => this.mapRangeToPolyline(range, limits));
         return drawable;
     }
 
@@ -61,7 +61,7 @@ export class MapsService {
         };
     }
 
-    private mapRangeToPolyline(range: IRange | SumarizingSegment, limits: RoadCategories): Polyline {
+    private mapRangeToPolyline(range: IRange | ISumarizingSegment, limits: RoadCategories): Polyline {
         return {
             path: [{
                     lat: range.start.lat,
@@ -78,7 +78,7 @@ export class MapsService {
         };
     }
 
-    public getRelativeRoadCategories(ranges: IRange[] | SumarizingSegment[]): RoadCategories {
+    public getRelativeRoadCategories(ranges: IRange[] | ISumarizingSegment[]): RoadCategories {
         let max = 0;
         let min = Infinity;
         let avg = 0;
@@ -109,7 +109,7 @@ export class MapsService {
         return Object.entries(categories)
         .map((entry: any[]) => < Object > {
             text: entry[0],
-            color: entry[1].color
+            backgroundColor: entry[1].color
         });
     }
 }

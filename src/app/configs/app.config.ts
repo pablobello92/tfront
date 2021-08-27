@@ -28,12 +28,12 @@ export const ENDPOINTS: any = {
 };
 
 export enum ROAD_COLORS {
-    NO_EVENT = '#00ffff',
-    VERY_LOW = '#00ff00',
-    LOW = '#ffff00',
-    MEDIUM = '#ff8000',
-    HIGH = '#ff0000',
-    VERY_HIGH = '#8000ff'
+    NO_EVENT = 'rgba(0, 255, 255, .75)',
+    VERY_LOW = 'rgba(0, 255, 0, .75)',
+    LOW = 'rgba(255, 255, 0, .75)',
+    MEDIUM = 'rgba(255, 128, 0, .75)',
+    HIGH = 'rgba(255, 0, 0, .75)',
+    VERY_HIGH = 'rgba(128, 0, 255, .75)'
 };
 
 export enum PREDICTION_TYPES {

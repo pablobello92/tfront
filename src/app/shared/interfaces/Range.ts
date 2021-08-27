@@ -5,7 +5,7 @@ import {
     StabilityEvent
 } from './StabilityEvent';
 
-export interface Segment {
+export interface ISegment {
     date: number;
     start: Coordinate;
     end: Coordinate;
@@ -13,11 +13,11 @@ export interface Segment {
     distance: number;
 }
 
-export interface SumarizingSegment extends Segment {
+export interface ISumarizingSegment extends ISegment {
     accuracy?: number;
 }
 
-export interface IRange extends Segment {
+export interface IRange extends ISegment {
     speed: number;
     stabilityEvents: StabilityEvent[];
 }

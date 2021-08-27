@@ -23,13 +23,12 @@ import {
     City,
     MapOptions
 } from '../../../../shared/interfaces/City';
-
-import {
-    RoadCategories
-} from '../../../../shared/interfaces/Categories';
 import {
     CommonService
 } from '../../../../shared/services/common.service';
+import {
+    ISumarization
+} from 'src/app/shared/interfaces/Track';
 
 @Component({
     selector: 'app-sumarized-tracks',
@@ -46,9 +45,7 @@ export class SumarizedTracksComponent {
     public cities: Observable < City[] > = new Observable < City[] > ();
     public citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(null);
 
-    public roadCategories: RoadCategories = null;
-    public roadCategoriesIterable = [];
-
+    public roadCategories: any[] = [];
 
     constructor(
         private _maps: MapsService,
@@ -86,18 +83,12 @@ export class SumarizedTracksComponent {
         this.citySubject.next(c);
     }
 
-    // TODO: refactor this!... make a pipe() and last a subscription
     public fetchData(): void {
         this._sumarizations.getSumarizationsByCity(this.citySubject.value.id)
-            .subscribe((res: any[]) => {
-                this.sumarizations = this._maps.getPolylinesFromRanges(res[0].ranges);
-                this.sumarizationDate = new Date(res[0].date);
-                this.roadCategories = this._maps.getRelativeRoadCategories(res[0].ranges);
-                this.roadCategoriesIterable = Object.entries(this.roadCategories)
-                    .map((entry: any[]) => < Object > {
-                        text: entry[0],
-                        color: entry[1].color
-                    });
+            .subscribe((sumarization: ISumarization) => {
+                this.sumarizations = this._maps.getPolylinesFromRanges(sumarization.ranges);
+                this.sumarizationDate = new Date(sumarization.date);
+                this.roadCategories = this._maps.getColorCategories(this._maps.getRelativeRoadCategories(sumarization.ranges));
             }, (err: any) => {
                 console.error(err);
             });
