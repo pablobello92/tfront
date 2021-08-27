@@ -71,13 +71,17 @@ h5 {
     margin-bottom: 10px;
 }
 
-/* Overridings */
+/* Numeric inputs */
 
-.ui-datepicker-header.ui-widget-header {
-    color: initial;
+input[type=number] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
-
-/* Bootstrap buttons */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
 
 // TODO: ver estos estilos y aplicar al confirmDialog custom de Material que implementé
 /*confirmDialog */
@@ -95,6 +99,7 @@ h5 {
 agm-map {
     button.gm-control-active {
         background: var(--mainPink) !important;
+        color: white;
     }
 }
 
