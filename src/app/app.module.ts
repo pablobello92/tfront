@@ -126,9 +126,6 @@ import {
     UserTracksComponent
 } from './components/outlets/tracks/user-tracks/user-tracks.component';
 import {
-    ColorInfoWidgetComponent
-} from './components/outlets/tracks/color-info-widget/color-info-widget.component';
-import {
     AdminToolsComponent
 } from './components/outlets/admin/admin-tools/admin-tools.component';
 import {
@@ -156,7 +153,6 @@ export function createTranslateLoader(http: HttpClient) {
         UserEditComponent,
         UserTracksComponent,
         SumarizedTracksComponent,
-        ColorInfoWidgetComponent,
         AdminToolsComponent,
         ReparationsComponent,
         LoginComponent,
