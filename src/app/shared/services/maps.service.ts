@@ -44,7 +44,7 @@ export class MapsService {
         });
     }
 
-    public mapCoordinateToPolyline(coordinates: Coordinate[], color: string = '#0097e6'): Polyline {
+    public mapCoordinateToPolyline(coordinates: Coordinate[], strokeColor: string, info?: any): Polyline {
         return {
             path: [{
                     lat: coordinates[0].lat,
@@ -55,9 +55,10 @@ export class MapsService {
                     lng: coordinates[1].lng
                 }
             ],
-            strokeColor: color,
+            strokeColor,
             strokeOpacity: 1,
-            strokeWeight: 4
+            strokeWeight: 4,
+            info
         };
     }
 

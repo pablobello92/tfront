@@ -3,6 +3,6 @@
     <p> {{ config.body }} </p>
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="cancelClick()">Cancelar</button>
-    <button mat-button (click)="acceptClick()" cdkFocusInitial>Aceptar</button>
+    <button mat-raised-button color="accent" *ngIf="config.showCancelButton" (click)="cancelClick()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="acceptClick()" cdkFocusInitial>Aceptar</button>
 </div>

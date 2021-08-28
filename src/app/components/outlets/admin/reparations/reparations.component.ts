@@ -18,8 +18,13 @@ import {
     MatDatepickerInputEvent
 } from '@angular/material/datepicker';
 import {
-    MatDialog
+    MatDialog,
+    MatDialogContent,
+    MatDialogActions
 } from '@angular/material/dialog';
+import {
+    MatButton
+} from '@angular/material/button';
 import {
     Marker,
     Polyline
@@ -93,9 +98,7 @@ export class ReparationsComponent implements OnDestroy {
         this.citySubject.asObservable()
             .pipe(
                 skip(1),
-                map((city: City) => <MapOptions>{
-                        center: city.center,
-                    })
+                map((city: City) => <MapOptions>{center: city.center})
             )
             .subscribe((options: MapOptions) => {
                 this._common.updateMapSubject(options);
@@ -117,20 +120,17 @@ export class ReparationsComponent implements OnDestroy {
         )
         .subscribe((reparations: Reparation[]) => {
             const drawables = reparations.map((r: Reparation) =>
-                this._maps.mapCoordinateToPolyline(<Coordinate[]>[r.from, r.to])
+                this._maps.mapCoordinateToPolyline(<Coordinate[]>[r.from, r.to], '#0097e6', { date: new Date(r.date) })
             );
             this.polylines.push(...drawables);
         });
 
         this.markersPlaced.asObservable()
-        .pipe(
-            filter((value: number) => value === 2),
-            map(() => {
-                const coordinates = this._maps.getCoordinatesFromMarkers(this.markers);
-                const overlay = this._maps.mapCoordinateToPolyline(coordinates, 'lime');
-                return overlay;
-            })
-        )
+            .pipe(
+                filter((value: number) => value === 2),
+                map(() => this._maps.getCoordinatesFromMarkers(this.markers)),
+                map((coordinates: Coordinate[]) => this._maps.mapCoordinateToPolyline(coordinates, 'lime'))
+            )
             .subscribe((polyline: Polyline) => {
                 this.polylines.push(polyline);
             });
@@ -148,7 +148,8 @@ export class ReparationsComponent implements OnDestroy {
         this.dialog.open(ConfirmDialogComponent, {
             data: {
                 title: 'Información',
-                body: 'Color: ' + polyline.strokeColor
+                body: 'Fecha: ' + (<Date>polyline.info.date),
+                showCancelButton: false
             }
         });
     }

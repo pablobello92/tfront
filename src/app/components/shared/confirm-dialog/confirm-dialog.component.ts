@@ -10,6 +10,7 @@ import {
 export interface DialogData {
     title: string;
     body: string;
+    showCancelButton: boolean;
 };
 
 @Component({
