@@ -135,10 +135,8 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" [disabled]="editForm.invalid"
-                class="btn btn-primary m-1 pull-right">{{ 'general.save' | translate}}</button>
-            <button type="button" class="btn btn-success m-1 pull-right"
-                (click)="goBack()">{{ 'general.return' | translate}}</button>
+            <button type="submit" mat-raised-button color="primary" [disabled]="editForm.invalid">{{ 'general.save' | translate}}</button>
+            <button mat-raised-button color="accent" (click)="goBack()">{{ 'general.return' | translate}}</button>
         </div>
     </div>
 </form>

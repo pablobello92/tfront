@@ -13,7 +13,6 @@
 
     --mainPink: #e91e63;
     --mainPinkDark: #c2185b;
-
     --mainLightBlue: #00e7ff;
 
     // Colors to replace
@@ -28,7 +27,7 @@
 }
 
 
-/* Cuerpo principal */
+/* Main overridings */
 
 html, body {
     height: 100%;
@@ -61,10 +60,6 @@ h5 {
     border-bottom: 1px solid var(--lightGray);
 }
 
-.btn-transparent {
-    background-color: transparent;
-}
-
 .form-separator {
     border-bottom: 1px solid var(--formBorderGray);
     margin-top: 10px;
@@ -81,26 +76,6 @@ input[type=number] {
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
-}
-
-// TODO: ver estos estilos y aplicar al confirmDialog custom de Material que implementé
-/*confirmDialog */
-
-.ui-dialog .ui-widget-header {
-    color: initial;
-}
-
-.input-block-level {
-    border: 1px solid var(--chainGray);
-    border-radius: 2px;
-}
-
-/* GMap */
-agm-map {
-    button.gm-control-active {
-        background: var(--mainPink) !important;
-        color: white;
-    }
 }
 
 /* scrollbar */

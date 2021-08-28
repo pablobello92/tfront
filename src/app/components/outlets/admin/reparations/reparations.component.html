@@ -25,10 +25,12 @@
     </div>
     <div class="map-content">
         <div class="prev-next">
-            <button type="button" class="btn btn-warning" [disabled]="( markersPlaced.value  < 2 )"
-                (click)="resetLastReparation()"> Reset </button>
-            <button type="button" class="btn btn-warning" [disabled]="( markersPlaced.value  < 2 )"
-                (click)="postNewReparation()"> {{ 'general.save' | translate }} </button>
+            <button mat-raised-button color="accent"
+                [disabled]="( markersPlaced.value  < 2 )"
+                (click)="resetLastReparation()">Reset</button>
+            <button mat-raised-button color="primary"
+                [disabled]="( markersPlaced.value  < 2 )"
+                (click)="postNewReparation()">{{ 'general.save' | translate }}</button>
         </div>
         <agm-map
             [style]="{'width':'100%','height':'30vw'}"
