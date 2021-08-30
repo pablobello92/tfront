@@ -12,20 +12,20 @@ import {
 } from 'rxjs/operators';
 import {
     CitiesService
-} from '../../../../shared/services/cities.service';
+} from '../../../shared/services/cities.service';
 import {
     MapsService
-} from './../../../../shared/services/maps.service';
+} from '../../../shared/services/maps.service';
 import {
     SumarizationsService
-} from './../../../../shared/services/sumarizations.service';
+} from '../../../shared/services/sumarizations.service';
 import {
     City,
     MapOptions
-} from '../../../../shared/interfaces/City';
+} from '../../../shared/interfaces/City';
 import {
     CommonService
-} from '../../../../shared/services/common.service';
+} from '../../../shared/services/common.service';
 import {
     ISumarization
 } from 'src/app/shared/interfaces/Track';
@@ -35,11 +35,11 @@ import {
 } from 'src/app/configs/app.config';
 
 @Component({
-    selector: 'app-sumarized-tracks',
-    templateUrl: './sumarized-tracks.component.html',
-    styleUrls: ['./sumarized-tracks.component.scss']
+    selector: 'app-sumarized-data',
+    templateUrl: './sumarized-data.component.html',
+    styleUrls: ['./sumarized-data.component.scss']
 })
-export class SumarizedTracksComponent {
+export class SumarizedDataComponent {
 
     public currentMapOptions: MapOptions | null = null;
 
