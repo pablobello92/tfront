@@ -9,7 +9,8 @@ import {
 } from 'rxjs';
 import {
     ENDPOINTS,
-    SERVER
+    SERVER,
+    SUMARIZATION_TYPES_VALUE
 } from '../../../app/configs/app.config';
 import {
     ISumarization
@@ -22,9 +23,15 @@ export class SumarizationsService {
         private http: HttpClient
     ) {}
 
-    public getSumarizationsByCity(type: number, cityId: number): Observable <ISumarization> {
-        const params = '?type=' + type + '&cityId=' + cityId ;
-        const endpoint = SERVER + ENDPOINTS.sumarizations.get + params;
+    public getSumarizationsByCity(cityId: number, type: SUMARIZATION_TYPES_VALUE): Observable <ISumarization> {
+        let endpoint: string = SERVER;
+        let params = '?cityId=' + cityId;
+        if (type === SUMARIZATION_TYPES_VALUE.PREDICTION_ANOMALIES || type === SUMARIZATION_TYPES_VALUE.PREDICTION_ROADS) {
+            params += '&type=' + type;
+            endpoint += ENDPOINTS.predictions + params;
+        } else {
+            endpoint += ENDPOINTS.sumarizations.get + params;
+        }
         return <Observable<ISumarization>>this.http.get(endpoint);
     }
 

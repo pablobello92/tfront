@@ -95,7 +95,7 @@ export class SumarizedTracksComponent {
     }
 
     public fetchData(): void {
-        this._sumarizations.getSumarizationsByCity(this.typesSubject.value, this.citySubject.value.id)
+        this._sumarizations.getSumarizationsByCity(this.citySubject.value.id, this.typesSubject.value)
             .subscribe((sumarization: ISumarization) => {
                 this.sumarizations = this._maps.getPolylinesFromRanges(sumarization.ranges);
                 this.sumarizationDate = new Date(sumarization.date);
