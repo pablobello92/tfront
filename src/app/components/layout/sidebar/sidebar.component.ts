@@ -64,7 +64,7 @@ export class SideBarComponent implements OnInit {
             {
                 label: translations.titles.sumarized_data,
                 icon: 'analytics',
-                routerLink: ['/sumarized-tracks'],
+                routerLink: ['/sumarized-data'],
                 enabled: true
             },
             {
