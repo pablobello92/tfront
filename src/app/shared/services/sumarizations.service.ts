@@ -28,7 +28,7 @@ export class SumarizationsService {
         let params = '?cityId=' + cityId;
         if (type === SUMARIZATION_TYPES_VALUE.PREDICTION_ANOMALIES || type === SUMARIZATION_TYPES_VALUE.PREDICTION_ROADS) {
             params += '&type=' + type;
-            endpoint += ENDPOINTS.predictions + params;
+            endpoint += ENDPOINTS.predictions.get + params;
         } else {
             endpoint += ENDPOINTS.sumarizations.get + params;
         }
@@ -38,5 +38,10 @@ export class SumarizationsService {
     public sumarizeTracks(payload: any): Observable <any> {
         const endpoint = SERVER + ENDPOINTS.sumarizations.index;
         return <Observable <any>> this.http.post(endpoint, payload);
+    }
+
+    public executePrediction(payload: any): Observable < any > {
+        const endpoint = SERVER + ENDPOINTS.predictions.index;
+        return <Observable < any >> this.http.post(endpoint, payload);
     }
 }

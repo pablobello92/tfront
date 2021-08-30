@@ -9,7 +9,10 @@ export const ENDPOINTS: any = {
         get: 'cities'
     },
     login: 'login',
-    predictions: 'predictions',
+    predictions: {
+        index: 'predictions',
+        get: 'predictions/get'
+    },
     reparations: {
         get: 'reparations',
         insert: 'reparations/insert'

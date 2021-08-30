@@ -38,9 +38,4 @@ export class TracksService {
         const endpoint = SERVER + ENDPOINTS.tracks.get + params;
         return <Observable < Track[] >> this.http.get(endpoint);
     }
-
-    public executePrediction(payload: any): Observable < any > {
-        const endpoint = SERVER + ENDPOINTS.predictions;
-        return <Observable < any >> this.http.post(endpoint, payload);
-    }
 }

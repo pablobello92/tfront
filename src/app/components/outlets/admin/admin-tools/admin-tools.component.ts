@@ -52,7 +52,7 @@ export class AdminToolsComponent {
             type: (anomalies) ? SUMARIZATION_TYPES_VALUE.PREDICTION_ANOMALIES : SUMARIZATION_TYPES_VALUE.PREDICTION_ROADS,
             linkedCities: this.linkedCities
         }
-        this._tracks.executePrediction(payload)
+        this._sumarization.executePrediction(payload)
             .subscribe((res: any) => {
                 this._common.displaySnackBar('messages.snackbar.admin_tools.predictions.success', 'Ok');
             }, (error: any) => {
