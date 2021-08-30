@@ -57,13 +57,13 @@ export class SideBarComponent implements OnInit {
             },
             {
                 label: translations.titles.my_tracks,
-                icon: 'drive_eta',
+                icon: 'emoji_transportation',
                 routerLink: ['/user/tracks'],
                 enabled: this._cookies.isRegularUser()
             },
             {
-                label: translations.titles.sumarized_tracks,
-                icon: 'emoji_transportation',
+                label: translations.titles.sumarized_data,
+                icon: 'analytics',
                 routerLink: ['/sumarized-tracks'],
                 enabled: true
             },
