@@ -6,29 +6,10 @@
 
     .filters-card {
         display: flex;
-        flex-direction: column;
-
-        >div {
-            width: 40%;
-            @media screen and (max-width: 1023px) {
-                width: 100%;
-            }
-            padding: 5px;
-            display: inline-flex;
-            justify-content: space-between;
+        flex-direction: row;
+        mat-form-field:not(:last-child) {
+            margin-right: 14px;
         }
-
-        .text {
-            margin-right: 10px;
-            display: inline;
-            font-size: 1.5vs;
-            font-weight: 400;
-        }
-    }
-
-    .divider {
-        border: 1px solid var(--lightGray);
-        margin: 10px 0px 10px 0px;
     }
 
     .map-content {

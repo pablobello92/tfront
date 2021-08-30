@@ -4,11 +4,11 @@
 <div class="dashboard">
     <button mat-raised-button (click)="navigateTo('/user/tracks')" [disabled]="_cookies.hasAdminLevel()">
         {{ 'titles.my_tracks' | translate }}
-        <mat-icon>drive_eta</mat-icon>
+        <mat-icon>emoji_transportation</mat-icon>
     </button>
     <button mat-raised-button (click)="navigateTo('/sumarized-tracks')">
-        {{ 'titles.sumarized_tracks' | translate }}
-        <mat-icon>emoji_transportation</mat-icon>
+        {{ 'titles.sumarized_data' | translate }}
+        <mat-icon>analytics</mat-icon>
     </button>
     <button mat-raised-button (click)="navigateTo('/user/edit')">
         {{ 'titles.user_edit' | translate }}

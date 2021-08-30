@@ -1,17 +1,20 @@
 <div class="content">
     <div class="outletHeading">
-        <h3> {{ 'titles.sumarized_tracks' | translate }} </h3>
+        <h3> {{ 'titles.sumarized_data' | translate }} </h3>
     </div>
     <div class="filters-card">
-        <div>
-            <span class="text">{{ 'general.city' | translate }}</span>
-            <mat-form-field appearance="fill">
-                <mat-label>{{ 'general.city' | translate }}</mat-label>
-                <mat-select [value]="citySubject.value" (selectionChange)="onCityChange($event.value)">
-                    <mat-option *ngFor="let city of ( cities | async )" [value]="city"> {{ city.name }} </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'titles.sumarization_type' | translate }}</mat-label>
+            <mat-select [value]="typesSubject.value" (selectionChange)="onTypeChange($event.value)">
+                <mat-option *ngFor="let type of types" [value]="type.value"> {{ type.label | translate }} </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'general.city' | translate }}</mat-label>
+            <mat-select [value]="citySubject.value" (selectionChange)="onCityChange($event.value)">
+                <mat-option *ngFor="let city of ( cities | async )" [value]="city"> {{ city.name }} </mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
     <div class="divider"></div>
     <div class="map-content">

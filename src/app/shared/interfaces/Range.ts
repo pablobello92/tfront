@@ -10,7 +10,6 @@ export interface ISegment {
     start: Coordinate;
     end: Coordinate;
     score: number;
-    distance: number;
 }
 
 export interface ISumarizingSegment extends ISegment {

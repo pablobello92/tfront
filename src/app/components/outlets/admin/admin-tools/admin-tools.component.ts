@@ -14,7 +14,7 @@ import {
     CommonService
 } from 'src/app/shared/services/common.service';
 import {
-    PREDICTION_TYPES
+    SUMARIZATION_TYPES_VALUE
 } from 'src/app/configs/app.config';
 
 @Component({
@@ -49,7 +49,7 @@ export class AdminToolsComponent {
 
     public predict(anomalies = false): void {
         const payload = {
-            type: (anomalies) ? PREDICTION_TYPES.ANOMALIES : PREDICTION_TYPES.ROADS,
+            type: (anomalies) ? SUMARIZATION_TYPES_VALUE.PREDICTION_ANOMALIES : SUMARIZATION_TYPES_VALUE.PREDICTION_ROADS,
             linkedCities: this.linkedCities
         }
         this._tracks.executePrediction(payload)

@@ -9,6 +9,7 @@ export interface Track {
 }
 
 export interface ISumarization {
+    type?: number;
     cityId: number;
     date: number;
     ranges: IRange[];

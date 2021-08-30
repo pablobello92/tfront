@@ -29,6 +29,10 @@ import {
 import {
     ISumarization
 } from 'src/app/shared/interfaces/Track';
+import {
+    SUMARIZATION_TYPES_VALUE,
+    SUMARIZATION_TYPES_PAIRS
+} from 'src/app/configs/app.config';
 
 @Component({
     selector: 'app-sumarized-tracks',
@@ -39,10 +43,13 @@ export class SumarizedTracksComponent {
 
     public currentMapOptions: MapOptions | null = null;
 
+    public typesSubject: BehaviorSubject<SUMARIZATION_TYPES_VALUE> = new BehaviorSubject<SUMARIZATION_TYPES_VALUE>(SUMARIZATION_TYPES_VALUE.SUMARIZATIONS);
+    public types: any[] = SUMARIZATION_TYPES_PAIRS;
+
     public sumarizations = [];
     public sumarizationDate: Date = null;
 
-    public cities: Observable < City[] > = new Observable < City[] > ();
+    public cities: Observable <City[]> = new Observable <City[]>();
     public citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(null);
 
     public roadCategories: any[] = [];
@@ -79,12 +86,16 @@ export class SumarizedTracksComponent {
         });
     }
 
+    public onTypeChange(n: any): void {
+        this.typesSubject.next(n);
+    }
+
     public onCityChange(c: City): void {
         this.citySubject.next(c);
     }
 
     public fetchData(): void {
-        this._sumarizations.getSumarizationsByCity(this.citySubject.value.id)
+        this._sumarizations.getSumarizationsByCity(this.typesSubject.value, this.citySubject.value.id)
             .subscribe((sumarization: ISumarization) => {
                 this.sumarizations = this._maps.getPolylinesFromRanges(sumarization.ranges);
                 this.sumarizationDate = new Date(sumarization.date);

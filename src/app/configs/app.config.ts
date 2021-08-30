@@ -8,7 +8,7 @@ export const ENDPOINTS: any = {
     cities: {
         get: 'cities'
     },
-    predictions: 'predictions',
+    login: 'login',
     reparations: {
         get: 'reparations',
         insert: 'reparations/insert'
@@ -23,8 +23,7 @@ export const ENDPOINTS: any = {
     users: {
         get: 'users',
         update: 'users/update'
-    },
-    login: 'login'
+    }
 };
 
 export enum ROAD_COLORS {
@@ -36,7 +35,23 @@ export enum ROAD_COLORS {
     VERY_HIGH = 'rgba(128, 0, 255, .75)'
 };
 
-export enum PREDICTION_TYPES {
-    ROADS,
-    ANOMALIES
-}
+export enum SUMARIZATION_TYPES_VALUE {
+    PREDICTION_ROADS,
+    PREDICTION_ANOMALIES,
+    SUMARIZATIONS,
+};
+
+/* export const SUMARIZATION_TYPES_LABEL: Map<SUMARIZATION_TYPES_VALUE, string> = new Map<SUMARIZATION_TYPES_VALUE, string>(); */
+
+export const SUMARIZATION_TYPES_PAIRS = [{
+        label: 'general.prediction_roads',
+        value: SUMARIZATION_TYPES_VALUE.PREDICTION_ROADS
+    },
+    {
+        label: 'general.prediction_anomalies',
+        value: SUMARIZATION_TYPES_VALUE.PREDICTION_ANOMALIES
+    },
+    {
+        label: 'general.sumarization',
+        value: SUMARIZATION_TYPES_VALUE.SUMARIZATIONS
+}];
