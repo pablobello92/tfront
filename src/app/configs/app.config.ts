@@ -9,10 +9,7 @@ export const ENDPOINTS: any = {
         get: 'cities'
     },
     login: 'login',
-    predictions: {
-        index: 'predictions',
-        get: 'predictions/get'
-    },
+    predictions: 'predictions',
     reparations: {
         get: 'reparations',
         insert: 'reparations/insert'
@@ -59,3 +56,35 @@ export const SUMARIZATION_TYPES_PAIRS = [{
         label: 'general.sumarization',
         value: SUMARIZATION_TYPES_VALUE.SUMARIZATIONS
 }];
+
+export enum ROAD_TYPES {
+    ASPHALT = 0,
+    COBBLES = 1,
+    CONCRETE = 2,
+    EARTH = 3,
+}
+
+export enum ROAD_TYPES_DESCRIPTION {
+    ASPHALT = 'Asphalt',
+    COBBLES = 'Cobbles',
+    CONCRETE = 'Concrete',
+    EARTH = 'Earth',
+}
+
+export enum ANOMALIES {
+    USER_ANSWERED_CALL = 0,
+    USER_USED_DOOR = 1,
+    USER_REPLIED_MESSAGE = 2,
+    POTHOLE = 3,
+    SPEED_BUMP = 4,
+    STREET_GUTTER = 5,
+}
+
+export enum ANOMALIES_DESCRIPTION {
+    USER_ANSWERED_CALL = 'User answered a call',
+    USER_USED_DOOR = 'USer open or closed a door',
+    USER_REPLIED_MESSAGE = 'User replied a message',
+    POTHOLE = 'Pothole',
+    SPEED_BUMP = 'Speed Bump',
+    STREET_GUTTER = 'Street Gutter',
+}

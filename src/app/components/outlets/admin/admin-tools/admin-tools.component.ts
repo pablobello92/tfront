@@ -5,9 +5,6 @@ import {
     SumarizationsService
 } from './../../../../shared/services/sumarizations.service';
 import {
-    TracksService
-} from '../../../../shared/services/tracks.service';
-import {
     CookiesService
 } from './../../../../shared/services/cookies.service';
 import {
@@ -27,7 +24,6 @@ export class AdminToolsComponent {
     private linkedCities: number[] | null = null;
 
     constructor(
-        private _tracks: TracksService,
         private _sumarization: SumarizationsService,
         private _cookies: CookiesService,
         private _common: CommonService
@@ -37,9 +33,10 @@ export class AdminToolsComponent {
 
     public sumarize(): void {
         const payload = {
+            type: SUMARIZATION_TYPES_VALUE.SUMARIZATIONS,
             linkedCities: this.linkedCities
         }
-        this._sumarization.sumarizeTracks(payload)
+        this._sumarization.executeSumarization(payload)
             .subscribe((res: any) => {
                 this._common.displaySnackBar('messages.snackbar.admin_tools.sumarizations.success', 'Ok');
             }, (err: any) => {
