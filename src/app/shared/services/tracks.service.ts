@@ -17,7 +17,7 @@ import {
 import {
     ENDPOINTS,
     SERVER
-} from '../../../app/configs/app.config';
+} from '../constants/constants';
 
 @Injectable()
 export class TracksService {

@@ -2,6 +2,24 @@
     "app": {
         "name": "Panel de Control de Baches"
     },
+    "chips": {
+        "no_event": "No hay datos",
+        "very_low": "Muy bajo",
+        "low": "Bajo",
+        "medium": "Medio",
+        "high": "Alto",
+        "very_high": "Muy alto",
+        "asphalt": "Asfalto",
+        "cobbles": "Adoquines",
+        "concrete": "Concreto",
+        "earth": "Tierra",
+        "user_answered_call": "Conductor contestó una llamada",
+        "user_used_door": "Conductor usó la puerta del vehículo",
+        "user_replied_message": "Conductor respondió un mensaje",
+        "pothole": "Bache",
+        "speed_bump": "Lomada",
+        "street_gutter": "Reductor"
+    },
     "general": {
         "address": "Dirección",
         "brand": "Marca",
@@ -84,6 +102,7 @@
     "titles": {
         "admin": "Admin",
         "birth_year": "Año de nacimiento",
+        "classification": "Clasificación",
         "configuration": "Configuración",
         "dashboard": "Panel de control",
         "dashboard_welcome": "Bienvenido al dashboard",

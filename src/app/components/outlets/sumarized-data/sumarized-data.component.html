@@ -18,10 +18,10 @@
     </div>
     <div class="divider"></div>
     <div class="map-content">
-        <mat-chip-list *ngIf="roadCategories.length" aria-label="road segments severity">
-            <span class="mr-4"> {{ 'titles.tracks_severity' | translate }}: </span>
-            <mat-chip [ngStyle]="{'backgroundColor': item.backgroundColor }" *ngFor="let item of roadCategories">
-                {{ item.text }}
+        <mat-chip-list *ngIf="colorItems.length" aria-label="road segments severity">
+            <span class="mr-4"> {{ 'titles.classification' | translate }}: </span>
+            <mat-chip [ngStyle]="{'backgroundColor': item.background }" *ngFor="let item of colorItems">
+                {{ ('chips.' + item.text) | translate }}
             </mat-chip>
         </mat-chip-list>
         <div class="buttons">
@@ -33,20 +33,20 @@
             [longitude]="currentMapOptions?.center.lng"
             [zoom]="12">
 
-            <agm-polyline *ngFor="let polyline of sumarizations"
+            <agm-polyline *ngFor="let p of ( polylines | async )"
                 [visible]="true"
-                [strokeColor]="polyline.strokeColor"
-                [strokeOpacity]="polyline.strokeOpacity"
-                [strokeWeight]="polyline.strokeWeight">
+                [strokeColor]="p.strokeColor"
+                [strokeOpacity]="p.strokeOpacity"
+                [strokeWeight]="p.strokeWeight">
 
                 <agm-polyline-point
-                    *ngFor="let coord of polyline.path"
+                    *ngFor="let coord of p.path"
                     [latitude]="coord.lat"
                     [longitude]="coord.lng">
                 </agm-polyline-point>
         </agm-polyline>
         </agm-map>
         <br>
-        <span>{{ 'titles.sumarization_date' | translate }}: {{ sumarizationDate }}</span>
+        <span>{{ 'titles.sumarization_date' | translate }}: {{ ( sumarizationDate | async ) }}</span>
     </div>
 </div>

@@ -12,12 +12,10 @@ import {
     ColorsService
 } from './colors.service';
 import {
-    RoadCategories
-} from '../interfaces/Categories';
-import {
     Coordinate
 } from '../interfaces/Coordinate';
 import {
+    ColorItem,
     Marker,
     Polyline
 } from '../interfaces/Polyline';
@@ -29,13 +27,6 @@ export class MapsService {
     constructor(
         private _colors: ColorsService
     ) {}
-
-    public getPolylinesFromRanges(ranges: ISegment[]): Polyline[] {
-        const limits = this.getRelativeRoadCategories(ranges);
-        const drawable = ranges.map((range: ISegment) => this.mapRangeToPolyline(range, limits));
-        return drawable;
-    }
-
 
     public getCoordinatesFromMarkers(markers: Marker[]): Coordinate[] {
         return markers.map((marker: Marker) => <Coordinate> {
@@ -62,7 +53,7 @@ export class MapsService {
         };
     }
 
-    private mapRangeToPolyline(range: IRange | ISumarizingSegment, limits: RoadCategories): Polyline {
+    public mapRangeToPolyline(range: IRange | ISumarizingSegment, colors: ColorItem[]): Polyline {
         return {
             path: [{
                     lat: range.start.lat,
@@ -73,13 +64,14 @@ export class MapsService {
                     lng: range.end.lng
                 }
             ],
-            strokeColor: this._colors.getColor(range.score, limits),
+            strokeColor: this._colors.getColor(range.score, colors),
             strokeOpacity: 1,
             strokeWeight: 4
         };
     }
 
-    public getRelativeRoadCategories(ranges: IRange[] | ISumarizingSegment[]): RoadCategories {
+    // ? UNUSED: WE'RE USING STATIC LIMITS NOW
+    public  getRelativeRoadCategories(ranges: IRange[] | ISumarizingSegment[]): any {
         let max = 0;
         let min = Infinity;
         let avg = 0;
@@ -103,14 +95,6 @@ export class MapsService {
             medium: avg + upperStep,
             high: max - upperStep
         };
-        return this._colors.getRoadCategories(numericLimit);
-    }
-
-    public getColorCategories(categories: RoadCategories): any[] {
-        return Object.entries(categories)
-        .map((entry: any[]) => < Object > {
-            text: entry[0],
-            backgroundColor: entry[1].color
-        });
+        return numericLimit;
     }
 }

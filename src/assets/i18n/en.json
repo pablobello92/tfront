@@ -2,6 +2,24 @@
     "app": {
         "name": "Baches"
     },
+    "chips": {
+        "no_event": "No data",
+        "very_low": "Very low",
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "very_high": "Very high",
+        "asphalt": "Asphalt",
+        "cobbles": "Cobbles",
+        "concrete": "Concrete",
+        "earth": "Earth",
+        "user_answered_call": "Driver answered a call",
+        "user_used_door": "Driver used a door",
+        "user_replied_message": "Driver replied message",
+        "pothole": "Pothole",
+        "speed_bump": "Speed Bump",
+        "street_gutter": "Street Gutter"
+    },
     "general": {
         "address": "Address",
         "brand": "Brand",
@@ -84,6 +102,7 @@
     "titles": {
         "admin": "Admin",
         "birth_year": "Year of birth",
+        "classification": "Classification",
         "configuration": "Settings",
         "dashboard": "Dashboard",
         "dashboard_welcome": "Welcome to the dashboard",

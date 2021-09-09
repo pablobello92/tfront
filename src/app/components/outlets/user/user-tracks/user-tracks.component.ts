@@ -40,14 +40,18 @@ import {
     CookiesService
 } from '../../../../shared/services/cookies.service';
 import {
+    ColorItem,
     Polyline
 } from 'src/app/shared/interfaces/Polyline';
 import {
-    CommonService
-} from 'src/app/shared/services/common.service';
-import {
     ISimpleRange
 } from 'src/app/shared/interfaces/ISimpleRange';
+import {
+    ColorsService
+} from 'src/app/shared/services/colors.service';
+import {
+    IRange
+} from 'src/app/shared/interfaces/Range';
 
 @Component({
     selector: 'app-user-tracks',
@@ -62,7 +66,7 @@ export class UserTracksComponent {
 
     private userId: number | null = null;
     private tracks: Track[] = [];
-    public roadCategories: any[]  = [];
+    public colorItems: ColorItem[]  = [];
 
     public cities: Observable<City[]> = new Observable<City[]> ();
     public citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(null);
@@ -78,7 +82,7 @@ export class UserTracksComponent {
     public offset = 0;
 
     constructor(
-        private _common: CommonService,
+        private _colors: ColorsService,
         private _cities: CitiesService,
         private _tracks: TracksService,
         private _maps: MapsService,
@@ -110,11 +114,8 @@ export class UserTracksComponent {
             .pipe(
                 skip(1),
                 filter((nextIndex: number) => (this.tracks.length > 0)),
-                map((nextIndex: number) => this.tracks[nextIndex]),
-                tap((trackToDraw: Track) => {
-                    this.roadCategories = this._maps.getColorCategories(this._maps.getRelativeRoadCategories(trackToDraw.ranges));
-                }),
-                map((trackToDraw: Track) => this._maps.getPolylinesFromRanges(trackToDraw.ranges))
+                map((nextIndex: number) => this.tracks[nextIndex].ranges),
+                map((ranges: IRange[]) => ranges.map((r: IRange) => this._maps.mapRangeToPolyline(r, this.colorItems)))
             );
     }
 
@@ -146,6 +147,7 @@ export class UserTracksComponent {
         this._tracks.getUserTracks(filterObject)
             .subscribe((tracks: Track[]) => {
                 this.tracks = tracks;
+                this.colorItems = this._colors.getColorMappingsAsArray();
                 this.trackIndexSubject.next(0);
             }, err => {
                 console.error(err);

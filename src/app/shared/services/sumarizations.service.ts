@@ -9,9 +9,11 @@ import {
 } from 'rxjs';
 import {
     ENDPOINTS,
-    SERVER,
+    SERVER
+} from '../constants/constants';
+import {
     SUMARIZATION_TYPES_VALUE
-} from '../../../app/configs/app.config';
+} from '../constants/roadClassifications';
 import {
     ISumarization
 } from '../interfaces/Track';

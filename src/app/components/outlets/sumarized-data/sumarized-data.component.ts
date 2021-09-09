@@ -3,7 +3,8 @@ import {
 } from '@angular/core';
 import {
     BehaviorSubject,
-    Observable
+    Observable,
+    Subject
 } from 'rxjs';
 import {
     map,
@@ -28,11 +29,21 @@ import {
 } from '../../../shared/services/common.service';
 import {
     ISumarization
-} from 'src/app/shared/interfaces/Track';
+} from '../../../shared/interfaces/Track';
 import {
     SUMARIZATION_TYPES_VALUE,
     SUMARIZATION_TYPES_PAIRS
-} from 'src/app/configs/app.config';
+} from '../../../shared/constants/roadClassifications';
+import {
+    IRange
+} from '../../../shared/interfaces/Range';
+import {
+    ColorItem,
+    Polyline
+} from '../../../shared/interfaces/Polyline';
+import {
+    ColorsService
+} from '../../../shared/services/colors.service';
 
 @Component({
     selector: 'app-sumarized-data',
@@ -46,16 +57,17 @@ export class SumarizedDataComponent {
     public typesSubject: BehaviorSubject<SUMARIZATION_TYPES_VALUE> = new BehaviorSubject<SUMARIZATION_TYPES_VALUE>(SUMARIZATION_TYPES_VALUE.SUMARIZATIONS);
     public types: any[] = SUMARIZATION_TYPES_PAIRS;
 
-    public sumarizations = [];
-    public sumarizationDate: Date = null;
+    public polylines: Subject<Polyline[]> = new Subject<Polyline[]>();
+    public sumarizationDate: Subject<Date> = new Subject<Date>();
 
     public cities: Observable <City[]> = new Observable <City[]>();
     public citySubject: BehaviorSubject<City> = new BehaviorSubject<City>(null);
 
-    public roadCategories: any[] = [];
+    public colorItems: ColorItem[] = [];
 
     constructor(
         private _maps: MapsService,
+        private _colors: ColorsService,
         private _sumarizations: SumarizationsService,
         private _cities: CitiesService,
         private _common: CommonService
@@ -95,11 +107,16 @@ export class SumarizedDataComponent {
     }
 
     public fetchData(): void {
+        console.clear();
         this._sumarizations.getSumarizationsByCity(this.citySubject.value.id, this.typesSubject.value)
-            .subscribe((sumarization: ISumarization) => {
-                this.sumarizations = this._maps.getPolylinesFromRanges(sumarization.ranges);
-                this.sumarizationDate = new Date(sumarization.date);
-                this.roadCategories = this._maps.getColorCategories(this._maps.getRelativeRoadCategories(sumarization.ranges));
+            .pipe(
+                tap((s: ISumarization) => { this.sumarizationDate.next(new Date(s.date)); }),
+                map((s: ISumarization) => s.ranges)
+            )
+            .subscribe((ranges: IRange[]) => {
+                this.colorItems = this._colors.getColorMappingsAsArray(this.typesSubject.value);
+                const overlays = ranges.map((r: IRange) => this._maps.mapRangeToPolyline(r, this.colorItems));
+                this.polylines.next(overlays);
             }, (err: any) => {
                 console.error(err);
             });
