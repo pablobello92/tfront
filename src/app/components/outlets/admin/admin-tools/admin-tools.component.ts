@@ -9,10 +9,10 @@ import {
 } from './../../../../shared/services/cookies.service';
 import {
     CommonService
-} from 'src/app/shared/services/common.service';
+} from '../../../../shared/services/common.service';
 import {
     SUMARIZATION_TYPES_VALUE
-} from 'src/app/configs/app.config';
+} from '../../../../shared/constants/roadClassifications';
 
 @Component({
     selector: 'app-admin-tools',
