@@ -18,14 +18,14 @@
             {{'messages.errors.required' | translate}}
         </div>
 
-        <div class="alert alert-danger" role="alert" *ngIf="badCredentials">
+        <div class="alert alert-danger" role="alert" *ngIf="( badCredentials | async )">
             {{'messages.errors.bad_credentials' | translate}}
         </div>
-        <div class="alert alert-danger" role="alert" *ngIf="loginError">
+        <div class="alert alert-danger" role="alert" *ngIf="( loginError | async )">
             {{'messages.errors.login_error' | translate}}
         </div>
 
-        <button mat-button mat-raised-button color="primary" type="submit" [disabled]="(loginForm.invalid || loading)">{{'titles.login' | translate}}</button>
+        <button mat-button mat-raised-button color="primary" type="submit" [disabled]="(loginForm.invalid || ( loading | async ))">{{'titles.login' | translate}}</button>
         <p class="mt-5 mb-3">&copy; 2021</p>
     </form>
 </div>

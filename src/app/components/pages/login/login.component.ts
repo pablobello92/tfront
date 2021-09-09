@@ -1,6 +1,5 @@
 import {
-    Component,
-    OnInit
+    Component
 } from '@angular/core';
 import {
     Router
@@ -11,23 +10,31 @@ import {
     Validators
 } from '@angular/forms';
 import {
+    BehaviorSubject
+} from 'rxjs';
+import {
     CookiesService
 } from '../../../shared/services/cookies.service';
 import {
     UsersService
-} from 'src/app/shared/services/users.service';
+} from '../../../shared/services/users.service';
+import {
+    User
+} from '../../../shared/interfaces/User';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-    loginForm: FormGroup;
-    message: string;
-    loading = false;
-    loginError = false;
-    badCredentials = false;
+export class LoginComponent {
+
+    public loginForm: FormGroup;
+    public message: string;
+
+    public loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public loginError: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public badCredentials: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(
         private router: Router,
@@ -35,38 +42,34 @@ export class LoginComponent implements OnInit {
         private _cookies: CookiesService,
         private _users: UsersService
     ) {
+        if (this._cookies.isLogged()) {
+            this.router.navigate(['dashboard']);
+        }
+
         this.loginForm = this.fb.group({
             'username': [null, Validators.required],
             'password': [null, Validators.required]
         });
     }
 
-    ngOnInit() {
-        if (this._cookies.isLogged()) {
-            this.router.navigate(['dashboard']);
-        }
-    }
-
     get f(): any {
         return this.loginForm.controls;
     }
 
-    // TODO: Esto de hacer el navigate deberia ir en un guard?
-    // TODO: Creo que no, aun asi lo dejo acá comentado...
-    onSubmit() {
-        this.loading = true;
+    public onSubmit(): void {
+        this.loading.next(true);
         this._users.loginUser(this.f.username.value, this.f.password.value)
-        .subscribe((res: any) => {
-            if (res !== null) {
-                this._cookies.setAllCookies(res);
+        .subscribe((user: User) => {
+            if (user !== null) {
+                this._cookies.setAllCookies(user);
                 this.router.navigate(['dashboard']);
             } else {
-                this.loading = false;
-                this.badCredentials = true;
+                this.loading.next(false);
+                this.badCredentials.next(true);
             }
         }, (error: any) => {
-            this.loginError = true;
-            this.loading = false;
+            this.loginError.next(true);
+            this.loading.next(false);
         });
     }
 }

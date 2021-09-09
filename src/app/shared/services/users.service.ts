@@ -25,23 +25,23 @@ export class UsersService {
         private http: HttpClient
     ) {}
 
-    getUser(userName: string): Observable < User > {
+    public getUser(userName: string): Observable<User> {
         const endpoint = SERVER + ENDPOINTS.users.get + '?username=' + userName;
         return <Observable < User >> this.http.get(endpoint);
     }
 
-    updateUser(body: any): Observable < any > {
+    public updateUser(body: any): Observable<any> {
         const endpoint = SERVER + ENDPOINTS.users.update;
         return <Observable < any >> this.http.put(endpoint, body)
             .pipe(catchError((err, caught) => new Observable(err)));
     }
 
-    public loginUser(username: string, password: string): Observable < any > {
+    public loginUser(username: string, password: string): Observable<User> {
         const endpoint = SERVER + ENDPOINTS.login;
         const payload = {
             username,
             password
         };
-        return <Observable < any >> this.http.post(endpoint, payload);
+        return <Observable<User>> this.http.post(endpoint, payload);
     }
 }

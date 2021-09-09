@@ -10,7 +10,7 @@ import {
 })
 export class CookiesService {
 
-    private keys: any[] = [
+    private keys: string[] = [
         'id',
         'username',
         'nickname',
@@ -46,7 +46,6 @@ export class CookiesService {
         return this._cookies.get( key);
     }
 
-    // TODO: expiración!! (el tercer parametro "1" creo que es la expiracion en semanas)
     public setCookie(key: string, value: string): void {
         this._cookies.set(key, value, 1);
     }
