@@ -16,8 +16,13 @@
         mat-icon {
             margin-left: 2px;
         }
-    }
-    button:not(.mat-button-disabled) {
-        background-color: var(--mainLightBlue);
+
+        &:not(.mat-button-disabled) {
+            background-color: var(--mainLightBlue);
+        }
+
+        &:focus {
+            outline: var(--lightGray) 1px solid;
+        }
     }
 }
