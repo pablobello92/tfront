@@ -22,19 +22,19 @@
         }
 
         mat-icon,
-        a {
+        label {
             color: white;
             cursor: pointer;
         }
 
-        a {
+        label {
             padding-left: 12px;
         }
     }
 
     // TODO: This responsive rules should be added after completing the mat-list
     @media screen and (max-width: 968px) {
-        &.show {
+        .show {
             width: 25vw;
         }
     }
