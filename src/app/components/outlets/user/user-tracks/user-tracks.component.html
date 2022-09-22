@@ -65,10 +65,10 @@
             </mat-chip>
         </mat-chip-list>
         <div class="prev-next">
-            <button mat-raised-button color="accent"
+            <button mat-raised-button color="primary"
                 [disabled]="(this.trackIndexSubject.value === null || this.trackIndexSubject.value === 0)"
                 (click)="changeTrackIndex(-1)">{{ 'general.prev' | translate }}</button>
-            <button mat-raised-button color="accent"
+            <button mat-raised-button color="primary"
                 [disabled]="(this.trackIndexSubject.value === null || this.trackIndexSubject.value === paginationLimit - 1)"
                 (click)="changeTrackIndex(1)">{{ 'general.next' | translate }}</button>
         </div>
