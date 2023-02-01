@@ -14,6 +14,10 @@
         display: flex;
         flex-direction: column;
 
+        h1 {
+            text-align: center;
+        }
+
         .form-control {
             position: relative;
             box-sizing: border-box;
@@ -28,10 +32,6 @@
 
         input, button {
             margin: 10px 0px;
-        }
-
-        button {
-
         }
 
         p {

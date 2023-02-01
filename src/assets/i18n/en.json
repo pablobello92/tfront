@@ -1,6 +1,6 @@
 {
     "app": {
-        "name": "Baches"
+        "name": "WCP"
     },
     "chips": {
         "no_event": "No data",
@@ -116,7 +116,7 @@
         "language": "language",
         "login": "Login",
         "menu": "Menu",
-        "my_tracks": "My tracks",
+        "my_tracks": "My Tracks",
         "profile": "Profile",
         "reparations": "Reparations",
         "select_date": "Select a date",

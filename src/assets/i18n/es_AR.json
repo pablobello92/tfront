@@ -1,6 +1,6 @@
 {
     "app": {
-        "name": "Panel de Control de Baches"
+        "name": "PWC"
     },
     "chips": {
         "no_event": "No hay datos",
@@ -116,7 +116,7 @@
         "language": "Idioma",
         "login": "Iniciar sesión",
         "menu": "Menú",
-        "my_tracks": "Mis rutas",
+        "my_tracks": "Mis Trayectos",
         "profile": "Perfil",
         "reparations": "Reparaciones",
         "select_date": "Seleccione una fecha",

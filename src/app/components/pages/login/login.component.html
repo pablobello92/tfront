@@ -23,7 +23,7 @@
 
         <br>
         <mat-error *ngIf="( badCredentials | async )">
-            {{'messages.errors.bad_credentials' | translate}}
+            {{'messages.errors.bad_credentials' | }}
         </mat-error>
         <mat-error *ngIf="( loginError | async )">
             {{'messages.errors.login_error' | translate}}
