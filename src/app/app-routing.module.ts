@@ -17,10 +17,10 @@ import {
 } from './components/outlets/user/edit/user-edit.component';
 import {
     UserTracksComponent
-} from './components/outlets/tracks/user-tracks/user-tracks.component';
+} from './components/outlets/user/user-tracks/user-tracks.component';
 import {
-    SumarizedTracksComponent
-} from './components/outlets/tracks/sumarized-tracks/sumarized-tracks.component';
+    SumarizedDataComponent
+} from './components/outlets/sumarized-data/sumarized-data.component';
 import {
     AdminToolsComponent
 } from './components/outlets/admin/admin-tools/admin-tools.component';
@@ -36,6 +36,9 @@ import {
 import {
     IsAdminGuard
 } from './shared/services/guards/is-admin.guard';
+import {
+    IsRegularUserGuard
+} from './shared/services/guards/is-regular-user.guard';
 
 
 
@@ -57,22 +60,30 @@ const routes: Routes = [{
             },
             {
                 path: 'user/tracks',
-                component: UserTracksComponent
-            },
-            {
-                path: 'sumarized-tracks',
-                component: SumarizedTracksComponent
-            },
-            {
-                path: 'admin/tools',
-                component: AdminToolsComponent,
+                component: UserTracksComponent,
                 canActivate: [
-                    IsAdminGuard
+                    IsRegularUserGuard
                 ]
             },
             {
-                path: 'admin/reparations',
-                component: ReparationsComponent
+                path: 'sumarized-data',
+                component: SumarizedDataComponent
+            },
+            {
+                path: 'admin',
+                canActivate: [
+                    IsAdminGuard
+                ],
+                children: [
+                    {
+                        path: 'tools',
+                        component: AdminToolsComponent
+                    },
+                    {
+                        path: 'reparations',
+                        component: ReparationsComponent
+                    }
+                ]
             }
         ]
     },

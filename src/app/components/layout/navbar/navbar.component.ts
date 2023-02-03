@@ -15,12 +15,10 @@ import {
 import {
     CookiesService
 } from '../../../shared/services/cookies.service';
-import {
-    MatSnackBar
-} from '@angular/material/snack-bar';
 
 interface SelectItem {
     label: string;
+    title: string;
     value: string;
 };
 
@@ -33,7 +31,7 @@ interface SelectItem {
 export class NavbarComponent implements OnInit {
 
     @Input() display: boolean;
-    @Output() displayChange: EventEmitter < boolean > = new EventEmitter < boolean > ();
+    @Output() displayChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     userName: string;
     langs: SelectItem[] = [];
@@ -41,50 +39,46 @@ export class NavbarComponent implements OnInit {
     constructor(
         private router: Router,
         private translate: TranslateService,
-        private _cookies: CookiesService,
-        private _snackBar: MatSnackBar
+        private _cookies: CookiesService
     ) {}
 
     ngOnInit() {
         this.langs = [{
-                label: 'espanol',
+                title: 'Español',
+                label: 'es',
                 value: 'es_AR'
             },
             {
-                label: 'english',
+                title: 'English',
+                label: 'en',
                 value: 'en'
             }
         ];
         this.userName = this._cookies.getCookie('nickname');
     }
 
-    logout() {
-        this._cookies.deleteAllCookies();
-        this.router.navigate(['login']);
+    changeLang(value) {
+        this.translate.use(value);
     }
 
-    goHome() {
-        this.router.navigate(['dashboard']);
-    }
-
-    changeLang($event) {
-        this.translate.use($event.value);
+    getChecked(value: string): boolean {
+        return (this.translate.currentLang === value);
     }
 
     collapseSidebar() {
         this.displayChange.emit(!this.display);
     }
 
-    gotoProfile() {
-        if (this._cookies.isAdmin()) {
-            this._snackBar.open('Actualmente un admin no puede editar su perfil', 'Ok', {
-                duration: 1500,
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
-            });
-        } else {
-            this.router.navigate(['user/edit']);
-        }
+    goHome() {
+        this.router.navigate(['dashboard']);
     }
 
+    gotoProfile() {
+        this.router.navigate(['user/edit']);
+    }
+
+    logout() {
+        this._cookies.deleteAllCookies();
+        this.router.navigate(['login']);
+    }
 }

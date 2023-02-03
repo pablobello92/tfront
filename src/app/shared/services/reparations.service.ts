@@ -2,33 +2,34 @@ import {
     Injectable
 } from '@angular/core';
 import {
-    AppConfig
-} from '../../configs/app.config';
-import {
     HttpClient
 } from '@angular/common/http';
 import {
     Observable
 } from 'rxjs';
-import { Reparation } from '../interfaces/Reparation';
-import { MapFilter } from '../interfaces/MapFilter';
+import {
+    Reparation
+} from '../interfaces/Reparation';
+import {
+    ENDPOINTS,
+    SERVER
+} from '../constants/constants';
 
 @Injectable()
 export class ReparationsService {
 
     constructor(
-        private http: HttpClient,
-        private appConfig: AppConfig
+        private http: HttpClient
     ) {}
 
-    public getReparations(filterObject: MapFilter): Observable < Reparation[] > {
-        const params = '?cityId=' + filterObject.cityId + '&startTime=' + filterObject.startTime.from ;
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.reparations.get + params;
-        return <Observable < Reparation[] >> this.http.get(endpoint);
+    public getReparations(filterObject: any): Observable < Reparation[] > {
+        const params = '?cityId=' + filterObject.cityId + '&date=' + filterObject.startTime.from ;
+        const endpoint = SERVER + ENDPOINTS.reparations.get + params;
+        return <Observable<Reparation[]>> this.http.get(endpoint);
     }
 
     public insertReparation(rep: Reparation): Observable<any> {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.reparations.insert;
+        const endpoint = SERVER + ENDPOINTS.reparations.insert;
         return <Observable<any>> this.http.put(endpoint, rep);
     }
 }

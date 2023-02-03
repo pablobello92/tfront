@@ -1,7 +1,6 @@
 .content {
     display: flex;
     flex-direction: column;
-    background-color: var(--blueNights);
     color: var(--lightGray);
 
     .filters-card {
@@ -18,6 +17,10 @@
             justify-content: space-between;
         }
 
+        &>:last-child {
+            justify-content: flex-end;
+        }
+
         .text {
             margin-right: 10px;
             display: inline;
@@ -26,21 +29,9 @@
         }
     }
 
-    .divider {
-        border: 1px solid var(--lightGray);
-        margin: 10px 0px 10px 0px;
-    }
-
     .map-content {
         margin: 10px 0px 25px 0px;
-        .chips {
-            display: flex;
-            flex-wrap: wrap;
-            span {
-                margin-right: 25px;
-            }
-        }
-        .buttons {
+        .prev-next {
             margin-bottom: 10px;
             display: flex;
             justify-content: flex-end;

@@ -1,32 +1,37 @@
 <div class="body text-center">
-    <form [formGroup]="loginForm" (submit)="onSubmit()" class="form-signin">
+    <form [formGroup]="loginForm" (submit)="onSubmit()">
+        <h1 class="h3 font-weight-normal">{{'app.name' | translate}}</h1>
+        <mat-form-field appearance="standard">
+            <mat-label>{{'general.user' | translate}}</mat-label>
+            <input matInput formControlName="username" placeholder="******" required autofocus>
+            <mat-icon matSuffix>account_circle</mat-icon>
+            <mat-error *ngIf="f.username.errors && (f.username.dirty || f.username.touched)">
+                {{'general.field' | translate}} {{'general.user' | translate}}
+                {{'messages.errors.required' | translate}}
+            </mat-error>
+        </mat-form-field>
 
-        <h1 class="h3 mb-3 font-weight-normal">{{'app.name' | translate}}</h1>
+        <mat-form-field appearance="standard">
+            <mat-label>{{'general.password' | translate}}</mat-label>
+            <input matInput formControlName="password" placeholder="******" required>
+            <mat-icon matSuffix>key</mat-icon>
+            <mat-error *ngIf="f.password.errors && (f.password.dirty || f.password.touched)">
+                {{'general.field' | translate}} {{'general.password' | translate}}
+                {{'messages.errors.required' | translate}}
+            </mat-error>
+        </mat-form-field>
 
-        <label for="inputUser" class="sr-only">{{'general.user' | translate}}</label>
-        <input type="text" id="inputUser" formControlName="username" class="form-control"
-            placeholder="{{'general.user' | translate}}" autocomplete="off" required autofocus>
-        <div class="text-danger" *ngIf="f.username.hasError('required') && (f.username.dirty || f.username.touched)">
-            {{'general.field' | translate}} {{'general.user' | translate}} {{'messages.errors.required' | translate}}
-        </div>
-
-        <label for="inputPassword" class="sr-only">{{'general.PASSWORD' | translate}}</label>
-        <input type="password" id="inputPassword" formControlName="password" class="form-control"
-            placeholder="{{'general.password' | translate}}" required>
-        <div class="text-danger" *ngIf="f.password.errors && (f.password.dirty || f.password.touched)">
-            {{'general.field' | translate}} {{'general.password' | translate}}
-            {{'messages.errors.required' | translate}}
-        </div>
-
-        <div class="alert alert-danger" role="alert" *ngIf="badCredentials">
-            {{'messages.errors.bad_credentials' | translate}}
-        </div>
-        <div class="alert alert-danger" role="alert" *ngIf="loginError">
+        <br>
+        <mat-error *ngIf="( badCredentials | async )">
+            {{'messages.errors.bad_credentials' | }}
+        </mat-error>
+        <mat-error *ngIf="( loginError | async )">
             {{'messages.errors.login_error' | translate}}
-        </div>
+        </mat-error>
 
-        <button type="submit" [disabled]="(loginForm.invalid || loading)"
-            class="btn btn-lg btn-primary btn-block">{{'titles.login' | translate}}</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+        <button mat-button mat-raised-button color="primary" type="submit" [disabled]="(loginForm.invalid || ( loading | async ))">
+            {{'titles.login' | translate}}
+        </button>
+        <p>&copy; 2022</p>
     </form>
 </div>

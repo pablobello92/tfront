@@ -1,9 +1,11 @@
-import { Axis } from './Axis';
+import {
+    Axis
+} from './Axis';
 
 export interface Accelerometer {
-    id: Number;
-    eventId: Number;
-    currentTime: Number;
+    id: number;
+    eventId: number;
+    currentTime: number;
     x: Axis;
     y: Axis;
     z: Axis;

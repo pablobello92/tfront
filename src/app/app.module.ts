@@ -13,12 +13,64 @@ import {
 } from '@angular/forms';
 import {
     HttpClientModule,
-    HttpClient,
-    HTTP_INTERCEPTORS
+    HttpClient
 } from '@angular/common/http';
 import {
-    AppConfig
-} from './configs/app.config';
+    CookieService
+} from 'ngx-cookie-service';
+
+import {
+    AgmCoreModule
+} from '@agm/core';
+import {
+    MatButtonModule
+} from '@angular/material/button';
+import {
+    MatButtonToggleModule
+} from '@angular/material/button-toggle';
+import {
+    MatChipsModule
+} from '@angular/material/chips';
+import {
+    MatDatepickerModule
+} from '@angular/material/datepicker';
+import {
+    MatFormFieldModule
+} from '@angular/material/form-field';
+import {
+    MatIconModule
+} from '@angular/material/icon';
+import {
+    MatInputModule
+} from '@angular/material/input';
+import {
+    MatNativeDateModule
+} from '@angular/material/core';
+import {
+    MatListModule
+} from '@angular/material/list';
+import {
+    MatSelectModule
+} from '@angular/material/select';
+import {
+    MatSnackBarModule
+} from '@angular/material/snack-bar';
+import {
+    MatTooltipModule
+} from '@angular/material/tooltip'
+
+import {
+    NavbarComponent
+} from './components/layout/navbar/navbar.component';
+import {
+    TranslateModule,
+    TranslateLoader,
+    TranslateService
+} from '@ngx-translate/core';
+import {
+    TranslateHttpLoader
+} from '@ngx-translate/http-loader';
+
 import {
     AppRoutingModule
 } from './app-routing.module';
@@ -52,51 +104,6 @@ import {
 import {
     SideBarComponent
 } from './components/layout/sidebar/sidebar.component';
-
-import {
-    AgmCoreModule
-} from '@agm/core';
-import {
-    MatFormFieldModule
-} from '@angular/material/form-field';
-import {
-    MatSelectModule
-} from '@angular/material/select';
-import {
-    MatListModule
-} from '@angular/material/list';
-import {
-    MatDatepickerModule
-} from '@angular/material/datepicker';
-import {
-    MatNativeDateModule
-} from '@angular/material/core';
-import {
-    MatIconModule
-} from '@angular/material/icon';
-import {
-    MatTooltipModule
-} from '@angular/material/tooltip'
-import {
-    MatInputModule
-} from '@angular/material/input';
-import {
-    MatSnackBarModule
-} from '@angular/material/snack-bar';
-import {
-    NavbarComponent
-} from './components/layout/navbar/navbar.component';
-import {
-    TranslateModule,
-    TranslateLoader,
-    TranslateService
-} from '@ngx-translate/core';
-import {
-    TranslateHttpLoader
-} from '@ngx-translate/http-loader';
-import {
-    CookieService
-} from 'ngx-cookie-service';
 import {
     LoginComponent
 } from './components/pages/login/login.component';
@@ -117,10 +124,7 @@ import {
 } from './components/outlets/user/edit/user-edit.component';
 import {
     UserTracksComponent
-} from './components/outlets/tracks/user-tracks/user-tracks.component';
-import {
-    ColorInfoWidgetComponent
-} from './components/outlets/tracks/color-info-widget/color-info-widget.component';
+} from './components/outlets/user/user-tracks/user-tracks.component';
 import {
     AdminToolsComponent
 } from './components/outlets/admin/admin-tools/admin-tools.component';
@@ -128,9 +132,11 @@ import {
     ReparationsComponent
 } from './components/outlets/admin/reparations/reparations.component';
 import {
-    SumarizedTracksComponent
-} from './components/outlets/tracks/sumarized-tracks/sumarized-tracks.component';
-// import { AuthInterceptorService } from './shared/services/authInterceptor.service';
+    SumarizedDataComponent
+} from './components/outlets/sumarized-data/sumarized-data.component';
+import {
+    environment
+} from '../environments/environment';
 
 // AOT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -146,8 +152,7 @@ export function createTranslateLoader(http: HttpClient) {
         NavbarComponent,
         UserEditComponent,
         UserTracksComponent,
-        SumarizedTracksComponent,
-        ColorInfoWidgetComponent,
+        SumarizedDataComponent,
         AdminToolsComponent,
         ReparationsComponent,
         LoginComponent,
@@ -160,7 +165,7 @@ export function createTranslateLoader(http: HttpClient) {
         HttpClientModule,
         ReactiveFormsModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCBH_ZKFx7zqViMLC69V17VdZEkgbNtl5A'
+            apiKey: 'place_key_here'
         }),
         TranslateModule.forRoot({
             loader: {
@@ -169,31 +174,36 @@ export function createTranslateLoader(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatListModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatSnackBarModule,
+        FormsModule,
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatChipsModule,
         MatDatepickerModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatListModule,
         MatNativeDateModule,
-        FormsModule
+        MatSelectModule,
+        MatSnackBarModule,
+        MatTooltipModule
     ],
     exports: [
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatChipsModule,
+        MatDatepickerModule,
         MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatListModule,
         MatIconModule,
+        MatInputModule,
+        MatListModule,
+        MatSelectModule,
         MatSnackBarModule,
-        MatTooltipModule,
-        MatDatepickerModule
+        MatTooltipModule
     ],
     providers: [
         CommonService,
         TranslateService,
-        AppConfig,
         CookieService,
         CookiesService,
         UsersService,

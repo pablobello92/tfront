@@ -1,5 +1,5 @@
 export interface MenuItem {
-    label?: String;
+    label?: string;
     icon?: string;
     enabled: boolean;
     routerLink?: any;

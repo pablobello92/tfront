@@ -1,4 +1,6 @@
-import { IRange, SumarizingSegment } from './Range';
+import {
+    IRange
+} from './Range';
 
 export interface Track {
     city: String;
@@ -6,14 +8,9 @@ export interface Track {
     ranges: IRange[];
 }
 
-export interface SumarizingObject {
-    city: string;
-    date?: number;
-    tracks: Track[];
-}
-
-export interface SumarizedObject {
-    city: string;
+export interface ISumarization {
+    type?: number;
+    cityId: number;
     date: number;
-    ranges: SumarizingSegment[];
+    ranges: IRange[];
 }

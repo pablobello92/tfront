@@ -1,6 +1,24 @@
 {
     "app": {
-        "name": "Baches Control Panel"
+        "name": "PWC"
+    },
+    "chips": {
+        "no_event": "No hay datos",
+        "very_low": "Muy bajo",
+        "low": "Bajo",
+        "medium": "Medio",
+        "high": "Alto",
+        "very_high": "Muy alto",
+        "asphalt": "Asfalto",
+        "cobbles": "Adoquines",
+        "concrete": "Concreto",
+        "earth": "Tierra",
+        "user_answered_call": "Conductor contestó una llamada",
+        "user_used_door": "Conductor usó la puerta del vehículo",
+        "user_replied_message": "Conductor respondió un mensaje",
+        "pothole": "Bache",
+        "speed_bump": "Lomada",
+        "street_gutter": "Reductor"
     },
     "general": {
         "address": "Dirección",
@@ -24,6 +42,8 @@
         "of": "de",
         "password": "Contraseña",
         "phone": "Teléfono",
+        "prediction_anomalies": "Predicción de anomalías",
+        "prediction_roads": "Predicción de suelos",
         "prev": "Ant.",
         "province": "Provincia",
         "quantity": "Cantidad",
@@ -51,31 +71,59 @@
             "invalid_email": "Debe ser una dirección de email válida",
             "confirm_password_msg": "Las contraseñas no coinciden",
             "bad_credentials": "Credenciales incorrectas"
+        },
+        "dialog": {
+            "sure": "Está seguro?",
+            "title": "Confirmation"
+        },
+        "snackbar": {
+            "admin_tools": {
+                "reparations": {
+                    "two_markers": "Ya se ubicaron dos marcadores. Para corregir, haga click en Reset.",
+                    "success": "Reparación agregada exitosamente.",
+                    "error": "Ocurrió un error al intentar agregar la Reparación."
+                },
+                "sumarizations": {
+                    "success": "Sumarizaciones actualizadas exitosamente.",
+                    "error": "Ocurrió un error al intentar ejecutar la sumarización."
+                },
+                "predictions": {
+                    "success": "Predicción ejecutada exitosamente.",
+                    "error": "Ocurrió un error al intentar ejecutar la predicción."
+                }
+            },
+            "user_edit": {
+                "success": "Usuario actualizado exitosamente.",
+                "error": "Ocurrió un error al intentar actualizar el usuario."
+            },
+            "action_canceled": "Acción cancelada."
         }
     },
     "titles": {
         "admin": "Admin",
         "birth_year": "Año de nacimiento",
+        "classification": "Clasificación",
         "configuration": "Configuración",
         "dashboard": "Panel de control",
         "dashboard_welcome": "Bienvenido al dashboard",
         "device_data": "Datos del dispositivo",
-        "execute_sumarization": " Ejecutar sumarización",
+        "execute_sumarization": " Ejecutar sumarización de trayectos",
+        "execute_prediction_roads": " Ejecutar predicción de Suelos",
+        "execute_prediction_anomalies": " Ejecutar predicción de Anomalías",
         "forgot_password": "Olvidó su contraseña?",
         "geo": "Rutas",
         "home": "inicio",
         "language": "Idioma",
         "login": "Iniciar sesión",
         "menu": "Menú",
-        "my_tracks": "Mis rutas",
-        "predict_anomalies": "Predecir: Anomalías",
-        "predict_roads": "Predecir: Suelos",
+        "my_tracks": "Mis Trayectos",
         "profile": "Perfil",
         "reparations": "Reparaciones",
         "select_date": "Seleccione una fecha",
         "sumarization_date": "Fecha de sumarización",
-        "sumarized_tracks": "Rutas sumarizadas",
-        "tools": "Herramientas de admin",
+        "sumarization_type": "Tipo de sumarización",
+        "sumarized_data": "Datos sumarizados",
+        "tools": "Herramientas de cálculo",
         "tracks_severity": "Severidad de los tramos",
         "user_data": "Datos del usuario",
         "user_edit": "Editar perfil",

@@ -1,23 +1,22 @@
 import {
-    Segment
+    ISegment
 } from './../interfaces/Range';
 import {
     Injectable
 } from '@angular/core';
 import {
     IRange,
-    SumarizingSegment
+    ISumarizingSegment
 } from '../interfaces/Range';
 import {
     ColorsService
 } from './colors.service';
 import {
-    RoadCategories
-} from '../interfaces/Categories';
-import {
     Coordinate
 } from '../interfaces/Coordinate';
 import {
+    ColorItem,
+    Marker,
     Polyline
 } from '../interfaces/Polyline';
 @Injectable({
@@ -29,23 +28,14 @@ export class MapsService {
         private _colors: ColorsService
     ) {}
 
-    public getPolylinesFromRanges(ranges: Segment[]): Polyline[] {
-        const limits = this.getRelativeRoadCategories(ranges);
-        const drawable = ranges.map((range: Segment) => this.mapRangeToPolyline(range, limits));
-        return drawable;
-    }
-
-
-    public getCoordinatesFromMarkers(overlays: any[]): Coordinate[] {
-        return overlays.map((overlay: any) => < Coordinate > {
-            lat: overlay.position.lat(),
-            lng: overlay.position.lng()
+    public getCoordinatesFromMarkers(markers: Marker[]): Coordinate[] {
+        return markers.map((marker: Marker) => <Coordinate> {
+            lat: marker.lat,
+            lng: marker.lng
         });
     }
 
-    // TODO: get rid of the geodesic and visible properties!!!
-    public mapCoordinateToPolyline(coordinates: Coordinate[], color: string = '#0097e6'): Polyline {
-        // return new google.maps.Polyline({});
+    public mapCoordinateToPolyline(coordinates: Coordinate[], strokeColor: string, info?: any): Polyline {
         return {
             path: [{
                     lat: coordinates[0].lat,
@@ -56,15 +46,14 @@ export class MapsService {
                     lng: coordinates[1].lng
                 }
             ],
-            geodesic: true,
-            strokeColor: color,
+            strokeColor,
             strokeOpacity: 1,
-            strokeWeight: 4
+            strokeWeight: 4,
+            info
         };
     }
 
-    private mapRangeToPolyline(range: IRange | SumarizingSegment, limits: RoadCategories): Polyline {
-        // return new google.maps.Polyline({});
+    public mapRangeToPolyline(range: IRange | ISumarizingSegment, colors: ColorItem[]): Polyline {
         return {
             path: [{
                     lat: range.start.lat,
@@ -75,16 +64,16 @@ export class MapsService {
                     lng: range.end.lng
                 }
             ],
-            geodesic: true,
-            strokeColor: this._colors.getColor(range.score, limits),
+            strokeColor: this._colors.getColor(range.score, colors),
             strokeOpacity: 1,
             strokeWeight: 4
         };
     }
 
-    public getRelativeRoadCategories(ranges: IRange[] | SumarizingSegment[]): RoadCategories {
-        let min = 100000;
+    // ? UNUSED: WE'RE USING STATIC LIMITS NOW
+    public  getRelativeRoadCategories(ranges: IRange[] | ISumarizingSegment[]): any {
         let max = 0;
+        let min = Infinity;
         let avg = 0;
         let counter = 0;
 
@@ -106,7 +95,6 @@ export class MapsService {
             medium: avg + upperStep,
             high: max - upperStep
         };
-        return this._colors.getRoadCategories(numericLimit);
+        return numericLimit;
     }
-
 }

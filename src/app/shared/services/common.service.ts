@@ -2,9 +2,19 @@ import {
     Injectable
 } from '@angular/core';
 import {
+    TranslateService
+} from '@ngx-translate/core';
+import {
     BehaviorSubject,
     Observable
 } from 'rxjs';
+import {
+    MatSnackBar,
+    MatSnackBarConfig
+} from '@angular/material/snack-bar';
+import {
+    MapOptions
+} from '../interfaces/City';
 
 
 @Injectable({
@@ -12,48 +22,41 @@ import {
 })
 export class CommonService {
 
+    private standardConfig: MatSnackBarConfig<any> = {
+        duration: 2500,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+    }
+
+    public mapOptionsSubject: BehaviorSubject<any> = new BehaviorSubject<any>({
+        center: {
+            lat: 0,
+            lng: 0
+        }
+    });
 
     // TODO: this is for implementing the spinner later on
     private _isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public isLoading$: Observable<boolean> = this._isLoading.asObservable();
 
-    constructor() {}
+    constructor(
+        private _translate: TranslateService,
+        private _snackBar: MatSnackBar
+    ) {}
 
     public toggleIsLoading(): void {
         this._isLoading.next(!this._isLoading.value);
     }
 
-    /**
-     * Old and unused functions... We ain't going to generate any excel
-     */
-
-    generateExcel(data: any, filename: string): string {
-        const blob = new Blob([data], {
-            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.setAttribute('style', 'display:none;');
-        document.body.appendChild(a);
-        a.href = url;
-        a.download = filename;
-        a.click();
-        return url;
+    public displaySnackBar(msg_path: string, action: string, config: MatSnackBarConfig<any> = this.standardConfig): void {
+        this._snackBar.open(this._translate.instant(msg_path), action, config);
     }
 
-    getMySQLDate(date: Date): string {
-        return (date != null) ? date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() : null;
+    public updateMapSubject(options: MapOptions): void {
+        this.mapOptionsSubject.next(options);
     }
 
-    getSize = function (obj: Object): number {
-        let size = 0;
-        let key;
-        for (key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                size++;
-            }
-        }
-        return size;
-    };
-
+    public getMapSubject(): Observable<MapOptions> {
+        return this.mapOptionsSubject.asObservable();
+    }
 }
