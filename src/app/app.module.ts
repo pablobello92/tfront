@@ -165,7 +165,7 @@ export function createTranslateLoader(http: HttpClient) {
         HttpClientModule,
         ReactiveFormsModule,
         AgmCoreModule.forRoot({
-            apiKey: environment.gmaps_api_key
+            apiKey: 'place_key_here'
         }),
         TranslateModule.forRoot({
             loader: {
