@@ -2,31 +2,42 @@ import {
     Injectable
 } from '@angular/core';
 import {
-    AppConfig
-} from '../../configs/app.config';
-import {
     HttpClient
 } from '@angular/common/http';
 import {
     Observable
 } from 'rxjs';
+import {
+    ENDPOINTS,
+    SERVER
+} from '../constants/constants';
+import {
+    SUMARIZATION_TYPES_VALUE
+} from '../constants/roadClassifications';
+import {
+    ISumarization
+} from '../interfaces/Track';
 
 @Injectable()
 export class SumarizationsService {
 
     constructor(
-        private http: HttpClient,
-        private appConfig: AppConfig
+        private http: HttpClient
     ) {}
 
-    public getSumarizationsByCity(cityId: number): Observable < any > {
-        const params = '?cityId=' + cityId ;
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.sumarizations.get + params;
-        return <Observable < any >> this.http.get(endpoint);
+    public getSumarizationsByCity(cityId: number, type: SUMARIZATION_TYPES_VALUE): Observable <ISumarization> {
+        const params = '?cityId=' + cityId + '&type=' + type;
+        const endpoint = SERVER + ENDPOINTS.sumarizations.get + params;
+        return <Observable<ISumarization>>this.http.get(endpoint);
     }
 
-    public sumarizeTracks(): Observable < any > {
-        const endpoint = this.appConfig.server + this.appConfig.endpoints.sumarizations.index;
-        return <Observable < any >> this.http.get(endpoint);
+    public executeSumarization(payload: any): Observable <any> {
+        const endpoint = SERVER + ENDPOINTS.sumarizations.index;
+        return <Observable <any>> this.http.post(endpoint, payload);
+    }
+
+    public executePrediction(payload: any): Observable < any > {
+        const endpoint = SERVER + ENDPOINTS.predictions;
+        return <Observable < any >> this.http.post(endpoint, payload);
     }
 }

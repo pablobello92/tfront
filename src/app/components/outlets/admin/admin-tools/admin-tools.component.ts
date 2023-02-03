@@ -2,17 +2,17 @@ import {
     Component
 } from '@angular/core';
 import {
-    MatSnackBar
-} from '@angular/material/snack-bar';
-import {
     SumarizationsService
 } from './../../../../shared/services/sumarizations.service';
 import {
-    TracksService
-} from '../../../../shared/services/tracks.service';
-import {
     CookiesService
 } from './../../../../shared/services/cookies.service';
+import {
+    CommonService
+} from '../../../../shared/services/common.service';
+import {
+    SUMARIZATION_TYPES_VALUE
+} from '../../../../shared/constants/roadClassifications';
 
 @Component({
     selector: 'app-admin-tools',
@@ -24,68 +24,36 @@ export class AdminToolsComponent {
     private linkedCities: number[] | null = null;
 
     constructor(
-        private _tracks: TracksService,
         private _sumarization: SumarizationsService,
         private _cookies: CookiesService,
-        private _snackBar: MatSnackBar
+        private _common: CommonService
     ) {
         this.linkedCities  = JSON.parse(this._cookies.getCookie('linkedCities'));
     }
 
     public sumarize(): void {
-        this._sumarization.sumarizeTracks()
+        const payload = {
+            type: SUMARIZATION_TYPES_VALUE.SUMARIZATIONS,
+            linkedCities: this.linkedCities
+        }
+        this._sumarization.executeSumarization(payload)
             .subscribe((res: any) => {
-                this._snackBar.open('Sumarizaciones actualizadas exitosamente.', 'Ok', {
-                    duration: 1500,
-                    horizontalPosition: 'right',
-                    verticalPosition: 'top',
-                });
+                this._common.displaySnackBar('messages.snackbar.admin_tools.sumarizations.success', 'Ok');
             }, (err: any) => {
-                this._snackBar.open('Error al intentar actualizar las sumarizaciones.', 'Ok', {
-                    duration: 1500,
-                    horizontalPosition: 'right',
-                    verticalPosition: 'top',
-                });
+                this._common.displaySnackBar('messages.snackbar.admin_tools.sumarizations.error', 'Ok');
             });
     }
 
-    // TODO: add i18n for this
-    // TODO: Add success/error/warn classes for the snackbars
-    // !Probably this snackbars should be detached into a separate common service!!!
     public predict(anomalies = false): void {
         const payload = {
+            type: (anomalies) ? SUMARIZATION_TYPES_VALUE.PREDICTION_ANOMALIES : SUMARIZATION_TYPES_VALUE.PREDICTION_ROADS,
             linkedCities: this.linkedCities
         }
-        if (anomalies) {
-            this._tracks.executePrediction_anomalies(payload)
-                .subscribe(res => {
-                    this._snackBar.open('Predicción exitosa: clasificación de anomalías.', 'Ok', {
-                        duration: 1500,
-                        horizontalPosition: 'right',
-                        verticalPosition: 'top',
-                    });
-                }, err => {
-                    this._snackBar.open('Error al realizar la predicción.', 'Ok', {
-                        duration: 1500,
-                        horizontalPosition: 'right',
-                        verticalPosition: 'top',
-                    });
-                });
-            return;
-        }
-        this._tracks.executePrediction_roadTypes(payload)
+        this._sumarization.executePrediction(payload)
             .subscribe((res: any) => {
-                this._snackBar.open('Predicción exitosa: clasificación de caminos.', 'Ok', {
-                    duration: 1500,
-                    horizontalPosition: 'right',
-                    verticalPosition: 'top',
-                });
+                this._common.displaySnackBar('messages.snackbar.admin_tools.predictions.success', 'Ok');
             }, (error: any) => {
-               this._snackBar.open('Error al realizar la predicción.', 'Ok', {
-                    duration: 1500,
-                    horizontalPosition: 'right',
-                    verticalPosition: 'top',
-                });
+                this._common.displaySnackBar('messages.snackbar.admin_tools.predictions.error', 'Ok');
             });
     }
 }

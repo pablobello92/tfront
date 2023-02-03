@@ -10,7 +10,7 @@ import {
 })
 export class CookiesService {
 
-    private keys: any[] = [
+    private keys: string[] = [
         'id',
         'username',
         'nickname',
@@ -34,7 +34,11 @@ export class CookiesService {
         return (this._cookies.get('level') === '1');
     }
 
-    public isRegular(): boolean {
+    public hasAdminLevel(): boolean {
+        return (this.isAdmin() || this.isSuperAdmin());
+    }
+
+    public isRegularUser(): boolean {
         return (this._cookies.get('level') === '2');
     }
 
@@ -42,7 +46,6 @@ export class CookiesService {
         return this._cookies.get( key);
     }
 
-    // TODO: expiración!! (el tercer parametro "1" creo que es la expiracion en semanas)
     public setCookie(key: string, value: string): void {
         this._cookies.set(key, value, 1);
     }
@@ -53,7 +56,6 @@ export class CookiesService {
 
     public setAllCookies(res: any): void {
         this.keys.forEach((key: string) => {
-            console.log(key, typeof(res[key]));
             if(typeof(res[key]) !== 'string') {
                 this._cookies.set(key, JSON.stringify(res[key]));
             } else {

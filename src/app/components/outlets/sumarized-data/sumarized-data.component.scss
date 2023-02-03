@@ -1,0 +1,27 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-dark);
+    color: var(--lightGray);
+
+    .filters-card {
+        display: flex;
+        flex-direction: row;
+        mat-form-field:not(:last-child) {
+            margin-right: 14px;
+        }
+    }
+
+    .map-content {
+        margin: 10px 0px 25px 0px;
+        .buttons {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: flex-end;
+
+            >:last-child {
+                margin-left: 10px;
+            }
+        }
+    }
+}

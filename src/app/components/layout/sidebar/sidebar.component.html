@@ -1,9 +1,9 @@
 <div class="sidebar" [ngClass]="display? 'show': 'hide'">
     <mat-nav-list>
-        <ng-container *ngFor="let link of links">
-            <mat-list-item *ngIf="link.enabled">
-                <mat-icon> {{ link.icon }} </mat-icon>
-                <a routerLink="{{ link.routerLink }}"> {{ link.label }} </a>
+        <ng-container *ngFor="let item of links">
+            <mat-list-item *ngIf="item.enabled" routerLink="{{ item.routerLink }}">
+                <mat-icon> {{ item.icon }} </mat-icon>
+                <label> {{ item.label }} </label>
             </mat-list-item>
         </ng-container>
     </mat-nav-list>

@@ -8,137 +8,138 @@
         <div class="card-header">
             <h4>{{'titles.user_data' | translate}} </h4>
         </div>
+
         <div class="card-body">
             <div class="row form-group">
-                <div class="col">
-                    <label for="inputUser">{{'general.user' | translate}}</label>
-                    <input type="text" id="inputUser" formControlName="username" class="form-control">
-                    <div class="text-danger"
-                        *ngIf="f.username.hasError('required') && (f.username.dirty || f.username.touched)">
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'general.user' | translate}}</mat-label>
+                    <input type="text" matInput formControlName="username" placeholder="******" required autofocus>
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="f.username.errors && (f.username.dirty || f.username.touched)">
                         {{'general.field' | translate}} {{'general.user' | translate}}
                         {{'messages.errors.required' | translate}}
-                    </div>
-                </div>
-                <div class="col">
-                    <label for="inputNick">{{'general.nick' | translate}}</label>
-                    <input type="text" id="inputNick" formControlName="nickname" class="form-control">
-                    <div class="text-danger"
-                        *ngIf="f.nickname.hasError('required') && (f.nickname.dirty || f.nickname.touched)">
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'general.nick' | translate}}</mat-label>
+                    <input type="text" matInput formControlName="nickname" placeholder="******" required autofocus>
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="f.nickname.errors && (f.nickname.dirty || f.nickname.touched)">
                         {{'general.field' | translate}} {{'general.nick' | translate}}
                         {{'messages.errors.required' | translate}}
-                    </div>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col">
-                    <label for="inputPassword">{{'general.password' | translate}}</label>
-                    <input type="password" id="inputPassword" formControlName="password" class="form-control">
-                    <div class="text-danger"
-                        *ngIf="f.password.hasError('required') && (f.password.dirty || f.password.touched)">
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'general.password' | translate}}</mat-label>
+                    <input type="password" matInput formControlName="password" placeholder="******" required>
+                    <mat-icon matSuffix>key</mat-icon>
+                    <mat-error *ngIf="f.password.errors && (f.password.dirty || f.password.touched)">
                         {{'general.field' | translate}} {{'general.password' | translate}}
                         {{'messages.errors.required' | translate}}
-                    </div>
-                </div>
-                <div class="col">
-                    <label for="inputConfirmPassword">{{'messages.confirm_password' | translate}}</label>
-                    <input type="password" id="inputConfirmPassword" formControlName="confirmPassword"
-                        class="form-control">
-                    <div class="text-danger"
-                        *ngIf="f.confirmPassword.hasError('match') && (f.confirmPassword.dirty || f.confirmPassword.touched)">
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'messages.confirm_password' | translate}}</mat-label>
+                    <input type="password" matInput formControlName="confirmPassword" placeholder="******" required>
+                    <mat-icon matSuffix>key</mat-icon>
+                    <mat-error *ngIf="f.confirmPassword.hasError('match') && (f.confirmPassword.dirty || f.confirmPassword.touched)">
+                        {{'general.field' | translate}} {{'general.password' | translate}}
                         {{'messages.errors.confirm_password' | translate}}
-                    </div>
-                </div>
+                    </mat-error>
+                </mat-form-field>
             </div>
-
             <div class="row form-group">
-                <div class="col">
-                    <label for="inputEmail">{{'general.email' | translate}}</label>
-                    <input type="email" id="inputEmail" formControlName="email" class="form-control">
-                    <div class="text-danger" *ngIf="f.email.hasError('email') && (f.email.dirty || f.email.touched)">
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'general.email' | translate}}</mat-label>
+                    <input type="text" matInput formControlName="email" placeholder="******" required autofocus>
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="f.email.errors && (f.email.dirty || f.email.touched)">
+                        {{'general.field' | translate}} {{'general.user' | translate}}
                         {{'messages.errors.invalid_email' | translate}}
-                    </div>
-                </div>
-                <div class="col">
-                    <label for="inputSex">{{'general.gender' | translate}}</label>
-                    <input type="text" id="inputSex" formControlName="sex" class="form-control">
-                    <div class="text-danger" *ngIf="f.sex.hasError('required') && (f.sex.dirty || f.sex.touched)">
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'general.gender' | translate}}</mat-label>
+                    <input type="text" matInput formControlName="sex" placeholder="******" required autofocus>
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="f.sex.errors && (f.sex.dirty || f.sex.touched)">
                         {{'general.field' | translate}} {{'general.gender' | translate}}
                         {{'messages.errors.required' | translate}}
-                    </div>
-                </div>
-                <div class="col">
-                    <label for="inputYearofbirth">{{ 'titles.birth_year' | translate }}</label>
-                    <input type="text" id="inputYearofbirth" formControlName="yearofbirth" class="form-control">
-                    <div class="text-danger"
-                        *ngIf="f.yearofbirth.hasError('required') && (f.yearofbirth.dirty || f.yearofbirth.touched)">
-                        {{'general.field' | translate}} {{ 'titles.birth_year' | translate }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'titles.birth_year' | translate}}</mat-label>
+                    <input type="text" matInput formControlName="yearofbirth" placeholder="******" required autofocus>
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="f.yearofbirth.errors && (f.yearofbirth.dirty || f.yearofbirth.touched)">
+                        {{'general.field' | translate}} {{'general.birth_year' | translate}}
                         {{'messages.errors.required' | translate}}
-                    </div>
-                </div>
+                    </mat-error>
+                </mat-form-field>
             </div>
-
             <h4 class="outletFormH4 margin20">{{'titles.device_data' | translate}}</h4>
-
             <div formGroupName="smartphone" class="row form-group">
-                <div class="col">
-                    <label>{{'general.brand' | translate}}</label>
-                    <input type="text" formControlName="brand" class="form-control">
-                    <div class="text-danger" *ngIf="f.smartphone.get('brand').hasError('required') &&
-                        (f.smartphone.get('brand').dirty || f.smartphone.get('brand').touched)">
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'general.brand' | translate}}</mat-label>
+                    <input type="text" matInput formControlName="brand" placeholder="******">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="f.smartphone.get('brand').hasError('required') && (f.smartphone.get('brand').dirty || f.smartphone.get('brand').touched)">
                         {{'general.field' | translate}} {{'general.brand' | translate}}
                         {{'messages.errors.required' | translate}}
-                    </div>
-                </div>
-                <div class="col">
-                    <label>{{'general.model' | translate}}</label>
-                    <input type="text" formControlName="model" class="form-control">
-                    <div class="text-danger" *ngIf="f.smartphone.get('model').hasError('required') &&
-                            (f.smartphone.get('model').dirty || f.smartphone.get('model').touched)">
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'general.model' | translate}}</mat-label>
+                    <input type="text" matInput formControlName="model" placeholder="******">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="f.smartphone.get('model').hasError('required') && (f.smartphone.get('model').dirty || f.smartphone.get('model').touched)">
                         {{'general.field' | translate}} {{'general.model' | translate}}
                         {{'messages.errors.required' | translate}}
-                    </div>
-                </div>
+                    </mat-error>
+                </mat-form-field>
             </div>
 
             <h4 class="outletFormH4 margin20">{{'titles.vehicle_data' | translate}} </h4>
 
             <div formGroupName="car" class="row form-group">
-                <div class="col">
-                    <label>{{'general.brand' | translate}}</label>
-                    <input type="text" formControlName="brand" class="form-control">
-                    <div class="text-danger" *ngIf="f.car.get('brand').hasError('required') &&
-                            (f.car.get('brand').dirty || f.car.get('brand').touched)">
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'general.brand' | translate}}</mat-label>
+                    <input type="text" matInput formControlName="brand" placeholder="******">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="f.car.get('brand').hasError('brand') && (f.car.get('brand').dirty || f.car.get('brand').touched)">
                         {{'general.field' | translate}} {{'general.brand' | translate}}
                         {{'messages.errors.required' | translate}}
-                    </div>
-                </div>
-                <div class="col">
-                    <label>{{ 'general.model' | translate }}</label>
-                    <input type="text" formControlName="model" class="form-control">
-                    <div class="text-danger" *ngIf="f.car.get('model').hasError('required') &&
-                                (f.car.get('model').dirty || f.car.get('model').touched)">
-                        {{'general.field' | translate}} {{ 'general.model' | translate }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'general.model' | translate}}</mat-label>
+                    <input type="text" matInput formControlName="model" placeholder="******">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="f.car.get('model').hasError('required') && (f.car.get('model').dirty || f.car.get('model').touched)">
+                        {{'general.field' | translate}} {{'general.model' | translate}}
                         {{'messages.errors.required' | translate}}
-                    </div>
-                </div>
-                <div class="col">
-                        <label for="inputYear">{{ 'general.year' | translate }}</label>
-                        <input type="text" id="inputYear" formControlName="year" class="form-control">
-                        <div class="text-danger" *ngIf="f.car.get('model').hasError('required') &&
-                                    (f.car.get('year').dirty || f.car.get('year').touched)">
-                            {{'general.field' | translate}} {{ 'general.year' | translate }}
-                            {{'messages.errors.required' | translate}}
-                        </div>
-                    </div>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'general.year' | translate}}</mat-label>
+                    <input type="text" matInput formControlName="year" placeholder="******">
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error *ngIf="f.car.get('year').hasError('required') && (f.car.get('year').dirty || f.car.get('year').touched)">
+                        {{'general.field' | translate}} {{'general.year' | translate}}
+                        {{'messages.errors.required' | translate}}
+                    </mat-error>
+                </mat-form-field>
             </div>
-
         </div>
 
         <div class="card-footer">
-            <button type="submit" [disabled]="editForm.invalid"
-                class="btn btn-primary m-1 pull-right">{{ 'general.save' | translate}}</button>
-            <button type="button" class="btn btn-success m-1 pull-right"
-                (click)="goBack()">{{ 'general.return' | translate}}</button>
+            <button type="submit" mat-raised-button color="primary" [disabled]="editForm.invalid">
+                {{ 'general.save' | translate}}
+            </button>
+            <button mat-raised-button color="accent" (click)="goBack()">
+                {{ 'general.return' | translate}}
+            </button>
         </div>
     </div>
 </form>

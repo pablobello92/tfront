@@ -1,20 +1,20 @@
 
 export interface User {
     _id?: string;
-    level: Number;
-    username: String;
-    password: String;
-    nickname: String;
-    email: String;
-    sex: String;
-    yearofbirth: Number;
-    car: {
-        brand: String,
-        model: String,
-        year: Number
+    level: number;
+    username: string;
+    password: string;
+    nickname: string;
+    email: string;
+    sex: string;
+    yearofbirth: number;
+    car?: {
+        brand: string,
+        model: string,
+        year: number
     };
-    smartphone: {
-        brand: String,
-        model: String
+    smartphone?: {
+        brand: string,
+        model: string
     };
 }

@@ -1,39 +1,38 @@
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+
 :root {
-    --mainBlue: rgb(1, 54, 98, 1);
-    --mainGreen: rgb(196, 214, 0, 1);
+
+    // Dark theme: shades
+    --menu-dark: #282c36;
+    --background-dark: #353b48;
+    --hover-dark: #3D3D3D;
+    --primary-text-dark: #FFFFFF;
+    --secondary-text-dark: #AAAAAA;
+
+    // Main color palette
+
+    --mainPink: #e91e63;
+    --mainPinkDark: #c2185b;
+    --mainLightBlue: #00e7ff;
+
+    // Colors to replace
     --lightGray: rgb(230, 230, 230, 1);
     --lightGray2: rgb(191, 191, 191);
     --formBorderGray: rgba(0, 0, 0, .15);
-    --bootstrapGreen: rgba(40, 167, 69, 1);
-    --bootstrapYellow: rgba(255, 193, 7, 1);
-    --teal: rgba(0, 128, 128, 1);
-    --orchid: rgba(209, 95, 238, 1);
-    --darkOrchid: rgba(196, 47, 233, 1);
 
-    /* Roads */
-
-    --aqua: #00ffff;
-    --lime: #00ff00;
-    --yellow: #ffff00;
-    --red: #ff0000;
-
-    /* British palette */
-    --nasturciaorange: #e84118;
-    --harleyOrange: #c23616;
-    --blueNights: #353b48;
+    // British palette
     --chainGray: #718093;
     --protossPylon: #00a8ff;
     --vanadylBlue: #0097e6;
-    --mazarineBlue: #273c75;
-    --seaBrook: #487eb0;
-    --seaBrook: #487eb0;
 }
 
 
-/* Cuerpo principal */
+/* Main overridings */
 
 html, body {
     height: 100%;
+    color: white !important;
+    background: transparent !important;
 }
 
 body {
@@ -62,59 +61,27 @@ h5 {
     border-bottom: 1px solid var(--lightGray);
 }
 
-.btn-transparent {
-    background-color: transparent;
-}
-
-.formCheckBox {
-    width: 30px !important;
-    height: 30px !important;
-}
-
 .form-separator {
     border-bottom: 1px solid var(--formBorderGray);
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-/* Overridings */
-
-.ui-datepicker-header.ui-widget-header {
-    color: initial;
+.divider {
+    border: 1px solid var(--lightGray);
+    margin: 10px 0px 10px 0px;
 }
 
-.ui-datepicker-buttonbar .ui-button {
-    background-color: var(--bootstrapGreen) !important;
-    color: white !important;
+/* Numeric inputs */
+
+input[type=number] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
-
-.ui-dropdown .ui-dropdown-trigger {
-    color: var(--shuttleBlue);
-}
-
-/* Bootstrap buttons */
-
-button.btn-primary {
-    background-color: var(--vanadylBlue);
-}
-
-// TODO: ver estos estilos y aplicar al confirmDialog custom de Material que implementé
-/*confirmDialog */
-
-.ui-dialog .ui-widget-header {
-    color: initial;
-}
-
-.input-block-level {
-    border: 1px solid var(--chainGray);
-    border-radius: 2px;
-}
-
-/* GMap */
-agm-map {
-    button.gm-control-active {
-        background: var(--bootstrapYellow) !important;
-    }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
 }
 
 /* scrollbar */
@@ -129,10 +96,10 @@ agm-map {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--vanadylBlue);
+    background: var(--mainPink);
     border-radius: 1px;
 
     &:hover {
-        background: var(--protossPylon);
+        background: var(--mainPinkDark);
     }
 }

@@ -1,6 +1,24 @@
 {
     "app": {
-        "name": "Baches"
+        "name": "WCP"
+    },
+    "chips": {
+        "no_event": "No data",
+        "very_low": "Very low",
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "very_high": "Very high",
+        "asphalt": "Asphalt",
+        "cobbles": "Cobbles",
+        "concrete": "Concrete",
+        "earth": "Earth",
+        "user_answered_call": "Driver answered a call",
+        "user_used_door": "Driver used a door",
+        "user_replied_message": "Driver replied message",
+        "pothole": "Pothole",
+        "speed_bump": "Speed Bump",
+        "street_gutter": "Street Gutter"
     },
     "general": {
         "address": "Address",
@@ -24,6 +42,8 @@
         "of": "of",
         "password": "Password",
         "phone": "Phone",
+        "prediction_anomalies": "Predict anomalies",
+        "prediction_roads": "Predict roads",
         "prev": "Prev.",
         "province": "Province",
         "quantity": "Quantity",
@@ -51,31 +71,59 @@
             "invalid_email": "Must be a valid email address.",
             "confirm_password_msg": "Passwords don't match",
             "bad_credentials": "Bad credentials"
+        },
+        "dialog": {
+            "sure": "Are you sure?",
+            "title": "Confirmation"
+        },
+        "snackbar": {
+            "admin_tools": {
+                "reparations": {
+                    "two_markers": "You've already placed two markers. To reset the markers, click on Reset.",
+                    "success": "Reparation added successfully.",
+                    "error": "An error ocurred when trying to add the Reparation."
+                },
+                "sumarizations": {
+                    "success": "Sumarizations updated successfully.",
+                    "error": "An error ocurred when trying to execute the sumarization."
+                },
+                "predictions": {
+                    "success": "Prediction executed successfully.",
+                    "error": "An error ocurred when trying to execute the prediction."
+                }
+            },
+            "user_edit": {
+                "success": "User updated successfully.",
+                "error": "An error ocurred when trying to update the user."
+            },
+            "action_canceled": "Action canceled."
         }
     },
     "titles": {
         "admin": "Admin",
         "birth_year": "Year of birth",
+        "classification": "Classification",
         "configuration": "Settings",
         "dashboard": "Dashboard",
         "dashboard_welcome": "Welcome to the dashboard",
         "device_data": "Device data",
-        "execute_sumarization": "Execute sumarization",
+        "execute_sumarization": "Execute sumarization of Tracks",
+        "execute_prediction_roads": "Execute Roads prediction",
+        "execute_prediction_anomalies": "Execute Anomalies prediction",
         "forgot_password": "Forgot your password?",
         "geo": "Roads",
         "home": "Home",
         "language": "language",
         "login": "Login",
         "menu": "Menu",
-        "my_tracks": "My tracks",
-        "predict_anomalies": "Predict: Anomalies",
-        "predict_roads": "Predict: Grounds",
+        "my_tracks": "My Tracks",
         "profile": "Profile",
         "reparations": "Reparations",
         "select_date": "Select a date",
         "sumarization_date": "Sumarization date",
-        "sumarized_tracks": "Sumarized tracks",
-        "tools": "Admin tools",
+        "sumarization_type": "Sumarization type",
+        "sumarized_data": "Sumarized data",
+        "tools": "Calculation tools",
         "tracks_severity": "Track severity",
         "user_data": "User data",
         "user_edit": "Edit profile",

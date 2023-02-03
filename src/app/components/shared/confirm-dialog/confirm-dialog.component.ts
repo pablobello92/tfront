@@ -1,9 +1,7 @@
 import {
     Component,
-    Inject,
-    Input
+    Inject
 } from '@angular/core';
-
 import {
     MatDialogRef,
     MAT_DIALOG_DATA
@@ -12,6 +10,7 @@ import {
 export interface DialogData {
     title: string;
     body: string;
+    showCancelButton: boolean;
 };
 
 @Component({

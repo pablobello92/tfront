@@ -2,24 +2,24 @@
     <h1>{{ 'titles.dashboard' | translate }}</h1>
 </div>
 <div class="dashboard">
-    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/tracks')" [disabled]="_cookies.isAdmin()">
+    <button mat-raised-button (click)="navigateTo('/user/tracks')" [disabled]="_cookies.hasAdminLevel()">
         {{ 'titles.my_tracks' | translate }}
-        <span class="fa fa-car"></span>
+        <mat-icon>emoji_transportation</mat-icon>
     </button>
-    <button type="button" class="btn btn-warning" (click)="navigateTo('/sumarized-tracks')">
-        {{ 'titles.sumarized_tracks' | translate }}
-        <span class="fa fa-globe"></span>
+    <button mat-raised-button (click)="navigateTo('/sumarized-data')">
+        {{ 'titles.sumarized_data' | translate }}
+        <mat-icon>analytics</mat-icon>
     </button>
-    <button type="button" class="btn btn-warning" (click)="navigateTo('/user/edit')" [disabled]="_cookies.isAdmin()">
+    <button mat-raised-button (click)="navigateTo('/user/edit')">
         {{ 'titles.user_edit' | translate }}
-        <span class="fa fa-pencil"></span>
+        <mat-icon>manage_accounts</mat-icon>
     </button>
-    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/reparations')" *ngIf="_cookies.isAdmin()">
+    <button mat-raised-button (click)="navigateTo('/admin/reparations')" [disabled]="_cookies.isRegularUser()">
         {{ 'titles.reparations' | translate }}
-        <span class="fa fa-wrench"></span>
+        <mat-icon>edit_road</mat-icon>
     </button>
-    <button type="button" class="btn btn-warning" (click)="navigateTo('/admin/tools')" *ngIf="_cookies.isAdmin()">
+    <button mat-raised-button (click)="navigateTo('/admin/tools')" [disabled]="_cookies.isRegularUser()">
         {{ 'titles.tools' | translate }}
-        <span class="fa fa-cogs"></span>
+        <mat-icon>build</mat-icon>
     </button>
 </div>
